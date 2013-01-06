@@ -24,6 +24,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
+#include <sys/stat.h>
 
 #include "util.h"
 #include "dedupdef.h"
