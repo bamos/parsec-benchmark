@@ -8,7 +8,7 @@ This patch provides the following enhancements:
   + Updated openssl, see Abhishek Sagar's [blog post](http://abhishek-sagar.blogspot.com/2012/06/parsec-md5-x8664s41-error-0xd76aa478.html)
   + Corrected uctcpip, see Yungang Bao's [response](https://lists.cs.princeton.edu/pipermail/parsec-users/2012-November/001474.html)
 + Generalized builds. Instead of calling `gcc` tools, `CC` and related
-  environment variables is used while building packages.
+  environment variables are used while building packages.
 
 ## Overview
 
