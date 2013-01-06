@@ -1,6 +1,6 @@
 PROGRAM = uptcp
 
-ARCH = $(shell uname -i)
+ARCH = $(shell uname -m)
 
 SUBDIRS = freebsd.kern freebsd.netinet host.support lib 
 
