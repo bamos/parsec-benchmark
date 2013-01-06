@@ -1,4 +1,5 @@
 #include <cstring>
+#include <unistd.h>
 
 #include "RTTL/common/MapOptions.hxx"
 
