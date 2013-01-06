@@ -4,7 +4,6 @@
 #include <openssl/sha.h>
 #include <openssl/err.h>
 #include <memory.h>
-#include <assert.h>
 
 /*
  * In the definition, (xa, xb, xc, xd) are Alice's (x1, x2, x3, x4) or
@@ -134,7 +133,7 @@ static void hashlength(SHA_CTX *sha, size_t l)
     {
     unsigned char b[2];
 
-    assert(l <= 0xffff);
+    OPENSSL_assert(l <= 0xffff);
     b[0] = l >> 8;
     b[1] = l&0xff;
     SHA1_Update(sha, b, 2);
@@ -172,7 +171,7 @@ static void zkp_hash(BIGNUM *h, const BIGNUM *zkpg, const JPAKE_STEP_PART *p,
     */
     SHA1_Init(&sha);
     hashbn(&sha, zkpg);
-    assert(!BN_is_zero(p->zkpx.gr));
+    OPENSSL_assert(!BN_is_zero(p->zkpx.gr));
     hashbn(&sha, p->zkpx.gr);
     hashbn(&sha, p->gx);
     hashstring(&sha, proof_name);
@@ -283,8 +282,37 @@ int JPAKE_STEP1_generate(JPAKE_STEP1 *send, JPAKE_CTX *ctx)
     return 1;
     }
 
+/* g^x is a legal value */
+static int is_legal(const BIGNUM *gx, const JPAKE_CTX *ctx)
+    {
+    BIGNUM *t;
+    int res;
+    
+    if(BN_is_negative(gx) || BN_is_zero(gx) || BN_cmp(gx, ctx->p.p) >= 0)
+	return 0;
+
+    t = BN_new();
+    BN_mod_exp(t, gx, ctx->p.q, ctx->p.p, ctx->ctx);
+    res = BN_is_one(t);
+    BN_free(t);
+
+    return res;
+    }
+
 int JPAKE_STEP1_process(JPAKE_CTX *ctx, const JPAKE_STEP1 *received)
     {
+    if(!is_legal(received->p1.gx, ctx))
+	{
+	JPAKEerr(JPAKE_F_JPAKE_STEP1_PROCESS, JPAKE_R_G_TO_THE_X3_IS_NOT_LEGAL);
+	return 0;
+	}
+
+    if(!is_legal(received->p2.gx, ctx))
+	{
+	JPAKEerr(JPAKE_F_JPAKE_STEP1_PROCESS, JPAKE_R_G_TO_THE_X4_IS_NOT_LEGAL);
+	return 0;
+	}
+
    /* verify their ZKP(xc) */
     if(!verify_zkp(&received->p1, ctx->p.g, ctx))
 	{
