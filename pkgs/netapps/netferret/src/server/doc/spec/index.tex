@@ -1,0 +1,76 @@
+% AUTORIGHTS
+% Copyright (C) 2007 Princeton University
+%       
+% This file is part of Ferret Toolkit.
+% 
+% Ferret Toolkit is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2, or (at your option)
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software Foundation,
+% Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+\section{Index}
+
+The system allows multiple kinds of indexing schemes to be
+registered, eg: LSH, cover tree index, etc.
+
+Cass\_table and index has one-to-many relationship:
+one cass\_table can be associated with multiple indexes, while
+any one index can only be associated with one cass\_table.
+
+\begin{verbatim}
+typedef _cass_idx_t {
+    char *idx_name;
+    cass_table_t *table;
+    char *parameters;  // a copy of input paramters.
+    int private_data_size;
+    void *private_data;  // private data to store index-specific info.
+} cass_idx_t;
+
+char *cass_idx_estimate_paramters(cass_table_t *table);
+cass_idx_t *cass_idx_create(cass_env_t *env, 
+                            cass_table_t *table, char *parameters);
+int cass_idx_insert(cass_idx_t *idx, cass_table_t *table, 
+                    cass_vecset_t *vecset);
+int cass_idx_batch_insert(cass_idx_t *idx, cass_table_t *table, 
+                          cass_vecset_range_t range);  // not useful?
+int cass_idx_query(cass_idx_t *idx, cass_vecset_t *qry_vecset, 
+                   cass_qry_param_t *param, cass_qry_result_t *qry);
+int cass_idx_batch_query(cass_idx_t *idx, uint32_t count,
+                         cass_vecset_t **qry_vecset,
+			 cass_qry_param_t **params,
+			 cass_qry_result_t **qries);
+int cass_idx_release_mem(cass_idx_t *idx);  // destroy in-mem index.
+int cass_idx_checkpoint(cass_idx_t *idx, char *fname);
+int cass_idx_from_disk(cass_idx_t *idx, char *fname); // idx was
+                            // created by the management env.
+int cass_idx_destroy(cass_env_t *env, cass_idx_t *idx);  // destroy on-disk index as well.
+
+typdef struct _cass_idx_operations_t { 
+    cass_idx_estimate_parameters,  // a set of function pointers.
+    cass_idx_create,
+    cass_idx_insert,
+    cass_idx_query,
+    cass_idx_release_mem,
+    cass_idx_to_disk,
+    cass_idx_from_disk,
+    cass_idx_destroy,
+    ...
+} cass_idx_operations_t;
+
+int cass_idx_register(char *idx_name, cass_idx_operations_t *idx_ops, 
+                      enum cass_vecset_type_t vecset_type, 
+		      enum cass_vec_type_t vec_type, 
+		      enum cass_vecset_dist_measure_t dist_vecset,
+		      enum cass_vec_distance_measure_t dist_vec,
+		      ); 
+    // Register idx_name, tell system what vecset_type, 
+    // vec_type, dist_vecset, dist_vec it supports.
+\end{verbatim}

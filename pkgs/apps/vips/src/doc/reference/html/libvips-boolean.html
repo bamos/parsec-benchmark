@@ -1,0 +1,685 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>boolean</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch02.html" title="VIPS operation API by section">
+<link rel="prev" href="libvips-arithmetic.html" title="arithmetic">
+<link rel="next" href="libvips-relational.html" title="relational">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-arithmetic.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-relational.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-boolean.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-boolean.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="boolean">
+<a name="libvips-boolean"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-boolean.top_of_page"></a>boolean</span></h2>
+<p>boolean — boolean algebra on images, bitshifts</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-boolean.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-boolean.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()">im_andimage</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-orimage" title="im_orimage ()">im_orimage</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-eorimage" title="im_eorimage ()">im_eorimage</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-andimage-vec" title="im_andimage_vec ()">im_andimage_vec</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-andimageconst" title="im_andimageconst ()">im_andimageconst</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-orimage-vec" title="im_orimage_vec ()">im_orimage_vec</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-orimageconst" title="im_orimageconst ()">im_orimageconst</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-eorimage-vec" title="im_eorimage_vec ()">im_eorimage_vec</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-eorimageconst" title="im_eorimageconst ()">im_eorimageconst</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-shiftleft-vec" title="im_shiftleft_vec ()">im_shiftleft_vec</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-shiftleft" title="im_shiftleft ()">im_shiftleft</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-shiftright-vec" title="im_shiftright_vec ()">im_shiftright_vec</a>                   (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-boolean.html#im-shiftright" title="im_shiftright ()">im_shiftright</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-boolean.description"></a><h2>Description</h2>
+<p>
+These operations perform boolean operations, such as bitwise-and, on
+every pixel in an image or pair of images. 
+They are useful for combining the results of
+the relational and morphological functions.
+All will work with 
+images of any type or any mixture of types of any size and of any number 
+of bands.
+</p>
+<p>
+For binary operations, if the number of bands differs, one of the images 
+must have one band. In this case, an n-band image is formed from the 
+one-band image by joining n copies of the one-band image together and then
+the two n-band images are operated upon.
+</p>
+<p>
+In the same way, for operations that take an array constant, such as 
+<a class="link" href="libvips-boolean.html#im-andimage-vec" title="im_andimage_vec ()"><code class="function">im_andimage_vec()</code></a>, you can mix single-element arrays or single-band images
+freely.
+</p>
+<p>
+The output type is the same as the input type for integer types. Float and
+complex types are cast to signed int.
+</p>
+<p>
+For binary operations on pairs of images, the images must match in size.
+</p>
+<p>
+You might think <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a> would be called "im_and", but that causes
+problems when we try and make a C++ binding and drop the "im_" prefix.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-boolean.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_andimage ()">
+<a name="im-andimage"></a><h3>im_andimage ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_andimage                         (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in1</code></em> &amp; <em class="parameter"><code>in2</code></em> and writes the result to <em class="parameter"><code>out</code></em>. 
+The images must be the same size. They may have any format. They may differ
+in their number of bands, see above.
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-orimage" title="im_orimage ()"><code class="function">im_orimage()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_orimage ()">
+<a name="im-orimage"></a><h3>im_orimage ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_orimage                          (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in1</code></em> | <em class="parameter"><code>in2</code></em> and writes the result to <em class="parameter"><code>out</code></em>. 
+The images must be the same size. They may have any format. They may differ
+in their number of bands, see above.
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-eorimage" title="im_eorimage ()"><code class="function">im_eorimage()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_eorimage ()">
+<a name="im-eorimage"></a><h3>im_eorimage ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_eorimage                         (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in1</code></em> ^ <em class="parameter"><code>in2</code></em> and writes the result to <em class="parameter"><code>out</code></em>. 
+The images must be the same size. They may have any format. They may differ
+in their number of bands, see above.
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-eorimage-vec" title="im_eorimage_vec ()"><code class="function">im_eorimage_vec()</code></a>, <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_andimage_vec ()">
+<a name="im-andimage-vec"></a><h3>im_andimage_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_andimage_vec                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &amp; <em class="parameter"><code>c</code></em> (bitwise and of image pixels with array
+<em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>, <a class="link" href="libvips-boolean.html#im-orimage-vec" title="im_orimage_vec ()"><code class="function">im_orimage_vec()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_andimageconst ()">
+<a name="im-andimageconst"></a><h3>im_andimageconst ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_andimageconst                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &amp; <em class="parameter"><code>c</code></em> (bitwise and of image pixels with
+constant
+<em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>, <a class="link" href="libvips-boolean.html#im-orimage-vec" title="im_orimage_vec ()"><code class="function">im_orimage_vec()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_orimage_vec ()">
+<a name="im-orimage-vec"></a><h3>im_orimage_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_orimage_vec                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> | <em class="parameter"><code>c</code></em> (bitwise or of image pixels with array
+<em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>, <a class="link" href="libvips-boolean.html#im-orimageconst" title="im_orimageconst ()"><code class="function">im_orimageconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_orimageconst ()">
+<a name="im-orimageconst"></a><h3>im_orimageconst ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_orimageconst                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> | <em class="parameter"><code>c</code></em> (bitwise or of image pixels with
+constant
+<em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>, <a class="link" href="libvips-boolean.html#im-orimage-vec" title="im_orimage_vec ()"><code class="function">im_orimage_vec()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_eorimage_vec ()">
+<a name="im-eorimage-vec"></a><h3>im_eorimage_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_eorimage_vec                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> ^ <em class="parameter"><code>c</code></em> (bitwise exclusive-or of image pixels 
+with array
+<em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>, <a class="link" href="libvips-boolean.html#im-orimageconst" title="im_orimageconst ()"><code class="function">im_orimageconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_eorimageconst ()">
+<a name="im-eorimageconst"></a><h3>im_eorimageconst ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_eorimageconst                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> ^ <em class="parameter"><code>c</code></em> (bitwise exclusive-or of image pixels 
+with
+constant
+<em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>, <a class="link" href="libvips-boolean.html#im-orimage-vec" title="im_orimage_vec ()"><code class="function">im_orimage_vec()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_shiftleft_vec ()">
+<a name="im-shiftleft-vec"></a><h3>im_shiftleft_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_shiftleft_vec                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &lt;&lt; <em class="parameter"><code>c</code></em> (left-shift by <em class="parameter"><code>c</code></em> bits
+with array
+<em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>, <a class="link" href="libvips-boolean.html#im-orimageconst" title="im_orimageconst ()"><code class="function">im_orimageconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_shiftleft ()">
+<a name="im-shiftleft"></a><h3>im_shiftleft ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_shiftleft                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &lt;&lt; <em class="parameter"><code>n</code></em> (left-shift by <em class="parameter"><code>n</code></em> bits)
+and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>, <a class="link" href="libvips-boolean.html#im-orimageconst" title="im_orimageconst ()"><code class="function">im_orimageconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_shiftright_vec ()">
+<a name="im-shiftright-vec"></a><h3>im_shiftright_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_shiftright_vec                   (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &lt;&lt; <em class="parameter"><code>c</code></em> (right-shift by <em class="parameter"><code>c</code></em> bits
+with array
+<em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>, <a class="link" href="libvips-boolean.html#im-orimageconst" title="im_orimageconst ()"><code class="function">im_orimageconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_shiftright ()">
+<a name="im-shiftright"></a><h3>im_shiftright ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_shiftright                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &gt;&gt; <em class="parameter"><code>n</code></em> (right-shift by <em class="parameter"><code>n</code></em> bits)
+and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-boolean.html#im-andimage" title="im_andimage ()"><code class="function">im_andimage()</code></a>, <a class="link" href="libvips-boolean.html#im-orimageconst" title="im_orimageconst ()"><code class="function">im_orimageconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-boolean.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-arithmetic.html" title="arithmetic">arithmetic</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+% AUTORIGHTS
+% Copyright (C) 2007 Princeton University
+%       
+% This file is part of Ferret Toolkit.
+% 
+% Ferret Toolkit is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2, or (at your option)
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software Foundation,
+% Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+\section{CASS Vecset}
+
+We have three levels of feature related data structures in the system:
+\begin{itemize}
+\item cass\_vec: This is a single fix-sized feature vector. It could
+  be a fix-sized array of floating point number, or a fix-sized L1
+  sketch, or other compact feature representations. Eg: a 64 dimension
+  color histogram is a cass\_vec.
+\item cass\_vecset: This is individual cass\_vecset, which can be made up
+  with a set of cass\_vecs. Eg: An image (represented here as a
+  cass\_vecset) can contain a set of regions  where each region is
+  represented by a cass\_vec.
+\item cass\_table: This is a collection of cass\_vecsets. Eg:
+  A collection of images used in content based similarity search
+  corresponds to cass\_table.
+\end{itemize}
+
+To create correspondence of cass\_vecset with external world, we also
+keep the mapping between cass\_vecset\_id and external data\_obj\_name
+where data\_obj\_name is provided when the data are imported into the system.
+
+Since we would like to allow import cass\_vecsets continuously, we would
+allow the cass\_table to be present in memory when we grow the on-disk 
+cass\_table. We would also try not to require restarting the whole
+process after import a batch of vecsets.
+
+\subsection{CASS Vector Related Data Structure}
+\begin{verbatim}
+typedef struct _cass_vecset_cfg_t {
+    char *vecset_name;  // vecset_config can be shared between
+                        // different datasets with same feature(eg: color hist)
+    enum cass_vecset_type_t vecset_type; // TBD
+    enum cass_vec_type_t cass_vec_type; // float_array, bitvec, vec_quant, etc.
+    uint32_t cass_vec_size;  // number of bytes
+    cass_vecset_flag_t flag;  // one flag: data_obj_name can be used
+                                //           as vecset_id.
+} cass_vecset_cfg_t; // one per vecset type
+
+typedef cass_vecset_id_t uint32_t;
+
+typedef struct _cass_table_t {
+    cass_env_t *env;    // The containing cass_env.
+    char *table_name;   // Name of the table, (when create/drop, use name)
+    cass_vecset_cfg_t *cfg;
+    cass_map_t *map;
+    uint32_t *num_index;
+    cass_idx_t *idxes;      // the set of indexes for this collection.
+    bool vecsets_in_memory;  // Whether vecsets are in memory.
+    cass_vecset_id_t num_vecsets;
+    cass_vecset_t *vecsets; // If in memory: array of vecset indexed by
+                              vecset_id, (size: num_vecsets)
+    data_log_t *datalog;   // on disk storage.
+} cass_table_t;
+
+typedef struct _cass_vecset_t {
+    uint32_t num_regions;
+    cass_vec_t *cass_vecs;  // Array of cass_vec (size: num_regions)
+} cass_vecset_t;    // continuously allocated indexed by vecset_id.
+
+typedef struct _cass_vec_t {
+    float_array | L1_sketch | multires_sketch | other;
+    float weight;
+    cass_vecset_id_t vecset_parent;  // vecset containing this cass_vec.
+} cass_vec_t;
+
+typedef struct _cass_map_t {
+    char *dataset_name;   // same dataset can have multiple features.
+    int num_tables;  // # of associated cass_tables.
+    cass_table_t *tables; // tables that uses the map. 
+    char **data_obj_name; // map: vecset_id => data_obj_name;
+    hash_table data_obj_name => vecset_id.  // map: data_obj_name =>
+                   // vecset_id (maybe not needed if user is required
+		   // to provide vecset in the query.)
+    data_log_t *data_log;  // note, if we separate map from the
+                           // cass_table, it need its own storage.
+} cass_map_t;
+
+typdef struct _cass_qry_filterset_t {
+    uint32_t num_ids;
+    bool flag;  // Whether data_obj_names or ids are used.
+    union {
+        char **data_obj_names; 
+	cass_vecset_id_t *ids;
+    }
+} cass_qry_filterset_t;  // Used to provide interface for external DB.
+
+typedef struct _cass_qry_param_t {
+    uint32_t topk;
+    float range;
+    char *extra_params;  // note: we can use more efficient repre if needed.
+    cass_qry_filterset_t *filterset; // NULL means no filter.
+} cass_qry_param_t;
+
+typedef struct _cass_qry_result_t {
+    uint32_t flag;  // eg: CASS_USERMEMORY
+    cass_vecset_id_t num_results;
+    cass_vec_t **vecs;   // array of pointers to vecs
+} cass_qry_result_t;
+
+enum {
+        CASS_MALLOC       = 1<<0,
+        CASS_REALLOC      = 1<<1,
+        CASS_USERMEM      = 1<<2,
+};
+
+typedef struct _cass_datum_t {
+        uchar   *data;
+        u32int  size;
+        u32int  ulen;
+        u32int  flags;
+} cass_datum_t;
+
+\end{verbatim}
+
+\subsection {Functions}
+Interfaces to handle the cass\_tables:
+
+\begin{verbatim}
+cass_table_t *cass_table_create(cass_env_t *env,  // See management section
+                                char *table_name,
+                                cass_vecset_cfg_t *cfg, 
+                                cass_map_t *map,
+				data_log_t *datalog);
+int cass_table_import_data(cass_table_t *table, char *fname); 
+int cass_table_insert(cass_table_t *table,
+                      cass_vecset_t *vecset);
+int cass_table_checkpoint(cass_table_t *table, cass_datum_t **chkpnt_data);
+                       // Initiate the checkpoint, upon success,
+                       // return the chkpnt_data to store in the
+                       // cass_env for checkpointing and future recovery.
+int cass_table_restore_checkpoint(cass_table_t *table, cass_datum_t *chkpnt_data);
+ 
+int cass_table_set_in_mem(cass_table_t *table, bool in_mem);
+int cass_table_release_mem(cass_table_t *table);  // release in-mem data.
+int cass_table_disk_to_mem(cass_table_t *table);  // bring data to in-mem.
+
+int cass_table_associate_index(cass_table_t *table, 
+                               cass_idx_t *idx);
+int cass_table_disassociate_index(cass_table_t *table, 
+                                  cass_idx_t *idx);
+int cass_table_associate_table(cass_table_t *table, 
+                               cass_table_t *tbl2);  // For auto sketching,etc.
+int cass_table_disassociate_table(cass_table_t *table, 
+                                  cass_table_t *tbl2);
+int cass_table_destroy(cass_table_t *table);
+                   // Destroy on-disk version as well.
+
+// Note, if data is not in memory, this will trigger on-disk sequential scan.
+// Need to add linear scan cursor interface.
+int cass_table_query(cass_table_t *table, cass_vecset_t *qry_vecset, 
+                     cass_qry_param_t *param, cass_qry_result_t *qry);
+int cass_table_batch_query(cass_table_t *table, uint32_t count,
+                           cass_vecset_t **qry_vecset,
+                           cass_qry_param_t **params,
+                           cass_qry_result_t **qries);
+cass_datum_t *cass_table_meta_marshal(cass_table_t *table, cass_datum_t *data);
+cass_table_t *cass_table_meta_unmarshal(cass_marshal_t *data); 
+                   // marshal and unmarshal provide ways to
+		   // save/restore the table/maps from/to env.
+
+// Deal with cass_map_t.
+cass_map_t *cass_map_create(cass_env_t *env, char *name, 
+                                    data_log_t *datalog, bool flag);
+     // flag says whether the dataobj name can be treated as id, 
+     // then translation need no memory overhead.
+int cass_map_associate_table(cass_map_t *map, cass_table_t *table);
+int cass_map_disassociate_table(cass_map_t *map, cass_table_t *table);
+
+int cass_map_insert(cass_map_t *map, cass_vecset_id_t *id,
+                    char *dataobj_name); // Will return the id assigned.
+int cass_map_disk_to_mem(cass_map_t *map, data_log_t *datalog);
+cass_datum_t *cass_map_meta_marshal(cass_map_t *map, cass_datum_t *data);
+cass_map_t *cass_map_meta_unmarshal(cass_marshal_t *data);
+
+int cass_map_checkpoint(cass_map_t *map, cass_datum_t **chkpnt_data);
+int cass_map_restore_checkpoint(cass_map_t *map, cass_datum_t *chkpnt_data);
+\end{verbatim}

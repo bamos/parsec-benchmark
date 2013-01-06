@@ -1,0 +1,620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>region</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch01.html" title="Core VIPS API">
+<link rel="prev" href="libvips-meta.html" title="meta">
+<link rel="next" href="libvips-generate.html" title="generate">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-meta.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-generate.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-region.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-region.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="region">
+<a name="libvips-region"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-region.top_of_page"></a>region</span></h2>
+<p>region — small, rectangular parts of images</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-region.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-region.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+                    <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION">REGION</a>;
+<a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="returnvalue">REGION</span></a> *            <a class="link" href="libvips-region.html#im-region-create" title="im_region_create ()">im_region_create</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-region.html#im-region-free" title="im_region_free ()">im_region_free</a>                      (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-region.html#im-region-buffer" title="im_region_buffer ()">im_region_buffer</a>                    (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-region.html#im-region-image" title="im_region_image ()">im_region_image</a>                     (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-region.html#im-region-region" title="im_region_region ()">im_region_region</a>                    (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *to</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-region.html#im-region-equalsregion" title="im_region_equalsregion ()">im_region_equalsregion</a>              (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg2</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-region.html#im-region-position" title="im_region_position ()">im_region_position</a>                  (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-region.html#im-region-paint" title="im_region_paint ()">im_region_paint</a>                     (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-region.html#im-region-black" title="im_region_black ()">im_region_black</a>                     (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-region.html#im-region-copy" title="im_region_copy ()">im_region_copy</a>                      (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *dest</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+#define             <a class="link" href="libvips-region.html#IM-REGION-LSKIP:CAPS" title="IM_REGION_LSKIP()">IM_REGION_LSKIP</a>                     (R)
+#define             <a class="link" href="libvips-region.html#IM-REGION-N-ELEMENTS:CAPS" title="IM_REGION_N_ELEMENTS()">IM_REGION_N_ELEMENTS</a>                (R)
+#define             <a class="link" href="libvips-region.html#IM-REGION-SIZEOF-LINE:CAPS" title="IM_REGION_SIZEOF_LINE()">IM_REGION_SIZEOF_LINE</a>               (R)
+#define             <a class="link" href="libvips-region.html#IM-REGION-ADDR:CAPS" title="IM_REGION_ADDR()">IM_REGION_ADDR</a>                      (B,
+                                                         X,
+                                                         Y)
+#define             <a class="link" href="libvips-region.html#IM-REGION-ADDR-TOPLEFT:CAPS" title="IM_REGION_ADDR_TOPLEFT()">IM_REGION_ADDR_TOPLEFT</a>              (B)
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-region.description"></a><h2>Description</h2>
+<p>
+A <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> is a small part of an image and some pixels. You use regions to
+read pixels out of images without having to have the whole image in memory
+at once.
+</p>
+<p>
+A region can be a memory buffer, part of a memory-mapped file, part of some
+other image, or part of some other region.
+</p>
+<p>
+Regions must be created, used and freed all within the same thread, since
+they can reference private per-thread caches. VIPS sanity-checks region
+ownership in various places, so you are likely to see <code class="function">g_assert()</code> errors if
+you don't follow this rule.
+</p>
+<p>
+There
+is API to transfer ownership of regions between threads, but hopefully this
+is only needed within VIPS, so we don't expose it. Hopefully.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-region.details"></a><h2>Details</h2>
+<div class="refsect2" title="REGION">
+<a name="REGION:CAPS"></a><h3>REGION</h3>
+<pre class="programlisting">typedef struct {
+	/* Users may read these two fields.
+	 */
+	IMAGE *im;		/* Link back to parent image */
+	Rect valid;		/* Area of parent we can see */
+
+	/* The rest of REGION is private.
+	 */
+} REGION;
+</pre>
+<p>
+A small part of an <span class="type">IMAGE</span>. <em class="parameter"><code>valid</code></em> holds the left/top/width/height of the
+area of pixels that are available from the region. 
+</p>
+<p>
+See also: <a class="link" href="libvips-region.html#IM-REGION-ADDR:CAPS" title="IM_REGION_ADDR()"><code class="function">IM_REGION_ADDR()</code></a>, <a class="link" href="libvips-region.html#im-region-create" title="im_region_create ()"><code class="function">im_region_create()</code></a>, <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">IMAGE</span> *<em class="structfield"><code><a name="REGION--CAPS.im"></a>im</code></em>;</span></p></td>
+<td>the <span class="type">IMAGE</span> that this region is defined on
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> <em class="structfield"><code><a name="REGION--CAPS.valid"></a>valid</code></em>;</span></p></td>
+<td>the <a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> of pixels that this region represents
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_region_create ()">
+<a name="im-region-create"></a><h3>im_region_create ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="returnvalue">REGION</span></a> *            im_region_create                    (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Create a region. <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> s start out empty, you need to call <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a> to
+fill them with pixels.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>, <a class="link" href="libvips-region.html#im-region-free" title="im_region_free ()"><code class="function">im_region_free()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to create this region on
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_region_free ()">
+<a name="im-region-free"></a><h3>im_region_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_region_free                      (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>);</pre>
+<p>
+Free a region and any resources it holds.
+</p>
+<p>
+If <em class="parameter"><code>im</code></em> has previously been closed, then freeing the last <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> on <em class="parameter"><code>in</code></em> can
+cause <em class="parameter"><code>im</code></em> to finally be freed as well.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>reg</code></em> :</span></p></td>
+<td>
+<a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> to free
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_region_buffer ()">
+<a name="im-region-buffer"></a><h3>im_region_buffer ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_region_buffer                    (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);</pre>
+<p>
+The region is transformed so that at least <em class="parameter"><code>r</code></em> pixels are available as a
+memory buffer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reg</code></em> :</span></p></td>
+<td>region to operate upon
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>r</code></em> :</span></p></td>
+<td>
+<a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> of pixels you need to be able to address
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 for error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_region_image ()">
+<a name="im-region-image"></a><h3>im_region_image ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_region_image                     (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);</pre>
+<p>
+The region is transformed so that at least <em class="parameter"><code>r</code></em> pixels are available directly
+from the image. The image needs to be a memory buffer or represent a file
+on disc that has been mapped or can be mapped.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reg</code></em> :</span></p></td>
+<td>region to operate upon
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>r</code></em> :</span></p></td>
+<td>
+<a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> of pixels you need to be able to address
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 for error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_region_region ()">
+<a name="im-region-region"></a><h3>im_region_region ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_region_region                    (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *to</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Make <a class="link" href="libvips-region.html#IM-REGION-ADDR:CAPS" title="IM_REGION_ADDR()"><code class="function">IM_REGION_ADDR()</code></a> on <em class="parameter"><code>reg</code></em> go to <em class="parameter"><code>dest</code></em> instead. 
+</p>
+<p>
+<em class="parameter"><code>r</code></em> is the part of <em class="parameter"><code>reg</code></em> which you want to be able to address (this
+effectively becomes the valid field), (<em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em>) is the top LH corner of the
+corresponding area in <em class="parameter"><code>dest</code></em>.
+</p>
+<p>
+Performs all clipping necessary to ensure that <em class="parameter"><code>reg-&gt;valid</code></em> is indeed
+valid.
+</p>
+<p>
+If the region we attach to is modified, we can be left with dangling 
+pointers! If the region we attach to is on another image, the two images 
+must have 
+the same sizeof( pel ).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reg</code></em> :</span></p></td>
+<td>region to operate upon
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
+<td>region to connect to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>r</code></em> :</span></p></td>
+<td>
+<a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> of pixels you need to be able to address
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>postion of <em class="parameter"><code>r</code></em> in <em class="parameter"><code>dest</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>postion of <em class="parameter"><code>r</code></em> in <em class="parameter"><code>dest</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 for error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_region_equalsregion ()">
+<a name="im-region-equalsregion"></a><h3>im_region_equalsregion ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_region_equalsregion              (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg2</code></em>);</pre>
+<p>
+Do two regions point to the same piece of image? ie. 
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+	IM_REGION_ADDR( reg1, x, y ) == IM_REGION_ADDR( reg2, x, y ) &amp;&amp;
+	*IM_REGION_ADDR( reg1, x, y ) == 
+		*IM_REGION_ADDR( reg2, x, y ) for all x, y, reg1, reg2.
+</pre></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reg1</code></em> :</span></p></td>
+<td>region to test
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reg2</code></em> :</span></p></td>
+<td>region to test
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> non-zero on equality.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_region_position ()">
+<a name="im-region-position"></a><h3>im_region_position ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_region_position                  (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Set the position of a region. This only affects reg-&gt;valid, ie. the way
+pixels are addressed, not reg-&gt;data, the pixels which are addressed. Clip
+against the size of the image. Do not allow negative positions, or
+positions outside the image.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reg</code></em> :</span></p></td>
+<td>region to operate upon
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>position to move to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>position to move to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 for error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_region_paint ()">
+<a name="im-region-paint"></a><h3>im_region_paint ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_region_paint                     (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> value</code></em>);</pre>
+<p>
+Paints <em class="parameter"><code>value</code></em> into <em class="parameter"><code>reg</code></em> covering rectangle <em class="parameter"><code>r</code></em>. <em class="parameter"><code>value</code></em> is passed to
+<code class="function">memset()</code>, so it usually needs to be 0 or 255. <em class="parameter"><code>r</code></em> is clipped against
+<em class="parameter"><code>reg-&gt;valid</code></em>.
+</p>
+<p>
+See also: <a class="link" href="libvips-region.html#im-region-black" title="im_region_black ()"><code class="function">im_region_black()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reg</code></em> :</span></p></td>
+<td>region to operate upon
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>r</code></em> :</span></p></td>
+<td>area to paint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value to paint
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_region_black ()">
+<a name="im-region-black"></a><h3>im_region_black ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_region_black                     (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>);</pre>
+<p>
+Paints 0 into the valid part of <em class="parameter"><code>reg</code></em>.
+</p>
+<p>
+See also: <a class="link" href="libvips-region.html#im-region-paint" title="im_region_paint ()"><code class="function">im_region_paint()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>reg</code></em> :</span></p></td>
+<td>region to operate upon
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_region_copy ()">
+<a name="im-region-copy"></a><h3>im_region_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_region_copy                      (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *dest</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Copy from one region to another. Copy area <em class="parameter"><code>r</code></em> from inside <em class="parameter"><code>reg</code></em> to <em class="parameter"><code>dest</code></em>,
+positioning the area of pixels at <em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em>. The two regions must have pixels
+which are the same size.
+</p>
+<p>
+See also: <a class="link" href="libvips-region.html#im-region-paint" title="im_region_paint ()"><code class="function">im_region_paint()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reg</code></em> :</span></p></td>
+<td>source region 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
+<td>destination region 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>r</code></em> :</span></p></td>
+<td>
+<a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> of pixels you need to copy
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>postion of <em class="parameter"><code>r</code></em> in <em class="parameter"><code>dest</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>postion of <em class="parameter"><code>r</code></em> in <em class="parameter"><code>dest</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_REGION_LSKIP()">
+<a name="IM-REGION-LSKIP:CAPS"></a><h3>IM_REGION_LSKIP()</h3>
+<pre class="programlisting">#define             IM_REGION_LSKIP(R)</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>R</code></em> :</span></p></td>
+<td>a <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The number of bytes to add to move down a scanline.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_REGION_N_ELEMENTS()">
+<a name="IM-REGION-N-ELEMENTS:CAPS"></a><h3>IM_REGION_N_ELEMENTS()</h3>
+<pre class="programlisting">#define             IM_REGION_N_ELEMENTS(R)</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>R</code></em> :</span></p></td>
+<td>a <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The number of band elements across a region.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_REGION_SIZEOF_LINE()">
+<a name="IM-REGION-SIZEOF-LINE:CAPS"></a><h3>IM_REGION_SIZEOF_LINE()</h3>
+<pre class="programlisting">#define             IM_REGION_SIZEOF_LINE(R)</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>R</code></em> :</span></p></td>
+<td>a <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The number of bytes across a region.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_REGION_ADDR()">
+<a name="IM-REGION-ADDR:CAPS"></a><h3>IM_REGION_ADDR()</h3>
+<pre class="programlisting">#define             IM_REGION_ADDR(B,X,Y)</pre>
+<p>
+This macro returns a pointer to a pixel in a region. The (x, y) coordinates
+need to be within the <a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> (<em class="parameter"><code>R-&gt;valid</code></em>).
+</p>
+<p>
+If DEBUG is defined, you get a version that checks bounds for you.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>R</code></em> :</span></p></td>
+<td>a <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>X</code></em> :</span></p></td>
+<td>x coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>Y</code></em> :</span></p></td>
+<td>y coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The address of pixel (x,y) in the region.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_REGION_ADDR_TOPLEFT()">
+<a name="IM-REGION-ADDR-TOPLEFT:CAPS"></a><h3>IM_REGION_ADDR_TOPLEFT()</h3>
+<pre class="programlisting">#define IM_REGION_ADDR_TOPLEFT(B)   ( (B)-&gt;data )
+</pre>
+<p>
+This macro returns a pointer to the top-left pixel in the <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a>, that is,
+the pixel at (<em class="parameter"><code>R-&gt;valid.left</code></em>, <em class="parameter"><code>R-&gt;valid.top</code></em>).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>R</code></em> :</span></p></td>
+<td>a <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The address of the top-left pixel in the region.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-region.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-image.html" title="image">image</a>, 
+<a class="link" href="libvips-generate.html" title="generate">generate</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

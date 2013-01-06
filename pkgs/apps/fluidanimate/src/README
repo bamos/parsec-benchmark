@@ -1,0 +1,81 @@
+Name:  fluidanimate
+
+Description:
+
+Smoothed Particle Hydrodynamics (SPH) is a computational method for simulating
+fluid flows. This benchmark application computes one time-step of a liquid
+simulation which solves the Navier-Stokes equations using SPH. The liquid is
+represented by a collection of Newtonian particles which interact with each
+other. These interactions are short-range which enables the use of a uniform
+grid to accelerate the determination of which pairs of particles interact. After
+computing the density of the fluid at each particles position, the acceleration
+of each particle due to gravity, fluid pressure and fluid viscosity is computed. 
+Next, collision detection is performed on six, axis-aligned planes (defining a
+box) and collision response is done with the penalty method. Finally, numerical
+time integration, using the Leapfrog method, calculates the new position and
+velocity of each particle based on its acceleration.
+
+About 90% of execution time is spent computing particle densities and forces,
+about 7% is spent sorting particles into the uniform grid, and the remaining
+time is spent handling collisions and performing time integration.
+
+Parallelization:
+
+The parallelization algorithm provided is based on spatial partitioning. As
+mentioned above, particles are sorted spatially into a uniform grid which
+covers the entire simulation domain. This grid is evenly partitioned along cell
+boundaries using axis-aligned splitting planes to produce subgrids, one per
+thread. Since particles which reside in adjacent cells may interact with each
+other, multiple threads may need to update the cells which lie on sub-grid 
+boundaries.
+
+Each grid cell has a flag which indicates whether or not it lies on a subgrid
+boundary. Whenever a particle in a boundary cell needs to be updated,
+fine-grain locks are used for that update. Locks are not used when updating
+particles away from boundaries since these updates will never occur
+concurrently.
+
+=======================================
+Programming Languages & Libraries
+  
+C++ and pthread is used in this benchmark.
+
+=======================================
+System Requirements:
+
+ 1) Intel(R) C++ Compiler: version 9.0 or higher
+ 2) GNU gcc/g++: version 3.3 or higher
+ 3) sed: version 4.0.9 or higher recommended.
+At least 200 MBytes memory is needed for the benchmark.
+=======================================
+Input/Output:
+
+The dataset of the benchmark contains the data of a collection of Newtonian
+particles which interact with each other. The program calculates the new
+position and velocity of each particle as the output.
+ 
+=======================================
+Characteristics:
+
+(1) Hotspot
+90% of execution time is spent computing particle densities and forces.
+"ComputeDensitiesMT", "ComputeDensities2MT" and  "ComputeForcesMT" are 
+the main functions.
+
+=======================================
+Revision History
+12/5/06: Richard O. Lee - First version
+
+=======================================
+Author: Richard O. Lee
+
+Acknowledgements: Mikhail Smelyanskiy supervised this work.
+Adam Kerin packaged code
+
+References:  This work is based on the following paper:
+
+M. Müller, D. Charypar, M. Gross, Particle-Based Fluid Simulation for
+Interactive Applications, in Proceedings of ACM SIGGRAPH Symposium on Computer
+Animatio (SCA) 2003, pp 154-159
+(http://graphics.ethz.ch/%7Emattmuel/publications/sca03.pdf)
+

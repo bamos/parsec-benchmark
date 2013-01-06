@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# gcc-tbb.bldconf - configuration file for PARSEC
+
+source ${PARSECDIR}/pkgs/tools/yasm/parsec/gcc.bldconf
+
+# Package dependencies
+# NOTE: yasm itself does not depend on tbb but the
+# library is added globally and hence we must add it
+build_deps="tbb"
+

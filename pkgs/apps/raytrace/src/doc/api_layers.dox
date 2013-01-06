@@ -1,0 +1,22 @@
+/*! 
+
+@defgroup api_layers The different API layers
+
+*/
+
+
+/*! 
+
+@defgroup rt_api RT: Core API for defining geometry and tracing individual rays, but not for rendering 
+
+@ingroup api_layers
+
+ */
+
+/*! 
+
+@defgroup lrt_api LRT: Everything related to actually rendering a frame 
+
+@ingroup api_layers
+
+ */

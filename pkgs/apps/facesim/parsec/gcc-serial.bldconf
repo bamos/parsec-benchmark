@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source ${PARSECDIR}/pkgs/apps/facesim/parsec/gcc.bldconf
+
+# Environment to use for configure script and Makefile
+build_env="version=serial PHYSBAM=${PARSECDIR}/pkgs/apps/facesim/obj/${PARSECPLAT} CXXFLAGS=\"${CXXFLAGS} -fexceptions\""
+

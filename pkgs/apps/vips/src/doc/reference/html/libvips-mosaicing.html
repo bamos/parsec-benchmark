@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>mosaicing</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch03.html" title="VIPS operation API by section (no gtkdoc comments yet)">
+<link rel="prev" href="libvips-inplace.html" title="inplace">
+<link rel="next" href="libvips-other.html" title="other">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-inplace.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-other.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-mosaicing.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-mosaicing.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="mosaicing">
+<a name="libvips-mosaicing"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-mosaicing.top_of_page"></a>mosaicing</span></h2>
+<p>mosaicing — build image mosaics</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-mosaicing.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-mosaicing.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-lrmerge" title="im_lrmerge ()">im_lrmerge</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-tbmerge" title="im_tbmerge ()">im_tbmerge</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-lrmerge1" title="im_lrmerge1 ()">im_lrmerge1</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-tbmerge1" title="im_tbmerge1 ()">im_tbmerge1</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-lrmosaic" title="im_lrmosaic ()">im_lrmosaic</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfcorrelation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfarea</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> balancetype</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-tbmosaic" title="im_tbmosaic ()">im_tbmosaic</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfcorrelation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfarea</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> balancetype</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-lrmosaic1" title="im_lrmosaic1 ()">im_lrmosaic1</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfcorrelation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfarea</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> balancetype</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-tbmosaic1" title="im_tbmosaic1 ()">im_tbmosaic1</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfcorrelation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfarea</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> balancetype</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-global-balance" title="im_global_balance ()">im_global_balance</a>                   (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> gamma</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-global-balancef" title="im_global_balancef ()">im_global_balancef</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> gamma</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-correl" title="im_correl ()">im_correl</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> hwindowsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> hsearchsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *correlation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *y</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-remosaic" title="im_remosaic ()">im_remosaic</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *old_str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *new_str</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-align-bands" title="im_align_bands ()">im_align_bands</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mosaicing.html#im-maxpos-subpel" title="im_maxpos_subpel ()">im_maxpos_subpel</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *x</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *y</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-mosaicing.description"></a><h2>Description</h2>
+<p>
+A set of operations for assembling large image mosaics.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-mosaicing.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_lrmerge ()">
+<a name="im-lrmerge"></a><h3>im_lrmerge ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lrmerge                          (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_tbmerge ()">
+<a name="im-tbmerge"></a><h3>im_tbmerge ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tbmerge                          (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_lrmerge1 ()">
+<a name="im-lrmerge1"></a><h3>im_lrmerge1 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lrmerge1                         (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_tbmerge1 ()">
+<a name="im-tbmerge1"></a><h3>im_tbmerge1 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tbmerge1                         (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_lrmosaic ()">
+<a name="im-lrmosaic"></a><h3>im_lrmosaic ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lrmosaic                         (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfcorrelation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfarea</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> balancetype</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_tbmosaic ()">
+<a name="im-tbmosaic"></a><h3>im_tbmosaic ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tbmosaic                         (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfcorrelation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfarea</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> balancetype</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_lrmosaic1 ()">
+<a name="im-lrmosaic1"></a><h3>im_lrmosaic1 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lrmosaic1                        (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfcorrelation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfarea</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> balancetype</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_tbmosaic1 ()">
+<a name="im-tbmosaic1"></a><h3>im_tbmosaic1 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tbmosaic1                        (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfcorrelation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> halfarea</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> balancetype</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mwidth</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_global_balance ()">
+<a name="im-global-balance"></a><h3>im_global_balance ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_global_balance                   (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> gamma</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_global_balancef ()">
+<a name="im-global-balancef"></a><h3>im_global_balancef ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_global_balancef                  (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> gamma</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_correl ()">
+<a name="im-correl"></a><h3>im_correl ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_correl                           (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yref</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> hwindowsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> hsearchsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *correlation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *y</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_remosaic ()">
+<a name="im-remosaic"></a><h3>im_remosaic ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_remosaic                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *old_str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *new_str</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_align_bands ()">
+<a name="im-align-bands"></a><h3>im_align_bands ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_align_bands                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_maxpos_subpel ()">
+<a name="im-maxpos-subpel"></a><h3>im_maxpos_subpel ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_maxpos_subpel                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *x</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *y</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

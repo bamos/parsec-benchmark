@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>other</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch03.html" title="VIPS operation API by section (no gtkdoc comments yet)">
+<link rel="prev" href="libvips-mosaicing.html" title="mosaicing">
+<link rel="next" href="libvips-video.html" title="video">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-mosaicing.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-video.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-other.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-other.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="other">
+<a name="libvips-other"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-other.top_of_page"></a>other</span></h2>
+<p>other — miscellaneous operators</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-other.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-other.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-feye" title="im_feye ()">im_feye</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *image</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">double</span> factor</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-eye" title="im_eye ()">im_eye</a>                              (<em class="parameter"><code><span class="type">IMAGE</span> *image</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">double</span> factor</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-zone" title="im_zone ()">im_zone</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> size</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-fzone" title="im_fzone ()">im_fzone</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> size</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-grey" title="im_grey ()">im_grey</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> ysize</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-fgrey" title="im_fgrey ()">im_fgrey</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> ysize</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-make-xy" title="im_make_xy ()">im_make_xy</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> ysize</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-benchmarkn" title="im_benchmarkn ()">im_benchmarkn</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-benchmark2" title="im_benchmark2 ()">im_benchmark2</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-cooc-matrix" title="im_cooc_matrix ()">im_cooc_matrix</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xp</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yp</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> flag</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-cooc-asm" title="im_cooc_asm ()">im_cooc_asm</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *asmoment</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-cooc-contrast" title="im_cooc_contrast ()">im_cooc_contrast</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *contrast</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-cooc-correlation" title="im_cooc_correlation ()">im_cooc_correlation</a>                 (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *correlation</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-cooc-entropy" title="im_cooc_entropy ()">im_cooc_entropy</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *entropy</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-glds-matrix" title="im_glds_matrix ()">im_glds_matrix</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xpos</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ypos</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dy</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-glds-asm" title="im_glds_asm ()">im_glds_asm</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *asmoment</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-glds-contrast" title="im_glds_contrast ()">im_glds_contrast</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *contrast</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-glds-entropy" title="im_glds_entropy ()">im_glds_entropy</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *entropy</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-glds-mean" title="im_glds_mean ()">im_glds_mean</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *mean</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-simcontr" title="im_simcontr ()">im_simcontr</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *image</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-sines" title="im_sines ()">im_sines</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *image</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> horfreq</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> verfreq</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-other.html#im-spatres" title="im_spatres ()">im_spatres</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> step</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-other.description"></a><h2>Description</h2>
+<p>
+Various small things.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-other.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_feye ()">
+<a name="im-feye"></a><h3>im_feye ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_feye                             (<em class="parameter"><code><span class="type">IMAGE</span> *image</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">double</span> factor</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_eye ()">
+<a name="im-eye"></a><h3>im_eye ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_eye                              (<em class="parameter"><code><span class="type">IMAGE</span> *image</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">double</span> factor</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_zone ()">
+<a name="im-zone"></a><h3>im_zone ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_zone                             (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> size</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_fzone ()">
+<a name="im-fzone"></a><h3>im_fzone ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_fzone                            (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> size</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_grey ()">
+<a name="im-grey"></a><h3>im_grey ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_grey                             (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> ysize</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_fgrey ()">
+<a name="im-fgrey"></a><h3>im_fgrey ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_fgrey                            (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> ysize</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_make_xy ()">
+<a name="im-make-xy"></a><h3>im_make_xy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_make_xy                          (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">int</span> ysize</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_benchmarkn ()">
+<a name="im-benchmarkn"></a><h3>im_benchmarkn ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_benchmarkn                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_benchmark2 ()">
+<a name="im-benchmark2"></a><h3>im_benchmark2 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_benchmark2                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *out</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_cooc_matrix ()">
+<a name="im-cooc-matrix"></a><h3>im_cooc_matrix ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_cooc_matrix                      (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xp</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yp</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> flag</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_cooc_asm ()">
+<a name="im-cooc-asm"></a><h3>im_cooc_asm ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_cooc_asm                         (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *asmoment</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_cooc_contrast ()">
+<a name="im-cooc-contrast"></a><h3>im_cooc_contrast ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_cooc_contrast                    (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *contrast</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_cooc_correlation ()">
+<a name="im-cooc-correlation"></a><h3>im_cooc_correlation ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_cooc_correlation                 (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *correlation</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_cooc_entropy ()">
+<a name="im-cooc-entropy"></a><h3>im_cooc_entropy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_cooc_entropy                     (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *entropy</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_glds_matrix ()">
+<a name="im-glds-matrix"></a><h3>im_glds_matrix ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_glds_matrix                      (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xpos</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ypos</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dy</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_glds_asm ()">
+<a name="im-glds-asm"></a><h3>im_glds_asm ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_glds_asm                         (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *asmoment</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_glds_contrast ()">
+<a name="im-glds-contrast"></a><h3>im_glds_contrast ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_glds_contrast                    (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *contrast</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_glds_entropy ()">
+<a name="im-glds-entropy"></a><h3>im_glds_entropy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_glds_entropy                     (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *entropy</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_glds_mean ()">
+<a name="im-glds-mean"></a><h3>im_glds_mean ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_glds_mean                        (<em class="parameter"><code><span class="type">IMAGE</span> *m</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *mean</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_simcontr ()">
+<a name="im-simcontr"></a><h3>im_simcontr ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_simcontr                         (<em class="parameter"><code><span class="type">IMAGE</span> *image</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_sines ()">
+<a name="im-sines"></a><h3>im_sines ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_sines                            (<em class="parameter"><code><span class="type">IMAGE</span> *image</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> horfreq</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> verfreq</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_spatres ()">
+<a name="im-spatres"></a><h3>im_spatres ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_spatres                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> step</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

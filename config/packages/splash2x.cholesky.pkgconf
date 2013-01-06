@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# Package configuration file of the PARSEC benchmark suite
+#
+# Copyright (C) 2011 Princeton University
+# Written by Yungang Bao
+
+# This file contains all information about a specific package
+
+# The program domain to which this package belongs (no more than 2-3 words)
+pkg_domain="high-performance computing"
+
+# Brief description of what the package does (no more than one line)
+pkg_desc="Computes the cholesky factorization of a sparse matrix"
+
+# The contributor of the package
+pkg_contrib="Stanford University"
+
+# The group to which this package belongs
+pkg_group="kernels"
+
+# A list of aliases to which this package belongs, separated by blanks
+pkg_aliases="all workload kernels pthreads splash2x splash2xkernels"
+
+# Citations for this package (requires matching citation file)
+pkg_cite="woo95splash"
+

@@ -1,0 +1,1 @@
+ ./benchmark corel lsh image 50 "-L 8 -T 20" 25 1 1 4 2 out

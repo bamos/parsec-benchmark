@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>cimg_funcs</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch03.html" title="VIPS operation API by section (no gtkdoc comments yet)">
+<link rel="prev" href="libvips-video.html" title="video">
+<link rel="next" href="VipsInterpolate.html" title="VipsInterpolate">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-video.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="VipsInterpolate.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-cimg-funcs.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-cimg-funcs.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="cimg_funcs">
+<a name="libvips-cimg-funcs"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-cimg-funcs.top_of_page"></a>cimg_funcs</span></h2>
+<p>cimg_funcs — expose operations from the CImg library, mostly noise
+removal</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-cimg-funcs.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-cimg-funcs.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-cimg-funcs.html#im-greyc-mask" title="im_greyc_mask ()">im_greyc_mask</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> iterations</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> amplitude</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> sharpness</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> anisotropy</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> alpha</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> dl</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> da</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> gauss_prec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> interpolation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fast_approx</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-cimg-funcs.description"></a><h2>Description</h2>
+<p>
+The GREYCstoration filter.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-cimg-funcs.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_greyc_mask ()">
+<a name="im-greyc-mask"></a><h3>im_greyc_mask ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_greyc_mask                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> iterations</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> amplitude</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> sharpness</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> anisotropy</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> alpha</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> dl</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> da</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> gauss_prec</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> interpolation</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fast_approx</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

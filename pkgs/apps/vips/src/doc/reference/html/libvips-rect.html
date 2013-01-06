@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>rect</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch04.html" title="Other API (no gtkdoc comments yet)">
+<link rel="prev" href="libvips-type.html" title="type">
+<link rel="next" href="libvips-semaphore.html" title="semaphore">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-type.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-semaphore.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-rect.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-rect.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="rect">
+<a name="libvips-rect"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-rect.top_of_page"></a>rect</span></h2>
+<p>rect</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-rect.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="libvips-rect.html#Rect" title="Rect">Rect</a>;
+#define             <a class="link" href="libvips-rect.html#IM-RECT-RIGHT:CAPS" title="IM_RECT_RIGHT()">IM_RECT_RIGHT</a>                       (R)
+#define             <a class="link" href="libvips-rect.html#IM-RECT-BOTTOM:CAPS" title="IM_RECT_BOTTOM()">IM_RECT_BOTTOM</a>                      (R)
+#define             <a class="link" href="libvips-rect.html#IM-RECT-HCENTRE:CAPS" title="IM_RECT_HCENTRE()">IM_RECT_HCENTRE</a>                     (R)
+#define             <a class="link" href="libvips-rect.html#IM-RECT-VCENTRE:CAPS" title="IM_RECT_VCENTRE()">IM_RECT_VCENTRE</a>                     (R)
+<span class="returnvalue">void</span>                <a class="link" href="libvips-rect.html#im-rect-marginadjust" title="im_rect_marginadjust ()">im_rect_marginadjust</a>                (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-rect.html#im-rect-includespoint" title="im_rect_includespoint ()">im_rect_includespoint</a>               (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-rect.html#im-rect-includesrect" title="im_rect_includesrect ()">im_rect_includesrect</a>                (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r2</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-rect.html#im-rect-intersectrect" title="im_rect_intersectrect ()">im_rect_intersectrect</a>               (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r2</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r3</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-rect.html#im-rect-isempty" title="im_rect_isempty ()">im_rect_isempty</a>                     (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-rect.html#im-rect-unionrect" title="im_rect_unionrect ()">im_rect_unionrect</a>                   (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r2</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r3</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-rect.html#im-rect-equalsrect" title="im_rect_equalsrect ()">im_rect_equalsrect</a>                  (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r2</code></em>);
+<a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="returnvalue">Rect</span></a> *              <a class="link" href="libvips-rect.html#im-rect-dup" title="im_rect_dup ()">im_rect_dup</a>                         (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-rect.html#im-rect-normalise" title="im_rect_normalise ()">im_rect_normalise</a>                   (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-rect.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-rect.details"></a><h2>Details</h2>
+<div class="refsect2" title="Rect">
+<a name="Rect"></a><h3>Rect</h3>
+<pre class="programlisting">typedef struct {
+	int left, top, width, height;
+} Rect;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_RECT_RIGHT()">
+<a name="IM-RECT-RIGHT:CAPS"></a><h3>IM_RECT_RIGHT()</h3>
+<pre class="programlisting">#define IM_RECT_RIGHT(R) ((R)-&gt;left + (R)-&gt;width)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_RECT_BOTTOM()">
+<a name="IM-RECT-BOTTOM:CAPS"></a><h3>IM_RECT_BOTTOM()</h3>
+<pre class="programlisting">#define IM_RECT_BOTTOM(R) ((R)-&gt;top + (R)-&gt;height)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_RECT_HCENTRE()">
+<a name="IM-RECT-HCENTRE:CAPS"></a><h3>IM_RECT_HCENTRE()</h3>
+<pre class="programlisting">#define IM_RECT_HCENTRE(R) ((R)-&gt;left + (R)-&gt;width / 2)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_RECT_VCENTRE()">
+<a name="IM-RECT-VCENTRE:CAPS"></a><h3>IM_RECT_VCENTRE()</h3>
+<pre class="programlisting">#define IM_RECT_VCENTRE(R) ((R)-&gt;top + (R)-&gt;height / 2)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rect_marginadjust ()">
+<a name="im-rect-marginadjust"></a><h3>im_rect_marginadjust ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_rect_marginadjust                (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rect_includespoint ()">
+<a name="im-rect-includespoint"></a><h3>im_rect_includespoint ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rect_includespoint               (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rect_includesrect ()">
+<a name="im-rect-includesrect"></a><h3>im_rect_includesrect ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rect_includesrect                (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r2</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rect_intersectrect ()">
+<a name="im-rect-intersectrect"></a><h3>im_rect_intersectrect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_rect_intersectrect               (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r2</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r3</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rect_isempty ()">
+<a name="im-rect-isempty"></a><h3>im_rect_isempty ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rect_isempty                     (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rect_unionrect ()">
+<a name="im-rect-unionrect"></a><h3>im_rect_unionrect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_rect_unionrect                   (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r2</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r3</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rect_equalsrect ()">
+<a name="im-rect-equalsrect"></a><h3>im_rect_equalsrect ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rect_equalsrect                  (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r2</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rect_dup ()">
+<a name="im-rect-dup"></a><h3>im_rect_dup ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="returnvalue">Rect</span></a> *              im_rect_dup                         (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rect_normalise ()">
+<a name="im-rect-normalise"></a><h3>im_rect_normalise ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_rect_normalise                   (<em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

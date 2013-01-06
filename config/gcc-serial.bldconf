@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# gcc-serial.bldconf - file containing global information necessary to build
+#                      the serial versions of the PARSEC programs with gcc
+#
+# Copyright (C) 2006-2007 Princeton University
+# Written by Christian Bienia
+
+# Global configuration is identical to multi-threaded version
+source ${PARSECDIR}/config/gcc.bldconf
+
+PARMACS_MACRO_FILE="serial"

@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# simmedium.runconf - file containing information necessary to run a specific
+#                     program of the PARSEC benchmark suite
+#
+# Copyright (C) 2007 Princeton University
+# Written by Christian Bienia
+
+# This is the information which we need to run the program. Each package of the
+# benchmark suite has such a file with information that will be added to the
+# global configuration. All variables set in the global configuration files can
+# be referenced here.
+
+
+# Binary file to execute, relative to installation root
+run_exec="bin/x264"
+
+# Arguments to use
+run_args="--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid --weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 --threads ${NTHREADS} -o eledream.264 eledream_640x360_32.y4m"
+

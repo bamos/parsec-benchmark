@@ -1,0 +1,44 @@
+@subsection Trivial distance
+@table @asis
+@item @emph{Name:}
+trivial
+@item @emph{Type:}
+@code{CASS_VECSET_DIST_TYPE_TRIVIAL}
+@item @emph{Vecset type:}
+@code{CASS_ANY}
+@item @emph{Parameters:}
+(none)
+@item @emph{Description:}
+The trivial distance measure always return 0 for any pair of vecsets.  This
+vecset distance is only for debugging purpose.
+@end table
+
+@subsection Single distance
+@table @asis
+@item @emph{Name:}
+single
+@item @emph{Type:}
+@code{CASS_VECSET_DIST_TYPE_SINGLE}
+@item @emph{Vecset type:}
+@code{CASS_ANY}
+@item @emph{Parameters:}
+(none)
+@item @emph{Description:}
+Take the first vector from each of the vecsets and return the distance between
+the vectors.
+@end table
+
+@subsection EMD distance
+@table @asis
+@item @emph{Name:}
+emd
+@item @emph{Type:}
+@code{CASS_VECSET_DIST_TYPE_EMD}
+@item @emph{Vecset type:}
+@code{CASS_ANY}
+@item @emph{Parameters:}
+(none)
+@item @emph{Description:}
+The Earth Mover's Distance.
+@end table
+

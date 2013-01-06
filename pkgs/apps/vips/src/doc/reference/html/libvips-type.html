@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>type</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch04.html" title="Other API (no gtkdoc comments yet)">
+<link rel="prev" href="libvips-version.html" title="version">
+<link rel="next" href="libvips-rect.html" title="rect">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-version.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-rect.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-type.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-type.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="type">
+<a name="libvips-type"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-type.top_of_page"></a>type</span></h2>
+<p>type</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-type.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="libvips-type.html#IM-TYPE-NAME-DOUBLE:CAPS" title="IM_TYPE_NAME_DOUBLE">IM_TYPE_NAME_DOUBLE</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-NAME-INT:CAPS" title="IM_TYPE_NAME_INT">IM_TYPE_NAME_INT</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-NAME-COMPLEX:CAPS" title="IM_TYPE_NAME_COMPLEX">IM_TYPE_NAME_COMPLEX</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-NAME-STRING:CAPS" title="IM_TYPE_NAME_STRING">IM_TYPE_NAME_STRING</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-NAME-IMASK:CAPS" title="IM_TYPE_NAME_IMASK">IM_TYPE_NAME_IMASK</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-NAME-DMASK:CAPS" title="IM_TYPE_NAME_DMASK">IM_TYPE_NAME_DMASK</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-NAME-IMAGE:CAPS" title="IM_TYPE_NAME_IMAGE">IM_TYPE_NAME_IMAGE</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-NAME-DISPLAY:CAPS" title="IM_TYPE_NAME_DISPLAY">IM_TYPE_NAME_DISPLAY</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-NAME-GVALUE:CAPS" title="IM_TYPE_NAME_GVALUE">IM_TYPE_NAME_GVALUE</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-NAME-ARRAY:CAPS" title="IM_TYPE_NAME_ARRAY">IM_TYPE_NAME_ARRAY</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-IM:CAPS" title="IM_TYPE_IM">IM_TYPE_IM</a>
+#define             <a class="link" href="libvips-type.html#IM-TYPE-AR:CAPS" title="IM_TYPE_AR()">IM_TYPE_AR</a>                          (OF)
+                    <a class="link" href="libvips-type.html#im-type-t" title="im_type_t">im_type_t</a>;
+typedef             <a class="link" href="libvips-type.html#im-value-t" title="im_value_t">im_value_t</a>;
+                    <a class="link" href="libvips-type.html#im-value-mask-t" title="im_value_mask_t">im_value_mask_t</a>;
+                    <a class="link" href="libvips-type.html#im-value-array-t" title="im_value_array_t">im_value_array_t</a>;
+enum                <a class="link" href="libvips-type.html#im-argument-flags" title="enum im_argument_flags">im_argument_flags</a>;
+                    <a class="link" href="libvips-type.html#im-argument-t" title="im_argument_t">im_argument_t</a>;
+enum                <a class="link" href="libvips-type.html#im-operation-flags" title="enum im_operation_flags">im_operation_flags</a>;
+<span class="returnvalue">int</span>                 (<a class="link" href="libvips-type.html#im-operation-dispatch-fn" title="im_operation_dispatch_fn ()">*im_operation_dispatch_fn</a>)         (<em class="parameter"><code><a class="link" href="libvips-type.html#im-value-t" title="im_value_t"><span class="type">im_value_t</span></a> **argv</code></em>);
+                    <a class="link" href="libvips-type.html#im-operation-t" title="im_operation_t">im_operation_t</a>;
+<a class="link" href="libvips-type.html#im-type-t" title="im_type_t"><span class="returnvalue">im_type_t</span></a> *         <a class="link" href="libvips-type.html#im-type-register" title="im_type_register ()">im_type_register</a>                    (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-type-t" title="im_type_t"><span class="type">im_type_t</span></a> *type_param</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> size</code></em>);
+<span class="returnvalue">void</span> *              <a class="link" href="libvips-type.html#im-type-map" title="im_type_map ()">im_type_map</a>                         (<em class="parameter"><code><a class="link" href="libvips-util.html#VSListMap2Fn" title="VSListMap2Fn ()"><span class="type">VSListMap2Fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<a class="link" href="libvips-type.html#im-type-t" title="im_type_t"><span class="returnvalue">im_type_t</span></a> *         <a class="link" href="libvips-type.html#im-type-lookup" title="im_type_lookup ()">im_type_lookup</a>                      (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-type-t" title="im_type_t"><span class="type">im_type_t</span></a> *type_param</code></em>);
+<a class="link" href="libvips-type.html#im-operation-t" title="im_operation_t"><span class="returnvalue">im_operation_t</span></a> *    <a class="link" href="libvips-type.html#im-operation-register" title="im_operation_register ()">im_operation_register</a>               (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *desc</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-operation-flags" title="enum im_operation_flags"><span class="type">im_operation_flags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-operation-dispatch-fn" title="im_operation_dispatch_fn ()"><span class="type">im_operation_dispatch_fn</span></a> disp</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> argc</code></em>);
+<a class="link" href="libvips-type.html#im-operation-t" title="im_operation_t"><span class="returnvalue">im_operation_t</span></a> *    <a class="link" href="libvips-type.html#im-operation-registerv" title="im_operation_registerv ()">im_operation_registerv</a>              (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *desc</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-operation-flags" title="enum im_operation_flags"><span class="type">im_operation_flags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-operation-dispatch-fn" title="im_operation_dispatch_fn ()"><span class="type">im_operation_dispatch_fn</span></a> disp</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span> *              <a class="link" href="libvips-type.html#im-operation-map" title="im_operation_map ()">im_operation_map</a>                    (<em class="parameter"><code><a class="link" href="libvips-util.html#VSListMap2Fn" title="VSListMap2Fn ()"><span class="type">VSListMap2Fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<a class="link" href="libvips-type.html#im-operation-t" title="im_operation_t"><span class="returnvalue">im_operation_t</span></a> *    <a class="link" href="libvips-type.html#im-operation-lookup" title="im_operation_lookup ()">im_operation_lookup</a>                 (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+<a class="link" href="libvips-type.html#im-argument-t" title="im_argument_t"><span class="returnvalue">im_argument_t</span></a> *     <a class="link" href="libvips-type.html#im-argument-new" title="im_argument_new ()">im_argument_new</a>                     (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-type-t" title="im_type_t"><span class="type">im_type_t</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-argument-flags" title="enum im_argument_flags"><span class="type">im_argument_flags</span></a> flags</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-type.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-type.details"></a><h2>Details</h2>
+<div class="refsect2" title="IM_TYPE_NAME_DOUBLE">
+<a name="IM-TYPE-NAME-DOUBLE:CAPS"></a><h3>IM_TYPE_NAME_DOUBLE</h3>
+<pre class="programlisting">#define IM_TYPE_NAME_DOUBLE "double" /* im_value_t is ptr to double */
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_NAME_INT">
+<a name="IM-TYPE-NAME-INT:CAPS"></a><h3>IM_TYPE_NAME_INT</h3>
+<pre class="programlisting">#define IM_TYPE_NAME_INT "integer" /* 32-bit integer */
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_NAME_COMPLEX">
+<a name="IM-TYPE-NAME-COMPLEX:CAPS"></a><h3>IM_TYPE_NAME_COMPLEX</h3>
+<pre class="programlisting">#define IM_TYPE_NAME_COMPLEX "complex" /* Pair of doubles */
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_NAME_STRING">
+<a name="IM-TYPE-NAME-STRING:CAPS"></a><h3>IM_TYPE_NAME_STRING</h3>
+<pre class="programlisting">#define IM_TYPE_NAME_STRING "string" /* Zero-terminated char array */
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_NAME_IMASK">
+<a name="IM-TYPE-NAME-IMASK:CAPS"></a><h3>IM_TYPE_NAME_IMASK</h3>
+<pre class="programlisting">#define IM_TYPE_NAME_IMASK "intmask" /* Integer mask type */
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_NAME_DMASK">
+<a name="IM-TYPE-NAME-DMASK:CAPS"></a><h3>IM_TYPE_NAME_DMASK</h3>
+<pre class="programlisting">#define IM_TYPE_NAME_DMASK "doublemask" /* Double mask type */
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_NAME_IMAGE">
+<a name="IM-TYPE-NAME-IMAGE:CAPS"></a><h3>IM_TYPE_NAME_IMAGE</h3>
+<pre class="programlisting">#define IM_TYPE_NAME_IMAGE "image" /* IMAGE descriptor */
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_NAME_DISPLAY">
+<a name="IM-TYPE-NAME-DISPLAY:CAPS"></a><h3>IM_TYPE_NAME_DISPLAY</h3>
+<pre class="programlisting">#define IM_TYPE_NAME_DISPLAY "display" /* Display descriptor */
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_NAME_GVALUE">
+<a name="IM-TYPE-NAME-GVALUE:CAPS"></a><h3>IM_TYPE_NAME_GVALUE</h3>
+<pre class="programlisting">#define IM_TYPE_NAME_GVALUE "gvalue" /* GValue wrapper */
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_NAME_ARRAY">
+<a name="IM-TYPE-NAME-ARRAY:CAPS"></a><h3>IM_TYPE_NAME_ARRAY</h3>
+<pre class="programlisting">#define IM_TYPE_NAME_ARRAY "array" /* Array of other values of some type */
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_IM">
+<a name="IM-TYPE-IM:CAPS"></a><h3>IM_TYPE_IM</h3>
+<pre class="programlisting">#define IM_TYPE_IM (im_type_lookup( IM_TYPE_NAME_IMAGE, NULL ))
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_AR()">
+<a name="IM-TYPE-AR:CAPS"></a><h3>IM_TYPE_AR()</h3>
+<pre class="programlisting">#define IM_TYPE_AR( OF ) (im_type_lookup( IM_TYPE_NAME_ARRAY, OF ))
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_type_t">
+<a name="im-type-t"></a><h3>im_type_t</h3>
+<pre class="programlisting">typedef struct {
+	const char *name; 		/* Name of type, eg. "double" */
+	struct im__type_t *type_param; /* What this is an array of */
+	size_t size;			/* sizeof( im_value_t ) repres. ) */
+} im_type_t;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_value_t">
+<a name="im-value-t"></a><h3>im_value_t</h3>
+<pre class="programlisting">typedef void im_value_t;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_value_mask_t">
+<a name="im-value-mask-t"></a><h3>im_value_mask_t</h3>
+<pre class="programlisting">typedef struct {
+	char *name;			/* Command-line name in */
+	void *mask;			/* Mask --- DOUBLE or INT */
+} im_value_mask_t;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_value_array_t">
+<a name="im-value-array-t"></a><h3>im_value_array_t</h3>
+<pre class="programlisting">typedef struct {
+	int n;				/* Array length */
+	im_value_t **array;		/* Array */
+} im_value_array_t;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="enum im_argument_flags">
+<a name="im-argument-flags"></a><h3>enum im_argument_flags</h3>
+<pre class="programlisting">typedef enum {
+	IM_ARGUMENT_NONE = 0,		/* No flags set */
+	IM_ARGUMENT_OUTPUT = 0x1 /* Is an output arg */
+} im_argument_flags;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_argument_t">
+<a name="im-argument-t"></a><h3>im_argument_t</h3>
+<pre class="programlisting">typedef struct {
+	const char *name; 		/* Eg. "in2" */
+	im_type_t *type;		/* Argument type */
+	im_argument_flags flags; /* Output/input etc. */
+} im_argument_t;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="enum im_operation_flags">
+<a name="im-operation-flags"></a><h3>enum im_operation_flags</h3>
+<pre class="programlisting">typedef enum {
+	IM_OPERATION_NONE = 0,		/* No flags set */
+	IM_OPERATION_PIO = 0x1,		/* Is a partial function */
+	IM_OPERATION_TRANSFORM = 0x2, /* Performs coord transformations */
+	IM_OPERATION_PTOP = 0x4, /* Point-to-point ... can be LUTted */
+	IM_OPERATION_NOCACHE = 0x8 /* Result should not be cached */
+} im_operation_flags;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_operation_dispatch_fn ()">
+<a name="im-operation-dispatch-fn"></a><h3>im_operation_dispatch_fn ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*im_operation_dispatch_fn)         (<em class="parameter"><code><a class="link" href="libvips-type.html#im-value-t" title="im_value_t"><span class="type">im_value_t</span></a> **argv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_operation_t">
+<a name="im-operation-t"></a><h3>im_operation_t</h3>
+<pre class="programlisting">typedef struct {
+	const char *name;		/* eg "im_invert" */
+	const char *desc;		/* One line description */
+	im_operation_flags flags; /* Flags for this function */
+	im_operation_dispatch_fn disp; /* Dispatch */
+	int argc;			/* Number of args */
+	im_argument_t **argv; 		/* Arg list */
+} im_operation_t;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_type_register ()">
+<a name="im-type-register"></a><h3>im_type_register ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-type.html#im-type-t" title="im_type_t"><span class="returnvalue">im_type_t</span></a> *         im_type_register                    (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-type-t" title="im_type_t"><span class="type">im_type_t</span></a> *type_param</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> size</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_type_map ()">
+<a name="im-type-map"></a><h3>im_type_map ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              im_type_map                         (<em class="parameter"><code><a class="link" href="libvips-util.html#VSListMap2Fn" title="VSListMap2Fn ()"><span class="type">VSListMap2Fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_type_lookup ()">
+<a name="im-type-lookup"></a><h3>im_type_lookup ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-type.html#im-type-t" title="im_type_t"><span class="returnvalue">im_type_t</span></a> *         im_type_lookup                      (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-type-t" title="im_type_t"><span class="type">im_type_t</span></a> *type_param</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_operation_register ()">
+<a name="im-operation-register"></a><h3>im_operation_register ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-type.html#im-operation-t" title="im_operation_t"><span class="returnvalue">im_operation_t</span></a> *    im_operation_register               (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *desc</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-operation-flags" title="enum im_operation_flags"><span class="type">im_operation_flags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-operation-dispatch-fn" title="im_operation_dispatch_fn ()"><span class="type">im_operation_dispatch_fn</span></a> disp</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> argc</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_operation_registerv ()">
+<a name="im-operation-registerv"></a><h3>im_operation_registerv ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-type.html#im-operation-t" title="im_operation_t"><span class="returnvalue">im_operation_t</span></a> *    im_operation_registerv              (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *desc</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-operation-flags" title="enum im_operation_flags"><span class="type">im_operation_flags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-operation-dispatch-fn" title="im_operation_dispatch_fn ()"><span class="type">im_operation_dispatch_fn</span></a> disp</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_operation_map ()">
+<a name="im-operation-map"></a><h3>im_operation_map ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              im_operation_map                    (<em class="parameter"><code><a class="link" href="libvips-util.html#VSListMap2Fn" title="VSListMap2Fn ()"><span class="type">VSListMap2Fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_operation_lookup ()">
+<a name="im-operation-lookup"></a><h3>im_operation_lookup ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-type.html#im-operation-t" title="im_operation_t"><span class="returnvalue">im_operation_t</span></a> *    im_operation_lookup                 (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_argument_new ()">
+<a name="im-argument-new"></a><h3>im_argument_new ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-type.html#im-argument-t" title="im_argument_t"><span class="returnvalue">im_argument_t</span></a> *     im_argument_new                     (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-type-t" title="im_type_t"><span class="type">im_type_t</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-type.html#im-argument-flags" title="enum im_argument_flags"><span class="type">im_argument_flags</span></a> flags</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

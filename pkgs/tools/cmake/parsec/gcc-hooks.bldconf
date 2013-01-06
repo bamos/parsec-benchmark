@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# gcc-hooks.bldconf - configuration file for PARSEC
+
+source ${PARSECDIR}/pkgs/tools/cmake/parsec/gcc.bldconf
+
+# Package dependencies
+# NOTE: cmake itself does not depend on hooks but the
+# library is added globally and hence we must add it
+build_deps="hooks"
+

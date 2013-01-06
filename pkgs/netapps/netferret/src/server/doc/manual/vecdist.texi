@@ -1,0 +1,95 @@
+@subsection Trivial distance
+@table @asis
+@item @emph{Name:}
+trivial
+@item @emph{Type:}
+@code{CASS_VEC_DIST_TYPE_TRIVIAL}
+@item @emph{Vector type:}
+@code{CASS_ANY}
+@item @emph{Parameters:}
+(none)
+@item @emph{Description:}
+The trivial distance measure always return 0 for any pair of vecsets.  This
+vecset distance is only for debugging purpose.
+@end table
+
+@subsection Integer L1 distance
+@table @asis
+@item @emph{Name:}
+L1_int
+@item @emph{Type:}
+@code{CASS_VEC_DIST_TYPE_L1}
+@item @emph{Vector type:}
+@code{CASS_VEC_INT}
+@item @emph{Parameters:}
+(none)
+@item @emph{Description:}
+@end table
+
+@subsection Integer L2 distance
+@table @asis
+@item @emph{Name:}
+L2_int
+@item @emph{Type:}
+@code{CASS_VEC_DIST_TYPE_L2}
+@item @emph{Vector type:}
+@code{CASS_VEC_INT}
+@item @emph{Parameters:}
+(none)
+@item @emph{Description:}
+@end table
+
+@subsection Float L1 distance
+@table @asis
+@item @emph{Name:}
+L1_float
+@item @emph{Type:}
+@code{CASS_VEC_DIST_TYPE_L1}
+@item @emph{Vector type:}
+@code{CASS_VEC_FLOAT}
+@item @emph{Parameters:}
+(none)
+@item @emph{Description:}
+@end table
+
+@subsection Float L2 distance
+@table @asis
+@item @emph{Name:}
+L2_float
+@item @emph{Type:}
+@code{CASS_VEC_DIST_TYPE_L2}
+@item @emph{Vector type:}
+@code{CASS_VEC_FLOAT}
+@item @emph{Parameters:}
+(none)
+@item @emph{Description:}
+@end table
+
+@subsection Cosine distance
+@table @asis
+@item @emph{Name:}
+cosine
+@item @emph{Type:}
+@code{CASS_VEC_DIST_TYPE_COS}
+@item @emph{Vector type:}
+@code{CASS_VEC_FLOAT}
+@item @emph{Parameters:}
+(none)
+@item @emph{Description:}
+This is actually the dot product of two vectors.  If the vectors are not unit
+vectors, then it's actually not the cosine distance.
+@end table
+
+@subsection Hamming distance
+@table @asis
+@item @emph{Name:}
+hamming
+@item @emph{Type:}
+@code{CASS_VEC_DIST_TYPE_HAMMING}
+@item @emph{Vector type:}
+@code{CASS_VEC_BIT}
+@item @emph{Parameters:}
+(none)
+@item @emph{Description:}
+@end table
+

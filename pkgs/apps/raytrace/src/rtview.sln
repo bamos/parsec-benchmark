@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{EAF909A5-FA59-4C3D-9431-0FCC20D5BCF9}") = "rtview", "rtview.vcproj", "{56A3C5FE-B5A4-4A6B-BB8E-B62BFCE8F62C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56A3C5FE-B5A4-4A6B-BB8E-B62BFCE8F62C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{56A3C5FE-B5A4-4A6B-BB8E-B62BFCE8F62C}.Debug|Win32.Build.0 = Debug|Win32
+		{56A3C5FE-B5A4-4A6B-BB8E-B62BFCE8F62C}.Release|Win32.ActiveCfg = Release|Win32
+		{56A3C5FE-B5A4-4A6B-BB8E-B62BFCE8F62C}.Release|Win32.Build.0 = Release|Win32
+		{B889FC3F-D214-4BD3-A1A1-6A3E77530F57}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B889FC3F-D214-4BD3-A1A1-6A3E77530F57}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

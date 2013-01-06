@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# linux.sysconf - External binaries required by the script on Linux
+#
+# Copyright (C) 2006-2007 Princeton University
+# Written by Christian Bienia
+#
+# All statements must be executable.
+#
+
+# Create a directory and all its parent directories, no error if directories
+# exist
+#
+# Usage: ${MKDIR} DIRECTORY
+MKDIR="mkdir -p"
+
+# List contents of a directory
+#
+# Usage: ${LS} DIRECTORY
+LS="ls"
+
+# Copy a list of directories and files to a destination directory
+# Recursively descend into directories, ignore errors, overwrite existing
+# files, preserve symlinks
+#
+# Usage: ${CP} SOURCE... DESTINATION
+CP="cp -af"
+
+# Move a list of directories and files to a destination directory
+# Ignore errors and overwrite existing files
+#
+# Usage: ${MV} SOURCE... DESTINATION
+MV="mv -f"
+
+# Remove files or directories recursively, ignore errors
+#
+# Usage: ${RM} FILE...
+RM="rm -rf"
+
+# The current date (and possibly also time) in a format convenient for humans
+#
+# Usage: ${DATE}
+DATE="date"
+
+# The date which will be part of the log file name. Avoid special characters
+# such as blanks, slashes or other symbols which are inconvenient to have in
+# file names.  The date (and time) should be accurate enough so that builds
+# started within a relatively short period get different log files.
+#
+# Usage: eval logfile=[FILEPREFIX]$(${LOGDATE})[FILESUFFIX]; echo TEXT > ${logfile}
+LOGDATE="date +%F_%T"
+
+# Read input from stdin, write it to stdout and also append it to a file
+#
+# Usage: echo TEXT | ${TEE} ${logfile}
+TEE="tee -a"
+
+# Output contents of text files
+#
+# Usage: ${CAT} textfile...
+CAT="cat"
+
+# Unpack a tar archive
+#
+# Usage: ${UNTAR} tarfile
+UNTAR="tar -xvf"
+
+# Compare two files. The command has to return 0 if and only if the two files
+# are identical.
+#
+# Usage: ${CMP} file1 file2
+CMP="cmp"
+
+# The stream editor
+#
+# Usage: ${SED} scriptfile inputfile
+SED="sed -f"
+

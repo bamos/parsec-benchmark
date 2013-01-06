@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source ${PARSECDIR}/pkgs/libs/mesa/parsec/gcc.bldconf
+

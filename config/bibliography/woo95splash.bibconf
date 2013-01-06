@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# Bibliography file of the PARSEC benchmark suite
+#
+# Copyright (C) 2011 Princeton University
+# Written by Christian Bienia
+
+# This file contains the description for one specific bibliography entry. The
+# information given here can be referenced in other configuration files of
+# PARSEC as a citation. It will be automatically displayed when the components
+# are used similar to a publication.
+#
+# The PARSEC citation system is loosely based on bibtex (without all the fancy
+# formatting that happens automatically).
+#
+# Please keep all information short and limited because it will be displayed
+# all the time. The only purpose of the date is to allow PARSEC users to find
+# the corresponding publications.
+
+# Last name of first author, followed by "et al" if there are more authors
+bib_author="Woo et al"
+
+# Title of the publication
+bib_title="The SPLASH-2 Programs: Characterization and Methodological Considerations"
+
+# Title of the proceedings / journal / etc or type of publication
+# Please use abbreviations and omit any unnecessary words
+bib_booktitle="ISCA"
+
+# Year of the publication
+bib_year="1995"
+
+# Formatted bibliography entry, based on previous information. This string is
+# what will be displayed by PARSEC. Please make sure this fits into one line
+# and also fill out the fields above to make this bibliography entry
+# processable by machines.
+
+# Full entry.
+bib_string="${bib_author}. ${bib_title}. ${bib_booktitle}, ${bib_year}."
+
+# More compact alternative. Choose this if the title is too long.
+# Interested people can always look into this file for the full information.
+# bib_string="${bib_author}, ${bib_book} ${bib_year}"
+
+# Most compact alternative. If you're really out of space.
+# bib_string="${bib_author} ${bib_year}"
+

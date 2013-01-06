@@ -1,0 +1,54 @@
+% AUTORIGHTS
+% Copyright (C) 2007 Princeton University
+%       
+% This file is part of Ferret Toolkit.
+% 
+% Ferret Toolkit is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2, or (at your option)
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software Foundation,
+% Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+\section{Management Module}
+The management module provide a working environment for cass\_table,
+cass\_index and cass\_distfunc. It respond to user request to
+add/remove table, indices, etc. 
+
+\subsection {Management related API}
+\begin{verbatim}
+
+typedef struct _cass_env_t {
+    // Internal management data for controlling the whole system 
+    // similar to DB_ENV in BDB.
+    // Need to hold all the meta data about tables, maps, indexes as well
+    // as their checkpoint informations.
+    
+} cass_env_t; 
+
+int cass_env_create(cass_env_t **env, uint32_t flags);
+int cass_env_open(cass_env_t *env, char *db_home, uint32_t flags); 
+      // Automatically recover to a consistent stage in case of crash.
+int cass_env_close(cass_env_t *env, uint32_t flags);
+int cass_env_err(cass_env_t *env, int error, const char *fmt, ...);
+
+int cass_env_checkpoint(cass_env_t *env);
+int cass_env_restorelastcheckpoint(cass_env_t *env);
+
+// Control the system via cass_table_create, cass_idx_create etc.
+// For simplicity, we will assume that we can load the table&index
+// control structure into memory as part of cass_env upon system
+// startup. This will simplify the management and enable on-disk
+// sequential scan if needed since we know about the table even when 
+// the data is not in memory.
+
+// Need to add details on how to do checkpointing and recovery.
+// Need details on external config file, what the user interface will
+// look like, etc.
+\end{verbatim}

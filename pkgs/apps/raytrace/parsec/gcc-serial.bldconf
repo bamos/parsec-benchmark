@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# gcc-serial.bldconf - configuration file for PARSEC
+
+source ${PARSECDIR}/pkgs/apps/raytrace/parsec/gcc.bldconf
+
+# Overwrite default version string
+build_env="${build_env} version=serial"
+

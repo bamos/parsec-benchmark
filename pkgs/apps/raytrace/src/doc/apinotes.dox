@@ -1,0 +1,10 @@
+/*!
+@defgroup api_notes Notes of some API querks ...
+
+this is just a list of random thoughts about how some API issues are supposed
+to work. pretty much unsorted right now, feel free to sort/extend. if
+somebody asks a question about something is supposed to work, document
+it _here_, and send him a copy of this documentation
+
+
+*/

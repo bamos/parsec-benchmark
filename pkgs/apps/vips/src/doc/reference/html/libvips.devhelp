@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
+<book xmlns="http://www.devhelp.net/book" title="VIPS Reference Manual" link="index.html" author="" name="libvips">
+  <chapters>
+    <sub name="Core VIPS API" link="ch01.html">
+      <sub name="image" link="libvips-image.html"/>
+      <sub name="header" link="libvips-header.html"/>
+      <sub name="check" link="libvips-check.html"/>
+      <sub name="callback" link="libvips-callback.html"/>
+      <sub name="meta" link="libvips-meta.html"/>
+      <sub name="region" link="libvips-region.html"/>
+      <sub name="generate" link="libvips-generate.html"/>
+      <sub name="VipsThreadState" link="VipsThreadState.html"/>
+      <sub name="error" link="libvips-error.html"/>
+      <sub name="memory" link="libvips-memory.html"/>
+      <sub name="buf" link="libvips-buf.html"/>
+    </sub>
+    <sub name="VIPS operation API by section" link="ch02.html">
+      <sub name="arithmetic" link="libvips-arithmetic.html"/>
+      <sub name="boolean" link="libvips-boolean.html"/>
+      <sub name="relational" link="libvips-relational.html"/>
+      <sub name="colour" link="libvips-colour.html"/>
+      <sub name="conversion" link="libvips-conversion.html"/>
+      <sub name="convolution" link="libvips-convolution.html"/>
+      <sub name="VipsFormat" link="VipsFormat.html"/>
+      <sub name="freq_filt" link="libvips-freq-filt.html"/>
+      <sub name="histograms_lut" link="libvips-histograms-lut.html"/>
+    </sub>
+    <sub name="VIPS operation API by section (no gtkdoc comments yet)" link="ch03.html">
+      <sub name="morphology" link="libvips-morphology.html"/>
+      <sub name="resample" link="libvips-resample.html"/>
+      <sub name="mask" link="libvips-mask.html"/>
+      <sub name="inplace" link="libvips-inplace.html"/>
+      <sub name="mosaicing" link="libvips-mosaicing.html"/>
+      <sub name="other" link="libvips-other.html"/>
+      <sub name="video" link="libvips-video.html"/>
+      <sub name="cimg_funcs" link="libvips-cimg-funcs.html"/>
+      <sub name="VipsInterpolate" link="VipsInterpolate.html"/>
+    </sub>
+    <sub name="Other API (no gtkdoc comments yet)" link="ch04.html">
+      <sub name="VipsArgument" link="libvips-VipsArgument.html"/>
+      <sub name="transform" link="libvips-transform.html"/>
+      <sub name="util" link="libvips-util.html"/>
+      <sub name="version" link="libvips-version.html"/>
+      <sub name="type" link="libvips-type.html"/>
+      <sub name="rect" link="libvips-rect.html"/>
+      <sub name="semaphore" link="libvips-semaphore.html"/>
+      <sub name="dispatch" link="libvips-dispatch.html"/>
+    </sub>
+    <sub name="Object Hierarchy" link="object-tree.html"/>
+    <sub name="API Index" link="api-index-full.html"/>
+  </chapters>
+  <functions>
+    <function name="IM_MAGIC_INTEL" link="libvips-image.html#IM-MAGIC-INTEL:CAPS"/>
+    <function name="IM_MAGIC_SPARC" link="libvips-image.html#IM-MAGIC-SPARC:CAPS"/>
+    <function name="enum VipsDemandStyle" link="libvips-image.html#VipsDemandStyle"/>
+    <function name="enum VipsType" link="libvips-image.html#VipsType"/>
+    <function name="enum VipsBandFmt" link="libvips-image.html#VipsBandFmt"/>
+    <function name="enum VipsCoding" link="libvips-image.html#VipsCoding"/>
+    <function name="VipsProgress" link="libvips-image.html#VipsProgress"/>
+    <function name="VipsImage" link="libvips-image.html#VipsImage"/>
+    <function name="IM_IMAGE_SIZEOF_ELEMENT()" link="libvips-image.html#IM-IMAGE-SIZEOF-ELEMENT:CAPS"/>
+    <function name="IM_IMAGE_SIZEOF_PEL()" link="libvips-image.html#IM-IMAGE-SIZEOF-PEL:CAPS"/>
+    <function name="IM_IMAGE_SIZEOF_LINE()" link="libvips-image.html#IM-IMAGE-SIZEOF-LINE:CAPS"/>
+    <function name="IM_IMAGE_N_ELEMENTS()" link="libvips-image.html#IM-IMAGE-N-ELEMENTS:CAPS"/>
+    <function name="IM_IMAGE_ADDR()" link="libvips-image.html#IM-IMAGE-ADDR:CAPS"/>
+    <function name="im_get_argv0 ()" link="libvips-image.html#im-get-argv0"/>
+    <function name="im_init_world ()" link="libvips-image.html#im-init-world"/>
+    <function name="im_get_option_group ()" link="libvips-image.html#im-get-option-group"/>
+    <function name="im_version_string ()" link="libvips-image.html#im-version-string"/>
+    <function name="im_version ()" link="libvips-image.html#im-version"/>
+    <function name="im_guess_prefix ()" link="libvips-image.html#im-guess-prefix"/>
+    <function name="im_guess_libdir ()" link="libvips-image.html#im-guess-libdir"/>
+    <function name="im_open ()" link="libvips-image.html#im-open"/>
+    <function name="im_open_local()" link="libvips-image.html#im-open-local"/>
+    <function name="im_open_local_array()" link="libvips-image.html#im-open-local-array"/>
+    <function name="im_close ()" link="libvips-image.html#im-close"/>
+    <function name="im_invalidate ()" link="libvips-image.html#im-invalidate"/>
+    <function name="im_initdesc ()" link="libvips-image.html#im-initdesc"/>
+    <function name="im_cp_desc ()" link="libvips-image.html#im-cp-desc"/>
+    <function name="im_cp_descv ()" link="libvips-image.html#im-cp-descv"/>
+    <function name="im_cp_desc_array ()" link="libvips-image.html#im-cp-desc-array"/>
+    <function name="im_binfile ()" link="libvips-image.html#im-binfile"/>
+    <function name="im_image ()" link="libvips-image.html#im-image"/>
+    <function name="im_header_int ()" link="libvips-header.html#im-header-int"/>
+    <function name="im_header_double ()" link="libvips-header.html#im-header-double"/>
+    <function name="im_header_string ()" link="libvips-header.html#im-header-string"/>
+    <function name="im_header_as_string ()" link="libvips-header.html#im-header-as-string"/>
+    <function name="im_header_get_typeof ()" link="libvips-header.html#im-header-get-typeof"/>
+    <function name="im_header_get ()" link="libvips-header.html#im-header-get"/>
+    <function name="im_header_map_fn ()" link="libvips-header.html#im-header-map-fn"/>
+    <function name="im_header_map ()" link="libvips-header.html#im-header-map"/>
+    <function name="im_histlin ()" link="libvips-header.html#im-histlin"/>
+    <function name="im_updatehist ()" link="libvips-header.html#im-updatehist"/>
+    <function name="im_history_get ()" link="libvips-header.html#im-history-get"/>
+    <function name="im_rwcheck ()" link="libvips-check.html#im-rwcheck"/>
+    <function name="im_iocheck ()" link="libvips-check.html#im-iocheck"/>
+    <function name="im_incheck ()" link="libvips-check.html#im-incheck"/>
+    <function name="im_outcheck ()" link="libvips-check.html#im-outcheck"/>
+    <function name="im_piocheck ()" link="libvips-check.html#im-piocheck"/>
+    <function name="im_pincheck ()" link="libvips-check.html#im-pincheck"/>
+    <function name="im_poutcheck ()" link="libvips-check.html#im-poutcheck"/>
+    <function name="im_check_uncoded ()" link="libvips-check.html#im-check-uncoded"/>
+    <function name="im_check_coding_known ()" link="libvips-check.html#im-check-coding-known"/>
+    <function name="im_check_coding_labq ()" link="libvips-check.html#im-check-coding-labq"/>
+    <function name="im_check_coding_rad ()" link="libvips-check.html#im-check-coding-rad"/>
+    <function name="im_check_coding_same ()" link="libvips-check.html#im-check-coding-same"/>
+    <function name="im_check_mono ()" link="libvips-check.html#im-check-mono"/>
+    <function name="im_check_bands_1or3 ()" link="libvips-check.html#im-check-bands-1or3"/>
+    <function name="im_check_bands ()" link="libvips-check.html#im-check-bands"/>
+    <function name="im_check_bands_1orn ()" link="libvips-check.html#im-check-bands-1orn"/>
+    <function name="im_check_bands_same ()" link="libvips-check.html#im-check-bands-same"/>
+    <function name="im_check_bandno ()" link="libvips-check.html#im-check-bandno"/>
+    <function name="im_check_int ()" link="libvips-check.html#im-check-int"/>
+    <function name="im_check_uint ()" link="libvips-check.html#im-check-uint"/>
+    <function name="im_check_uintorf ()" link="libvips-check.html#im-check-uintorf"/>
+    <function name="im_check_noncomplex ()" link="libvips-check.html#im-check-noncomplex"/>
+    <function name="im_check_complex ()" link="libvips-check.html#im-check-complex"/>
+    <function name="im_check_format ()" link="libvips-check.html#im-check-format"/>
+    <function name="im_check_u8or16 ()" link="libvips-check.html#im-check-u8or16"/>
+    <function name="im_check_8or16 ()" link="libvips-check.html#im-check-8or16"/>
+    <function name="im_check_u8or16orf ()" link="libvips-check.html#im-check-u8or16orf"/>
+    <function name="im_check_format_same ()" link="libvips-check.html#im-check-format-same"/>
+    <function name="im_check_size_same ()" link="libvips-check.html#im-check-size-same"/>
+    <function name="im_check_vector ()" link="libvips-check.html#im-check-vector"/>
+    <function name="im_check_hist ()" link="libvips-check.html#im-check-hist"/>
+    <function name="im_check_imask ()" link="libvips-check.html#im-check-imask"/>
+    <function name="im_check_dmask ()" link="libvips-check.html#im-check-dmask"/>
+    <function name="vips_bandfmt_isint ()" link="libvips-check.html#vips-bandfmt-isint"/>
+    <function name="vips_bandfmt_isuint ()" link="libvips-check.html#vips-bandfmt-isuint"/>
+    <function name="vips_bandfmt_isfloat ()" link="libvips-check.html#vips-bandfmt-isfloat"/>
+    <function name="vips_bandfmt_iscomplex ()" link="libvips-check.html#vips-bandfmt-iscomplex"/>
+    <function name="im_isfile ()" link="libvips-check.html#im-isfile"/>
+    <function name="im_ispartial ()" link="libvips-check.html#im-ispartial"/>
+    <function name="im_isMSBfirst ()" link="libvips-check.html#im-isMSBfirst"/>
+    <function name="im_callback_fn ()" link="libvips-callback.html#im-callback-fn"/>
+    <function name="im_add_close_callback ()" link="libvips-callback.html#im-add-close-callback"/>
+    <function name="im_add_preclose_callback ()" link="libvips-callback.html#im-add-preclose-callback"/>
+    <function name="im_add_postclose_callback ()" link="libvips-callback.html#im-add-postclose-callback"/>
+    <function name="im_add_written_callback ()" link="libvips-callback.html#im-add-written-callback"/>
+    <function name="im_add_evalstart_callback ()" link="libvips-callback.html#im-add-evalstart-callback"/>
+    <function name="im_add_eval_callback ()" link="libvips-callback.html#im-add-eval-callback"/>
+    <function name="im_add_evalend_callback ()" link="libvips-callback.html#im-add-evalend-callback"/>
+    <function name="im_add_invalidate_callback ()" link="libvips-callback.html#im-add-invalidate-callback"/>
+    <function name="IM_META_EXIF_NAME" link="libvips-meta.html#IM-META-EXIF-NAME:CAPS"/>
+    <function name="IM_META_ICC_NAME" link="libvips-meta.html#IM-META-ICC-NAME:CAPS"/>
+    <function name="IM_META_XML" link="libvips-meta.html#IM-META-XML:CAPS"/>
+    <function name="IM_META_RESOLUTION_UNIT" link="libvips-meta.html#IM-META-RESOLUTION-UNIT:CAPS"/>
+    <function name="IM_TYPE_SAVE_STRING" link="libvips-meta.html#IM-TYPE-SAVE-STRING:CAPS"/>
+    <function name="im_save_string_get_type ()" link="libvips-meta.html#im-save-string-get-type"/>
+    <function name="im_save_string_get ()" link="libvips-meta.html#im-save-string-get"/>
+    <function name="im_save_string_set ()" link="libvips-meta.html#im-save-string-set"/>
+    <function name="im_save_string_setf ()" link="libvips-meta.html#im-save-string-setf"/>
+    <function name="IM_TYPE_AREA" link="libvips-meta.html#IM-TYPE-AREA:CAPS"/>
+    <function name="im_area_get_type ()" link="libvips-meta.html#im-area-get-type"/>
+    <function name="IM_TYPE_REF_STRING" link="libvips-meta.html#IM-TYPE-REF-STRING:CAPS"/>
+    <function name="im_ref_string_get_type ()" link="libvips-meta.html#im-ref-string-get-type"/>
+    <function name="im_ref_string_set ()" link="libvips-meta.html#im-ref-string-set"/>
+    <function name="im_ref_string_get ()" link="libvips-meta.html#im-ref-string-get"/>
+    <function name="im_ref_string_get_length ()" link="libvips-meta.html#im-ref-string-get-length"/>
+    <function name="IM_TYPE_BLOB" link="libvips-meta.html#IM-TYPE-BLOB:CAPS"/>
+    <function name="im_blob_get_type ()" link="libvips-meta.html#im-blob-get-type"/>
+    <function name="im_blob_get ()" link="libvips-meta.html#im-blob-get"/>
+    <function name="im_blob_set ()" link="libvips-meta.html#im-blob-set"/>
+    <function name="im_meta_set ()" link="libvips-meta.html#im-meta-set"/>
+    <function name="im_meta_remove ()" link="libvips-meta.html#im-meta-remove"/>
+    <function name="im_meta_get ()" link="libvips-meta.html#im-meta-get"/>
+    <function name="im_meta_get_typeof ()" link="libvips-meta.html#im-meta-get-typeof"/>
+    <function name="im_meta_set_int ()" link="libvips-meta.html#im-meta-set-int"/>
+    <function name="im_meta_get_int ()" link="libvips-meta.html#im-meta-get-int"/>
+    <function name="im_meta_set_double ()" link="libvips-meta.html#im-meta-set-double"/>
+    <function name="im_meta_get_double ()" link="libvips-meta.html#im-meta-get-double"/>
+    <function name="im_meta_set_area ()" link="libvips-meta.html#im-meta-set-area"/>
+    <function name="im_meta_get_area ()" link="libvips-meta.html#im-meta-get-area"/>
+    <function name="im_meta_set_string ()" link="libvips-meta.html#im-meta-set-string"/>
+    <function name="im_meta_get_string ()" link="libvips-meta.html#im-meta-get-string"/>
+    <function name="im_meta_set_blob ()" link="libvips-meta.html#im-meta-set-blob"/>
+    <function name="im_meta_get_blob ()" link="libvips-meta.html#im-meta-get-blob"/>
+    <function name="REGION" link="libvips-region.html#REGION:CAPS"/>
+    <function name="im_region_create ()" link="libvips-region.html#im-region-create"/>
+    <function name="im_region_free ()" link="libvips-region.html#im-region-free"/>
+    <function name="im_region_buffer ()" link="libvips-region.html#im-region-buffer"/>
+    <function name="im_region_image ()" link="libvips-region.html#im-region-image"/>
+    <function name="im_region_region ()" link="libvips-region.html#im-region-region"/>
+    <function name="im_region_equalsregion ()" link="libvips-region.html#im-region-equalsregion"/>
+    <function name="im_region_position ()" link="libvips-region.html#im-region-position"/>
+    <function name="im_region_paint ()" link="libvips-region.html#im-region-paint"/>
+    <function name="im_region_black ()" link="libvips-region.html#im-region-black"/>
+    <function name="im_region_copy ()" link="libvips-region.html#im-region-copy"/>
+    <function name="IM_REGION_LSKIP()" link="libvips-region.html#IM-REGION-LSKIP:CAPS"/>
+    <function name="IM_REGION_N_ELEMENTS()" link="libvips-region.html#IM-REGION-N-ELEMENTS:CAPS"/>
+    <function name="IM_REGION_SIZEOF_LINE()" link="libvips-region.html#IM-REGION-SIZEOF-LINE:CAPS"/>
+    <function name="IM_REGION_ADDR()" link="libvips-region.html#IM-REGION-ADDR:CAPS"/>
+    <function name="IM_REGION_ADDR_TOPLEFT()" link="libvips-region.html#IM-REGION-ADDR-TOPLEFT:CAPS"/>
+    <function name="im_prepare ()" link="libvips-generate.html#im-prepare"/>
+    <function name="im_prepare_to ()" link="libvips-generate.html#im-prepare-to"/>
+    <function name="im_start_fn ()" link="libvips-generate.html#im-start-fn"/>
+    <function name="im_generate_fn ()" link="libvips-generate.html#im-generate-fn"/>
+    <function name="im_stop_fn ()" link="libvips-generate.html#im-stop-fn"/>
+    <function name="im_start_one ()" link="libvips-generate.html#im-start-one"/>
+    <function name="im_stop_one ()" link="libvips-generate.html#im-stop-one"/>
+    <function name="im_start_many ()" link="libvips-generate.html#im-start-many"/>
+    <function name="im_stop_many ()" link="libvips-generate.html#im-stop-many"/>
+    <function name="im_allocate_input_array ()" link="libvips-generate.html#im-allocate-input-array"/>
+    <function name="im_generate ()" link="libvips-generate.html#im-generate"/>
+    <function name="im_iterate ()" link="libvips-generate.html#im-iterate"/>
+    <function name="im_demand_hint_array ()" link="libvips-generate.html#im-demand-hint-array"/>
+    <function name="im_demand_hint ()" link="libvips-generate.html#im-demand-hint"/>
+    <function name="im_wrapone_fn ()" link="libvips-generate.html#im-wrapone-fn"/>
+    <function name="im_wrapone ()" link="libvips-generate.html#im-wrapone"/>
+    <function name="im_wraptwo_fn ()" link="libvips-generate.html#im-wraptwo-fn"/>
+    <function name="im_wraptwo ()" link="libvips-generate.html#im-wraptwo"/>
+    <function name="im_wrapmany_fn ()" link="libvips-generate.html#im-wrapmany-fn"/>
+    <function name="im_wrapmany ()" link="libvips-generate.html#im-wrapmany"/>
+    <function name="im_render_priority ()" link="libvips-generate.html#im-render-priority"/>
+    <function name="im_cache ()" link="libvips-generate.html#im-cache"/>
+    <function name="im_setupout ()" link="libvips-generate.html#im-setupout"/>
+    <function name="im_writeline ()" link="libvips-generate.html#im-writeline"/>
+    <function name="VipsThreadState" link="VipsThreadState.html#VipsThreadState-struct"/>
+    <function name="VipsThreadStateClass" link="VipsThreadState.html#VipsThreadStateClass"/>
+    <function name="vips_thread_state_set ()" link="VipsThreadState.html#vips-thread-state-set"/>
+    <function name="vips_thread_state_new ()" link="VipsThreadState.html#vips-thread-state-new"/>
+    <function name="VipsThreadStart ()" link="VipsThreadState.html#VipsThreadStart"/>
+    <function name="VipsThreadpoolAllocate ()" link="VipsThreadState.html#VipsThreadpoolAllocate"/>
+    <function name="VipsThreadpoolWork ()" link="VipsThreadState.html#VipsThreadpoolWork"/>
+    <function name="VipsThreadpoolProgress ()" link="VipsThreadState.html#VipsThreadpoolProgress"/>
+    <function name="vips_threadpool_run ()" link="VipsThreadState.html#vips-threadpool-run"/>
+    <function name="vips_get_tile_size ()" link="VipsThreadState.html#vips-get-tile-size"/>
+    <function name="VipsRegionWrite ()" link="VipsThreadState.html#VipsRegionWrite"/>
+    <function name="vips_sink_disc ()" link="VipsThreadState.html#vips-sink-disc"/>
+    <function name="VipsStart ()" link="VipsThreadState.html#VipsStart"/>
+    <function name="VipsGenerate ()" link="VipsThreadState.html#VipsGenerate"/>
+    <function name="VipsStop ()" link="VipsThreadState.html#VipsStop"/>
+    <function name="vips_sink ()" link="VipsThreadState.html#vips-sink"/>
+    <function name="vips_sink_tile ()" link="VipsThreadState.html#vips-sink-tile"/>
+    <function name="VipsSinkNotify ()" link="VipsThreadState.html#VipsSinkNotify"/>
+    <function name="vips_sink_screen ()" link="VipsThreadState.html#vips-sink-screen"/>
+    <function name="vips_sink_memory ()" link="VipsThreadState.html#vips-sink-memory"/>
+    <function name="im__print_renders ()" link="VipsThreadState.html#im--print-renders"/>
+    <function name="im_concurrency_set ()" link="VipsThreadState.html#im-concurrency-set"/>
+    <function name="im_concurrency_get ()" link="VipsThreadState.html#im-concurrency-get"/>
+    <function name="im_error_buffer ()" link="libvips-error.html#im-error-buffer"/>
+    <function name="im_error_clear ()" link="libvips-error.html#im-error-clear"/>
+    <function name="im_error ()" link="libvips-error.html#im-error"/>
+    <function name="im_verror ()" link="libvips-error.html#im-verror"/>
+    <function name="im_error_system ()" link="libvips-error.html#im-error-system"/>
+    <function name="im_verror_system ()" link="libvips-error.html#im-verror-system"/>
+    <function name="im_warn ()" link="libvips-error.html#im-warn"/>
+    <function name="im_vwarn ()" link="libvips-error.html#im-vwarn"/>
+    <function name="im_diag ()" link="libvips-error.html#im-diag"/>
+    <function name="im_vdiag ()" link="libvips-error.html#im-vdiag"/>
+    <function name="error_exit ()" link="libvips-error.html#error-exit"/>
+    <function name="IM_NEW()" link="libvips-memory.html#IM-NEW:CAPS"/>
+    <function name="IM_ARRAY()" link="libvips-memory.html#IM-ARRAY:CAPS"/>
+    <function name="im_malloc ()" link="libvips-memory.html#im-malloc"/>
+    <function name="im_free ()" link="libvips-memory.html#im-free"/>
+    <function name="VipsBuf" link="libvips-buf.html#VipsBuf"/>
+    <function name="VIPS_BUF_STATIC()" link="libvips-buf.html#VIPS-BUF-STATIC:CAPS"/>
+    <function name="vips_buf_rewind ()" link="libvips-buf.html#vips-buf-rewind"/>
+    <function name="vips_buf_destroy ()" link="libvips-buf.html#vips-buf-destroy"/>
+    <function name="vips_buf_init ()" link="libvips-buf.html#vips-buf-init"/>
+    <function name="vips_buf_set_static ()" link="libvips-buf.html#vips-buf-set-static"/>
+    <function name="vips_buf_set_dynamic ()" link="libvips-buf.html#vips-buf-set-dynamic"/>
+    <function name="vips_buf_init_static ()" link="libvips-buf.html#vips-buf-init-static"/>
+    <function name="vips_buf_init_dynamic ()" link="libvips-buf.html#vips-buf-init-dynamic"/>
+    <function name="vips_buf_appendns ()" link="libvips-buf.html#vips-buf-appendns"/>
+    <function name="vips_buf_appends ()" link="libvips-buf.html#vips-buf-appends"/>
+    <function name="vips_buf_appendf ()" link="libvips-buf.html#vips-buf-appendf"/>
+    <function name="vips_buf_vappendf ()" link="libvips-buf.html#vips-buf-vappendf"/>
+    <function name="vips_buf_appendc ()" link="libvips-buf.html#vips-buf-appendc"/>
+    <function name="vips_buf_appendsc ()" link="libvips-buf.html#vips-buf-appendsc"/>
+    <function name="vips_buf_appendgv ()" link="libvips-buf.html#vips-buf-appendgv"/>
+    <function name="vips_buf_removec ()" link="libvips-buf.html#vips-buf-removec"/>
+    <function name="vips_buf_change ()" link="libvips-buf.html#vips-buf-change"/>
+    <function name="vips_buf_is_empty ()" link="libvips-buf.html#vips-buf-is-empty"/>
+    <function name="vips_buf_is_full ()" link="libvips-buf.html#vips-buf-is-full"/>
+    <function name="vips_buf_all ()" link="libvips-buf.html#vips-buf-all"/>
+    <function name="vips_buf_firstline ()" link="libvips-buf.html#vips-buf-firstline"/>
+    <function name="vips_buf_appendg ()" link="libvips-buf.html#vips-buf-appendg"/>
+    <function name="vips_buf_appendd ()" link="libvips-buf.html#vips-buf-appendd"/>
+    <function name="vips_buf_len ()" link="libvips-buf.html#vips-buf-len"/>
+    <function name="im_measure_area ()" link="libvips-arithmetic.html#im-measure-area"/>
+    <function name="im_stats ()" link="libvips-arithmetic.html#im-stats"/>
+    <function name="im_max ()" link="libvips-arithmetic.html#im-max"/>
+    <function name="im_min ()" link="libvips-arithmetic.html#im-min"/>
+    <function name="im_avg ()" link="libvips-arithmetic.html#im-avg"/>
+    <function name="im_deviate ()" link="libvips-arithmetic.html#im-deviate"/>
+    <function name="im_maxpos ()" link="libvips-arithmetic.html#im-maxpos"/>
+    <function name="im_minpos ()" link="libvips-arithmetic.html#im-minpos"/>
+    <function name="im_maxpos_avg ()" link="libvips-arithmetic.html#im-maxpos-avg"/>
+    <function name="im_maxpos_vec ()" link="libvips-arithmetic.html#im-maxpos-vec"/>
+    <function name="im_minpos_vec ()" link="libvips-arithmetic.html#im-minpos-vec"/>
+    <function name="im_bandmean ()" link="libvips-arithmetic.html#im-bandmean"/>
+    <function name="im_add ()" link="libvips-arithmetic.html#im-add"/>
+    <function name="im_subtract ()" link="libvips-arithmetic.html#im-subtract"/>
+    <function name="im_invert ()" link="libvips-arithmetic.html#im-invert"/>
+    <function name="im_lintra ()" link="libvips-arithmetic.html#im-lintra"/>
+    <function name="im_lintra_vec ()" link="libvips-arithmetic.html#im-lintra-vec"/>
+    <function name="im_multiply ()" link="libvips-arithmetic.html#im-multiply"/>
+    <function name="im_divide ()" link="libvips-arithmetic.html#im-divide"/>
+    <function name="im_remainder ()" link="libvips-arithmetic.html#im-remainder"/>
+    <function name="im_remainder_vec ()" link="libvips-arithmetic.html#im-remainder-vec"/>
+    <function name="im_remainderconst ()" link="libvips-arithmetic.html#im-remainderconst"/>
+    <function name="im_recomb ()" link="libvips-arithmetic.html#im-recomb"/>
+    <function name="im_sign ()" link="libvips-arithmetic.html#im-sign"/>
+    <function name="im_abs ()" link="libvips-arithmetic.html#im-abs"/>
+    <function name="im_floor ()" link="libvips-arithmetic.html#im-floor"/>
+    <function name="im_rint ()" link="libvips-arithmetic.html#im-rint"/>
+    <function name="im_ceil ()" link="libvips-arithmetic.html#im-ceil"/>
+    <function name="im_linreg ()" link="libvips-arithmetic.html#im-linreg"/>
+    <function name="im_point ()" link="libvips-arithmetic.html#im-point"/>
+    <function name="im_point_bilinear ()" link="libvips-arithmetic.html#im-point-bilinear"/>
+    <function name="im_powtra ()" link="libvips-arithmetic.html#im-powtra"/>
+    <function name="im_powtra_vec ()" link="libvips-arithmetic.html#im-powtra-vec"/>
+    <function name="im_exptra ()" link="libvips-arithmetic.html#im-exptra"/>
+    <function name="im_exp10tra ()" link="libvips-arithmetic.html#im-exp10tra"/>
+    <function name="im_expntra ()" link="libvips-arithmetic.html#im-expntra"/>
+    <function name="im_expntra_vec ()" link="libvips-arithmetic.html#im-expntra-vec"/>
+    <function name="im_logtra ()" link="libvips-arithmetic.html#im-logtra"/>
+    <function name="im_log10tra ()" link="libvips-arithmetic.html#im-log10tra"/>
+    <function name="im_sintra ()" link="libvips-arithmetic.html#im-sintra"/>
+    <function name="im_costra ()" link="libvips-arithmetic.html#im-costra"/>
+    <function name="im_tantra ()" link="libvips-arithmetic.html#im-tantra"/>
+    <function name="im_asintra ()" link="libvips-arithmetic.html#im-asintra"/>
+    <function name="im_acostra ()" link="libvips-arithmetic.html#im-acostra"/>
+    <function name="im_atantra ()" link="libvips-arithmetic.html#im-atantra"/>
+    <function name="im_cross_phase ()" link="libvips-arithmetic.html#im-cross-phase"/>
+    <function name="im_andimage ()" link="libvips-boolean.html#im-andimage"/>
+    <function name="im_orimage ()" link="libvips-boolean.html#im-orimage"/>
+    <function name="im_eorimage ()" link="libvips-boolean.html#im-eorimage"/>
+    <function name="im_andimage_vec ()" link="libvips-boolean.html#im-andimage-vec"/>
+    <function name="im_andimageconst ()" link="libvips-boolean.html#im-andimageconst"/>
+    <function name="im_orimage_vec ()" link="libvips-boolean.html#im-orimage-vec"/>
+    <function name="im_orimageconst ()" link="libvips-boolean.html#im-orimageconst"/>
+    <function name="im_eorimage_vec ()" link="libvips-boolean.html#im-eorimage-vec"/>
+    <function name="im_eorimageconst ()" link="libvips-boolean.html#im-eorimageconst"/>
+    <function name="im_shiftleft_vec ()" link="libvips-boolean.html#im-shiftleft-vec"/>
+    <function name="im_shiftleft ()" link="libvips-boolean.html#im-shiftleft"/>
+    <function name="im_shiftright_vec ()" link="libvips-boolean.html#im-shiftright-vec"/>
+    <function name="im_shiftright ()" link="libvips-boolean.html#im-shiftright"/>
+    <function name="im_equal ()" link="libvips-relational.html#im-equal"/>
+    <function name="im_notequal ()" link="libvips-relational.html#im-notequal"/>
+    <function name="im_less ()" link="libvips-relational.html#im-less"/>
+    <function name="im_lesseq ()" link="libvips-relational.html#im-lesseq"/>
+    <function name="im_more ()" link="libvips-relational.html#im-more"/>
+    <function name="im_moreeq ()" link="libvips-relational.html#im-moreeq"/>
+    <function name="im_equal_vec ()" link="libvips-relational.html#im-equal-vec"/>
+    <function name="im_notequal_vec ()" link="libvips-relational.html#im-notequal-vec"/>
+    <function name="im_less_vec ()" link="libvips-relational.html#im-less-vec"/>
+    <function name="im_lesseq_vec ()" link="libvips-relational.html#im-lesseq-vec"/>
+    <function name="im_more_vec ()" link="libvips-relational.html#im-more-vec"/>
+    <function name="im_moreeq_vec ()" link="libvips-relational.html#im-moreeq-vec"/>
+    <function name="im_equalconst ()" link="libvips-relational.html#im-equalconst"/>
+    <function name="im_notequalconst ()" link="libvips-relational.html#im-notequalconst"/>
+    <function name="im_lessconst ()" link="libvips-relational.html#im-lessconst"/>
+    <function name="im_lesseqconst ()" link="libvips-relational.html#im-lesseqconst"/>
+    <function name="im_moreconst ()" link="libvips-relational.html#im-moreconst"/>
+    <function name="im_moreeqconst ()" link="libvips-relational.html#im-moreeqconst"/>
+    <function name="im_ifthenelse ()" link="libvips-relational.html#im-ifthenelse"/>
+    <function name="im_blend ()" link="libvips-relational.html#im-blend"/>
+    <function name="IM_D93_X0" link="libvips-colour.html#IM-D93-X0:CAPS"/>
+    <function name="IM_D93_Y0" link="libvips-colour.html#IM-D93-Y0:CAPS"/>
+    <function name="IM_D93_Z0" link="libvips-colour.html#IM-D93-Z0:CAPS"/>
+    <function name="IM_D75_X0" link="libvips-colour.html#IM-D75-X0:CAPS"/>
+    <function name="IM_D75_Y0" link="libvips-colour.html#IM-D75-Y0:CAPS"/>
+    <function name="IM_D75_Z0" link="libvips-colour.html#IM-D75-Z0:CAPS"/>
+    <function name="IM_D65_X0" link="libvips-colour.html#IM-D65-X0:CAPS"/>
+    <function name="IM_D65_Y0" link="libvips-colour.html#IM-D65-Y0:CAPS"/>
+    <function name="IM_D65_Z0" link="libvips-colour.html#IM-D65-Z0:CAPS"/>
+    <function name="IM_D55_X0" link="libvips-colour.html#IM-D55-X0:CAPS"/>
+    <function name="IM_D55_Y0" link="libvips-colour.html#IM-D55-Y0:CAPS"/>
+    <function name="IM_D55_Z0" link="libvips-colour.html#IM-D55-Z0:CAPS"/>
+    <function name="IM_D50_X0" link="libvips-colour.html#IM-D50-X0:CAPS"/>
+    <function name="IM_D50_Y0" link="libvips-colour.html#IM-D50-Y0:CAPS"/>
+    <function name="IM_D50_Z0" link="libvips-colour.html#IM-D50-Z0:CAPS"/>
+    <function name="IM_A_X0" link="libvips-colour.html#IM-A-X0:CAPS"/>
+    <function name="IM_A_Y0" link="libvips-colour.html#IM-A-Y0:CAPS"/>
+    <function name="IM_A_Z0" link="libvips-colour.html#IM-A-Z0:CAPS"/>
+    <function name="IM_B_X0" link="libvips-colour.html#IM-B-X0:CAPS"/>
+    <function name="IM_B_Y0" link="libvips-colour.html#IM-B-Y0:CAPS"/>
+    <function name="IM_B_Z0" link="libvips-colour.html#IM-B-Z0:CAPS"/>
+    <function name="IM_C_X0" link="libvips-colour.html#IM-C-X0:CAPS"/>
+    <function name="IM_C_Y0" link="libvips-colour.html#IM-C-Y0:CAPS"/>
+    <function name="IM_C_Z0" link="libvips-colour.html#IM-C-Z0:CAPS"/>
+    <function name="IM_E_X0" link="libvips-colour.html#IM-E-X0:CAPS"/>
+    <function name="IM_E_Y0" link="libvips-colour.html#IM-E-Y0:CAPS"/>
+    <function name="IM_E_Z0" link="libvips-colour.html#IM-E-Z0:CAPS"/>
+    <function name="IM_D3250_X0" link="libvips-colour.html#IM-D3250-X0:CAPS"/>
+    <function name="IM_D3250_Y0" link="libvips-colour.html#IM-D3250-Y0:CAPS"/>
+    <function name="IM_D3250_Z0" link="libvips-colour.html#IM-D3250-Z0:CAPS"/>
+    <function name="im_col_ab2Ch ()" link="libvips-colour.html#im-col-ab2Ch"/>
+    <function name="im_col_Ch2ab ()" link="libvips-colour.html#im-col-Ch2ab"/>
+    <function name="im_col_XYZ2Lab ()" link="libvips-colour.html#im-col-XYZ2Lab"/>
+    <function name="im_col_Lab2XYZ ()" link="libvips-colour.html#im-col-Lab2XYZ"/>
+    <function name="im_col_pythagoras ()" link="libvips-colour.html#im-col-pythagoras"/>
+    <function name="im_col_make_tables_UCS ()" link="libvips-colour.html#im-col-make-tables-UCS"/>
+    <function name="im_col_L2Lucs ()" link="libvips-colour.html#im-col-L2Lucs"/>
+    <function name="im_col_Lucs2L ()" link="libvips-colour.html#im-col-Lucs2L"/>
+    <function name="im_col_C2Cucs ()" link="libvips-colour.html#im-col-C2Cucs"/>
+    <function name="im_col_Cucs2C ()" link="libvips-colour.html#im-col-Cucs2C"/>
+    <function name="im_col_Ch2hucs ()" link="libvips-colour.html#im-col-Ch2hucs"/>
+    <function name="im_col_Chucs2h ()" link="libvips-colour.html#im-col-Chucs2h"/>
+    <function name="im_col_ab2h ()" link="libvips-colour.html#im-col-ab2h"/>
+    <function name="im_col_dECMC ()" link="libvips-colour.html#im-col-dECMC"/>
+    <function name="im_col_dE00 ()" link="libvips-colour.html#im-col-dE00"/>
+    <function name="im_Lab2LCh ()" link="libvips-colour.html#im-Lab2LCh"/>
+    <function name="im_LCh2Lab ()" link="libvips-colour.html#im-LCh2Lab"/>
+    <function name="im_LabQ2XYZ ()" link="libvips-colour.html#im-LabQ2XYZ"/>
+    <function name="im_rad2float ()" link="libvips-colour.html#im-rad2float"/>
+    <function name="im_float2rad ()" link="libvips-colour.html#im-float2rad"/>
+    <function name="im_LCh2UCS ()" link="libvips-colour.html#im-LCh2UCS"/>
+    <function name="im_Lab2LabQ ()" link="libvips-colour.html#im-Lab2LabQ"/>
+    <function name="im_Lab2LabS ()" link="libvips-colour.html#im-Lab2LabS"/>
+    <function name="im_Lab2XYZ ()" link="libvips-colour.html#im-Lab2XYZ"/>
+    <function name="im_Lab2XYZ_temp ()" link="libvips-colour.html#im-Lab2XYZ-temp"/>
+    <function name="im_Lab2UCS ()" link="libvips-colour.html#im-Lab2UCS"/>
+    <function name="im_LabQ2Lab ()" link="libvips-colour.html#im-LabQ2Lab"/>
+    <function name="im_LabQ2LabS ()" link="libvips-colour.html#im-LabQ2LabS"/>
+    <function name="im_LabS2LabQ ()" link="libvips-colour.html#im-LabS2LabQ"/>
+    <function name="im_LabS2Lab ()" link="libvips-colour.html#im-LabS2Lab"/>
+    <function name="im_UCS2XYZ ()" link="libvips-colour.html#im-UCS2XYZ"/>
+    <function name="im_UCS2LCh ()" link="libvips-colour.html#im-UCS2LCh"/>
+    <function name="im_UCS2Lab ()" link="libvips-colour.html#im-UCS2Lab"/>
+    <function name="im_XYZ2Lab ()" link="libvips-colour.html#im-XYZ2Lab"/>
+    <function name="im_XYZ2Lab_temp ()" link="libvips-colour.html#im-XYZ2Lab-temp"/>
+    <function name="im_XYZ2UCS ()" link="libvips-colour.html#im-XYZ2UCS"/>
+    <function name="im_sRGB2XYZ ()" link="libvips-colour.html#im-sRGB2XYZ"/>
+    <function name="im_XYZ2sRGB ()" link="libvips-colour.html#im-XYZ2sRGB"/>
+    <function name="im_Yxy2XYZ ()" link="libvips-colour.html#im-Yxy2XYZ"/>
+    <function name="im_XYZ2Yxy ()" link="libvips-colour.html#im-XYZ2Yxy"/>
+    <function name="im_dECMC_fromLab ()" link="libvips-colour.html#im-dECMC-fromLab"/>
+    <function name="im_dE00_fromLab ()" link="libvips-colour.html#im-dE00-fromLab"/>
+    <function name="im_dE_fromXYZ ()" link="libvips-colour.html#im-dE-fromXYZ"/>
+    <function name="im_dE_fromLab ()" link="libvips-colour.html#im-dE-fromLab"/>
+    <function name="im_lab_morph ()" link="libvips-colour.html#im-lab-morph"/>
+    <function name="enum VipsIntent" link="libvips-colour.html#VipsIntent"/>
+    <function name="im_icc_present ()" link="libvips-colour.html#im-icc-present"/>
+    <function name="im_icc_transform ()" link="libvips-colour.html#im-icc-transform"/>
+    <function name="im_icc_import ()" link="libvips-colour.html#im-icc-import"/>
+    <function name="im_icc_import_embedded ()" link="libvips-colour.html#im-icc-import-embedded"/>
+    <function name="im_icc_export_depth ()" link="libvips-colour.html#im-icc-export-depth"/>
+    <function name="im_icc_ac2rc ()" link="libvips-colour.html#im-icc-ac2rc"/>
+    <function name="im_vips2mask ()" link="libvips-conversion.html#im-vips2mask"/>
+    <function name="im_mask2vips ()" link="libvips-conversion.html#im-mask2vips"/>
+    <function name="im_copy ()" link="libvips-conversion.html#im-copy"/>
+    <function name="im_copy_set ()" link="libvips-conversion.html#im-copy-set"/>
+    <function name="im_copy_set_meta ()" link="libvips-conversion.html#im-copy-set-meta"/>
+    <function name="im_copy_morph ()" link="libvips-conversion.html#im-copy-morph"/>
+    <function name="im_copy_swap ()" link="libvips-conversion.html#im-copy-swap"/>
+    <function name="im_copy_native ()" link="libvips-conversion.html#im-copy-native"/>
+    <function name="im_copy_file ()" link="libvips-conversion.html#im-copy-file"/>
+    <function name="im_clip2fmt ()" link="libvips-conversion.html#im-clip2fmt"/>
+    <function name="im_scale ()" link="libvips-conversion.html#im-scale"/>
+    <function name="im_msb ()" link="libvips-conversion.html#im-msb"/>
+    <function name="im_msb_band ()" link="libvips-conversion.html#im-msb-band"/>
+    <function name="im_c2amph ()" link="libvips-conversion.html#im-c2amph"/>
+    <function name="im_c2rect ()" link="libvips-conversion.html#im-c2rect"/>
+    <function name="im_ri2c ()" link="libvips-conversion.html#im-ri2c"/>
+    <function name="im_c2imag ()" link="libvips-conversion.html#im-c2imag"/>
+    <function name="im_c2real ()" link="libvips-conversion.html#im-c2real"/>
+    <function name="im_scaleps ()" link="libvips-conversion.html#im-scaleps"/>
+    <function name="im_falsecolour ()" link="libvips-conversion.html#im-falsecolour"/>
+    <function name="im_gaussnoise ()" link="libvips-conversion.html#im-gaussnoise"/>
+    <function name="im_black ()" link="libvips-conversion.html#im-black"/>
+    <function name="im_text ()" link="libvips-conversion.html#im-text"/>
+    <function name="im_extract_band ()" link="libvips-conversion.html#im-extract-band"/>
+    <function name="im_extract_bands ()" link="libvips-conversion.html#im-extract-bands"/>
+    <function name="im_extract_area ()" link="libvips-conversion.html#im-extract-area"/>
+    <function name="im_extract_areabands ()" link="libvips-conversion.html#im-extract-areabands"/>
+    <function name="im_embed ()" link="libvips-conversion.html#im-embed"/>
+    <function name="im_bandjoin ()" link="libvips-conversion.html#im-bandjoin"/>
+    <function name="im_gbandjoin ()" link="libvips-conversion.html#im-gbandjoin"/>
+    <function name="im_insert ()" link="libvips-conversion.html#im-insert"/>
+    <function name="im_insert_noexpand ()" link="libvips-conversion.html#im-insert-noexpand"/>
+    <function name="im_insertset ()" link="libvips-conversion.html#im-insertset"/>
+    <function name="im_lrjoin ()" link="libvips-conversion.html#im-lrjoin"/>
+    <function name="im_tbjoin ()" link="libvips-conversion.html#im-tbjoin"/>
+    <function name="im_replicate ()" link="libvips-conversion.html#im-replicate"/>
+    <function name="im_grid ()" link="libvips-conversion.html#im-grid"/>
+    <function name="im_wrap ()" link="libvips-conversion.html#im-wrap"/>
+    <function name="im_fliphor ()" link="libvips-conversion.html#im-fliphor"/>
+    <function name="im_flipver ()" link="libvips-conversion.html#im-flipver"/>
+    <function name="im_rot90 ()" link="libvips-conversion.html#im-rot90"/>
+    <function name="im_rot180 ()" link="libvips-conversion.html#im-rot180"/>
+    <function name="im_rot270 ()" link="libvips-conversion.html#im-rot270"/>
+    <function name="im_subsample ()" link="libvips-conversion.html#im-subsample"/>
+    <function name="im_zoom ()" link="libvips-conversion.html#im-zoom"/>
+    <function name="im_system ()" link="libvips-conversion.html#im-system"/>
+    <function name="im_system_image ()" link="libvips-conversion.html#im-system-image"/>
+    <function name="im_conv ()" link="libvips-convolution.html#im-conv"/>
+    <function name="im_conv_f ()" link="libvips-convolution.html#im-conv-f"/>
+    <function name="im_convsep ()" link="libvips-convolution.html#im-convsep"/>
+    <function name="im_convsep_f ()" link="libvips-convolution.html#im-convsep-f"/>
+    <function name="im_compass ()" link="libvips-convolution.html#im-compass"/>
+    <function name="im_gradient ()" link="libvips-convolution.html#im-gradient"/>
+    <function name="im_lindetect ()" link="libvips-convolution.html#im-lindetect"/>
+    <function name="im_sharpen ()" link="libvips-convolution.html#im-sharpen"/>
+    <function name="im_grad_x ()" link="libvips-convolution.html#im-grad-x"/>
+    <function name="im_grad_y ()" link="libvips-convolution.html#im-grad-y"/>
+    <function name="im_fastcor ()" link="libvips-convolution.html#im-fastcor"/>
+    <function name="im_spcor ()" link="libvips-convolution.html#im-spcor"/>
+    <function name="im_gradcor ()" link="libvips-convolution.html#im-gradcor"/>
+    <function name="im_contrast_surface ()" link="libvips-convolution.html#im-contrast-surface"/>
+    <function name="im_addgnoise ()" link="libvips-convolution.html#im-addgnoise"/>
+    <function name="enum VipsFormatFlags" link="VipsFormat.html#VipsFormatFlags"/>
+    <function name="VipsFormat" link="VipsFormat.html#VipsFormat-struct"/>
+    <function name="VipsFormatClass" link="VipsFormat.html#VipsFormatClass"/>
+    <function name="vips_format_map ()" link="VipsFormat.html#vips-format-map"/>
+    <function name="vips_format_for_file ()" link="VipsFormat.html#vips-format-for-file"/>
+    <function name="vips_format_for_name ()" link="VipsFormat.html#vips-format-for-name"/>
+    <function name="vips_format_get_flags ()" link="VipsFormat.html#vips-format-get-flags"/>
+    <function name="vips_format_read ()" link="VipsFormat.html#vips-format-read"/>
+    <function name="vips_format_write ()" link="VipsFormat.html#vips-format-write"/>
+    <function name="im_jpeg2vips ()" link="VipsFormat.html#im-jpeg2vips"/>
+    <function name="im_vips2jpeg ()" link="VipsFormat.html#im-vips2jpeg"/>
+    <function name="im_vips2mimejpeg ()" link="VipsFormat.html#im-vips2mimejpeg"/>
+    <function name="im_vips2bufjpeg ()" link="VipsFormat.html#im-vips2bufjpeg"/>
+    <function name="im_tiff2vips ()" link="VipsFormat.html#im-tiff2vips"/>
+    <function name="im_vips2tiff ()" link="VipsFormat.html#im-vips2tiff"/>
+    <function name="im_tile_cache ()" link="VipsFormat.html#im-tile-cache"/>
+    <function name="im_magick2vips ()" link="VipsFormat.html#im-magick2vips"/>
+    <function name="im_exr2vips ()" link="VipsFormat.html#im-exr2vips"/>
+    <function name="im_ppm2vips ()" link="VipsFormat.html#im-ppm2vips"/>
+    <function name="im_vips2ppm ()" link="VipsFormat.html#im-vips2ppm"/>
+    <function name="im_analyze2vips ()" link="VipsFormat.html#im-analyze2vips"/>
+    <function name="im_csv2vips ()" link="VipsFormat.html#im-csv2vips"/>
+    <function name="im_vips2csv ()" link="VipsFormat.html#im-vips2csv"/>
+    <function name="im_png2vips ()" link="VipsFormat.html#im-png2vips"/>
+    <function name="im_vips2png ()" link="VipsFormat.html#im-vips2png"/>
+    <function name="im_raw2vips ()" link="VipsFormat.html#im-raw2vips"/>
+    <function name="im_vips2raw ()" link="VipsFormat.html#im-vips2raw"/>
+    <function name="im_mat2vips ()" link="VipsFormat.html#im-mat2vips"/>
+    <function name="im_rad2vips ()" link="VipsFormat.html#im-rad2vips"/>
+    <function name="im_vips2rad ()" link="VipsFormat.html#im-vips2rad"/>
+    <function name="enum VipsMaskType" link="libvips-freq-filt.html#VipsMaskType"/>
+    <function name="im_fwfft ()" link="libvips-freq-filt.html#im-fwfft"/>
+    <function name="im_invfft ()" link="libvips-freq-filt.html#im-invfft"/>
+    <function name="im_invfftr ()" link="libvips-freq-filt.html#im-invfftr"/>
+    <function name="im_freqflt ()" link="libvips-freq-filt.html#im-freqflt"/>
+    <function name="im_disp_ps ()" link="libvips-freq-filt.html#im-disp-ps"/>
+    <function name="im_rotquad ()" link="libvips-freq-filt.html#im-rotquad"/>
+    <function name="im_phasecor_fft ()" link="libvips-freq-filt.html#im-phasecor-fft"/>
+    <function name="im_flt_image_freq ()" link="libvips-freq-filt.html#im-flt-image-freq"/>
+    <function name="im_create_fmask ()" link="libvips-freq-filt.html#im-create-fmask"/>
+    <function name="im_fractsurf ()" link="libvips-freq-filt.html#im-fractsurf"/>
+    <function name="im_histgr ()" link="libvips-histograms-lut.html#im-histgr"/>
+    <function name="im_histnD ()" link="libvips-histograms-lut.html#im-histnD"/>
+    <function name="im_hist_indexed ()" link="libvips-histograms-lut.html#im-hist-indexed"/>
+    <function name="im_identity ()" link="libvips-histograms-lut.html#im-identity"/>
+    <function name="im_identity_ushort ()" link="libvips-histograms-lut.html#im-identity-ushort"/>
+    <function name="im_invertlut ()" link="libvips-histograms-lut.html#im-invertlut"/>
+    <function name="im_buildlut ()" link="libvips-histograms-lut.html#im-buildlut"/>
+    <function name="im_project ()" link="libvips-histograms-lut.html#im-project"/>
+    <function name="im_histnorm ()" link="libvips-histograms-lut.html#im-histnorm"/>
+    <function name="im_histcum ()" link="libvips-histograms-lut.html#im-histcum"/>
+    <function name="im_histeq ()" link="libvips-histograms-lut.html#im-histeq"/>
+    <function name="im_histspec ()" link="libvips-histograms-lut.html#im-histspec"/>
+    <function name="im_ismonotonic ()" link="libvips-histograms-lut.html#im-ismonotonic"/>
+    <function name="im_histplot ()" link="libvips-histograms-lut.html#im-histplot"/>
+    <function name="im_maplut ()" link="libvips-histograms-lut.html#im-maplut"/>
+    <function name="im_hist ()" link="libvips-histograms-lut.html#im-hist"/>
+    <function name="im_hsp ()" link="libvips-histograms-lut.html#im-hsp"/>
+    <function name="im_gammacorrect ()" link="libvips-histograms-lut.html#im-gammacorrect"/>
+    <function name="im_mpercent ()" link="libvips-histograms-lut.html#im-mpercent"/>
+    <function name="im_mpercent_hist ()" link="libvips-histograms-lut.html#im-mpercent-hist"/>
+    <function name="im_heq ()" link="libvips-histograms-lut.html#im-heq"/>
+    <function name="im_lhisteq ()" link="libvips-histograms-lut.html#im-lhisteq"/>
+    <function name="im_stdif ()" link="libvips-histograms-lut.html#im-stdif"/>
+    <function name="im_tone_build_range ()" link="libvips-histograms-lut.html#im-tone-build-range"/>
+    <function name="im_tone_build ()" link="libvips-histograms-lut.html#im-tone-build"/>
+    <function name="im_tone_analyse ()" link="libvips-histograms-lut.html#im-tone-analyse"/>
+    <function name="im_tone_map ()" link="libvips-histograms-lut.html#im-tone-map"/>
+    <function name="im_dilate ()" link="libvips-morphology.html#im-dilate"/>
+    <function name="im_erode ()" link="libvips-morphology.html#im-erode"/>
+    <function name="im_rank ()" link="libvips-morphology.html#im-rank"/>
+    <function name="im_rank_image ()" link="libvips-morphology.html#im-rank-image"/>
+    <function name="im_maxvalue ()" link="libvips-morphology.html#im-maxvalue"/>
+    <function name="im_cntlines ()" link="libvips-morphology.html#im-cntlines"/>
+    <function name="im_zerox ()" link="libvips-morphology.html#im-zerox"/>
+    <function name="im_profile ()" link="libvips-morphology.html#im-profile"/>
+    <function name="im_label_regions ()" link="libvips-morphology.html#im-label-regions"/>
+    <function name="im_affinei ()" link="libvips-resample.html#im-affinei"/>
+    <function name="im_affinei_all ()" link="libvips-resample.html#im-affinei-all"/>
+    <function name="im_stretch3 ()" link="libvips-resample.html#im-stretch3"/>
+    <function name="im_shrink ()" link="libvips-resample.html#im-shrink"/>
+    <function name="im_rightshift_size ()" link="libvips-resample.html#im-rightshift-size"/>
+    <function name="im_match_linear ()" link="libvips-resample.html#im-match-linear"/>
+    <function name="im_match_linear_search ()" link="libvips-resample.html#im-match-linear-search"/>
+    <function name="INTMASK" link="libvips-mask.html#INTMASK:CAPS"/>
+    <function name="DOUBLEMASK" link="libvips-mask.html#DOUBLEMASK:CAPS"/>
+    <function name="im_create_imask ()" link="libvips-mask.html#im-create-imask"/>
+    <function name="im_create_imaskv ()" link="libvips-mask.html#im-create-imaskv"/>
+    <function name="im_create_dmask ()" link="libvips-mask.html#im-create-dmask"/>
+    <function name="im_create_dmaskv ()" link="libvips-mask.html#im-create-dmaskv"/>
+    <function name="im_read_imask ()" link="libvips-mask.html#im-read-imask"/>
+    <function name="im_read_dmask ()" link="libvips-mask.html#im-read-dmask"/>
+    <function name="im_print_imask ()" link="libvips-mask.html#im-print-imask"/>
+    <function name="im_print_dmask ()" link="libvips-mask.html#im-print-dmask"/>
+    <function name="im_write_imask ()" link="libvips-mask.html#im-write-imask"/>
+    <function name="im_write_dmask ()" link="libvips-mask.html#im-write-dmask"/>
+    <function name="im_write_imask_name ()" link="libvips-mask.html#im-write-imask-name"/>
+    <function name="im_write_dmask_name ()" link="libvips-mask.html#im-write-dmask-name"/>
+    <function name="im_free_imask ()" link="libvips-mask.html#im-free-imask"/>
+    <function name="im_free_dmask ()" link="libvips-mask.html#im-free-dmask"/>
+    <function name="im_log_imask ()" link="libvips-mask.html#im-log-imask"/>
+    <function name="im_log_dmask ()" link="libvips-mask.html#im-log-dmask"/>
+    <function name="im_gauss_imask ()" link="libvips-mask.html#im-gauss-imask"/>
+    <function name="im_gauss_imask_sep ()" link="libvips-mask.html#im-gauss-imask-sep"/>
+    <function name="im_gauss_dmask ()" link="libvips-mask.html#im-gauss-dmask"/>
+    <function name="im_dup_imask ()" link="libvips-mask.html#im-dup-imask"/>
+    <function name="im_dup_dmask ()" link="libvips-mask.html#im-dup-dmask"/>
+    <function name="im_scale_dmask ()" link="libvips-mask.html#im-scale-dmask"/>
+    <function name="im_norm_dmask ()" link="libvips-mask.html#im-norm-dmask"/>
+    <function name="im_offsets45 ()" link="libvips-mask.html#im-offsets45"/>
+    <function name="im_offsets90 ()" link="libvips-mask.html#im-offsets90"/>
+    <function name="im_rotate_imask90 ()" link="libvips-mask.html#im-rotate-imask90"/>
+    <function name="im_rotate_imask45 ()" link="libvips-mask.html#im-rotate-imask45"/>
+    <function name="im_rotate_dmask90 ()" link="libvips-mask.html#im-rotate-dmask90"/>
+    <function name="im_rotate_dmask45 ()" link="libvips-mask.html#im-rotate-dmask45"/>
+    <function name="im_mattrn ()" link="libvips-mask.html#im-mattrn"/>
+    <function name="im_matcat ()" link="libvips-mask.html#im-matcat"/>
+    <function name="im_matmul ()" link="libvips-mask.html#im-matmul"/>
+    <function name="im_lu_decomp ()" link="libvips-mask.html#im-lu-decomp"/>
+    <function name="im_lu_solve ()" link="libvips-mask.html#im-lu-solve"/>
+    <function name="im_matinv ()" link="libvips-mask.html#im-matinv"/>
+    <function name="im_matinv_inplace ()" link="libvips-mask.html#im-matinv-inplace"/>
+    <function name="im_local_dmask ()" link="libvips-mask.html#im-local-dmask"/>
+    <function name="im_local_imask ()" link="libvips-mask.html#im-local-imask"/>
+    <function name="im_plotmask ()" link="libvips-inplace.html#im-plotmask"/>
+    <function name="im_smear ()" link="libvips-inplace.html#im-smear"/>
+    <function name="im_smudge ()" link="libvips-inplace.html#im-smudge"/>
+    <function name="im_paintrect ()" link="libvips-inplace.html#im-paintrect"/>
+    <function name="im_circle ()" link="libvips-inplace.html#im-circle"/>
+    <function name="im_insertplace ()" link="libvips-inplace.html#im-insertplace"/>
+    <function name="im_fastline ()" link="libvips-inplace.html#im-fastline"/>
+    <function name="im_fastlineuser ()" link="libvips-inplace.html#im-fastlineuser"/>
+    <function name="im_readpoint ()" link="libvips-inplace.html#im-readpoint"/>
+    <function name="im_flood ()" link="libvips-inplace.html#im-flood"/>
+    <function name="im_flood_blob ()" link="libvips-inplace.html#im-flood-blob"/>
+    <function name="im_flood_other ()" link="libvips-inplace.html#im-flood-other"/>
+    <function name="im_flood_copy ()" link="libvips-inplace.html#im-flood-copy"/>
+    <function name="im_flood_blob_copy ()" link="libvips-inplace.html#im-flood-blob-copy"/>
+    <function name="im_flood_other_copy ()" link="libvips-inplace.html#im-flood-other-copy"/>
+    <function name="im_lineset ()" link="libvips-inplace.html#im-lineset"/>
+    <function name="im_lrmerge ()" link="libvips-mosaicing.html#im-lrmerge"/>
+    <function name="im_tbmerge ()" link="libvips-mosaicing.html#im-tbmerge"/>
+    <function name="im_lrmerge1 ()" link="libvips-mosaicing.html#im-lrmerge1"/>
+    <function name="im_tbmerge1 ()" link="libvips-mosaicing.html#im-tbmerge1"/>
+    <function name="im_lrmosaic ()" link="libvips-mosaicing.html#im-lrmosaic"/>
+    <function name="im_tbmosaic ()" link="libvips-mosaicing.html#im-tbmosaic"/>
+    <function name="im_lrmosaic1 ()" link="libvips-mosaicing.html#im-lrmosaic1"/>
+    <function name="im_tbmosaic1 ()" link="libvips-mosaicing.html#im-tbmosaic1"/>
+    <function name="im_global_balance ()" link="libvips-mosaicing.html#im-global-balance"/>
+    <function name="im_global_balancef ()" link="libvips-mosaicing.html#im-global-balancef"/>
+    <function name="im_correl ()" link="libvips-mosaicing.html#im-correl"/>
+    <function name="im_remosaic ()" link="libvips-mosaicing.html#im-remosaic"/>
+    <function name="im_align_bands ()" link="libvips-mosaicing.html#im-align-bands"/>
+    <function name="im_maxpos_subpel ()" link="libvips-mosaicing.html#im-maxpos-subpel"/>
+    <function name="im_feye ()" link="libvips-other.html#im-feye"/>
+    <function name="im_eye ()" link="libvips-other.html#im-eye"/>
+    <function name="im_zone ()" link="libvips-other.html#im-zone"/>
+    <function name="im_fzone ()" link="libvips-other.html#im-fzone"/>
+    <function name="im_grey ()" link="libvips-other.html#im-grey"/>
+    <function name="im_fgrey ()" link="libvips-other.html#im-fgrey"/>
+    <function name="im_make_xy ()" link="libvips-other.html#im-make-xy"/>
+    <function name="im_benchmarkn ()" link="libvips-other.html#im-benchmarkn"/>
+    <function name="im_benchmark2 ()" link="libvips-other.html#im-benchmark2"/>
+    <function name="im_cooc_matrix ()" link="libvips-other.html#im-cooc-matrix"/>
+    <function name="im_cooc_asm ()" link="libvips-other.html#im-cooc-asm"/>
+    <function name="im_cooc_contrast ()" link="libvips-other.html#im-cooc-contrast"/>
+    <function name="im_cooc_correlation ()" link="libvips-other.html#im-cooc-correlation"/>
+    <function name="im_cooc_entropy ()" link="libvips-other.html#im-cooc-entropy"/>
+    <function name="im_glds_matrix ()" link="libvips-other.html#im-glds-matrix"/>
+    <function name="im_glds_asm ()" link="libvips-other.html#im-glds-asm"/>
+    <function name="im_glds_contrast ()" link="libvips-other.html#im-glds-contrast"/>
+    <function name="im_glds_entropy ()" link="libvips-other.html#im-glds-entropy"/>
+    <function name="im_glds_mean ()" link="libvips-other.html#im-glds-mean"/>
+    <function name="im_simcontr ()" link="libvips-other.html#im-simcontr"/>
+    <function name="im_sines ()" link="libvips-other.html#im-sines"/>
+    <function name="im_spatres ()" link="libvips-other.html#im-spatres"/>
+    <function name="im_video_v4l1 ()" link="libvips-video.html#im-video-v4l1"/>
+    <function name="im_video_test ()" link="libvips-video.html#im-video-test"/>
+    <function name="im_greyc_mask ()" link="libvips-cimg-funcs.html#im-greyc-mask"/>
+    <function name="VipsInterpolate" link="VipsInterpolate.html#VipsInterpolate-struct"/>
+    <function name="VipsInterpolateMethod ()" link="VipsInterpolate.html#VipsInterpolateMethod"/>
+    <function name="VipsInterpolateClass" link="VipsInterpolate.html#VipsInterpolateClass"/>
+    <function name="vips_interpolate ()" link="VipsInterpolate.html#vips-interpolate"/>
+    <function name="vips_interpolate_get_method ()" link="VipsInterpolate.html#vips-interpolate-get-method"/>
+    <function name="vips_interpolate_get_window_size ()" link="VipsInterpolate.html#vips-interpolate-get-window-size"/>
+    <function name="vips_interpolate_get_window_offset ()" link="VipsInterpolate.html#vips-interpolate-get-window-offset"/>
+    <function name="VIPS_TRANSFORM_SHIFT" link="VipsInterpolate.html#VIPS-TRANSFORM-SHIFT:CAPS"/>
+    <function name="VIPS_TRANSFORM_SCALE" link="VipsInterpolate.html#VIPS-TRANSFORM-SCALE:CAPS"/>
+    <function name="VIPS_INTERPOLATE_SHIFT" link="VipsInterpolate.html#VIPS-INTERPOLATE-SHIFT:CAPS"/>
+    <function name="VIPS_INTERPOLATE_SCALE" link="VipsInterpolate.html#VIPS-INTERPOLATE-SCALE:CAPS"/>
+    <function name="vips_interpolate_nearest_static ()" link="VipsInterpolate.html#vips-interpolate-nearest-static"/>
+    <function name="vips_interpolate_bilinear_static ()" link="VipsInterpolate.html#vips-interpolate-bilinear-static"/>
+    <function name="vips_interpolate_bicubic_static ()" link="VipsInterpolate.html#vips-interpolate-bicubic-static"/>
+    <function name="vips_interpolate_new ()" link="VipsInterpolate.html#vips-interpolate-new"/>
+    <function name="vips__interpolate_init ()" link="VipsInterpolate.html#vips--interpolate-init"/>
+    <function name="VipsObject" link="libvips-VipsArgument.html#VipsObject-struct"/>
+    <function name="VipsObjectClass" link="libvips-VipsArgument.html#VipsObjectClass"/>
+    <function name="enum VipsArgumentFlags" link="libvips-VipsArgument.html#VipsArgumentFlags"/>
+    <function name="VIPS_ARGUMENT_REQUIRED_INPUT" link="libvips-VipsArgument.html#VIPS-ARGUMENT-REQUIRED-INPUT:CAPS"/>
+    <function name="VIPS_ARGUMENT_OPTIONAL_INPUT" link="libvips-VipsArgument.html#VIPS-ARGUMENT-OPTIONAL-INPUT:CAPS"/>
+    <function name="VIPS_ARGUMENT_REQUIRED_OUTPUT" link="libvips-VipsArgument.html#VIPS-ARGUMENT-REQUIRED-OUTPUT:CAPS"/>
+    <function name="VIPS_ARGUMENT_OPTIONAL_OUTPUT" link="libvips-VipsArgument.html#VIPS-ARGUMENT-OPTIONAL-OUTPUT:CAPS"/>
+    <function name="VipsArgument" link="libvips-VipsArgument.html#VipsArgument"/>
+    <function name="VipsArgumentClass" link="libvips-VipsArgument.html#VipsArgumentClass"/>
+    <function name="VipsArgumentInstance" link="libvips-VipsArgument.html#VipsArgumentInstance"/>
+    <function name="VipsArgumentTable" link="libvips-VipsArgument.html#VipsArgumentTable"/>
+    <function name="vips__argument_get_instance ()" link="libvips-VipsArgument.html#vips--argument-get-instance"/>
+    <function name="vips__argument_table_lookup ()" link="libvips-VipsArgument.html#vips--argument-table-lookup"/>
+    <function name="VipsArgumentMapFn ()" link="libvips-VipsArgument.html#VipsArgumentMapFn"/>
+    <function name="vips_argument_map ()" link="libvips-VipsArgument.html#vips-argument-map"/>
+    <function name="vips_object_set_property ()" link="libvips-VipsArgument.html#vips-object-set-property"/>
+    <function name="vips_object_get_property ()" link="libvips-VipsArgument.html#vips-object-get-property"/>
+    <function name="vips_object_build ()" link="libvips-VipsArgument.html#vips-object-build"/>
+    <function name="vips_object_print_class ()" link="libvips-VipsArgument.html#vips-object-print-class"/>
+    <function name="vips_object_print ()" link="libvips-VipsArgument.html#vips-object-print"/>
+    <function name="vips_object_class_install_argument ()" link="libvips-VipsArgument.html#vips-object-class-install-argument"/>
+    <function name="VipsObjectSetArguments ()" link="libvips-VipsArgument.html#VipsObjectSetArguments"/>
+    <function name="vips_object_new ()" link="libvips-VipsArgument.html#vips-object-new"/>
+    <function name="vips_object_new_from_string ()" link="libvips-VipsArgument.html#vips-object-new-from-string"/>
+    <function name="vips_object_to_string ()" link="libvips-VipsArgument.html#vips-object-to-string"/>
+    <function name="The &quot;description&quot; property" link="libvips-VipsArgument.html#VipsObject--description"/>
+    <function name="The &quot;nickname&quot; property" link="libvips-VipsArgument.html#VipsObject--nickname"/>
+    <function name="Transformation" link="libvips-transform.html#Transformation"/>
+    <function name="im__transform_init ()" link="libvips-transform.html#im--transform-init"/>
+    <function name="im__transform_calc_inverse ()" link="libvips-transform.html#im--transform-calc-inverse"/>
+    <function name="im__transform_isidentity ()" link="libvips-transform.html#im--transform-isidentity"/>
+    <function name="im__transform_add ()" link="libvips-transform.html#im--transform-add"/>
+    <function name="im__transform_print ()" link="libvips-transform.html#im--transform-print"/>
+    <function name="im__transform_forward_point ()" link="libvips-transform.html#im--transform-forward-point"/>
+    <function name="im__transform_invert_point ()" link="libvips-transform.html#im--transform-invert-point"/>
+    <function name="im__transform_forward_rect ()" link="libvips-transform.html#im--transform-forward-rect"/>
+    <function name="im__transform_invert_rect ()" link="libvips-transform.html#im--transform-invert-rect"/>
+    <function name="im__transform_set_area ()" link="libvips-transform.html#im--transform-set-area"/>
+    <function name="im__affine ()" link="libvips-transform.html#im--affine"/>
+    <function name="IM_PI" link="libvips-util.html#IM-PI:CAPS"/>
+    <function name="IM_RAD()" link="libvips-util.html#IM-RAD:CAPS"/>
+    <function name="IM_DEG()" link="libvips-util.html#IM-DEG:CAPS"/>
+    <function name="IM_MAX()" link="libvips-util.html#IM-MAX:CAPS"/>
+    <function name="IM_MIN()" link="libvips-util.html#IM-MIN:CAPS"/>
+    <function name="IM_ABS()" link="libvips-util.html#IM-ABS:CAPS"/>
+    <function name="IM_CLIP()" link="libvips-util.html#IM-CLIP:CAPS"/>
+    <function name="IM_NUMBER()" link="libvips-util.html#IM-NUMBER:CAPS"/>
+    <function name="IM_FREEF()" link="libvips-util.html#IM-FREEF:CAPS"/>
+    <function name="IM_FREE()" link="libvips-util.html#IM-FREE:CAPS"/>
+    <function name="IM_SETSTR()" link="libvips-util.html#IM-SETSTR:CAPS"/>
+    <function name="IM_UNROLL()" link="libvips-util.html#IM-UNROLL:CAPS"/>
+    <function name="IM_RINT()" link="libvips-util.html#IM-RINT:CAPS"/>
+    <function name="IM_CLIP_UCHAR()" link="libvips-util.html#IM-CLIP-UCHAR:CAPS"/>
+    <function name="IM_CLIP_USHORT()" link="libvips-util.html#IM-CLIP-USHORT:CAPS"/>
+    <function name="IM_CLIP_CHAR()" link="libvips-util.html#IM-CLIP-CHAR:CAPS"/>
+    <function name="IM_CLIP_SHORT()" link="libvips-util.html#IM-CLIP-SHORT:CAPS"/>
+    <function name="IM_CLIP_NONE()" link="libvips-util.html#IM-CLIP-NONE:CAPS"/>
+    <function name="im_construct_fn ()" link="libvips-util.html#im-construct-fn"/>
+    <function name="im_local ()" link="libvips-util.html#im-local"/>
+    <function name="im_local_array ()" link="libvips-util.html#im-local-array"/>
+    <function name="im__break_token ()" link="libvips-util.html#im--break-token"/>
+    <function name="VSListMap2Fn ()" link="libvips-util.html#VSListMap2Fn"/>
+    <function name="VSListMap4Fn ()" link="libvips-util.html#VSListMap4Fn"/>
+    <function name="VSListFold2Fn ()" link="libvips-util.html#VSListFold2Fn"/>
+    <function name="im_slist_equal ()" link="libvips-util.html#im-slist-equal"/>
+    <function name="im_slist_map2 ()" link="libvips-util.html#im-slist-map2"/>
+    <function name="im_slist_map2_rev ()" link="libvips-util.html#im-slist-map2-rev"/>
+    <function name="im_slist_map4 ()" link="libvips-util.html#im-slist-map4"/>
+    <function name="im_slist_fold2 ()" link="libvips-util.html#im-slist-fold2"/>
+    <function name="im_slist_filter ()" link="libvips-util.html#im-slist-filter"/>
+    <function name="im_slist_free_all ()" link="libvips-util.html#im-slist-free-all"/>
+    <function name="im_map_equal ()" link="libvips-util.html#im-map-equal"/>
+    <function name="im_hash_table_map ()" link="libvips-util.html#im-hash-table-map"/>
+    <function name="VipsTypeMap ()" link="libvips-util.html#VipsTypeMap"/>
+    <function name="VipsTypeMap2 ()" link="libvips-util.html#VipsTypeMap2"/>
+    <function name="VipsClassMap ()" link="libvips-util.html#VipsClassMap"/>
+    <function name="vips_type_map ()" link="libvips-util.html#vips-type-map"/>
+    <function name="vips_type_map_concrete_all ()" link="libvips-util.html#vips-type-map-concrete-all"/>
+    <function name="vips_class_map_concrete_all ()" link="libvips-util.html#vips-class-map-concrete-all"/>
+    <function name="vips_class_find ()" link="libvips-util.html#vips-class-find"/>
+    <function name="vips_type_find ()" link="libvips-util.html#vips-type-find"/>
+    <function name="im_strncpy ()" link="libvips-util.html#im-strncpy"/>
+    <function name="im_strrstr ()" link="libvips-util.html#im-strrstr"/>
+    <function name="im_strdup ()" link="libvips-util.html#im-strdup"/>
+    <function name="im_ispostfix ()" link="libvips-util.html#im-ispostfix"/>
+    <function name="im_isprefix ()" link="libvips-util.html#im-isprefix"/>
+    <function name="im_vsnprintf ()" link="libvips-util.html#im-vsnprintf"/>
+    <function name="im_snprintf ()" link="libvips-util.html#im-snprintf"/>
+    <function name="im_break_token ()" link="libvips-util.html#im-break-token"/>
+    <function name="im_skip_dir ()" link="libvips-util.html#im-skip-dir"/>
+    <function name="im_filename_split ()" link="libvips-util.html#im-filename-split"/>
+    <function name="im_filename_suffix ()" link="libvips-util.html#im-filename-suffix"/>
+    <function name="im_filename_suffix_match ()" link="libvips-util.html#im-filename-suffix-match"/>
+    <function name="im_getnextoption ()" link="libvips-util.html#im-getnextoption"/>
+    <function name="im_getsuboption ()" link="libvips-util.html#im-getsuboption"/>
+    <function name="im_file_length ()" link="libvips-util.html#im-file-length"/>
+    <function name="im__write ()" link="libvips-util.html#im--write"/>
+    <function name="im__file_open_read ()" link="libvips-util.html#im--file-open-read"/>
+    <function name="im__file_open_write ()" link="libvips-util.html#im--file-open-write"/>
+    <function name="im__file_read ()" link="libvips-util.html#im--file-read"/>
+    <function name="im__file_read_name ()" link="libvips-util.html#im--file-read-name"/>
+    <function name="im__file_write ()" link="libvips-util.html#im--file-write"/>
+    <function name="enum VipsToken" link="libvips-util.html#VipsToken"/>
+    <function name="vips__token_get ()" link="libvips-util.html#vips--token-get"/>
+    <function name="vips__token_must ()" link="libvips-util.html#vips--token-must"/>
+    <function name="vips__token_need ()" link="libvips-util.html#vips--token-need"/>
+    <function name="im_existsf ()" link="libvips-util.html#im-existsf"/>
+    <function name="im_popenf ()" link="libvips-util.html#im-popenf"/>
+    <function name="im_ispoweroftwo ()" link="libvips-util.html#im-ispoweroftwo"/>
+    <function name="im_isvips ()" link="libvips-util.html#im-isvips"/>
+    <function name="im_amiMSBfirst ()" link="libvips-util.html#im-amiMSBfirst"/>
+    <function name="im__temp_name ()" link="libvips-util.html#im--temp-name"/>
+    <function name="im__open_temp ()" link="libvips-util.html#im--open-temp"/>
+    <function name="im_bits_of_fmt ()" link="libvips-util.html#im-bits-of-fmt"/>
+    <function name="IM_VERSION" link="libvips-version.html#IM-VERSION:CAPS"/>
+    <function name="IM_VERSION_STRING" link="libvips-version.html#IM-VERSION-STRING:CAPS"/>
+    <function name="IM_MAJOR_VERSION" link="libvips-version.html#IM-MAJOR-VERSION:CAPS"/>
+    <function name="IM_MINOR_VERSION" link="libvips-version.html#IM-MINOR-VERSION:CAPS"/>
+    <function name="IM_MICRO_VERSION" link="libvips-version.html#IM-MICRO-VERSION:CAPS"/>
+    <function name="IM_INTERFACE_AGE" link="libvips-version.html#IM-INTERFACE-AGE:CAPS"/>
+    <function name="IM_BINARY_AGE" link="libvips-version.html#IM-BINARY-AGE:CAPS"/>
+    <function name="IM_TYPE_NAME_DOUBLE" link="libvips-type.html#IM-TYPE-NAME-DOUBLE:CAPS"/>
+    <function name="IM_TYPE_NAME_INT" link="libvips-type.html#IM-TYPE-NAME-INT:CAPS"/>
+    <function name="IM_TYPE_NAME_COMPLEX" link="libvips-type.html#IM-TYPE-NAME-COMPLEX:CAPS"/>
+    <function name="IM_TYPE_NAME_STRING" link="libvips-type.html#IM-TYPE-NAME-STRING:CAPS"/>
+    <function name="IM_TYPE_NAME_IMASK" link="libvips-type.html#IM-TYPE-NAME-IMASK:CAPS"/>
+    <function name="IM_TYPE_NAME_DMASK" link="libvips-type.html#IM-TYPE-NAME-DMASK:CAPS"/>
+    <function name="IM_TYPE_NAME_IMAGE" link="libvips-type.html#IM-TYPE-NAME-IMAGE:CAPS"/>
+    <function name="IM_TYPE_NAME_DISPLAY" link="libvips-type.html#IM-TYPE-NAME-DISPLAY:CAPS"/>
+    <function name="IM_TYPE_NAME_GVALUE" link="libvips-type.html#IM-TYPE-NAME-GVALUE:CAPS"/>
+    <function name="IM_TYPE_NAME_ARRAY" link="libvips-type.html#IM-TYPE-NAME-ARRAY:CAPS"/>
+    <function name="IM_TYPE_IM" link="libvips-type.html#IM-TYPE-IM:CAPS"/>
+    <function name="IM_TYPE_AR()" link="libvips-type.html#IM-TYPE-AR:CAPS"/>
+    <function name="im_type_t" link="libvips-type.html#im-type-t"/>
+    <function name="im_value_t" link="libvips-type.html#im-value-t"/>
+    <function name="im_value_mask_t" link="libvips-type.html#im-value-mask-t"/>
+    <function name="im_value_array_t" link="libvips-type.html#im-value-array-t"/>
+    <function name="enum im_argument_flags" link="libvips-type.html#im-argument-flags"/>
+    <function name="im_argument_t" link="libvips-type.html#im-argument-t"/>
+    <function name="enum im_operation_flags" link="libvips-type.html#im-operation-flags"/>
+    <function name="im_operation_dispatch_fn ()" link="libvips-type.html#im-operation-dispatch-fn"/>
+    <function name="im_operation_t" link="libvips-type.html#im-operation-t"/>
+    <function name="im_type_register ()" link="libvips-type.html#im-type-register"/>
+    <function name="im_type_map ()" link="libvips-type.html#im-type-map"/>
+    <function name="im_type_lookup ()" link="libvips-type.html#im-type-lookup"/>
+    <function name="im_operation_register ()" link="libvips-type.html#im-operation-register"/>
+    <function name="im_operation_registerv ()" link="libvips-type.html#im-operation-registerv"/>
+    <function name="im_operation_map ()" link="libvips-type.html#im-operation-map"/>
+    <function name="im_operation_lookup ()" link="libvips-type.html#im-operation-lookup"/>
+    <function name="im_argument_new ()" link="libvips-type.html#im-argument-new"/>
+    <function name="Rect" link="libvips-rect.html#Rect"/>
+    <function name="IM_RECT_RIGHT()" link="libvips-rect.html#IM-RECT-RIGHT:CAPS"/>
+    <function name="IM_RECT_BOTTOM()" link="libvips-rect.html#IM-RECT-BOTTOM:CAPS"/>
+    <function name="IM_RECT_HCENTRE()" link="libvips-rect.html#IM-RECT-HCENTRE:CAPS"/>
+    <function name="IM_RECT_VCENTRE()" link="libvips-rect.html#IM-RECT-VCENTRE:CAPS"/>
+    <function name="im_rect_marginadjust ()" link="libvips-rect.html#im-rect-marginadjust"/>
+    <function name="im_rect_includespoint ()" link="libvips-rect.html#im-rect-includespoint"/>
+    <function name="im_rect_includesrect ()" link="libvips-rect.html#im-rect-includesrect"/>
+    <function name="im_rect_intersectrect ()" link="libvips-rect.html#im-rect-intersectrect"/>
+    <function name="im_rect_isempty ()" link="libvips-rect.html#im-rect-isempty"/>
+    <function name="im_rect_unionrect ()" link="libvips-rect.html#im-rect-unionrect"/>
+    <function name="im_rect_equalsrect ()" link="libvips-rect.html#im-rect-equalsrect"/>
+    <function name="im_rect_dup ()" link="libvips-rect.html#im-rect-dup"/>
+    <function name="im_rect_normalise ()" link="libvips-rect.html#im-rect-normalise"/>
+    <function name="im_semaphore_t" link="libvips-semaphore.html#im-semaphore-t"/>
+    <function name="im_semaphore_up ()" link="libvips-semaphore.html#im-semaphore-up"/>
+    <function name="im_semaphore_down ()" link="libvips-semaphore.html#im-semaphore-down"/>
+    <function name="im_semaphore_upn ()" link="libvips-semaphore.html#im-semaphore-upn"/>
+    <function name="im_semaphore_downn ()" link="libvips-semaphore.html#im-semaphore-downn"/>
+    <function name="im_semaphore_destroy ()" link="libvips-semaphore.html#im-semaphore-destroy"/>
+    <function name="im_semaphore_init ()" link="libvips-semaphore.html#im-semaphore-init"/>
+    <function name="IM_TYPE_IMAGEVEC" link="libvips-dispatch.html#IM-TYPE-IMAGEVEC:CAPS"/>
+    <function name="IM_TYPE_DOUBLEVEC" link="libvips-dispatch.html#IM-TYPE-DOUBLEVEC:CAPS"/>
+    <function name="IM_TYPE_INTVEC" link="libvips-dispatch.html#IM-TYPE-INTVEC:CAPS"/>
+    <function name="IM_TYPE_DOUBLE" link="libvips-dispatch.html#IM-TYPE-DOUBLE:CAPS"/>
+    <function name="IM_TYPE_INT" link="libvips-dispatch.html#IM-TYPE-INT:CAPS"/>
+    <function name="IM_TYPE_COMPLEX" link="libvips-dispatch.html#IM-TYPE-COMPLEX:CAPS"/>
+    <function name="IM_TYPE_STRING" link="libvips-dispatch.html#IM-TYPE-STRING:CAPS"/>
+    <function name="IM_TYPE_IMASK" link="libvips-dispatch.html#IM-TYPE-IMASK:CAPS"/>
+    <function name="IM_TYPE_DMASK" link="libvips-dispatch.html#IM-TYPE-DMASK:CAPS"/>
+    <function name="IM_TYPE_IMAGE" link="libvips-dispatch.html#IM-TYPE-IMAGE:CAPS"/>
+    <function name="IM_TYPE_DISPLAY" link="libvips-dispatch.html#IM-TYPE-DISPLAY:CAPS"/>
+    <function name="IM_TYPE_GVALUE" link="libvips-dispatch.html#IM-TYPE-GVALUE:CAPS"/>
+    <function name="IM_TYPE_INTERPOLATE" link="libvips-dispatch.html#IM-TYPE-INTERPOLATE:CAPS"/>
+    <function name="im_arg_type" link="libvips-dispatch.html#im-arg-type"/>
+    <function name="im_object" link="libvips-dispatch.html#im-object"/>
+    <function name="enum im_type_flags" link="libvips-dispatch.html#im-type-flags"/>
+    <function name="im_init_obj_fn ()" link="libvips-dispatch.html#im-init-obj-fn"/>
+    <function name="im_dest_obj_fn ()" link="libvips-dispatch.html#im-dest-obj-fn"/>
+    <function name="im_type_desc" link="libvips-dispatch.html#im-type-desc"/>
+    <function name="im_print_obj_fn ()" link="libvips-dispatch.html#im-print-obj-fn"/>
+    <function name="im_arg_desc" link="libvips-dispatch.html#im-arg-desc"/>
+    <function name="im_dispatch_fn ()" link="libvips-dispatch.html#im-dispatch-fn"/>
+    <function name="IM_MAX_ARGS" link="libvips-dispatch.html#IM-MAX-ARGS:CAPS"/>
+    <function name="enum im_fn_flags" link="libvips-dispatch.html#im-fn-flags"/>
+    <function name="im_function" link="libvips-dispatch.html#im-function"/>
+    <function name="im_package" link="libvips-dispatch.html#im-package"/>
+    <function name="im_mask_object" link="libvips-dispatch.html#im-mask-object"/>
+    <function name="im_doublevec_object" link="libvips-dispatch.html#im-doublevec-object"/>
+    <function name="im_intvec_object" link="libvips-dispatch.html#im-intvec-object"/>
+    <function name="im_imagevec_object" link="libvips-dispatch.html#im-imagevec-object"/>
+    <function name="im__input_int" link="libvips-dispatch.html#im--input-int"/>
+    <function name="im__input_intvec" link="libvips-dispatch.html#im--input-intvec"/>
+    <function name="im__input_imask" link="libvips-dispatch.html#im--input-imask"/>
+    <function name="im__output_int" link="libvips-dispatch.html#im--output-int"/>
+    <function name="im__output_intvec" link="libvips-dispatch.html#im--output-intvec"/>
+    <function name="im__output_imask" link="libvips-dispatch.html#im--output-imask"/>
+    <function name="im__input_double" link="libvips-dispatch.html#im--input-double"/>
+    <function name="im__input_doublevec" link="libvips-dispatch.html#im--input-doublevec"/>
+    <function name="im__input_dmask" link="libvips-dispatch.html#im--input-dmask"/>
+    <function name="im__output_double" link="libvips-dispatch.html#im--output-double"/>
+    <function name="im__output_doublevec" link="libvips-dispatch.html#im--output-doublevec"/>
+    <function name="im__output_dmask" link="libvips-dispatch.html#im--output-dmask"/>
+    <function name="im__output_dmask_screen" link="libvips-dispatch.html#im--output-dmask-screen"/>
+    <function name="im__output_complex" link="libvips-dispatch.html#im--output-complex"/>
+    <function name="im__input_string" link="libvips-dispatch.html#im--input-string"/>
+    <function name="im__output_string" link="libvips-dispatch.html#im--output-string"/>
+    <function name="im__input_imagevec" link="libvips-dispatch.html#im--input-imagevec"/>
+    <function name="im__input_image" link="libvips-dispatch.html#im--input-image"/>
+    <function name="im__output_image" link="libvips-dispatch.html#im--output-image"/>
+    <function name="im__rw_image" link="libvips-dispatch.html#im--rw-image"/>
+    <function name="im__input_display" link="libvips-dispatch.html#im--input-display"/>
+    <function name="im__output_display" link="libvips-dispatch.html#im--output-display"/>
+    <function name="im__input_gvalue" link="libvips-dispatch.html#im--input-gvalue"/>
+    <function name="im__output_gvalue" link="libvips-dispatch.html#im--output-gvalue"/>
+    <function name="im__input_interpolate" link="libvips-dispatch.html#im--input-interpolate"/>
+    <function name="im__iprint ()" link="libvips-dispatch.html#im--iprint"/>
+    <function name="im__ivprint ()" link="libvips-dispatch.html#im--ivprint"/>
+    <function name="im__dprint ()" link="libvips-dispatch.html#im--dprint"/>
+    <function name="im__dvprint ()" link="libvips-dispatch.html#im--dvprint"/>
+    <function name="im__dmsprint ()" link="libvips-dispatch.html#im--dmsprint"/>
+    <function name="im__cprint ()" link="libvips-dispatch.html#im--cprint"/>
+    <function name="im__sprint ()" link="libvips-dispatch.html#im--sprint"/>
+    <function name="im__displayprint ()" link="libvips-dispatch.html#im--displayprint"/>
+    <function name="im__gprint ()" link="libvips-dispatch.html#im--gprint"/>
+    <function name="IM_INPUT_INT()" link="libvips-dispatch.html#IM-INPUT-INT:CAPS"/>
+    <function name="IM_INPUT_INTVEC()" link="libvips-dispatch.html#IM-INPUT-INTVEC:CAPS"/>
+    <function name="IM_INPUT_IMASK()" link="libvips-dispatch.html#IM-INPUT-IMASK:CAPS"/>
+    <function name="IM_OUTPUT_INT()" link="libvips-dispatch.html#IM-OUTPUT-INT:CAPS"/>
+    <function name="IM_OUTPUT_INTVEC()" link="libvips-dispatch.html#IM-OUTPUT-INTVEC:CAPS"/>
+    <function name="IM_OUTPUT_IMASK()" link="libvips-dispatch.html#IM-OUTPUT-IMASK:CAPS"/>
+    <function name="IM_INPUT_DOUBLE()" link="libvips-dispatch.html#IM-INPUT-DOUBLE:CAPS"/>
+    <function name="IM_INPUT_DOUBLEVEC()" link="libvips-dispatch.html#IM-INPUT-DOUBLEVEC:CAPS"/>
+    <function name="IM_INPUT_DMASK()" link="libvips-dispatch.html#IM-INPUT-DMASK:CAPS"/>
+    <function name="IM_OUTPUT_DOUBLE()" link="libvips-dispatch.html#IM-OUTPUT-DOUBLE:CAPS"/>
+    <function name="IM_OUTPUT_DOUBLEVEC()" link="libvips-dispatch.html#IM-OUTPUT-DOUBLEVEC:CAPS"/>
+    <function name="IM_OUTPUT_DMASK()" link="libvips-dispatch.html#IM-OUTPUT-DMASK:CAPS"/>
+    <function name="IM_OUTPUT_DMASK_STATS()" link="libvips-dispatch.html#IM-OUTPUT-DMASK-STATS:CAPS"/>
+    <function name="IM_OUTPUT_COMPLEX()" link="libvips-dispatch.html#IM-OUTPUT-COMPLEX:CAPS"/>
+    <function name="IM_INPUT_STRING()" link="libvips-dispatch.html#IM-INPUT-STRING:CAPS"/>
+    <function name="IM_OUTPUT_STRING()" link="libvips-dispatch.html#IM-OUTPUT-STRING:CAPS"/>
+    <function name="IM_INPUT_IMAGE()" link="libvips-dispatch.html#IM-INPUT-IMAGE:CAPS"/>
+    <function name="IM_INPUT_IMAGEVEC()" link="libvips-dispatch.html#IM-INPUT-IMAGEVEC:CAPS"/>
+    <function name="IM_OUTPUT_IMAGE()" link="libvips-dispatch.html#IM-OUTPUT-IMAGE:CAPS"/>
+    <function name="IM_RW_IMAGE()" link="libvips-dispatch.html#IM-RW-IMAGE:CAPS"/>
+    <function name="IM_INPUT_DISPLAY()" link="libvips-dispatch.html#IM-INPUT-DISPLAY:CAPS"/>
+    <function name="IM_OUTPUT_DISPLAY()" link="libvips-dispatch.html#IM-OUTPUT-DISPLAY:CAPS"/>
+    <function name="IM_INPUT_GVALUE()" link="libvips-dispatch.html#IM-INPUT-GVALUE:CAPS"/>
+    <function name="IM_OUTPUT_GVALUE()" link="libvips-dispatch.html#IM-OUTPUT-GVALUE:CAPS"/>
+    <function name="IM_INPUT_INTERPOLATE()" link="libvips-dispatch.html#IM-INPUT-INTERPOLATE:CAPS"/>
+    <function name="im_load_plugin ()" link="libvips-dispatch.html#im-load-plugin"/>
+    <function name="im_load_plugins ()" link="libvips-dispatch.html#im-load-plugins"/>
+    <function name="im_close_plugins ()" link="libvips-dispatch.html#im-close-plugins"/>
+    <function name="im_map_packages ()" link="libvips-dispatch.html#im-map-packages"/>
+    <function name="im_find_function ()" link="libvips-dispatch.html#im-find-function"/>
+    <function name="im_find_package ()" link="libvips-dispatch.html#im-find-package"/>
+    <function name="im_package_of_function ()" link="libvips-dispatch.html#im-package-of-function"/>
+    <function name="im_free_vargv ()" link="libvips-dispatch.html#im-free-vargv"/>
+    <function name="im_allocate_vargv ()" link="libvips-dispatch.html#im-allocate-vargv"/>
+    <function name="im_run_command ()" link="libvips-dispatch.html#im-run-command"/>
+  </functions>
+</book>

@@ -1,0 +1,668 @@
+# Process this file with autoconf to produce a configure script.
+AC_INIT(libvips/include/vips/colour.h)
+AM_CONFIG_HEADER(config.h)
+AC_CONFIG_MACRO_DIR(m4)
+
+# user-visible library versioning
+m4_define([vips_major_version], [7])
+m4_define([vips_minor_version], [22])
+m4_define([vips_micro_version], [1])
+m4_define([vips_version],
+          [vips_major_version.vips_minor_version.vips_micro_version])
+
+IM_MAJOR_VERSION=vips_major_version
+IM_MINOR_VERSION=vips_minor_version
+IM_MICRO_VERSION=vips_micro_version
+IM_VERSION=vips_version()
+IM_VERSION_STRING=$IM_VERSION-`date`
+
+VERSION=$IM_VERSION
+PACKAGE=vips
+
+# libtool library versioning ... not user-visible (except as part of the
+# library file name) and does not correspond to major/minor/micro above
+
+# rules:
+# sources changed: increment revision
+# interface changed: increment current, reset revision to 0
+#   interface changes backwards compatible?: increment age
+#   interface changes not backwards compatible?: reset age to 0
+
+LIBRARY_CURRENT=29
+LIBRARY_REVISION=2
+LIBRARY_AGE=14
+
+AM_INIT_AUTOMAKE($PACKAGE,$VERSION)
+
+# patched into include/vips/version.h
+AC_SUBST(IM_VERSION)
+AC_SUBST(IM_VERSION_STRING)
+AC_SUBST(IM_MAJOR_VERSION)
+AC_SUBST(IM_MINOR_VERSION)
+AC_SUBST(IM_MICRO_VERSION)
+
+# put into library name by libsrc/Makefile.am and libsrcCC/Makefile.am
+AC_SUBST(LIBRARY_CURRENT)
+AC_SUBST(LIBRARY_REVISION)
+AC_SUBST(LIBRARY_AGE)
+
+AC_CANONICAL_HOST
+
+AC_DEFINE_UNQUOTED(G_LOG_DOMAIN, "VIPS", [Domain for glib logging messages.])
+
+# disable debugging by default for production releases
+m4_define([debug_default],
+  m4_if(m4_eval(vips_minor_version() % 2), [1], [yes], [minimum]))
+
+AC_ARG_ENABLE(debug,
+  AC_HELP_STRING([--enable-debug=@<:@no/minimum/yes@:>@],
+    [turn on debugging @<:@default=debug_default()@:>@]),,
+  enable_debug=debug_default())
+
+if test "x$enable_debug" = "xyes"; then
+  VIPS_DEBUG_FLAGS="-DDEBUG_FATAL -DDEBUG_LEAK"
+else
+  VIPS_DEBUG_FLAGS="-DG_DISABLE_CAST_CHECKS"
+
+  if test "x$enable_debug" = "xno"; then
+    VIPS_DEBUG_FLAGS="-DG_DISABLE_ASSERT -DG_DISABLE_CHECKS"
+  fi
+fi
+
+AC_MSG_CHECKING([for native Win32])
+case "$host" in
+  *-*-mingw*)
+    vips_os_win32=yes
+    ;;
+  *)
+    vips_os_win32=no
+    ;;
+esac
+AC_MSG_RESULT([$vips_os_win32])
+
+if test x"$vips_os_win32" = "xyes"; then
+  AC_DEFINE(OS_WIN32,1,[native win32])
+
+  # makes gcc use win native alignment
+  VIPS_CFLAGS="-mms-bitfields $VIPS_CFLAGS"
+fi
+
+# CImg needs flags changed on win32
+if test x"$vips_os_win32" = "xyes"; then
+  AM_CONDITIONAL(OS_WIN32, true)
+else
+  AM_CONDITIONAL(OS_WIN32, false)
+fi
+
+# Cygwin/mingw need binary open to avoid CR/LF madness
+# ... should be a better way to test for this
+AC_MSG_CHECKING([for binary open needed])
+case "$host_os" in
+  cygwin* | mingw*)
+    vips_binary_open=yes
+    ;;
+  *)
+    vips_binary_open=no
+    ;;
+esac
+AC_MSG_RESULT([$vips_binary_open])
+if test x"$vips_binary_open" = "xyes"; then
+  AC_DEFINE(BINARY_OPEN,1,[define to open non-text files in binary mode])
+fi
+
+AC_MSG_CHECKING([for Mac OS X])
+case "$host" in
+  *-*-darwin*)
+    vips_os_darwin=yes
+    ;;
+  *)
+    vips_os_darwin=no
+    ;;
+esac
+AC_MSG_RESULT([$vips_os_darwin])
+
+if test x"$vips_os_darwin" = x"yes"; then
+  AC_DEFINE(VIPS_OS_DARWIN,1,[native Mac OS X])
+fi
+
+# set the default directory for ICC profiles
+if test x"$vips_os_darwin" = x"yes"; then
+  profile_dir="/Library/ColorSync/Profiles"
+elif test x"$vips_os_win32" = x"yes"; then
+  profile_dir="C:\\Windows\\System32\\spool\\drivers\\color"
+else
+  profile_dir="/usr/share/color/icc"
+fi
+AC_DEFINE_UNQUOTED(VIPS_ICC_DIR,"$profile_dir",[default directory for ICC profiles])
+
+# we want largefile support, if possible
+AC_SYS_LARGEFILE
+
+# Checks for programs.
+AC_PROG_AWK
+AC_PROG_CC
+AC_PROG_CC_STDC
+AC_C_CONST
+AC_C_RESTRICT
+AC_PROG_RANLIB
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AM_WITH_DMALLOC
+
+# option to build without C++
+# handy for some embedded applications
+# also, including C++ source causes link problems on some
+# platforms, so have an option to disable it
+AC_ARG_ENABLE(cxx, 
+  AS_HELP_STRING([--enable-cxx], [build C++ components (default: enabled)]))
+
+if test x"$enable_cxx" != "xno"; then
+  AC_PROG_CXX
+  AC_DEFINE(ENABLE_CXX,1,[build C++ components])
+  AM_CONDITIONAL(ENABLE_CXX, true)
+  enable_cxx=yes
+else
+  AM_CONDITIONAL(ENABLE_CXX, false)
+  enable_cxx=no
+fi
+
+# we need a fully expanded version of $libdir
+# without this we get something like
+#    define IM_LIBDIR ${exec_prefix}/lib
+# argh
+test "x$exec_prefix" = xNONE && exec_prefix='${prefix}'
+
+# set $expanded_value to the full-expanded value of the argument
+expand () {
+	eval expanded_value=$1
+
+	if test x"$expanded_value" != x"$1"; then
+		expand "$expanded_value"
+	fi
+}
+
+expand $libdir
+IM_LIBDIR=$expanded_value
+
+# vips.c/im_guess_prefix.c need to know the exe suffix and (as a fallback)
+# the configure-time install prefix
+AC_DEFINE_UNQUOTED(IM_EXEEXT,"$EXEEXT",[extension for executable files])
+AC_DEFINE_UNQUOTED(IM_PREFIX,"$prefix",[configure-time install prefix])
+AC_DEFINE_UNQUOTED(IM_LIBDIR,"$IM_LIBDIR",[configure-time library directory])
+
+# i18n
+GETTEXT_PACKAGE=vips7
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE",
+        [The prefix for our gettext translation domains.])
+# the 'malkovich' one is there for testing only, remove for release
+#ALL_LINGUAS="en_GB de malkovich"
+ALL_LINGUAS="en_GB de"
+AM_GLIB_GNU_GETTEXT
+
+# C++ fails to compile mysteriously without gettext ... fail here
+if test x"$gt_cv_have_gettext" != x"yes"; then
+  AC_MSG_ERROR([gettext not found])
+fi
+
+# Checks for libraries.
+
+# build list of pkg-config packages we used here
+PACKAGES_USED=""
+
+# Checks for header files.
+AC_HEADER_DIRENT
+AC_HEADER_STDC
+AC_CHECK_HEADERS([errno.h math.h fcntl.h limits.h stdlib.h string.h sys/file.h sys/ioctl.h sys/param.h sys/time.h sys/mman.h sys/types.h sys/stat.h unistd.h io.h direct.h windows.h])
+
+# uncomment to change which libs we build
+# AC_DISABLE_SHARED
+# AC_DISABLE_STATIC
+AC_LIBTOOL_WIN32_DLL
+AC_CHECK_TOOL(DLLWRAP, dllwrap)
+AC_CHECK_TOOL(DLLTOOL, dlltool)
+AC_CHECK_TOOL(OBJDUMP, objdump)
+AC_CHECK_TOOL(RANLIB, ranlib)
+AC_CHECK_TOOL(STRIP, strip)
+AC_CHECK_TOOL(AR, ar)
+AC_CHECK_TOOL(AS, as)
+AC_CHECK_TOOL(LD, ld)
+AC_PROVIDE([AC_LIBTOOL_WIN32_DLL])
+AC_PROG_LIBTOOL
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_MODE_T
+AC_TYPE_OFF_T
+AC_TYPE_SIZE_T
+
+# Checks for library functions.
+AC_FUNC_MEMCMP
+AC_FUNC_MMAP
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS([getcwd gettimeofday getwd memset munmap putenv realpath strcasecmp strchr strcspn strdup strerror strrchr strspn vsnprintf realpath mkstemp mktemp random rand sysconf])
+AC_CHECK_LIB(m,cbrt,[AC_DEFINE(HAVE_CBRT,1,[have cbrt() in libm.])])
+AC_CHECK_LIB(m,hypot,[AC_DEFINE(HAVE_HYPOT,1,[have hypot() in libm.])])
+
+# have to have these
+# need glib 2.6 for GOption
+PKG_CHECK_MODULES(REQUIRED, glib-2.0 >= 2.6 gmodule-2.0 >= 2.4 libxml-2.0 gobject-2.0)
+PACKAGES_USED="$PACKAGES_USED glib-2.0 gmodule-2.0 libxml-2.0 gobject-2.0"
+
+# option to make im_* symlinks
+AC_ARG_ENABLE(links, 
+  AS_HELP_STRING([--enable-links], [make links for operations (default: no)]))
+
+if test x"$enable_links" = x"yes"; then
+  # tested by src/iofuncs/Makefile.am:install-exec-hook
+  AM_CONDITIONAL(ENABLE_LINKS, true)
+  enable_links=yes
+else
+  AM_CONDITIONAL(ENABLE_LINKS, false)
+  enable_links=no
+fi
+
+# option to eval without threads
+AC_ARG_ENABLE(threads, 
+  AS_HELP_STRING([--enable-threads], [evaluate with threads (default: yes)]))
+
+if test x"$enable_threads" != "xno"; then
+  AC_DEFINE(HAVE_THREADS,1,[threaded evaluation])
+  PKG_CHECK_MODULES(GTHREAD, gthread-2.0)
+  PACKAGES_USED="$PACKAGES_USED gthread-2.0"
+  enable_threads=yes
+fi
+
+# check for gtk-doc
+GTK_DOC_CHECK(1.9)
+
+# optional supporting libraries
+
+# we can wrap fftw3 and fftw2 ... but just look for fftw3, since we can do
+# that with pkg-config
+AC_ARG_WITH([fftw3], 
+  AS_HELP_STRING([--without-fftw3], [build without fftw3 (default: test)]))
+
+if test x"$with_fftw3" != "xno"; then
+  PKG_CHECK_MODULES(FFTW3, fftw3,
+    [AC_DEFINE(HAVE_FFTW3,1,[define if you have fftw3 installed.])
+     with_fftw3=yes
+     PACKAGES_USED="$PACKAGES_USED fftw3"],
+    [AC_MSG_WARN([fftw3 not found; disabling fftw support]) 
+     with_fftw3=no])
+fi
+
+# ImageMagick ... detect attribute iteration too
+# Optionally look for GraphicsMagick instead ... use
+# --with-magickpackage=GraphicsMagick
+AC_ARG_WITH([magick], 
+  AS_HELP_STRING([--without-magick], [build without libMagic (default: test)]))
+AC_ARG_WITH([magickpackage], 
+  AS_HELP_STRING([--with-magickpackage], 
+    [magickpackage to use (default: MagickWand, ImageMagick)]))
+
+# recent versions of ImageMagick have split parts of the library off to
+# MagickWand, so by default we test for that first
+if test x"$with_magickpackage" = "x"; then
+  PKG_CHECK_MODULES(MAGICK_WAND, MagickWand,
+    [with_magickpackage=MagickWand],
+    [PKG_CHECK_MODULES(IMAGE_MAGICK, ImageMagick,
+     [with_magickpackage=ImageMagick],
+     [AC_MSG_WARN([neither MagickWand nor ImageMagick found; disabling Magick support])
+      with_magick=no
+     ])])
+fi
+
+if test x"$with_magick" != "xno"; then
+  PKG_CHECK_MODULES(MAGICK, $with_magickpackage, 
+    [AC_DEFINE(HAVE_MAGICK,1,[define if you have libMagick installed.])
+     with_magick=yes
+     PACKAGES_USED="$PACKAGES_USED $with_magickpackage"],
+    [AC_MSG_WARN([$with_magickpackage not found; disabling Magick support])
+     with_magick=no
+    ])
+fi
+
+if test x"$with_magick" != "xno"; then
+  # we SetImageOption to disable some DICOM read processing, but that's only
+  # in more recent imagemagicks and not in graphicsmagick
+  save_LIBS=$LIBS
+  LIBS="$LIBS $MAGICK_LIBS"
+  AC_CHECK_FUNCS(SetImageOption,
+    AC_DEFINE(HAVE_SETIMAGEOPTION,1,
+	      [define if your magick has SetImageOption.]))
+  LIBS=$save_LIBS
+fi
+
+if test x"$with_magick" != "xno"; then
+  # newer ImageMagicks use MagickCoreGenesis instead of InitializeMagick argh
+  save_LIBS=$LIBS
+  LIBS="$LIBS $MAGICK_LIBS"
+  AC_CHECK_FUNCS(MagickCoreGenesis,
+    AC_DEFINE(HAVE_MAGICKCOREGENESIS,1,
+	      [define if your magick has MagickCoreGenesis.]))
+  LIBS=$save_LIBS
+fi
+
+if test x"$with_magick" != "xno"; then
+  # newer ImageMagicks use ResetImagePropertyIterator instead of
+  # ResetImageAttributeIterator argh
+  save_LIBS=$LIBS
+  LIBS="$LIBS $MAGICK_LIBS"
+  AC_CHECK_FUNCS(ResetImagePropertyIterator,
+    AC_DEFINE(HAVE_RESETIMAGEPROPERTYITERATOR,1,
+	      [define if your magick has ResetImagePropertyIterator.]))
+  LIBS=$save_LIBS
+fi
+
+if test x"$with_magick" != "xno"; then
+  # so ... do we have ResetImageAttributeIterator()? GM does not
+  save_LIBS=$LIBS
+  LIBS="$LIBS $MAGICK_LIBS"
+  AC_CHECK_FUNCS(ResetImageAttributeIterator,
+    AC_DEFINE(HAVE_RESETIMAGEATTRIBUTEITERATOR,1,
+	      [define if your magick has ResetImageAttributeIterator.]))
+  LIBS=$save_LIBS
+fi
+
+if test x"$with_magick" != "xno"; then
+  # more recent magicks have GetVirtualPixels rather than GetImagePixels
+  save_LIBS=$LIBS
+  LIBS="$LIBS $MAGICK_LIBS"
+  AC_CHECK_FUNCS(GetVirtualPixels,
+    AC_DEFINE(HAVE_GETVIRTUALPIXELS,1,
+	      [define if your magick has GetVirtualPixels.]))
+  LIBS=$save_LIBS
+fi
+
+# liboil
+AC_ARG_WITH([liboil], 
+  AS_HELP_STRING([--without-liboil], [build without liboil (default: test)]))
+
+if test x"$with_liboil" != "xno"; then
+  PKG_CHECK_MODULES(LIBOIL, liboil-0.3,
+    [AC_DEFINE(HAVE_LIBOIL,1,[define if you have liboil-0.3 installed.])
+     with_liboil=yes
+     PACKAGES_USED="$PACKAGES_USED liboil-0.3"],
+    [AC_MSG_WARN([liboil not found; disabling liboil support])
+     with_liboil=no
+    ])
+fi
+
+# lcms
+AC_ARG_WITH([lcms], 
+  AS_HELP_STRING([--without-lcms], [build without lcms (default: test)]))
+
+if test x"$with_lcms" != "xno"; then
+  PKG_CHECK_MODULES(LCMS, lcms,
+    [AC_DEFINE(HAVE_LCMS,1,[define if you have lcms installed.])
+     with_lcms=yes
+     PACKAGES_USED="$PACKAGES_USED lcms"],
+    [AC_MSG_WARN([lcms not found; disabling lcms support])
+     with_lcms=no
+    ])
+fi
+
+# OpenEXR
+AC_ARG_WITH([OpenEXR], 
+  AS_HELP_STRING([--without-OpenEXR], [build without OpenEXR (default: test)]))
+
+# require 1.2.2 since 1.2.1 has a broken ImfCloseTiledInputFile()
+if test x"$with_OpenEXR" != "xno"; then
+  PKG_CHECK_MODULES(OPENEXR, OpenEXR >= 1.2.2,
+    [AC_DEFINE(HAVE_OPENEXR,1,[define if you have OpenEXR >=1.2.2 installed.])
+     with_OpenEXR=yes
+     PACKAGES_USED="$PACKAGES_USED OpenEXR"],
+    [AC_MSG_WARN([OpenEXR not found; disabling OpenEXR support])
+     with_OpenEXR=no
+    ])
+fi
+
+# matio
+AC_ARG_WITH([matio], 
+  AS_HELP_STRING([--without-matio], [build without matio (default: test)]))
+
+if test x"$with_matio" != "xno"; then
+  PKG_CHECK_MODULES(MATIO, matio,
+    [AC_DEFINE(HAVE_MATIO,1,[define if you have matio installed.])
+     with_matio=yes
+     PACKAGES_USED="$PACKAGES_USED matio"],
+    [AC_MSG_WARN([matio not found; disabling matio support])
+     with_matio=no
+    ])
+fi
+
+# pangoft2
+AC_ARG_WITH([pangoft2], 
+  AS_HELP_STRING([--without-pangoft2], 
+    [build without pangoft2 (default: test)]))
+
+if test x"$with_pangoft2" != "xno"; then
+  PKG_CHECK_MODULES(PANGOFT2, pangoft2,
+    [AC_DEFINE(HAVE_PANGOFT2,1,[define if you have pangoft2 installed.])
+     with_pangoft2=yes
+     PACKAGES_USED="$PACKAGES_USED pangoft2"],
+    [AC_MSG_WARN([pangoft2 not found; disabling pangoft2 support])
+     with_pangoft2=no
+    ])
+fi
+
+# hmm, these don't have .pc files on ubuntu 5.10, how odd
+FIND_TIFF(
+  [with_tiff=yes],
+  [AC_MSG_WARN([libtiff not found; disabling TIFF support])
+   with_tiff=no
+  ])
+FIND_ZIP(
+  [with_zip=yes],
+  [AC_MSG_WARN([libz not found; disabling ZIP support])
+   with_zip=no
+  ])
+FIND_JPEG(
+  [with_jpeg=yes],
+  [AC_MSG_WARN([libjpeg not found; disabling JPEG support])
+   with_jpeg=no
+  ])
+
+# look for PNG with pkg-config ... fall back to our tester
+AC_ARG_WITH([png], 
+  AS_HELP_STRING([--without-png], [build without libpng (default: test)]))
+
+if test x"$with_png" != "xno"; then
+  PKG_CHECK_MODULES(PNG, libpng, 
+    [AC_DEFINE(HAVE_PNG,1,[define if you have libpng installed.])
+     with_png=yes
+     PACKAGES_USED="$PACKAGES_USED libpng"],
+    [FIND_PNG(,
+     [AC_MSG_WARN([libpng not found; disabling PNG support])
+      with_png=no
+     ])
+    ])
+fi
+
+# libexif
+AC_ARG_WITH([libexif], 
+  AS_HELP_STRING([--without-libexif], [build without libexif (default: test)]))
+
+if test x"$with_libexif" != "xno"; then
+  PKG_CHECK_MODULES(EXIF, libexif >= 0.6,
+    [AC_DEFINE(HAVE_EXIF,1,[define if you have libexif >= 0.6 installed.])
+     with_libexif=yes
+     PACKAGES_USED="$PACKAGES_USED libexif"],
+    [AC_MSG_WARN([libexif >= 0.6 not found; disabling exif support])
+     with_libexif=no
+    ])
+fi
+
+# some libexif packages need include <libexif/poop.h>, some just <poop.h>
+# how annoying
+if test x"$with_libexif" != "xno"; then
+  # cppflags not cflags because we want the preproc to see the -I as well
+  save_CPPFLAGS=$CPPFLAGS
+  CPPFLAGS="$EXIF_CFLAGS $CPPFLAGS"
+  AC_CHECK_HEADER(exif-data.h,
+    AC_DEFINE(UNTAGGED_EXIF,1,[libexif includes don't need libexif prefix]))
+  CPPFLAGS=$save_CPPFLAGS
+fi
+
+# Look for linux video
+AC_ARG_WITH([v4l], 
+  AS_HELP_STRING([--without-v4l], [build without video4linux (default: test)]))
+
+if test x"$with_v4l" != "xno"; then
+  # try a compile as well: if we're using icc the header can break
+  # even try assigning to vc.type: if this works, surely the header is
+  # functional
+  AC_CHECK_HEADER(linux/videodev.h, 
+    [AC_TRY_COMPILE([#include <linux/videodev.h>], 
+		    [struct video_capability vc; vc.type = 12], 
+		     with_videodev=yes)
+    ])
+fi
+
+if test x"$with_videodev" = x"yes"; then
+  AC_DEFINE(HAVE_VIDEODEV,1,[have video4linux 1])
+  with_v4l=yes
+else
+  AC_MSG_WARN([linux/videodev.h not functional; disabling Linux video support])
+  with_v4l=no
+fi
+
+# make python binding?
+AC_ARG_WITH([python], 
+  AS_HELP_STRING([--without-python], 
+    [build without Python bindings (default: test)]))
+
+if test x"$with_python" != "xno"; then
+  if test x"$enable_cxx" = "xno"; then
+    # if C++ if off, we can't do Python
+    with_python=no
+    AC_MSG_WARN([C++ is off, disabling Python binding])
+  else
+    AM_PATH_PYTHON(2.2,,
+      [with_python=no
+       AC_MSG_WARN([Python not found; disabling Python binding])])
+  fi
+fi
+
+if test x"$with_python" != "xno"; then
+  AM_CHECK_PYTHON_HEADERS(,
+    [with_python=no
+     AC_MSG_WARN([Python headers not found])])
+fi
+
+# we don't check for swig: we include the generated bindings in the
+# distribution
+
+if test x"$with_python" != x"no"; then
+  AM_CONDITIONAL(HAVE_PYTHON, true)
+  with_python=yes
+else
+  AM_CONDITIONAL(HAVE_PYTHON, false)
+fi
+
+# Gather all up for VIPS_CFLAGS, VIPS_INCLUDES, VIPS_LIBS and VIPS_CXX_LIBS
+# sort includes to get longer, more specific dirs first
+# helps, for example, selecting graphicsmagick over imagemagick
+VIPS_CFLAGS=`for i in $VIPS_CFLAGS $GTHREAD_CFLAGS $REQUIRED_CFLAGS $PANGOFT2_CFLAGS $FFTW3_CFLAGS $MAGICK_CFLAGS $PNG_CFLAGS $EXIF_CFLAGS $MATIO_CFLAGS $OPENEXR_CFLAGS $LIBOIL_CFLAGS 
+do 
+  echo $i 
+done | sort -ru`
+VIPS_CFLAGS=`echo $VIPS_CFLAGS`
+VIPS_CFLAGS="$VIPS_DEBUG_FLAGS $VIPS_CFLAGS"
+VIPS_INCLUDES="$PNG_INCLUDES $TIFF_INCLUDES $ZIP_INCLUDES $JPEG_INCLUDES $FFTW_INCLUDES $LCMS_INCLUDES" 
+VIPS_LIBS="$MAGICK_LIBS $PNG_LIBS $TIFF_LIBS $ZIP_LIBS $JPEG_LIBS $GTHREAD_LIBS $REQUIRED_LIBS $PANGOFT2_LIBS $FFTW3_LIBS $FFTW_LIBS $LCMS_LIBS $LIBOIL_LIBS $OPENEXR_LIBS $MATIO_LIBS $EXIF_LIBS -lm"
+# need -lstdc++ for (eg.) the C++ format loaders
+VIPS_CXX_LIBS="-lstdc++"
+
+# we need this to generate paths in swig/python/setup.py.in
+AC_SUBST(top_srcdir)
+AC_SUBST(IM_LIBDIR)
+
+AC_SUBST(VIPS_CFLAGS)
+AC_SUBST(VIPS_INCLUDES)
+AC_SUBST(VIPS_LIBS)
+AC_SUBST(VIPS_CXX_LIBS)
+AC_SUBST(PACKAGES_USED)
+
+# you'd think we could have 
+#	vips-$IM_MAJOR_VERSION.$IM_MINOR_VERSION.pc
+# in AC_OUTPUT, but that seems to break for some combinations of sh/m4
+AC_OUTPUT([
+	vips-7.22.pc
+	vipsCC-7.22.pc
+	Makefile 
+	libvips/include/vips/version.h 
+	libvips/include/Makefile 
+	libvips/include/vips/Makefile 
+	libvips/Makefile 
+	libvips/acquire/Makefile 
+	libvips/arithmetic/Makefile 
+	libvips/boolean/Makefile 
+	libvips/cimg/Makefile 
+	libvips/colour/Makefile 
+	libvips/conversion/Makefile 
+	libvips/convolution/Makefile 
+	libvips/deprecated/Makefile 
+	libvips/format/Makefile 
+	libvips/freq_filt/Makefile 
+	libvips/histograms_lut/Makefile 
+	libvips/inplace/Makefile 
+	libvips/iofuncs/Makefile 
+	libvips/mask/Makefile 
+	libvips/morphology/Makefile 
+	libvips/mosaicing/Makefile 
+	libvips/other/Makefile 
+	libvips/relational/Makefile 
+	libvips/resample/Makefile 
+	libvips/video/Makefile 
+	libvipsCC/include/Makefile 
+	libvipsCC/include/vips/Makefile 
+	libvipsCC/Makefile 
+	tools/Makefile 
+	tools/iofuncs/Makefile 
+	tools/mosaicing/Makefile 
+	tools/other/Makefile 
+	tools/scripts/Makefile 
+	tools/scripts/batch_crop 
+	tools/scripts/batch_image_convert 
+	tools/scripts/batch_rubber_sheet 
+	tools/scripts/light_correct 
+	tools/scripts/shrink_width 
+	swig/Makefile 
+	swig/vipsCC/Makefile 
+	swig/python/setup.py 
+	man/Makefile
+	doc/Makefile
+	doc/reference/Makefile
+	doc/reference/libvips-docs.sgml
+	po/Makefile.in
+])
+
+AC_MSG_RESULT([
+* general build options
+native win32:				$vips_os_win32
+native OS X:				$vips_os_darwin
+open files in binary mode: 		$vips_binary_open
+enable debug:				$enable_debug
+build C++ components:			$enable_cxx
+evaluate with threads: 			$enable_threads
+make symlinks for commands in bin: 	$enable_links
+build docs with gtkdoc 			$enable_gtk_doc
+
+* optional packages and modules
+use fftw3 for FFT: 			$with_fftw3
+Magick package: 			$with_magickpackage
+file import with libMagick: 		$with_magick
+accelerate loops with liboil: 		$with_liboil
+ICC profile support with lcms: 		$with_lcms
+file import with OpenEXR: 		$with_OpenEXR
+file import with matio: 		$with_matio
+text rendering with pangoft2: 		$with_pangoft2
+file import/export with libpng: 	$with_png
+file import/export with libtiff:	$with_tiff
+file import/export with libjpeg:	$with_jpeg
+use libexif to load/save JPEG metadata: $with_libexif
+video capture with v4l: 		$with_v4l
+build Python binding: 			$with_python
+])

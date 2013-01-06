@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# native.runconf - file containing information necessary to run a specific
+#                  program of the PARSEC benchmark suite
+#
+# Copyright (C) 2007 Princeton University
+# Written by Christian Bienia
+
+# This file contains the global run configuration of all packages for one
+# input set.
+
+# Description of the input set
+run_desc="Huge input for performance analysis on real machines"
+
+# Citations for this input set (requires matching citation file)
+pkg_cite="bienia11parsec"
+

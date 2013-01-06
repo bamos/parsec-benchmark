@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source ${PARSECDIR}/pkgs/libs/glib/parsec/gcc.bldconf
+
+# Note: We compile with thread support enabled because
+# the serial version of glib is broken.
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source ${PARSECDIR}/pkgs/apps/vips/parsec/gcc.bldconf
+
+# Override configuration
+build_conf="${vips_basic_conf} --disable-threads"
+

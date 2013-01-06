@@ -1,0 +1,1044 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>generate</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch01.html" title="Core VIPS API">
+<link rel="prev" href="libvips-region.html" title="region">
+<link rel="next" href="VipsThreadState.html" title="VipsThreadState">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-region.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="VipsThreadState.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-generate.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-generate.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="generate">
+<a name="libvips-generate"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-generate.top_of_page"></a>generate</span></h2>
+<p>generate — calculate pixels and pixel buffers</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-generate.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-generate.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()">im_prepare</a>                          (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-prepare-to" title="im_prepare_to ()">im_prepare_to</a>                       (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *dest</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">void</span> *              (<a class="link" href="libvips-generate.html#im-start-fn" title="im_start_fn ()">*im_start_fn</a>)                      (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="libvips-generate.html#im-generate-fn" title="im_generate_fn ()">*im_generate_fn</a>)                   (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="libvips-generate.html#im-stop-fn" title="im_stop_fn ()">*im_stop_fn</a>)                       (<em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">void</span> *              <a class="link" href="libvips-generate.html#im-start-one" title="im_start_one ()">im_start_one</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-stop-one" title="im_stop_one ()">im_stop_one</a>                         (<em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy1</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy2</code></em>);
+<span class="returnvalue">void</span> *              <a class="link" href="libvips-generate.html#im-start-many" title="im_start_many ()">im_start_many</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-stop-many" title="im_stop_many ()">im_stop_many</a>                        (<em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy1</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy2</code></em>);
+<span class="returnvalue">IMAGE</span> **            <a class="link" href="libvips-generate.html#im-allocate-input-array" title="im_allocate_input_array ()">im_allocate_input_array</a>             (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()">im_generate</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-start-fn" title="im_start_fn ()"><span class="type">im_start_fn</span></a> start</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-generate-fn" title="im_generate_fn ()"><span class="type">im_generate_fn</span></a> generate</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-stop-fn" title="im_stop_fn ()"><span class="type">im_stop_fn</span></a> stop</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-iterate" title="im_iterate ()">im_iterate</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-start-fn" title="im_start_fn ()"><span class="type">im_start_fn</span></a> start</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-generate-fn" title="im_generate_fn ()"><span class="type">im_generate_fn</span></a> generate</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-stop-fn" title="im_stop_fn ()"><span class="type">im_stop_fn</span></a> stop</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-demand-hint-array" title="im_demand_hint_array ()">im_demand_hint_array</a>                (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">im_demand_type</span> hint</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> **in</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-demand-hint" title="im_demand_hint ()">im_demand_hint</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">im_demand_type</span> hint</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="libvips-generate.html#im-wrapone-fn" title="im_wrapone_fn ()">*im_wrapone_fn</a>)                    (<em class="parameter"><code><span class="type">void</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-wrapone" title="im_wrapone ()">im_wrapone</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-wrapone-fn" title="im_wrapone_fn ()"><span class="type">im_wrapone_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="libvips-generate.html#im-wraptwo-fn" title="im_wraptwo_fn ()">*im_wraptwo_fn</a>)                    (<em class="parameter"><code><span class="type">void</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-wraptwo" title="im_wraptwo ()">im_wraptwo</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-wraptwo-fn" title="im_wraptwo_fn ()"><span class="type">im_wraptwo_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="libvips-generate.html#im-wrapmany-fn" title="im_wrapmany_fn ()">*im_wrapmany_fn</a>)                   (<em class="parameter"><code><span class="type">void</span> **in</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-wrapmany" title="im_wrapmany ()">im_wrapmany</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> **in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-wrapmany-fn" title="im_wrapmany_fn ()"><span class="type">im_wrapmany_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-render-priority" title="im_render_priority ()">im_render_priority</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> max</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> priority</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> (notify IMAGE *, Rect *, void * ) ()</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *client</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-cache" title="im_cache ()">im_cache</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> max</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-setupout" title="im_setupout ()">im_setupout</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-generate.html#im-writeline" title="im_writeline ()">im_writeline</a>                        (<em class="parameter"><code><span class="type">int</span> ypos</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *linebuffer</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-generate.description"></a><h2>Description</h2>
+<p>
+These functions let you generate regions of pixels in an image
+processing operation, and ask for regions of image to be calculated.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-generate.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_prepare ()">
+<a name="im-prepare"></a><h3>im_prepare ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_prepare                          (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);</pre>
+<p>
+<a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a> fills <em class="parameter"><code>reg</code></em> with pixels. After calling, you can address at
+least the area <em class="parameter"><code>r</code></em> with <a class="link" href="libvips-region.html#IM-REGION-ADDR:CAPS" title="IM_REGION_ADDR()"><code class="function">IM_REGION_ADDR()</code></a> and get valid pixels.
+</p>
+<p>
+<a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a> runs in-line, that is, computation is done by the calling
+thread, no new threads are involved, and computation blocks until the
+pixels are ready.
+</p>
+<p>
+Use <code class="function">im_prepare_thread()</code> to calculate an area of pixels with many
+threads. Use <a class="link" href="libvips-generate.html#im-render-priority" title="im_render_priority ()"><code class="function">im_render_priority()</code></a> to calculate an area of pixels in the 
+background.
+</p>
+<p>
+See also: <code class="function">im_prepare_thread()</code>, <a class="link" href="libvips-generate.html#im-render-priority" title="im_render_priority ()"><code class="function">im_render_priority()</code></a>, <a class="link" href="libvips-generate.html#im-prepare-to" title="im_prepare_to ()"><code class="function">im_prepare_to()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reg</code></em> :</span></p></td>
+<td>region to prepare
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>r</code></em> :</span></p></td>
+<td>
+<a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> of pixels you need to be able to address
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_prepare_to ()">
+<a name="im-prepare-to"></a><h3>im_prepare_to ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_prepare_to                       (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *reg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *dest</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Like <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>: fill <em class="parameter"><code>reg</code></em> with data, ready to be read from by our caller.
+Unlike <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>, rather than allocating memory local to <em class="parameter"><code>reg</code></em> for the
+result, we guarantee that we will fill the pixels in <em class="parameter"><code>dest</code></em> at offset <em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em>.
+In other words, we generate an extra copy operation if necessary. 
+</p>
+<p>
+Also unlike <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>, <em class="parameter"><code>dest</code></em> is not set up for writing for you with
+<a class="link" href="libvips-region.html#im-region-buffer" title="im_region_buffer ()"><code class="function">im_region_buffer()</code></a>. You can
+point <em class="parameter"><code>dest</code></em> at anything, and pixels really will be written there. 
+This makes <a class="link" href="libvips-generate.html#im-prepare-to" title="im_prepare_to ()"><code class="function">im_prepare_to()</code></a> useful for making the ends of pipelines, since
+it (effectively) makes a break in the pipe.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>, <a class="link" href="VipsThreadState.html#vips-sink-disc" title="vips_sink_disc ()"><code class="function">vips_sink_disc()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reg</code></em> :</span></p></td>
+<td>region to prepare
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
+<td>region to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>r</code></em> :</span></p></td>
+<td>
+<a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> of pixels you need to be able to address
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>postion of <em class="parameter"><code>r</code></em> in <em class="parameter"><code>dest</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>postion of <em class="parameter"><code>r</code></em> in <em class="parameter"><code>dest</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_start_fn ()">
+<a name="im-start-fn"></a><h3>im_start_fn ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              (*im_start_fn)                      (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Start a new processing sequence for this generate function. This allocates
+per-thread state, such as an input region.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-start-one" title="im_start_one ()"><code class="function">im_start_one()</code></a>, <a class="link" href="libvips-generate.html#im-start-many" title="im_start_many ()"><code class="function">im_start_many()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image being calculated
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new sequence value
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_generate_fn ()">
+<a name="im-generate-fn"></a><h3>im_generate_fn ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*im_generate_fn)                   (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Fill <em class="parameter"><code>out-&gt;valid</code></em> with pixels. <em class="parameter"><code>seq</code></em> contains per-thread state, such as the
+input regions.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>, <a class="link" href="libvips-generate.html#im-stop-many" title="im_stop_many ()"><code class="function">im_stop_many()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>
+<a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> to fill
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>seq</code></em> :</span></p></td>
+<td>sequence value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_stop_fn ()">
+<a name="im-stop-fn"></a><h3>im_stop_fn ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*im_stop_fn)                       (<em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Stop a processing sequence. This frees
+per-thread state, such as an input region.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-stop-one" title="im_stop_one ()"><code class="function">im_stop_one()</code></a>, <a class="link" href="libvips-generate.html#im-stop-many" title="im_stop_many ()"><code class="function">im_stop_many()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>seq</code></em> :</span></p></td>
+<td>sequence value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_start_one ()">
+<a name="im-start-one"></a><h3>im_start_one ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              im_start_one                        (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy</code></em>);</pre>
+<p>
+Start function for one image in. Input image is first user data.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_stop_one ()">
+<a name="im-stop-one"></a><h3>im_stop_one ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_stop_one                         (<em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy1</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy2</code></em>);</pre>
+<p>
+Stop function for one image in. Input image is first user data.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_start_many ()">
+<a name="im-start-many"></a><h3>im_start_many ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              im_start_many                       (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy</code></em>);</pre>
+<p>
+Start function for many images in. First client is a pointer to 
+a <code class="literal">NULL</code>-terminated array of input images.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>, <a class="link" href="libvips-generate.html#im-allocate-input-array" title="im_allocate_input_array ()"><code class="function">im_allocate_input_array()</code></a>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_stop_many ()">
+<a name="im-stop-many"></a><h3>im_stop_many ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_stop_many                        (<em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy1</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *dummy2</code></em>);</pre>
+<p>
+Stop function for many images in. First client is a pointer to 
+a <code class="literal">NULL</code>-terminated array of input images.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_allocate_input_array ()">
+<a name="im-allocate-input-array"></a><h3>im_allocate_input_array ()</h3>
+<pre class="programlisting"><span class="returnvalue">IMAGE</span> **            im_allocate_input_array             (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Convenience function --- make a <code class="literal">NULL</code>-terminated array of input images.
+Use with <a class="link" href="libvips-generate.html#im-start-many" title="im_start_many ()"><code class="function">im_start_many()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>, <a class="link" href="libvips-generate.html#im-start-many" title="im_start_many ()"><code class="function">im_start_many()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>free array when this image closes
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>
+<code class="literal">NULL</code>-terminated list of input images
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">NULL</code>-terminated array of images. Do not free the result.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_generate ()">
+<a name="im-generate"></a><h3>im_generate ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_generate                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-start-fn" title="im_start_fn ()"><span class="type">im_start_fn</span></a> start</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-generate-fn" title="im_generate_fn ()"><span class="type">im_generate_fn</span></a> generate</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-stop-fn" title="im_stop_fn ()"><span class="type">im_stop_fn</span></a> stop</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Generates an image. The action depends on the image type.
+</p>
+<p>
+For images opened with "p", <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a> just attaches the
+start/generate/stop callbacks and returns.
+</p>
+<p>
+For "t" images, memory is allocated for the whole image and it is entirely
+generated using <a class="link" href="VipsThreadState.html#vips-sink" title="vips_sink ()"><code class="function">vips_sink()</code></a>.
+</p>
+<p>
+For "w" images, memory for a few scanlines is allocated and
+<a class="link" href="VipsThreadState.html#vips-sink-disc" title="vips_sink_disc ()"><code class="function">vips_sink_disc()</code></a> used to generate the image in small chunks. As each
+chunk is generated, it is written to disc.
+</p>
+<p>
+See also: <a class="link" href="VipsThreadState.html#vips-sink" title="vips_sink ()"><code class="function">vips_sink()</code></a>, <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a>, <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>, <a class="link" href="libvips-generate.html#im-wrapone" title="im_wrapone ()"><code class="function">im_wrapone()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>generate this image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>start</code></em> :</span></p></td>
+<td>start sequences with this function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>generate</code></em> :</span></p></td>
+<td>generate pixels with this function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stop</code></em> :</span></p></td>
+<td>stop sequences with this function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_iterate ()">
+<a name="im-iterate"></a><h3>im_iterate ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_iterate                          (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-start-fn" title="im_start_fn ()"><span class="type">im_start_fn</span></a> start</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-generate-fn" title="im_generate_fn ()"><span class="type">im_generate_fn</span></a> generate</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-stop-fn" title="im_stop_fn ()"><span class="type">im_stop_fn</span></a> stop</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_demand_hint_array ()">
+<a name="im-demand-hint-array"></a><h3>im_demand_hint_array ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_demand_hint_array                (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">im_demand_type</span> hint</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> **in</code></em>);</pre>
+<p>
+Operations can set demand hints, that is, hints to the VIPS IO system about
+the type of region geometry this operation works best with. For example,
+operations which transform coordinates will usually work best with
+<a class="link" href="libvips-image.html#IM-SMALLTILE:CAPS"><code class="literal">IM_SMALLTILE</code></a>, operations which work on local windows of pixels will like
+<a class="link" href="libvips-image.html#IM-FATSTRIP:CAPS"><code class="literal">IM_FATSTRIP</code></a>.
+</p>
+<p>
+VIPS uses the list of input images to build the tree of operations it needs
+for the cache invalidation system. You have to call this function, or its
+varargs friend <a class="link" href="libvips-generate.html#im-demand-hint" title="im_demand_hint ()"><code class="function">im_demand_hint()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-demand-hint" title="im_demand_hint ()"><code class="function">im_demand_hint()</code></a>, <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to set hint for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hint</code></em> :</span></p></td>
+<td>hint for this image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>array of input images to this operation
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_demand_hint ()">
+<a name="im-demand-hint"></a><h3>im_demand_hint ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_demand_hint                      (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">im_demand_type</span> hint</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Build an array and call <a class="link" href="libvips-generate.html#im-demand-hint-array" title="im_demand_hint_array ()"><code class="function">im_demand_hint_array()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-demand-hint" title="im_demand_hint ()"><code class="function">im_demand_hint()</code></a>, <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to set hint for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hint</code></em> :</span></p></td>
+<td>hint for this image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>
+<code class="literal">NULL</code>-terminated list of input images to this operation
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_wrapone_fn ()">
+<a name="im-wrapone-fn"></a><h3>im_wrapone_fn ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*im_wrapone_fn)                    (<em class="parameter"><code><span class="type">void</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Given a buffer of input pixels, write a buffer of output pixels.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input pixels
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>write processed pixels here
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>number of pixels in buffer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_wrapone ()">
+<a name="im-wrapone"></a><h3>im_wrapone ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_wrapone                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-wrapone-fn" title="im_wrapone_fn ()"><span class="type">im_wrapone_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Wrap-up a buffer processing function as a PIO VIPS function.
+</p>
+<p>
+Given an input image, an
+output image and a buffer processing function, make a PIO image processing
+operation.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-wrapmany" title="im_wrapmany ()"><code class="function">im_wrapmany()</code></a>, <a class="link" href="libvips-generate.html#im-wraptwo" title="im_wraptwo ()"><code class="function">im_wraptwo()</code></a>, <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to generate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>buffer-processing function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_wraptwo_fn ()">
+<a name="im-wraptwo-fn"></a><h3>im_wraptwo_fn ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*im_wraptwo_fn)                    (<em class="parameter"><code><span class="type">void</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Given a pair of buffers of input pixels, write a buffer of output pixels.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input pixels from image 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input pixels from image 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>write processed pixels here
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>number of pixels in buffer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_wraptwo ()">
+<a name="im-wraptwo"></a><h3>im_wraptwo ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_wraptwo                          (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-wraptwo-fn" title="im_wraptwo_fn ()"><span class="type">im_wraptwo_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Wrap-up a buffer processing function as a PIO VIPS function.
+</p>
+<p>
+Given a pair of input images of the same size, an
+output image and a buffer processing function, make a PIO image processing
+operation.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-wrapone" title="im_wrapone ()"><code class="function">im_wrapone()</code></a>, <a class="link" href="libvips-generate.html#im-wrapmany" title="im_wrapmany ()"><code class="function">im_wrapmany()</code></a>, <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>first input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>second input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to generate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>buffer-processing function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_wrapmany_fn ()">
+<a name="im-wrapmany-fn"></a><h3>im_wrapmany_fn ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*im_wrapmany_fn)                   (<em class="parameter"><code><span class="type">void</span> **in</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Given an array of buffers of input pixels, write a buffer of output pixels.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>
+<code class="literal">NULL</code>-terminated array of input buffers
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>write processed pixels here
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>number of pixels in buffer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_wrapmany ()">
+<a name="im-wrapmany"></a><h3>im_wrapmany ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_wrapmany                         (<em class="parameter"><code><span class="type">IMAGE</span> **in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-generate.html#im-wrapmany-fn" title="im_wrapmany_fn ()"><span class="type">im_wrapmany_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Wrap-up a buffer processing function as a PIO VIPS function.
+</p>
+<p>
+Given a NULL-terminated list of input images all of the same size, an
+output image and a buffer processing function, make a PIO image processing
+operation.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-wrapone" title="im_wrapone ()"><code class="function">im_wrapone()</code></a>, <a class="link" href="libvips-generate.html#im-wraptwo" title="im_wraptwo ()"><code class="function">im_wraptwo()</code></a>, <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>
+<code class="literal">NULL</code>-terminated array of input images
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to generate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>buffer-processing function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_render_priority ()">
+<a name="im-render-priority"></a><h3>im_render_priority ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_render_priority                  (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> max</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> priority</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> (notify IMAGE *, Rect *, void * ) ()</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *client</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_cache ()">
+<a name="im-cache"></a><h3>im_cache ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_cache                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> max</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_setupout ()">
+<a name="im-setupout"></a><h3>im_setupout ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_setupout                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+This call gets the <span class="type">IMAGE</span> ready for scanline-based writing with 
+<a class="link" href="libvips-generate.html#im-writeline" title="im_writeline ()"><code class="function">im_writeline()</code></a>. You need to have set all the image fields, such as <em class="parameter"><code>Xsize</code></em>
+and <em class="parameter"><code>BandFmt</code></em>, before calling this. 
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-writeline" title="im_writeline ()"><code class="function">im_writeline()</code></a>, <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>, <a class="link" href="libvips-image.html#im-initdesc" title="im_initdesc ()"><code class="function">im_initdesc()</code></a>, <a class="link" href="libvips-image.html#im-cp-desc" title="im_cp_desc ()"><code class="function">im_cp_desc()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to prepare for writing
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_writeline ()">
+<a name="im-writeline"></a><h3>im_writeline ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_writeline                        (<em class="parameter"><code><span class="type">int</span> ypos</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *linebuffer</code></em>);</pre>
+<p>
+Write a line of pixels to an image. This function must be called repeatedly
+with <em class="parameter"><code>ypos</code></em> increasing from 0 to <em class="parameter"><code>YSize</code></em> -
+1. <em class="parameter"><code>linebuffer</code></em> must be <a class="link" href="libvips-image.html#IM-IMAGE-SIZEOF-LINE:CAPS" title="IM_IMAGE_SIZEOF_LINE()"><code class="function">IM_IMAGE_SIZEOF_LINE()</code></a> bytes long.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-setupout" title="im_setupout ()"><code class="function">im_setupout()</code></a>, <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ypos</code></em> :</span></p></td>
+<td>vertical position of scan-line to write
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>linebuffer</code></em> :</span></p></td>
+<td>scanline of pixels
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-generate.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-image.html" title="image">image</a>, 
+<a class="link" href="libvips-region.html" title="region">region</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

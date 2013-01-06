@@ -1,0 +1,78 @@
+THREAD_USE_OPENGL=yes
+USE_LIBJPEG=yes
+USE_FFTW=yes
+USE_OPENEXR=yes
+USE_COMPRESSION=yes
+
+# CUT OFF POINT (lines above will be preserved, lines below will be overwritten)
+# Set any necessary USE_* variables (e.g. USE_OPENGL=yes) above CUT OFF POINT.
+
+TARGETS = PhysBAM
+TARGET_TYPE = STATIC_LIBRARY
+
+LOCAL_SRC = \
+    Arrays/ARRAY_PARALLEL_OPERATIONS.cpp \
+	Collisions_And_Interactions/BOX_HIERARCHY.cpp \
+	Collisions_And_Interactions/COLLISION_BODY_LIST_3D.cpp \
+    Collisions_And_Interactions/TETRAHEDRON_COLLISION_BODY.cpp \
+    Collisions_And_Interactions/TETRAHEDRON_HIERARCHY.cpp \
+    Constitutive_Models/STRAIN_MEASURE_3D.cpp \
+	Data_Structures/SPLAY_TREE.cpp \
+	Deformable_Objects/DEFORMABLE_OBJECT.cpp \
+	Deformable_Objects/DEFORMABLE_OBJECT_3D.cpp \
+	Deformable_Objects/DEFORMABLE_OBJECT_COLLISIONS_3D.cpp \
+    Fracture/EMBEDDED_TETRAHEDRALIZED_VOLUME_BOUNDARY_SURFACE.cpp \
+	Forces_And_Torques/BODY_FORCES_3D.cpp \
+	Forces_And_Torques/DIAGONALIZED_FINITE_VOLUME_3D.cpp \
+    Geometry/BOX_2D.cpp \
+    Geometry/BOX_3D.cpp \
+    Geometry/EMBEDDED_OBJECT.cpp \
+    Geometry/EMBEDDED_TETRAHEDRALIZED_VOLUME.cpp \
+    Geometry/IMPLICIT_SURFACE.cpp \
+    Geometry/IMPLICIT_SURFACE_LIST.cpp \
+    Geometry/PLANE.cpp \
+    Geometry/SEGMENT_2D.cpp \
+    Geometry/SEGMENT_3D.cpp \
+    Geometry/SEGMENTED_CURVE_3D.cpp \
+    Geometry/TETRAHEDRALIZED_VOLUME.cpp \
+    Geometry/TETRAHEDRALIZED_VOLUME_LIST.cpp \
+    Geometry/TETRAHEDRON.cpp \
+    Geometry/TRIANGLE_3D.cpp \
+    Geometry/TRIANGULATED_OBJECT.cpp \
+    Geometry/TRIANGULATED_SURFACE.cpp \
+    Geometry/TRIANGULATED_SURFACE_LIST.cpp \
+	Grids/SEGMENT_MESH.cpp \
+	Grids/TETRAHEDRON_MESH.cpp \
+	Grids/TRIANGLE_MESH.cpp \
+	Level_Sets/LEVELSET.cpp \
+	Level_Sets/LEVELSET_3D.cpp \
+	Matrices_And_Vectors/MATRIX_3X3.cpp \
+	Matrices_And_Vectors/SYMMETRIC_MATRIX_3X3.cpp \
+	Matrices_And_Vectors/VECTOR_ND_PARALLEL.cpp \
+		Particles/PARTICLE.cpp \
+	Particles/SOLIDS_PARTICLE.cpp \
+	Read_Write/FILE_UTILITIES.cpp \
+    Rigid_Bodies/MASS_PROPERTIES_3D.cpp \
+    Rigid_Bodies/RIGID_BODY_3D.cpp \
+    Rigid_Bodies/RIGID_BODY_COLLISIONS_3D.cpp \
+    Rigid_Bodies/RIGID_BODY_EVOLUTION_3D.cpp \
+    Rigid_Bodies/RIGID_BODY_INTERSECTIONS_3D.cpp \
+	Rigid_Bodies/RIGID_BODY_LIST_3D.cpp \
+    Solids_And_Fluids/SOLIDS_EVOLUTION_3D.cpp \
+    Solids_And_Fluids/SOLIDS_FLUIDS_DRIVER.cpp \
+    Solids_And_Fluids/SOLIDS_FLUIDS_DRIVER_3D.cpp \
+    Solids_And_Fluids/SOLIDS_FLUIDS_EXAMPLE_3D.cpp \
+    Solids_And_Fluids/SOLIDS_PARAMETERS_3D.cpp \
+	Thread_Utilities/THREAD_DIVISION_PARAMETERS.cpp \
+	Thread_Utilities/THREAD_POOL_ALAMERE.cpp \
+	Thread_Utilities/THREAD_POOL.cpp \
+	Thread_Utilities/THREAD_POOL_SINGLE.cpp \
+	Thread_Utilities/THREAD_ARRAY_LOCK.cpp \
+    Utilities/DEBUG_UTILITIES.cpp \
+	Utilities/LOG.cpp \
+	Utilities/LOG_ENTRY.cpp \
+	Utilities/PARSE_ARGS.cpp \
+	Utilities/STRING_UTILITIES.cpp \
+	Utilities/TIMER.cpp  
+
+include $(PHYSBAM)/Public_Library/Makefile.common

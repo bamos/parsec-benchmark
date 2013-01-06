@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# gcc.bldconf - configuration file for PARSEC
+
+# Default parallelization is pthreads
+source ${PARSECDIR}/ext/splash2x/apps/radiosity/parsec/gcc-pthreads.bldconf
+
+

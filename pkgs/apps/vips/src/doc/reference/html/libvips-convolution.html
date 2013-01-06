@@ -1,0 +1,899 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>convolution</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch02.html" title="VIPS operation API by section">
+<link rel="prev" href="libvips-conversion.html" title="conversion">
+<link rel="next" href="VipsFormat.html" title="VipsFormat">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-conversion.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="VipsFormat.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-convolution.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-convolution.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="convolution">
+<a name="libvips-convolution"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-convolution.top_of_page"></a>convolution</span></h2>
+<p>convolution — convolve and correlate images</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-convolution.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-convolution.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()">im_conv</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-conv-f" title="im_conv_f ()">im_conv_f</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-convsep" title="im_convsep ()">im_convsep</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-convsep-f" title="im_convsep_f ()">im_convsep_f</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-compass" title="im_compass ()">im_compass</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-gradient" title="im_gradient ()">im_gradient</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-lindetect" title="im_lindetect ()">im_lindetect</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-sharpen" title="im_sharpen ()">im_sharpen</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mask_size</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> x1</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> y2</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> y3</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> m1</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> m2</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-grad-x" title="im_grad_x ()">im_grad_x</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-grad-y" title="im_grad_y ()">im_grad_y</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-fastcor" title="im_fastcor ()">im_fastcor</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-spcor" title="im_spcor ()">im_spcor</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-gradcor" title="im_gradcor ()">im_gradcor</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-contrast-surface" title="im_contrast_surface ()">im_contrast_surface</a>                 (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> half_win_size</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> spacing</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-convolution.html#im-addgnoise" title="im_addgnoise ()">im_addgnoise</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-convolution.description"></a><h2>Description</h2>
+<p>
+These operations convolve an image in some way, or are operations based on
+simple convolution, or are useful with convolution.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-convolution.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_conv ()">
+<a name="im-conv"></a><h3>im_conv ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_conv                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);</pre>
+<p>
+Convolve <em class="parameter"><code>in</code></em> with <em class="parameter"><code>mask</code></em> using integer arithmetic. The output image 
+always has the same <a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> as the input image. Non-complex images
+only.
+</p>
+<p>
+Each output pixel is
+calculated as sigma[i]{pixel[i] * mask[i]} / scale + offset, where scale
+and offset are part of <em class="parameter"><code>mask</code></em>. For integer <em class="parameter"><code>in</code></em>, the division by scale
+includes round-to-nearest.
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-conv-f" title="im_conv_f ()"><code class="function">im_conv_f()</code></a>, <a class="link" href="libvips-convolution.html#im-convsep" title="im_convsep ()"><code class="function">im_convsep()</code></a>, <a class="link" href="libvips-mask.html#im-create-imaskv" title="im_create_imaskv ()"><code class="function">im_create_imaskv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>convolution mask
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_conv_f ()">
+<a name="im-conv-f"></a><h3>im_conv_f ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_conv_f                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>);</pre>
+<p>
+Convolve <em class="parameter"><code>in</code></em> with <em class="parameter"><code>mask</code></em> using floating-point arithmetic. The output image 
+is always <a class="link" href="libvips-image.html#IM-BANDFMT-FLOAT:CAPS"><code class="literal">IM_BANDFMT_FLOAT</code></a> unless <em class="parameter"><code>in</code></em> is <a class="link" href="libvips-image.html#IM-BANDFMT-DOUBLE:CAPS"><code class="literal">IM_BANDFMT_DOUBLE</code></a>, in which case
+<em class="parameter"><code>out</code></em> is also <a class="link" href="libvips-image.html#IM-BANDFMT-DOUBLE:CAPS"><code class="literal">IM_BANDFMT_DOUBLE</code></a>. Non-complex images
+only.
+</p>
+<p>
+Each output pixel is
+calculated as sigma[i]{pixel[i] * mask[i]} / scale + offset, where scale
+and offset are part of <em class="parameter"><code>mask</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a>, <a class="link" href="libvips-convolution.html#im-convsep-f" title="im_convsep_f ()"><code class="function">im_convsep_f()</code></a>, <a class="link" href="libvips-mask.html#im-create-dmaskv" title="im_create_dmaskv ()"><code class="function">im_create_dmaskv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>convolution mask
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_convsep ()">
+<a name="im-convsep"></a><h3>im_convsep ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_convsep                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);</pre>
+<p>
+Perform a separable convolution of <em class="parameter"><code>in</code></em> with <em class="parameter"><code>mask</code></em> using integer arithmetic. 
+</p>
+<p>
+The mask must be 1xn or nx1 elements. 
+The output image 
+always has the same <a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> as the input image. Non-complex images
+only.
+</p>
+<p>
+The image is convolved twice: once with <em class="parameter"><code>mask</code></em> and then again with <em class="parameter"><code>mask</code></em> 
+rotated by 90 degrees. This is much faster for certain types of mask
+(gaussian blur, for example) than doing a full 2D convolution.
+</p>
+<p>
+Each output pixel is
+calculated as sigma[i]{pixel[i] * mask[i]} / scale + offset, where scale
+and offset are part of <em class="parameter"><code>mask</code></em>. For integer <em class="parameter"><code>in</code></em>, the division by scale
+includes round-to-nearest.
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-convsep-f" title="im_convsep_f ()"><code class="function">im_convsep_f()</code></a>, <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a>, <a class="link" href="libvips-mask.html#im-create-imaskv" title="im_create_imaskv ()"><code class="function">im_create_imaskv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>convolution mask
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_convsep_f ()">
+<a name="im-convsep-f"></a><h3>im_convsep_f ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_convsep_f                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>);</pre>
+<p>
+Perform a separable convolution of <em class="parameter"><code>in</code></em> with <em class="parameter"><code>mask</code></em> using floating-point 
+arithmetic. 
+</p>
+<p>
+The mask must be 1xn or nx1 elements. 
+The output image 
+is always <a class="link" href="libvips-image.html#IM-BANDFMT-FLOAT:CAPS"><code class="literal">IM_BANDFMT_FLOAT</code></a> unless <em class="parameter"><code>in</code></em> is <a class="link" href="libvips-image.html#IM-BANDFMT-DOUBLE:CAPS"><code class="literal">IM_BANDFMT_DOUBLE</code></a>, in which case
+<em class="parameter"><code>out</code></em> is also <a class="link" href="libvips-image.html#IM-BANDFMT-DOUBLE:CAPS"><code class="literal">IM_BANDFMT_DOUBLE</code></a>. Non-complex images
+only.
+</p>
+<p>
+The image is convolved twice: once with <em class="parameter"><code>mask</code></em> and then again with <em class="parameter"><code>mask</code></em> 
+rotated by 90 degrees. This is much faster for certain types of mask
+(gaussian blur, for example) than doing a full 2D convolution.
+</p>
+<p>
+Each output pixel is
+calculated as sigma[i]{pixel[i] * mask[i]} / scale + offset, where scale
+and offset are part of <em class="parameter"><code>mask</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-convsep" title="im_convsep ()"><code class="function">im_convsep()</code></a>, <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a>, <a class="link" href="libvips-mask.html#im-create-dmaskv" title="im_create_dmaskv ()"><code class="function">im_create_dmaskv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>convolution mask
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_compass ()">
+<a name="im-compass"></a><h3>im_compass ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_compass                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);</pre>
+<p>
+<em class="parameter"><code>in</code></em> is convolved 8 times with <em class="parameter"><code>mask</code></em>, each time <em class="parameter"><code>mask</code></em> is rotated by 45
+degrees. Each output pixel is the largest absolute value of the 8
+convolutions.
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-lindetect" title="im_lindetect ()"><code class="function">im_lindetect()</code></a>, <a class="link" href="libvips-convolution.html#im-gradient" title="im_gradient ()"><code class="function">im_gradient()</code></a>, <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>convolution mask
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_gradient ()">
+<a name="im-gradient"></a><h3>im_gradient ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_gradient                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);</pre>
+<p>
+<em class="parameter"><code>in</code></em> is convolved with <em class="parameter"><code>mask</code></em> and with <em class="parameter"><code>mask</code></em> after a 90 degree rotation. The
+result is the sum of the absolute value of the two convolutions. 
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-lindetect" title="im_lindetect ()"><code class="function">im_lindetect()</code></a>, <a class="link" href="libvips-convolution.html#im-gradient" title="im_gradient ()"><code class="function">im_gradient()</code></a>, <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>convolution mask
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_lindetect ()">
+<a name="im-lindetect"></a><h3>im_lindetect ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lindetect                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);</pre>
+<p>
+<em class="parameter"><code>in</code></em> is convolved four times with <em class="parameter"><code>mask</code></em>, each time <em class="parameter"><code>mask</code></em> is rotated by 45
+degrees. Each output pixel is the largest absolute value of the four
+convolutions.
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-compass" title="im_compass ()"><code class="function">im_compass()</code></a>, <a class="link" href="libvips-convolution.html#im-gradient" title="im_gradient ()"><code class="function">im_gradient()</code></a>, <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>convolution mask
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_sharpen ()">
+<a name="im-sharpen"></a><h3>im_sharpen ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_sharpen                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> mask_size</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> x1</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> y2</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> y3</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> m1</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> m2</code></em>);</pre>
+<p>
+Selectively sharpen the L channel of a LAB image. Works for <a class="link" href="libvips-image.html#IM-CODING-LABQ:CAPS"><code class="literal">IM_CODING_LABQ</code></a> 
+and LABS images. 
+</p>
+<p>
+The operation performs a gaussian blur of size <em class="parameter"><code>mask_size</code></em> and subtracts 
+from <em class="parameter"><code>in</code></em> to
+generate a high-frequency signal. This signal is passed through a lookup
+table formed from the five parameters and added back to <em class="parameter"><code>in</code></em>.
+</p>
+<p>
+The lookup table is formed like this:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+                      ^
+                   y2 |- - - - - -----------
+                      |         / 
+                      |        / slope m2
+                      |    .../    
+              -x1     | ...   |    
+  -------------------...----------------------&gt;
+              |   ... |      x1           
+              |... slope m1
+              /       |
+             / m2     |
+            /         |
+           /          |
+          /           |
+         /            |
+  ______/ _ _ _ _ _ _ | -y3
+                      |
+</pre></div>
+<p>
+</p>
+<p>
+For printing, we recommend the following settings:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+   mask_size == 7
+   x1 == 1.5
+   y2 == 20         (don't brighten by more than 20 L*)
+   y3 == 50         (can darken by up to 50 L*)
+
+   m1 == 1          (some sharpening in flat areas)
+   m2 == 2          (more sharpening in jaggy areas)
+</pre></div>
+<p>
+</p>
+<p>
+If you want more or less sharpening, we suggest you just change the m1 
+and m2 parameters. 
+</p>
+<p>
+The <em class="parameter"><code>mask_size</code></em> parameter changes the width of the fringe and can be 
+adjusted according to the output printing resolution. As an approximate 
+guideline, use 3 for 4 pixels/mm (CRT display resolution), 5 for 8 
+pixels/mm, 7 for 12 pixels/mm and 9 for 16 pixels/mm (300 dpi == 12 
+pixels/mm). These figures refer to the image raster, not the half-tone 
+resolution.
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask_size</code></em> :</span></p></td>
+<td>how large a mask to use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x1</code></em> :</span></p></td>
+<td>flat/jaggy threshold
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y2</code></em> :</span></p></td>
+<td>maximum amount of brightening
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y3</code></em> :</span></p></td>
+<td>maximum amount of darkening
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>m1</code></em> :</span></p></td>
+<td>slope for flat areas
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>m2</code></em> :</span></p></td>
+<td>slope for jaggy areas
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_grad_x ()">
+<a name="im-grad-x"></a><h3>im_grad_x ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_grad_x                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Find horizontal differences between adjacent pixels.
+</p>
+<p>
+Generates an image where the value of each pixel is the difference between
+it and the pixel to its right. The output has the same height as the input
+and one pixel less width. One-band integer formats only. The result is
+always <a class="link" href="libvips-image.html#IM-BANDFMT-INT:CAPS"><code class="literal">IM_BANDFMT_INT</code></a>.
+</p>
+<p>
+This operation is much faster than (though equivalent to) <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a> with the
+mask [[-1, 1]].
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-grad-y" title="im_grad_y ()"><code class="function">im_grad_y()</code></a>, <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_grad_y ()">
+<a name="im-grad-y"></a><h3>im_grad_y ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_grad_y                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Find vertical differences between adjacent pixels.
+</p>
+<p>
+Generates an image where the value of each pixel is the difference between
+it and the pixel below it. The output has the same width as the input
+and one pixel less height. One-band integer formats only. The result is
+always <a class="link" href="libvips-image.html#IM-BANDFMT-INT:CAPS"><code class="literal">IM_BANDFMT_INT</code></a>.
+</p>
+<p>
+This operation is much faster than (though equivalent to) <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a> with the
+mask [[-1], [1]].
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-grad-x" title="im_grad_x ()"><code class="function">im_grad_x()</code></a>, <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_fastcor ()">
+<a name="im-fastcor"></a><h3>im_fastcor ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_fastcor                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Calculate a fast correlation surface.
+</p>
+<p>
+<em class="parameter"><code>ref</code></em> is placed at every position in <em class="parameter"><code>in</code></em> and the sum of squares of
+differences calculated. One-band, 8-bit unsigned images only. The output
+image is always <a class="link" href="libvips-image.html#IM-BANDFMT-UINT:CAPS"><code class="literal">IM_BANDFMT_UINT</code></a>. <em class="parameter"><code>ref</code></em> must be smaller than or equal to 
+<em class="parameter"><code>in</code></em>. The output
+image is the same size as the input.
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-spcor" title="im_spcor ()"><code class="function">im_spcor()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ref</code></em> :</span></p></td>
+<td>reference image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_spcor ()">
+<a name="im-spcor"></a><h3>im_spcor ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_spcor                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Calculate a correlation surface.
+</p>
+<p>
+<em class="parameter"><code>ref</code></em> is placed at every position in <em class="parameter"><code>in</code></em> and the correlation coefficient
+calculated. One-band, 8 or 16-bit images only. <em class="parameter"><code>in</code></em> and <em class="parameter"><code>ref</code></em> must have the
+same <a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a>. The output
+image is always <a class="link" href="libvips-image.html#IM-BANDFMT-FLOAT:CAPS"><code class="literal">IM_BANDFMT_FLOAT</code></a>. <em class="parameter"><code>ref</code></em> must be smaller than or equal to 
+<em class="parameter"><code>in</code></em>. The output
+image is the same size as the input. 
+</p>
+<p>
+The correlation coefficient is calculated as:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+         sumij (ref(i,j)-mean(ref))(inkl(i,j)-mean(inkl))
+c(k,l) = ------------------------------------------------
+         sqrt(sumij (ref(i,j)-mean(ref))^2) *
+                     sqrt(sumij (inkl(i,j)-mean(inkl))^2)
+</pre></div>
+<p>
+</p>
+<p>
+where inkl is the area of <em class="parameter"><code>in</code></em> centred at position (k,l).
+</p>
+<p>
+from Niblack "An Introduction to Digital Image Processing", 
+Prentice/Hall, pp 138.
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-gradcor" title="im_gradcor ()"><code class="function">im_gradcor()</code></a>, <a class="link" href="libvips-convolution.html#im-fastcor" title="im_fastcor ()"><code class="function">im_fastcor()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ref</code></em> :</span></p></td>
+<td>reference image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_gradcor ()">
+<a name="im-gradcor"></a><h3>im_gradcor ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_gradcor                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Calculate a correlation surface.
+</p>
+<p>
+<em class="parameter"><code>ref</code></em> is placed at every position in <em class="parameter"><code>in</code></em> and a correlation coefficient
+calculated. One-band, integer images only. <em class="parameter"><code>in</code></em> and <em class="parameter"><code>ref</code></em> must have the
+same <a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a>. The output
+image is always <a class="link" href="libvips-image.html#IM-BANDFMT-FLOAT:CAPS"><code class="literal">IM_BANDFMT_FLOAT</code></a>. <em class="parameter"><code>ref</code></em> must be smaller than <em class="parameter"><code>in</code></em>. The output
+image is the same size as the input. 
+</p>
+<p>
+The method takes the gradient images of the two images then takes the 
+dot-product correlation of the two vector images.
+The vector expression of this method is my (tcv) own creation. It is
+equivalent to the complex-number method of:
+</p>
+<p>
+ARGYRIOU, V. et al. 2003. Estimation of sub-pixel motion using
+gradient cross correlation. Electronics Letters, 39 (13).
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-spcor" title="im_spcor ()"><code class="function">im_spcor()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ref</code></em> :</span></p></td>
+<td>reference image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_contrast_surface ()">
+<a name="im-contrast-surface"></a><h3>im_contrast_surface ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_contrast_surface                 (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> half_win_size</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> spacing</code></em>);</pre>
+<p>
+Generate an image where the value of each pixel represents the
+contrast within a window of half_win_size from the corresponsing
+point in the input image. Sub-sample by a factor of spacing.
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-spcor" title="im_spcor ()"><code class="function">im_spcor()</code></a>, <a class="link" href="libvips-convolution.html#im-gradcor" title="im_gradcor ()"><code class="function">im_gradcor()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>half_win_size</code></em> :</span></p></td>
+<td>window radius
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>spacing</code></em> :</span></p></td>
+<td>subsample output by this
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_addgnoise ()">
+<a name="im-addgnoise"></a><h3>im_addgnoise ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_addgnoise                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>);</pre>
+<p>
+Add gaussian noise with mean 0 and variance sigma to <em class="parameter"><code>in</code></em>.
+The noise is generated by averaging 12 random numbers,
+see page 78, PIETGEN, 1989. 
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-gaussnoise" title="im_gaussnoise ()"><code class="function">im_gaussnoise()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sigma</code></em> :</span></p></td>
+<td>standard deviation of noise
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+/*! \page glossary Glossary of Terms
+
+@ingroup api_notes
+
+<dl>
+
+
+<dt>Device</dt>
+
+<dd>(same naming as in CUDA:) the actual device on which the core ray
+tracer runs on. currently, this is the host PC, but eventually it will
+be on LRB, and in a different address space, hence the need to
+differentiate. 
+\n
+Also see "driver", "app", and read \ref driver_device_app.
+</dd>
+
+
+
+
+
+
+
+<dt>driver</dt>
+
+<dd>(same naming as in CUDA:) the part of the ray tracer that runs on
+the _host_ (i.e., _not_ on the "device"). can share data with the app
+(same address space). 
+\n
+Also see "device", "app", and read \ref driver_device_app.
+
+</dd>
+
+
+
+
+
+
+<dt>app</dt>
+
+<dd>the actual application written by the user. will use the ray tracer by communicating with the (see:)driver, which in turn will drive the part of the ray tracer that runs on the (see:)host. 
+\n
+Also see "driver", "device", and read \ref driver_device_app.
+</dd>
+
+
+
+
+</dl>
+
+*/

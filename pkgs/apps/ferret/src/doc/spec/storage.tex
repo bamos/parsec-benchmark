@@ -1,0 +1,91 @@
+% AUTORIGHTS
+% Copyright (C) 2007 Princeton University
+%       
+% This file is part of Ferret Toolkit.
+% 
+% Ferret Toolkit is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2, or (at your option)
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software Foundation,
+% Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+\section {Storage Interface}
+We provide a storage interface (datalog) which support append-only/read many
+operations. The main user of the storage interface is the cass\_table
+and cass\_map, where the items are appended to the storage in a
+sequential order. We will also need to have checkpointing and
+recovery capability. Note: The checkpoint/recovery information are
+stored in the cass\_env rather than the datalog. 
+
+\subsection {Checkpointing}
+The checkpointing is done in the following manner: we would only support
+checkpointing the full system. The checkpoint is done whenever the
+system need to do so. (For the current sample application
+implementation, we will checkpoint the system after every successful
+import of feature file. So when the end user issued an import command,
+the system will not return until the import and checkpointing is
+successful. This way, the user will know easily where to restart if
+the import failed.)
+
+When the checkpointing is needed, the management code will freeze the
+whole system and start checkpointing process. It will sync all
+cass\_tables, cass\_maps to datalog and record the current maxlsn and
+etc; it will save all the indexes to disk\_locx and 
+finally it will save the management information to disk\_locx. The next
+checkpoint will checkpoint all the cass\_tables, cass\_map, save
+the indexes and management information to disk\_locy. By alternate the
+disk\_locx and disk\_locy, we can always pick up the latest clean copy
+and restore the full system to that stage. 
+
+After all data are checkpointed (synced to disk), the cass\_env is
+saved to a temporary file and ``atomically'' switched to a statically
+defined file name called ``cass\_env.dat'' using rename system
+call. This way the cass\_env.dat is always pointing to the latest
+sucessful checkpoint. Upon system startup, we will check the
+cass\_env, and restore the system to the consistent state.
+
+\subsection {Storage API}
+\begin{verbatim}
+/*
+ * All log records must be less than DataLogItemMax in size.
+ *
+ * All functions returning an int return 0 on success and -1 on
+ failure.
+ *
+ * DataLogclose closes at log handle.
+ * DataLogtruncate truncates the log to the specified LSN.
+ * DataLogappend appends a cass_datum_t to the log and sets the new LSN.
+ * DataLogmaxlsn returns the current maximum LSN.
+ *
+ * Mkdatalogiter creates a new log iterator; datalogiterclose closes
+ it.
+ * Datalogitersetlsn positions a log iterator at the specified LSN.
+ * Datalogiternext returns the next log record and associated LSN.
+ */
+enum {
+        DataLogVersion  = 1,
+        DataLogItemMax  = 1<<22,
+};
+
+DataLog         *datalogopen(int omode, char *fname, int cr, 
+                  void (*panic)(char*, ...), uint64_t lsn, uint64_t offset);
+int             datalogclose(DataLog*);
+int             datalogsync(DataLog*);  // Sync datalog to disk.
+int             datalogtruncate(DataLog*, uint64_t offset);
+int             datalogappend(DataLog*, cass_datum_t* data);
+int             datalogmaxlsn(DataLog*, uint64_t* lsn, uint64_t* offset);
+                  // Return current LSN and offset.
+
+DataLogIter     *mkdatalogiter(DataLog*);
+void            datalogiterclose(DataLogIter*);
+//int           datalogitersetlsn(DataLogIter*, uint64_t); // Not supported.
+int             datalogiternext(DataLogIter*, uint64_t*, cass_datum_t*);
+\end{verbatim}
+

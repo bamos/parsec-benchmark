@@ -1,0 +1,1381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>check</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch01.html" title="Core VIPS API">
+<link rel="prev" href="libvips-header.html" title="header">
+<link rel="next" href="libvips-callback.html" title="callback">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-header.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-callback.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-check.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-check.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="check">
+<a name="libvips-check"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-check.top_of_page"></a>check</span></h2>
+<p>check — test images for various properties</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-check.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-check.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-rwcheck" title="im_rwcheck ()">im_rwcheck</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-iocheck" title="im_iocheck ()">im_iocheck</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-incheck" title="im_incheck ()">im_incheck</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-outcheck" title="im_outcheck ()">im_outcheck</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-piocheck" title="im_piocheck ()">im_piocheck</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-pincheck" title="im_pincheck ()">im_pincheck</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-poutcheck" title="im_poutcheck ()">im_poutcheck</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-uncoded" title="im_check_uncoded ()">im_check_uncoded</a>                    (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-coding-known" title="im_check_coding_known ()">im_check_coding_known</a>               (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-coding-labq" title="im_check_coding_labq ()">im_check_coding_labq</a>                (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-coding-rad" title="im_check_coding_rad ()">im_check_coding_rad</a>                 (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-coding-same" title="im_check_coding_same ()">im_check_coding_same</a>                (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im2</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-mono" title="im_check_mono ()">im_check_mono</a>                       (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-bands-1or3" title="im_check_bands_1or3 ()">im_check_bands_1or3</a>                 (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-bands" title="im_check_bands ()">im_check_bands</a>                      (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-bands-1orn" title="im_check_bands_1orn ()">im_check_bands_1orn</a>                 (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im2</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-bands-same" title="im_check_bands_same ()">im_check_bands_same</a>                 (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im2</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-bandno" title="im_check_bandno ()">im_check_bandno</a>                     (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-int" title="im_check_int ()">im_check_int</a>                        (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-uint" title="im_check_uint ()">im_check_uint</a>                       (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-uintorf" title="im_check_uintorf ()">im_check_uintorf</a>                    (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-noncomplex" title="im_check_noncomplex ()">im_check_noncomplex</a>                 (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-complex" title="im_check_complex ()">im_check_complex</a>                    (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-format" title="im_check_format ()">im_check_format</a>                     (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-u8or16" title="im_check_u8or16 ()">im_check_u8or16</a>                     (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-8or16" title="im_check_8or16 ()">im_check_8or16</a>                      (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-u8or16orf" title="im_check_u8or16orf ()">im_check_u8or16orf</a>                  (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-format-same" title="im_check_format_same ()">im_check_format_same</a>                (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im2</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-size-same" title="im_check_size_same ()">im_check_size_same</a>                  (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im2</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-vector" title="im_check_vector ()">im_check_vector</a>                     (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-hist" title="im_check_hist ()">im_check_hist</a>                       (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-imask" title="im_check_imask ()">im_check_imask</a>                      (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-check.html#im-check-dmask" title="im_check_dmask ()">im_check_dmask</a>                      (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libvips-check.html#vips-bandfmt-isint" title="vips_bandfmt_isint ()">vips_bandfmt_isint</a>                  (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libvips-check.html#vips-bandfmt-isuint" title="vips_bandfmt_isuint ()">vips_bandfmt_isuint</a>                 (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libvips-check.html#vips-bandfmt-isfloat" title="vips_bandfmt_isfloat ()">vips_bandfmt_isfloat</a>                (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libvips-check.html#vips-bandfmt-iscomplex" title="vips_bandfmt_iscomplex ()">vips_bandfmt_iscomplex</a>              (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libvips-check.html#im-isfile" title="im_isfile ()">im_isfile</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libvips-check.html#im-ispartial" title="im_ispartial ()">im_ispartial</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libvips-check.html#im-isMSBfirst" title="im_isMSBfirst ()">im_isMSBfirst</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-check.description"></a><h2>Description</h2>
+<p>
+These functions perform simple checks on an <span class="type">IMAGE</span>, or indicate that you
+intend to use an <span class="type">IMAGE</span> in a certain way.
+</p>
+<p>
+<a class="link" href="libvips-check.html#im-incheck" title="im_incheck ()"><code class="function">im_incheck()</code></a>, <a class="link" href="libvips-check.html#im-pincheck" title="im_pincheck ()"><code class="function">im_pincheck()</code></a> and friends indicate the image IO style you
+intend to use, transforming the underlying <span class="type">IMAGE</span> structure if
+necessary.
+</p>
+<p>
+<a class="link" href="libvips-check.html#im-check-mono" title="im_check_mono ()"><code class="function">im_check_mono()</code></a> and friends and convenience functions that test an <span class="type">IMAGE</span> 
+for having various properties
+and signal an error if the condition is not met. They are useful for
+writing image processing operations which can only work on certain types of
+image.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-check.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_rwcheck ()">
+<a name="im-rwcheck"></a><h3>im_rwcheck ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rwcheck                          (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Gets an image ready for an in-place operation, such as <a class="link" href="libvips-inplace.html#im-insertplace" title="im_insertplace ()"><code class="function">im_insertplace()</code></a>.
+Operations like this both read and write with <a class="link" href="libvips-image.html#IM-IMAGE-ADDR:CAPS" title="IM_IMAGE_ADDR()"><code class="function">IM_IMAGE_ADDR()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-inplace.html#im-insertplace" title="im_insertplace ()"><code class="function">im_insertplace()</code></a>, <a class="link" href="libvips-check.html#im-incheck" title="im_incheck ()"><code class="function">im_incheck()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to make read-write
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on succeess, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_iocheck ()">
+<a name="im-iocheck"></a><h3>im_iocheck ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_iocheck                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+A convenience function to check a pair of images for IO via <a class="link" href="libvips-image.html#IM-IMAGE-ADDR:CAPS" title="IM_IMAGE_ADDR()"><code class="function">IM_IMAGE_ADDR()</code></a>
+and <a class="link" href="libvips-generate.html#im-writeline" title="im_writeline ()"><code class="function">im_writeline()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-check.html#im-incheck" title="im_incheck ()"><code class="function">im_incheck()</code></a>, <a class="link" href="libvips-check.html#im-outcheck" title="im_outcheck ()"><code class="function">im_outcheck()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on succeess, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_incheck ()">
+<a name="im-incheck"></a><h3>im_incheck ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_incheck                          (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that an image is readable via the <a class="link" href="libvips-image.html#IM-IMAGE-ADDR:CAPS" title="IM_IMAGE_ADDR()"><code class="function">IM_IMAGE_ADDR()</code></a> macro. If it isn't, 
+try to transform it so that <a class="link" href="libvips-image.html#IM-IMAGE-ADDR:CAPS" title="IM_IMAGE_ADDR()"><code class="function">IM_IMAGE_ADDR()</code></a> can work.
+</p>
+<p>
+See also: <a class="link" href="libvips-check.html#im-outcheck" title="im_outcheck ()"><code class="function">im_outcheck()</code></a>, <a class="link" href="libvips-check.html#im-pincheck" title="im_pincheck ()"><code class="function">im_pincheck()</code></a>, <a class="link" href="libvips-check.html#im-rwcheck" title="im_rwcheck ()"><code class="function">im_rwcheck()</code></a>, <a class="link" href="libvips-image.html#IM-IMAGE-ADDR:CAPS" title="IM_IMAGE_ADDR()"><code class="function">IM_IMAGE_ADDR()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on succeess, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_outcheck ()">
+<a name="im-outcheck"></a><h3>im_outcheck ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_outcheck                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that an image is writeable by <a class="link" href="libvips-generate.html#im-writeline" title="im_writeline ()"><code class="function">im_writeline()</code></a>. If it isn't,
+try to transform it so that <a class="link" href="libvips-generate.html#im-writeline" title="im_writeline ()"><code class="function">im_writeline()</code></a> can work.
+</p>
+<p>
+Set the image properties (like size, type and so on), then call
+<a class="link" href="libvips-generate.html#im-setupout" title="im_setupout ()"><code class="function">im_setupout()</code></a>, then call <a class="link" href="libvips-generate.html#im-writeline" title="im_writeline ()"><code class="function">im_writeline()</code></a> for each scan line.
+</p>
+<p>
+See also: <a class="link" href="libvips-check.html#im-incheck" title="im_incheck ()"><code class="function">im_incheck()</code></a>, <a class="link" href="libvips-check.html#im-poutcheck" title="im_poutcheck ()"><code class="function">im_poutcheck()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on succeess, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_piocheck ()">
+<a name="im-piocheck"></a><h3>im_piocheck ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_piocheck                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+A convenience function to check a pair of images for IO via <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>
+and <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-check.html#im-pincheck" title="im_pincheck ()"><code class="function">im_pincheck()</code></a>, <a class="link" href="libvips-check.html#im-poutcheck" title="im_poutcheck ()"><code class="function">im_poutcheck()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on succeess, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_pincheck ()">
+<a name="im-pincheck"></a><h3>im_pincheck ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_pincheck                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that an image is readable with <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a> and friends. If it isn't,
+try to transform the image so that <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a> can work.
+</p>
+<p>
+See also: <a class="link" href="libvips-check.html#im-incheck" title="im_incheck ()"><code class="function">im_incheck()</code></a>, <a class="link" href="libvips-check.html#im-poutcheck" title="im_poutcheck ()"><code class="function">im_poutcheck()</code></a>, <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on succeess, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_poutcheck ()">
+<a name="im-poutcheck"></a><h3>im_poutcheck ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_poutcheck                        (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that an image is writeable with <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>. If it isn't,
+try to transform the image so that <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a> can work.
+</p>
+<p>
+See also: <a class="link" href="libvips-check.html#im-incheck" title="im_incheck ()"><code class="function">im_incheck()</code></a>, <a class="link" href="libvips-check.html#im-poutcheck" title="im_poutcheck ()"><code class="function">im_poutcheck()</code></a>, <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on succeess, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_uncoded ()">
+<a name="im-check-uncoded"></a><h3>im_check_uncoded ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_uncoded                    (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is not coded. 
+If not, set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on OK, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_coding_known ()">
+<a name="im-check-coding-known"></a><h3>im_check_coding_known ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_coding_known               (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is uncoded, LABQ coded or RAD coded. 
+If not, set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on OK, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_coding_labq ()">
+<a name="im-check-coding-labq"></a><h3>im_check_coding_labq ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_coding_labq                (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is in LABQ coding. 
+If not, set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on OK, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_coding_rad ()">
+<a name="im-check-coding-rad"></a><h3>im_check_coding_rad ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_coding_rad                 (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is in Radiance coding. 
+If not, set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on OK, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_coding_same ()">
+<a name="im-check-coding-same"></a><h3>im_check_coding_same ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_coding_same                (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im2</code></em>);</pre>
+<p>
+Check that the images have the same coding.
+If not, set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im1</code></em> :</span></p></td>
+<td>first image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im2</code></em> :</span></p></td>
+<td>second image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_mono ()">
+<a name="im-check-mono"></a><h3>im_check_mono ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_mono                       (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image has exactly one band.
+Otherwise set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_bands_1or3 ()">
+<a name="im-check-bands-1or3"></a><h3>im_check_bands_1or3 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_bands_1or3                 (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_check_bands ()">
+<a name="im-check-bands"></a><h3>im_check_bands ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_bands                      (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>);</pre>
+<p>
+Check that the image has <em class="parameter"><code>bands</code></em> bands.
+Otherwise set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bands</code></em> :</span></p></td>
+<td>must have this many bands
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_bands_1orn ()">
+<a name="im-check-bands-1orn"></a><h3>im_check_bands_1orn ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_bands_1orn                 (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im2</code></em>);</pre>
+<p>
+Check that the images have the same number of bands, or that one of the
+images has just 1 band.
+If not, set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im1</code></em> :</span></p></td>
+<td>first image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im2</code></em> :</span></p></td>
+<td>second image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on OK, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_bands_same ()">
+<a name="im-check-bands-same"></a><h3>im_check_bands_same ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_bands_same                 (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im2</code></em>);</pre>
+<p>
+Check that the images have the same number of bands.
+If not, set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im1</code></em> :</span></p></td>
+<td>first image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im2</code></em> :</span></p></td>
+<td>second image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_bandno ()">
+<a name="im-check-bandno"></a><h3>im_check_bandno ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_bandno                     (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>);</pre>
+<p>
+<em class="parameter"><code>bandno</code></em> should be a valid band number (ie. 0 to im-&gt;Bands - 1), or can be
+-1, meaning all bands. 
+If not, set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bandno</code></em> :</span></p></td>
+<td>band number
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_int ()">
+<a name="im-check-int"></a><h3>im_check_int ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_int                        (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is in one of the integer formats.
+Otherwise set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_uint ()">
+<a name="im-check-uint"></a><h3>im_check_uint ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_uint                       (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is in one of the unsigned integer formats.
+Otherwise set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_uintorf ()">
+<a name="im-check-uintorf"></a><h3>im_check_uintorf ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_uintorf                    (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is unsigned int or float.
+Otherwise set an error message and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_noncomplex ()">
+<a name="im-check-noncomplex"></a><h3>im_check_noncomplex ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_noncomplex                 (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is not complex.
+Otherwise set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_complex ()">
+<a name="im-check-complex"></a><h3>im_check_complex ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_complex                    (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is complex.
+Otherwise set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_format ()">
+<a name="im-check-format"></a><h3>im_check_format ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_format                     (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);</pre>
+<p>
+Check that the image has the specified format.
+Otherwise set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>format to test for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_u8or16 ()">
+<a name="im-check-u8or16"></a><h3>im_check_u8or16 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_u8or16                     (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is 8 or 16-bit unsigned integer.
+Otherwise set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_8or16 ()">
+<a name="im-check-8or16"></a><h3>im_check_8or16 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_8or16                      (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is 8 or 16-bit integer, signed or unsigned.
+Otherwise set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_u8or16orf ()">
+<a name="im-check-u8or16orf"></a><h3>im_check_u8or16orf ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_u8or16orf                  (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Check that the image is 8 or 16-bit unsigned integer, or float.
+Otherwise set an error message and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_format_same ()">
+<a name="im-check-format-same"></a><h3>im_check_format_same ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_format_same                (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im2</code></em>);</pre>
+<p>
+Check that the images have the same format.
+If not, set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im1</code></em> :</span></p></td>
+<td>first image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im2</code></em> :</span></p></td>
+<td>second image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_size_same ()">
+<a name="im-check-size-same"></a><h3>im_check_size_same ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_size_same                  (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im2</code></em>);</pre>
+<p>
+Check that the images have the same size.
+If not, set an error message
+and return non-zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im1</code></em> :</span></p></td>
+<td>first image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im2</code></em> :</span></p></td>
+<td>second image to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_vector ()">
+<a name="im-check-vector"></a><h3>im_check_vector ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_vector                     (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Operations with a vector constant need a 1-element vector, or a vector with
+the same number of elements as there are bands in the image.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>number of elements in vector
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check against
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_hist ()">
+<a name="im-check-hist"></a><h3>im_check_hist ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_hist                       (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Histogram images must have width or height 1, and must not have more than 
+65536 elements. Return 0 if the image will pass as a histogram, or -1 and
+set an error message otherwise.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to check 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_imask ()">
+<a name="im-check-imask"></a><h3>im_check_imask ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_imask                      (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);</pre>
+<p>
+Sanity-check a mask parameter.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>mask to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_check_dmask ()">
+<a name="im-check-dmask"></a><h3>im_check_dmask ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_check_dmask                      (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>);</pre>
+<p>
+Sanity-check a mask parameter.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the originating domain for the error message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>mask to check
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 if OK, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_bandfmt_isint ()">
+<a name="vips-bandfmt-isint"></a><h3>vips_bandfmt_isint ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            vips_bandfmt_isint                  (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);</pre>
+<p>
+Return <code class="literal">TRUE</code> if <em class="parameter"><code>fmt</code></em> is one of the integer types.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>format to test
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_bandfmt_isuint ()">
+<a name="vips-bandfmt-isuint"></a><h3>vips_bandfmt_isuint ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            vips_bandfmt_isuint                 (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);</pre>
+<p>
+Return <code class="literal">TRUE</code> if <em class="parameter"><code>fmt</code></em> is one of the unsigned integer types.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>format to test
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_bandfmt_isfloat ()">
+<a name="vips-bandfmt-isfloat"></a><h3>vips_bandfmt_isfloat ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            vips_bandfmt_isfloat                (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);</pre>
+<p>
+Return <code class="literal">TRUE</code> if <em class="parameter"><code>fmt</code></em> is one of the float types.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>format to test
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_bandfmt_iscomplex ()">
+<a name="vips-bandfmt-iscomplex"></a><h3>vips_bandfmt_iscomplex ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            vips_bandfmt_iscomplex              (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);</pre>
+<p>
+Return <code class="literal">TRUE</code> if <em class="parameter"><code>fmt</code></em> is one of the complex types.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to test
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_isfile ()">
+<a name="im-isfile"></a><h3>im_isfile ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            im_isfile                           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Return <code class="literal">TRUE</code> if <em class="parameter"><code>im</code></em> represents a file on disc in some way.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to test
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_ispartial ()">
+<a name="im-ispartial"></a><h3>im_ispartial ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            im_ispartial                        (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Return <code class="literal">TRUE</code> if <em class="parameter"><code>im</code></em> represents a partial image (a delayed calculation).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to test
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_isMSBfirst ()">
+<a name="im-isMSBfirst"></a><h3>im_isMSBfirst ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            im_isMSBfirst                       (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>);</pre>
+<p>
+Return <code class="literal">TRUE</code> if <em class="parameter"><code>im</code></em> is in most-significant-
+byte first form. This is the byte order used on the SPARC
+architecture
+and others.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to test
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-check.see-also"></a><h2>See Also</h2>
+image
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

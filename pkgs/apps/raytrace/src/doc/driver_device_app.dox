@@ -1,0 +1,35 @@
+/*! \page driver_device_app Notes on the terms "driver", "device", and "app"
+
+@ingroup api_notes
+
+While we currently write the ray tracer on a single-memory image
+machine, it will eventually run primarily on one or multiple devices
+with separate address spaces. Thus, I think it is imperative to
+directly design the entire system to suppor that later on. For that
+reason, I will always differentiate between "host" and "device" when
+referring to actual pieces of hardware, and between "app", "driver",
+and "device" when it comes to differentiating different pieces of
+software.
+
+Wrt hardware: "host" is the host computer on which the application
+run, and "device" the actual chip (or chips), on which the bulk of the
+ray tracing is being done (i.e., LRB). Note however, that some parts
+of the ray tracer may still live on the _host_ (like BVH builder,
+potentially, and most certainly large parts of the API).
+
+Wrt software: "app" is the actual applicatoin written by the end user,
+which communicates with "the ray tracer" purely through the
+API. "driver" is the part of the ray tracer that still runs on the
+_host_, and which thereby can, in principle, share data with the
+application. "device" is the part of the ray tracer that runs on the
+actual device (eventually, LRB), and which operates in a different
+address space. Eventually, the app will tell he driver what to do,
+which will preformat all data (and potentially do some
+pre-computatoins), upload data to the device, and then trigger the ray
+tracer's device part to do the actual work.
+
+
+Note: The naming is pretty much oriented on CUDA and GL...
+
+
+*/

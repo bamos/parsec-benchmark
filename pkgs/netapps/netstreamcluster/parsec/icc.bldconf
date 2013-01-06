@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source ${PARSECDIR}/pkgs/netapps/netstreamcluster/parsec/gcc.bldconf
+

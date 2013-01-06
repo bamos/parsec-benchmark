@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrackingBenchmark", "TrackingBenchmark\TrackingBenchmark.vcproj", "{0B3045C9-5D4B-406E-BAAE-3ACB325F7092}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F27E553F-5034-4533-9523-5726AD1B9B38} = {F27E553F-5034-4533-9523-5726AD1B9B38}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlexImageLib", "FlexImageLib\FlexImageLib.vcproj", "{F27E553F-5034-4533-9523-5726AD1B9B38}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+		StaticRelease|Win32 = StaticRelease|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B3045C9-5D4B-406E-BAAE-3ACB325F7092}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0B3045C9-5D4B-406E-BAAE-3ACB325F7092}.Debug|Win32.Build.0 = Debug|Win32
+		{0B3045C9-5D4B-406E-BAAE-3ACB325F7092}.Release|Win32.ActiveCfg = Release|Win32
+		{0B3045C9-5D4B-406E-BAAE-3ACB325F7092}.Release|Win32.Build.0 = Release|Win32
+		{0B3045C9-5D4B-406E-BAAE-3ACB325F7092}.StaticRelease|Win32.ActiveCfg = Release|Win32
+		{0B3045C9-5D4B-406E-BAAE-3ACB325F7092}.StaticRelease|Win32.Build.0 = Release|Win32
+		{F27E553F-5034-4533-9523-5726AD1B9B38}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F27E553F-5034-4533-9523-5726AD1B9B38}.Debug|Win32.Build.0 = Debug|Win32
+		{F27E553F-5034-4533-9523-5726AD1B9B38}.Release|Win32.ActiveCfg = Release|Win32
+		{F27E553F-5034-4533-9523-5726AD1B9B38}.Release|Win32.Build.0 = Release|Win32
+		{F27E553F-5034-4533-9523-5726AD1B9B38}.StaticRelease|Win32.ActiveCfg = StaticRelease|Win32
+		{F27E553F-5034-4533-9523-5726AD1B9B38}.StaticRelease|Win32.Build.0 = StaticRelease|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

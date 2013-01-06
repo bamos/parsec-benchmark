@@ -1,0 +1,63 @@
+PARSEC Hooks Instrumentation API
+================================
+
+
+1.) Overview
+
+The PARSEC Hooks Instrumentation API is a set of functions which are called by
+all PARSEC workloads if support for them has been enabled. The hook functions
+are executed at predefined locations and signal that the program has entered
+a new phase.
+
+Of particular importance are the hook functions __parsec_roi_begin() and
+__parsec_roi_end(), which define the Region-of-Interest (ROI) of each program.
+The ROI is the code region which includes the "interesting" part of the
+benchmark. It includes the computationally intensive, parallel phase of the
+workload but not the initialization and shutdown phase. Researchers should
+exclude any code that is not part of the ROI from their measurements to avoid
+distortions of their results.
+
+
+2.) License
+
+The PARSEC hooks library is available under the terms of the BSD license. Please
+refer to file `LICENSE' for details.
+
+
+3.) Requirements
+
+A C compiler and GNU Make. To generate the documentation you need `doxygen',
+which is not part of the PARSEC distribution. It can be downloaded from its
+project web site http://www.doxygen.org/.
+
+
+4.) Usage
+
+The PARSEC hooks can be enabled by defining the macro ENABLE_PARSEC_HOOKS when
+the workloads are built. The build configuration `gcc-hooks' does that by
+default.
+
+Researchers can use the hooks to insert their own instrumentation code at the
+predefined locations. This library is an implementation that can serve as a
+starting point. Some base functionality has been provided that can be enabled
+and disabled in file config.h. The Hooks API is specified in header file
+hooks.h, and the default implementation is available in hooks.c.
+
+
+5.) Documentation
+
+The PARSEC hooks are fully documented in the source code. The comments can be
+extracted with `doxygen' to create a stand-alone documentation that is easily
+accessible. To do so simply change to the source directory `src/' and execute
+the documentation generator as follows:
+
+	doxygen
+
+The program will automatically create the documentation for the library as
+described in the configuration file `Doxyfile', which can be found in the same
+directory. By default the generated documentation is put into the subdirectory
+`doc/'.
+
+More information about doxygen can be found on the project web site
+http://www.doxygen.org/.
+

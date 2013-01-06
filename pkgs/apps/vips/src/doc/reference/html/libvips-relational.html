@@ -1,0 +1,1015 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>relational</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch02.html" title="VIPS operation API by section">
+<link rel="prev" href="libvips-boolean.html" title="boolean">
+<link rel="next" href="libvips-colour.html" title="colour">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-boolean.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-colour.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-relational.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-relational.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="relational">
+<a name="libvips-relational"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-relational.top_of_page"></a>relational</span></h2>
+<p>relational — relational comparisons between pairs of images and 
+images and constants</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-relational.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-relational.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-equal" title="im_equal ()">im_equal</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-notequal" title="im_notequal ()">im_notequal</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-less" title="im_less ()">im_less</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-lesseq" title="im_lesseq ()">im_lesseq</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-more" title="im_more ()">im_more</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-moreeq" title="im_moreeq ()">im_moreeq</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-equal-vec" title="im_equal_vec ()">im_equal_vec</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-notequal-vec" title="im_notequal_vec ()">im_notequal_vec</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-less-vec" title="im_less_vec ()">im_less_vec</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-lesseq-vec" title="im_lesseq_vec ()">im_lesseq_vec</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-more-vec" title="im_more_vec ()">im_more_vec</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-moreeq-vec" title="im_moreeq_vec ()">im_moreeq_vec</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-equalconst" title="im_equalconst ()">im_equalconst</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-notequalconst" title="im_notequalconst ()">im_notequalconst</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-lessconst" title="im_lessconst ()">im_lessconst</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-lesseqconst" title="im_lesseqconst ()">im_lesseqconst</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-moreconst" title="im_moreconst ()">im_moreconst</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-moreeqconst" title="im_moreeqconst ()">im_moreeqconst</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-ifthenelse" title="im_ifthenelse ()">im_ifthenelse</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *c</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *b</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-relational.html#im-blend" title="im_blend ()">im_blend</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *c</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *b</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-relational.description"></a><h2>Description</h2>
+<p>
+These operations perform comparison operations, such as equals, on
+every pixel in an image or pair of images. 
+All will work with 
+images of any type or any mixture of types of any size and of any number 
+of bands.
+</p>
+<p>
+For binary operations, if the number of bands differs, one of the images 
+must have one band. In this case, an n-band image is formed from the 
+one-band image by joining n copies of the one-band image together and then
+the two n-band images are operated upon.
+</p>
+<p>
+In the same way, for operations that take an array constant, such as 
+<a class="link" href="libvips-relational.html#im-equal-vec" title="im_equal_vec ()"><code class="function">im_equal_vec()</code></a>, you can mix single-element arrays or single-band images
+freely.
+</p>
+<p>
+The output type is always unsigned char, 
+with 255 for every band element for which the condition 
+is true, and 0 for every other element.
+For complex images, the operations calculate and compare the modulus.
+</p>
+<p>
+For binary operations on pairs of images, the images must match in size.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-relational.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_equal ()">
+<a name="im-equal"></a><h3>im_equal ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_equal                            (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in1</code></em> == <em class="parameter"><code>in2</code></em> (image element equals image element) 
+and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-notequal" title="im_notequal ()"><code class="function">im_notequal()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_notequal ()">
+<a name="im-notequal"></a><h3>im_notequal ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_notequal                         (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in1</code></em> != <em class="parameter"><code>in2</code></em> (image element does not equal image
+element) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-notequal" title="im_notequal ()"><code class="function">im_notequal()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_less ()">
+<a name="im-less"></a><h3>im_less ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_less                             (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in1</code></em> &lt; <em class="parameter"><code>in2</code></em> (image element is less than image
+element) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-more" title="im_more ()"><code class="function">im_more()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_lesseq ()">
+<a name="im-lesseq"></a><h3>im_lesseq ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lesseq                           (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in1</code></em> &lt;= <em class="parameter"><code>in2</code></em> (image element is less than or equal
+to image elemment) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-more" title="im_more ()"><code class="function">im_more()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_more ()">
+<a name="im-more"></a><h3>im_more ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_more                             (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in1</code></em> &gt; <em class="parameter"><code>in2</code></em> (image element is greater than 
+image elemment) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-less" title="im_less ()"><code class="function">im_less()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_moreeq ()">
+<a name="im-moreeq"></a><h3>im_moreeq ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_moreeq                           (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in1</code></em> &gt;= <em class="parameter"><code>in2</code></em> (image element is greater than or
+equal to image element) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-more" title="im_more ()"><code class="function">im_more()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_equal_vec ()">
+<a name="im-equal-vec"></a><h3>im_equal_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_equal_vec                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> == <em class="parameter"><code>c</code></em> (image element equals constant array
+<em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-equal" title="im_equal ()"><code class="function">im_equal()</code></a>, <a class="link" href="libvips-relational.html#im-equalconst" title="im_equalconst ()"><code class="function">im_equalconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_notequal_vec ()">
+<a name="im-notequal-vec"></a><h3>im_notequal_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_notequal_vec                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> != <em class="parameter"><code>c</code></em> (image element is not equal to constant 
+array <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-equal" title="im_equal ()"><code class="function">im_equal()</code></a>, <a class="link" href="libvips-relational.html#im-equal-vec" title="im_equal_vec ()"><code class="function">im_equal_vec()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_less_vec ()">
+<a name="im-less-vec"></a><h3>im_less_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_less_vec                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &lt; <em class="parameter"><code>c</code></em> (image element is less than constant 
+array <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-less" title="im_less ()"><code class="function">im_less()</code></a>, <a class="link" href="libvips-relational.html#im-lessconst" title="im_lessconst ()"><code class="function">im_lessconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_lesseq_vec ()">
+<a name="im-lesseq-vec"></a><h3>im_lesseq_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lesseq_vec                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &lt;= <em class="parameter"><code>c</code></em> (image element is less than or equal to 
+constant array <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-lesseq" title="im_lesseq ()"><code class="function">im_lesseq()</code></a>, <a class="link" href="libvips-relational.html#im-lesseqconst" title="im_lesseqconst ()"><code class="function">im_lesseqconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_more_vec ()">
+<a name="im-more-vec"></a><h3>im_more_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_more_vec                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &gt; <em class="parameter"><code>c</code></em> (image element is greater than 
+constant array <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-lesseq" title="im_lesseq ()"><code class="function">im_lesseq()</code></a>, <a class="link" href="libvips-relational.html#im-lesseqconst" title="im_lesseqconst ()"><code class="function">im_lesseqconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_moreeq_vec ()">
+<a name="im-moreeq-vec"></a><h3>im_moreeq_vec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_moreeq_vec                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &gt;= <em class="parameter"><code>c</code></em> (image element is greater than or 
+equal to 
+constant array <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-lesseq" title="im_lesseq ()"><code class="function">im_lesseq()</code></a>, <a class="link" href="libvips-relational.html#im-lesseqconst" title="im_lesseqconst ()"><code class="function">im_lesseqconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>array length
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>array of constants
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_equalconst ()">
+<a name="im-equalconst"></a><h3>im_equalconst ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_equalconst                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> == <em class="parameter"><code>c</code></em> (image element is 
+equal to constant <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-lesseq" title="im_lesseq ()"><code class="function">im_lesseq()</code></a>, <a class="link" href="libvips-relational.html#im-lesseqconst" title="im_lesseqconst ()"><code class="function">im_lesseqconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_notequalconst ()">
+<a name="im-notequalconst"></a><h3>im_notequalconst ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_notequalconst                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> != <em class="parameter"><code>c</code></em> (image element is not equal to 
+constant <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-lesseq" title="im_lesseq ()"><code class="function">im_lesseq()</code></a>, <a class="link" href="libvips-relational.html#im-lesseqconst" title="im_lesseqconst ()"><code class="function">im_lesseqconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_lessconst ()">
+<a name="im-lessconst"></a><h3>im_lessconst ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lessconst                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> &lt; <em class="parameter"><code>c</code></em> (image element is less than 
+constant <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-lesseq" title="im_lesseq ()"><code class="function">im_lesseq()</code></a>, <a class="link" href="libvips-relational.html#im-lesseqconst" title="im_lesseqconst ()"><code class="function">im_lesseqconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_lesseqconst ()">
+<a name="im-lesseqconst"></a><h3>im_lesseqconst ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lesseqconst                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> = <em class="parameter"><code>c</code></em> (image element is less than 
+or equal to
+constant <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-lesseq" title="im_lesseq ()"><code class="function">im_lesseq()</code></a>, <a class="link" href="libvips-relational.html#im-lesseqconst" title="im_lesseqconst ()"><code class="function">im_lesseqconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_moreconst ()">
+<a name="im-moreconst"></a><h3>im_moreconst ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_moreconst                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> = <em class="parameter"><code>c</code></em> (image element is more than 
+constant <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-lesseq" title="im_lesseq ()"><code class="function">im_lesseq()</code></a>, <a class="link" href="libvips-relational.html#im-lesseqconst" title="im_lesseqconst ()"><code class="function">im_lesseqconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_moreeqconst ()">
+<a name="im-moreeqconst"></a><h3>im_moreeqconst ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_moreeqconst                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>);</pre>
+<p>
+This operation calculates <em class="parameter"><code>in</code></em> = <em class="parameter"><code>c</code></em> (image element is more than 
+or equal to
+constant <em class="parameter"><code>c</code></em>) and writes the result to <em class="parameter"><code>out</code></em>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-lesseq" title="im_lesseq ()"><code class="function">im_lesseq()</code></a>, <a class="link" href="libvips-relational.html#im-lesseqconst" title="im_lesseqconst ()"><code class="function">im_lesseqconst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input <span class="type">IMAGE</span> 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>constant
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_ifthenelse ()">
+<a name="im-ifthenelse"></a><h3>im_ifthenelse ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_ifthenelse                       (<em class="parameter"><code><span class="type">IMAGE</span> *c</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *b</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation scans the condition image <em class="parameter"><code>c</code></em> (which must be unsigned char) 
+and uses it to select pixels from either the then image <em class="parameter"><code>a</code></em> or the else
+image <em class="parameter"><code>b</code></em>. Non-zero means <em class="parameter"><code>a</code></em>, 0 means <em class="parameter"><code>b</code></em>.
+</p>
+<p>
+Any image can have either 1 band or n bands, where n is the same for all
+the non-1-band images. Single band images are then effectively copied to 
+make n-band images.
+</p>
+<p>
+Images <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are cast up to the smallest common format.
+</p>
+<p>
+Images <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> must match exactly in size.
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-blend" title="im_blend ()"><code class="function">im_blend()</code></a>, <a class="link" href="libvips-relational.html#im-equal" title="im_equal ()"><code class="function">im_equal()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>condition <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>then <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>else <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_blend ()">
+<a name="im-blend"></a><h3>im_blend ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_blend                            (<em class="parameter"><code><span class="type">IMAGE</span> *c</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *b</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+This operation scans the condition image <em class="parameter"><code>c</code></em> (which must be unsigned char) 
+and uses it to blend pixels from either the then image <em class="parameter"><code>a</code></em> or the else
+image <em class="parameter"><code>b</code></em>. 255 means <em class="parameter"><code>a</code></em> only, 0 means <em class="parameter"><code>b</code></em> only, and intermediate values are a
+mixture.
+</p>
+<p>
+Any image can have either 1 band or n bands, where n is the same for all
+the non-1-band images. Single band images are then effectively copied to 
+make n-band images.
+</p>
+<p>
+Images <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are cast up to the smallest common format.
+</p>
+<p>
+Images <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> must match exactly in size.
+</p>
+<p>
+See also: <a class="link" href="libvips-relational.html#im-ifthenelse" title="im_ifthenelse ()"><code class="function">im_ifthenelse()</code></a>, <a class="link" href="libvips-relational.html#im-equal" title="im_equal ()"><code class="function">im_equal()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>condition <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>then <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>else <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-relational.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-arithmetic.html" title="arithmetic">arithmetic</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,286 @@
+Changes in CMake 2.6.1 RC 16
+- Fix for bug 7427, preinstall target name hard coded
+- Fix issue #7088 - do not emit error messages when attempts to run 
+  Visual Studio macros fail. You can still get the error output
+  as messages if you want using --debug-output from the cmake command line.
+- Fix InstallRequiredSystemLibraries.cmake to work with win64
+
+Changes in CMake 2.6.1 RC 15
+- Fix bug 7426 FindJPEG module causes error when setting JPEG_LIBRARY to blank
+- Fix bug 7414 PackageMaker generator crashes when given components
+  with circular dependencies
+- Fix source files to not add extra /, and look for extensions for
+  all enabled languages.
+- Change link line to preserve input given to target_link_libraries even
+  if a shared library is repeated.  
+- Fix for bug 7421, fortran did not get arch flags on the mac
+- For CMP0008 do not depend on the files that are not there, which
+  makes the Xcode generator delete executables after they are built.
+- Work around Boost 1.36.0 bug fix on Darwin by setting the mangled 
+  compiler name to -xgccVERSION
+- Updated FindImageMagick to:
+  - Find newer additions such as animate, compare, etc.
+  - Find development api: Magick++, MagickCore, MagickWand
+  - Use FindPackageHandleStandardArgs to output standard messages.
+
+Changes in CMake 2.6.1 RC 14
+- Change dashboard submission to go directly to CDash.
+- Add policy CMP0008- Full-path libraries must be a valid library file name
+
+Changes in CMake 2.6.1 RC 12
+- More find locations for FindJNI.
+- Fix bug with source files ending in .l and .l.cpp, causing cmake
+  to think they were the same file in some cases.
+- Fix issue with .lib being seen as .obj with VS due to a full path
+  to a library given without the file extension.  This only worked 
+  with the VS generator, but some projects had worked around it with
+  if statements. It now issues a warning, but should link.
+- Update cpack stuff for beta OSX bundle generator for CPack
+- CheckFortranFunctionExists.cmake now calls the function.
+-  FindBLAS.cmake, FindLAPACK.cmake modules were redesigned so 
+   now you have three new variables BLA_VENDOR (you can specify the VENDOR),
+   BLA_STATIC (gets the static version of libs), BLA_F95 
+   (gets the fortran 95 interface). BLA_VENDOR can be specified as 
+    an environment variable. Intel mkls libs need FindThreads to 
+    be found correctly so you will need to enable the C/CXX
+- FindMPI: Use the HINTS feature of find_library to find the right 
+  libraries for MPI, and act a bit more intelligently when MPI cannot be found.
+- Improved support for finding wxWidgets in MinGW environment.
+- CMAKE[_SYSTEM]_(LIBRARY|PROGRAM|INCLUDE|PREFIX)_PATH variables
+  moved CMAKE_CROSSCOMPILING from "Variables that modify behaviour" to
+  "variables that Provide Information"
+- handle HTML documentation for single items better: no warning about
+  ComputeSectionLinkPrefix, don't create an index for only one item.
+- Better error messages in CPackBundleGenerator
+
+Changes in CMake 2.6.1 RC 11
+- Fix curl build issue with Xcode 3.1
+Changes in CMake 2.6.1 RC 10
+- Add a fix for bug # 7340, CMAKE_USER_MAKE_RULES_OVERRIDE was
+  not able to support a try-compile in cmake 2.6
+- Remove bad test for bug  # 7316 
+Changes in CMake 2.6.1 RC 9
+- Fix bug # 7316 Xcode double escaped define strings
+- FindBoost can now find the upcoming Boost 1.36
+Changes in CMake 2.6.1 RC 8
+- Fix build problem with missing cpack file
+
+Changes in CMake 2.6.1 RC 7
+- More fixes for CPack components functionality
+- Fixes for Xcode generater #7277 #7044, do not compile foo.txt.
+  Rebuild application bundles when a library changes. Set the project
+  location for Xcode 3.1
+- Do not automatically add EXECUTABLE_OUTPUT_PATH to cache.
+- New tree view in cmake-gui
+- FindBoost.cmake, find boost as installed by the BoostPro/Boost Consulting 
+  installers on Windows. And cleanup FindBoost module, fixing several small 
+  bugs and providing better diagnostic information when things go wrong.
+- Fix FindwxWidgets.cmake to find richtext library
+- Fix FindQt4.cmake with empty qconfig.pri files.  Fixes #7287.
+- Fix add/remove program version string again...
+- Fix column width in cmake-gui
+
+Changes in CMake 2.6.1 RC 6
+- Fix DEFINITIONS property to be compatible with 2.4
+- Fix escaping of $ for visual studio
+- FindGettext.cmake  fix bug #7230: don't ignore first parameter if it's not ALL
+Changes in CMake 2.6.1 RC 5
+- Add support for component based packages in cpack.
+- Fix FindBLAS.cmake if no fortran compiler is found
+- Fix FindFLTK.cmake to pass new module test
+- Fix FindKDE3.cmake to not add flags if kde3 is not found
+- Fix FindMatlab.cmake, FindOpenSSL.cmake, FindQt3.cmake,
+  FindSWIG.cmake, to only error if it is required
+- Fix FindwxWidgets.cmake to work on msys
+- Add a beta OSX bundle generator for CPack
+- Fix bug in cmake --build-and-test where cmake output was lost
+- Fix ctest handling of CDash dart measurement support
+- Add a group view to cmake-gui
+- Fix nmake/make with visual studio compiler to handle long link lines
+- Fix FLTK_WRAP_UI to better notice when mistakes are made with the target name
+- Fix spelling error EnableFiberSafeOptimizations
+
+Changes in CMake 2.6.1 RC 4
+- Change to find_*, a new HINTS keyword was added to avoid the
+  need for NO_DEFAULT_PATH, and a repeated call to find_*
+- Update all NO_DEFAULT_PATH usage in Modules/Find*
+- Fix for cpack self extracting .sh files to work with more shells
+- FindQt4 now finds dependencies for some qt modules
+- ctest cpu information fixes for cygwin and linux
+- Recognize more color terminals for color output
+- Remove SKIP_RULE_DEPENDS from custom command because CMake
+  now can detect when a cutom command actually changes and only
+  re-run the rule then.  This fixes the problem of custom commands 
+  re-running every time a file is added to a target.
+- Fix for very slow find_path on OSX because of framework searchs
+- Fix for bug 6364, extra help targets when there are subdirectories 
+  of the top level.
+- Fix for Xcode generator to not eat some flags by mistake.
+- Add end of file checking for close if, foreach, macro, functions 
+  etc enabled.
+
+Changes in CMake 2.6.1 RC 3
+- FindQt4 - Find qt debug libraries on windows with d postfix.
+- Find 64 bit windows registry stuff with 32 bit cmake
+- Give a message if rpath is changed during install
+- rpath changer during install understands symlinks now
+- If a source file is not found and is a full path cmake complains.
+
+Changes in CMake 2.6.1 RC 2
+
+- FindQt4 - report an error when trying to use MSVC with Qt built by mingw.
+- FindQt4 - make Qt not found if the QtCore library can't be found.
+- UseQt4 - only add flags for modles that are used
+- Log file and LC_ALL fix for FindSubversion
+- Make MacOSXBundleInfo.plist.in a configured file again
+- Fix makefile generator targets to depend on full path link libraries
+- Allow CMakeImportBuildSettings to not match tools if 
+  CMAKE_OVERRIDE_COMPILER_MISMATCH is set
+- Fix incorrect extension extraction in gcc cross compiler check
+- Add support for Portand Fortran
+- Fix list command with empty list values
+- Add support for setting compiler and toolchain in qt cmake-gui
+- Fix Bug 7011, FindQt4 was slow on a mac, find_path should not glob in /
+- Fix install directories for cygwin package of CMake
+
+Changes in CMake 2.6.1 RC 1
+- Add a way to modify depend scanning with the property:
+  IMPLICIT_DEPENDS_INCLUDE_TRANSFORM
+- Add a way for custom commands to skip depending on the rule.make file
+- Fix ENABLE_LANGUAGE(ASM-ATT OPTIONAL)  to work
+- Fix gcov in ctest in French or other non-English runs
+- Fix help for ctest commands to be lower case
+- Find QtCLucene on Qt/Mac binary
+- Fix for build on ARM
+- Fix for docbook to add newlines
+- Fix -Wno-dev to not eat path to source tree
+- Fix bug in NSIS CPack where CPACK_NSIS_MODIFY_PATH did modify the path
+- Fix FindBoost version variable names to correct bug in Boost version 
+- Fix Add/Remove program name for CMake install on windows
+- Fix bug 0006988 coverage not reported on dashboards
+- Fix bug 0006990 CMake crashes with bad input to set_source_files_properties
+- Fix bug in FindCurses where you could not run cmake twice
+- Fix 64 bit cmake creation of Xcode projects
+- Add --help-policy to --help
+
+Changes in CMake 2.6.0
+- Fix links in generated documentation
+- Fix for FindQt and some mac frameworks
+- Fix for ctest to report more than 2 gigs system memory on windows
+- Fix CTest build name for vs 9, and fix memory size on windows
+Changes in CMake 2.6.0 RC 10
+- Do not duplicate .so libraries on the link line
+- Add more system library paths to sun builds
+- Add BETA support for Intel Fortran IDE files in visual studio
+- Fix FindCurses to work if ncurses is the only option
+- Fix shell escapes on some systems
+- Remove check for file write as input to cmake, as it is no longer needed
+- Make check_type_size automatically check for headers that it uses
+- Remove minimum required from FindBoost.cmake
+- Fix FindSDL so that it can be run more than once
+- Fix find required for VTK package
+- Allow for CMAKE_OSX_SYSROOT to work with single architecture
+- Add context information when a source file cannot be found.
+- Report the directory-level context even if no list file 
+  is currently being processed.
+
+Changes in CMake 2.6.0 RC 9
+
+- Fix for fortran mod:: support 
+- Fix bug in install command with BUNDLE DESTINATION
+- Make mac install symlinks check for errors
+- Fix for CMP0007, to not warn about empty lists
+- Preserve static libraries when linked multiple times 
+- Use c compiler path to find asm compiler
+- Allow RC compiler to not get all COMPILE_FLAGS
+- Complete overhaul for FindBoost.cmake
+- Minor fixes for FindMPI.cmake
+- Fix for list command and empty list elements CMP0007
+- Fix for VS6 and sub-groups
+- Fix bug 6440, and make sure _INIT flags do not overright cache values
+- Do not report CMP0003 for anything other than -l
+- Fix crash in fortran depend scanning, bug 6855
+- Fix timeout values for cmake's own tests
+- Better message in compiler ABI detect
+- Fixes for cpack x11 packages on leopard
+- Changes to cpack options names 
+- Fixes for FindMPI on 64 bit MS MPI
+- Fix for -isystem for wxWidgets
+- Some fixes for chrpath during installation
+- Fix compatibility with CMake 2.4 for installation of MACOSX_BUNDLE (CMP0006)
+- Do not use debug postfix when building frameworks on the Mac
+- Fix exception handling off/on issue with visual studio IDE generators
+- Fix <OBJECT_DIR> to be native path style 
+- Fix leak in cpack
+- Some Qt GUI style changes
+
+Changes in CMake 2.6.0 RC 8
+
+- Fix sun make very poor performance
+- Fix includes for automoc in FindQt4
+
+Changes in CMake 2.6.0 RC 7
+
+- Fix for chrpath on sun with gcc
+- Fix FindJNI on unix with HKEY issue bug 6688
+- Change install location on mac for cmake-gui
+- Fix for bugs 6730 and 6720 in FindQt4 configured headers in binary dir
+- Add VS9 support to InstallRequiredSystemLibraries.cmake
+- Fix some bugs in framework support
+- Have make edit_cache work with cmake-gui and eclipse generator
+- Fix find_* to not mistakenly construct network paths on windows
+- Several bug fixes in cmake-gui Qt program.
+
+Changes in CMake 2.6.0 RC 6
+
+- Added ChangeLog.manual
+- Allow CMakeImportBuildSettings force compiler to be optional
+- Change cpack deb packager to detect the architecture
+- Fix FindCurses to be backwards compatible with cache variable CURSES_LIBRARY
+- Add version variables to FindQt4.cmake
+- Fix CPack Deb generator to not hard code /usr
+- Better default size for cmake-gui help dialog
+- Fix problem where incorrect path was used for cmake.exe when 
+  used to do incremental linking on windows nmake or make
+- Fix build with system libraries on
+- Add color output in kdevelop
+- Create non-verbose makefiles in kdevelop
+- Fix some missing flags for vs IDE flag map
+- Fix MacOSX install symlink crash problem
+- Fix turning of Dev warnings with gui's
+- Fix backwards compatibility issue with FindMPI.cmake
+- Fix for bug 6605, add -L path for optimized in debug sometimes for
+  backwards compatibility
+- Allow for CMP0000 to be set before any warnings happen
+- Do not use FAT32 hack in VS 2005 and 2008 unless on a FAT32 disk,
+  causes try-compiles to be 3 times slower if FAT hack is present.
+- Fixes to debian cpack 
+- Can now check if a proprty is SET or not
+- Fix for generate with vs 2005 and vista not being able to create stamp file
+- set_property with an empty value unsets that property now
+- Fix FindQt4 on windows with some \ style paths
+
+Changes in CMake 2.6.0 
+
+- Documentation for all variables
+- Automatic reload of projects in visual stuido 7 and greater
+  when cmake is re-run.
+- Direct CDash submit support
+- Bullseye coverage support
+- Use full paths for linking to libraries on all platforms. No longer
+  separate into -L and -l.
+- Enhance the install command
+- export command and ability to have imported targets
+- CPack support for rpm and deb
+- Cross compile support
+- New Qt GUI
+- Introduction of the cmake_policy command
+- Much better Fortran support
+- Mac OSX Framework creation support
+- Project generators for Eclipse and CodeBlocks
+- Beta support for asm in makefiles
+- Enhanced find_package() command with support for project-installed 
+  FooConfig.cmake files
+- New CMAKE_PREFIX_PATH environment variable to specify user search dirs 
+  for find_xxx()
+- Lots of bug fixes

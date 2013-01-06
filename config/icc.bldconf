@@ -1,0 +1,106 @@
+#!/bin/bash
+#
+# icc.bldconf - file containing global information necessary to build
+#               PARSEC with the Intel C compiler
+#
+# Copyright (C) 2006-2009 Princeton University
+# Written by Christian Bienia (Initial version)
+#            Christian Fensch (Sparc/Solaris port)
+
+# Compilation and linking options
+# These are the global options we'll use to build the benchmark suite. Each
+# package also has a local build configuration file defining the exact
+# arguments and environment to use.
+
+
+# Determine OS-specific paths and prefixes
+# We first determine the various directories typically used for the GNU
+# binaries, then we use that information to define the binary locations.
+# The values for Linux are at the end and also the default values.
+
+case "${OSTYPE}" in
+*solaris*)
+  # Solaris case
+
+  # Solaris-specific variables
+  # SFW_HOME is installation root of SFW (Solaris FreeWare)
+  export SFW_HOME="/usr/sfw"
+
+  # CC_HOME is the installation root of the C compiler
+  export CC_HOME="/opt/intel/cc/latest"
+  # GCC_HOME is installation root of the GNU C compiler
+  export GCC_HOME="/usr/local/gcc-4.2.1"
+  # BINUTIL_HOME is installation root of the GNU binutils
+  export BINUTIL_HOME="/usr/local"
+  # GNUTOOL_HOME is installation root of the GNU tools
+  export GNUTOOL_HOME="${SFW_HOME}"
+  # BINARY_PREFIX is the string which is used as prefix for the GNU binaries
+  export BINARY_PREFIX="g"
+;;
+*)
+  # Linux + default case
+
+  # CC_HOME is installation root of the C compiler
+  export CC_HOME="/opt/intel/cc/latest"
+  # GCC_HOME is installation root of the GNU C compiler
+  export GCC_HOME="/usr/local/gcc-4.2.1"
+  # BINUTIL_HOME is installation root of the GNU binutils
+  export BINUTIL_HOME="/usr/local"
+  # GNUTOOL_HOME is installation root of the GNU tools
+  export GNUTOOL_HOME="/usr"
+  # BINARY_PREFIX is the string which is used as prefix for the GNU binaries
+  export BINARY_PREFIX=""
+;;
+esac
+
+# Compilers and preprocessors
+export CC="${CC_HOME}/bin/icc"
+export CXX="${CC_HOME}/bin/icpc"
+export CPP="${CC_HOME}/bin/cpp"
+export CXXCPP=""
+
+# GNU Binutils
+export LD="${BINUTIL_HOME}/bin/${BINARY_PREFIX}ld"
+export AS="${BINUTIL_HOME}/bin/${BINARY_PREFIX}as"
+export AR="${BINUTIL_HOME}/bin/${BINARY_PREFIX}ar"
+export RANLIB="${BINUTIL_HOME}/bin/${BINARY_PREFIX}ranlib"
+export STRIP="${BINUTIL_HOME}/bin/${BINARY_PREFIX}strip"
+
+# GNU Tools
+export M4="${GNUTOOL_HOME}/bin/${BINARY_PREFIX}m4"
+export MAKE="${GNUTOOL_HOME}/bin/${BINARY_PREFIX}make"
+
+# Arguments to use
+export CFLAGS="-gcc-name=${GCC_HOME}/bin/gcc -gcc -I${GCC_HOME}/include/c++/4.2.1 -O3 -funroll-loops -opt-prefetch"
+export CXXFLAGS="-gcc-name=${GCC_HOME}/bin/gcc -gcc -I${GCC_HOME}/include/c++/4.2.1 -O3 -funroll-loops -opt-prefetch -fpermissive -fno-exceptions"
+export CPPFLAGS=""
+export CXXCPPFLAGS=""
+export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib"
+export LIBS=""
+export EXTRA_LIBS=""
+
+# OS-specific arguments
+case "${OSTYPE}" in
+*solaris*)
+  CFLAGS="${CFLAGS} -I${SFW_HOME}/include"
+  CXXFLAGS="${CXXFLAGS} -I${SFW_HOME}/include"
+  LDFLAGS="${LDFLAGS} -L${SFW_HOME}/lib"
+  ;;
+esac
+
+# Add PARSEC version to compiler flags
+if [ -f "${PARSECDIR}/version" ]; then
+  CFLAGS="${CFLAGS} -DPARSEC_VERSION=$(${CAT} ${PARSECDIR}/version)"
+  CXXFLAGS="${CXXFLAGS} -DPARSEC_VERSION=$(${CAT} ${PARSECDIR}/version)"
+fi
+
+# Java
+export JAVA_HOME="/usr"
+export JAVAC="${JAVA_HOME}/bin/javac"
+
+# Version numbers
+CC_ver=$(${CC} --version)
+CXX_ver=$(${CXX} --version)
+LD_ver=$(${LD} --version)
+JAVAC_ver=$(${JAVAC} -version 2>&1)
+

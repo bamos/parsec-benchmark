@@ -1,0 +1,262 @@
+Changes from 2.1 to 3.0
+=======================
+
+The most important changes in detail:
+  - Package `blackscholes': Upgraded from version 2.1 to 2.2. Major changes:
+    * Fixed a pthread compatibility issue
+    * Merged TBB source code version with other versions
+    * Fixed a bug in the TBB version reported by Christian Julg
+    * Added TBB support to SSE version of blackscholes
+    * Fixed a data race in OpenMP version. Patch submitted by Paul Keir
+    * Several improvements to TBB version. Patch submitted by Paul Keir
+  - Package `bodytrack': Upgraded from Version 2.0 to 2.1. Major changes:
+    * Support for additional features of the bitmap image format
+  - Package `canneal': Upgraded from version 2.1 to 2.2. Major changes:
+    * Eliminated atomic instructions from serial version
+  - Package `dedup': Upgraded from version 2.0 to 3.0. Major changes:
+    * Fixed memory allocation issue in decompression routine. Patch submited by
+      Rafael Asenjo
+    * Fixed file open modes. Patch submitted by Joe Devietti
+    * Added SHA1 code to dedup to remove dependency on OpenSSL
+  - Package `facesim': Upgraded from version 1.2 to 2.0. Major changes:
+    * Eliminated unnecessary pthread dependencies
+    * Fixed a pthread compatibility issue
+    * Fixed an issue in the TaskQ Makefile, patch submitted by Joseph Greathouse
+    * Fixed a performance issue in serial version 
+    * Fixed a data race bug, patch submitted by Joseph Greathouse
+  - Package `ferret': Upgraded from version 1.1 to 2.0. Major changes:
+    * Added support for TBB, patch submitted by Chris Fensch
+    * Removed ImageMagick dependency. Package `imagick' is now no longer needed
+    * Use libjpeg directly to load images
+    * Added some basic image transformation routines needed to process input
+    * Fixed a deadlock, patch submitted by Chris Fensch
+  - Package `fluidanimate': Upgraded from version 2.1 to 3.0. Major changes:
+    * Added optional viewer to visualize fluid
+    * Fixed issue limiting simulation to only one frame
+    * Allow arbitrary number of particles per cell
+    * Implemented custom memory pool containing cell structures
+    * Redefined physical constants
+    * General code cleanup
+    * Added new tool `fluidcmp' for output verification
+  - Package `freqmine': Upgraded from version 1.1 to 1.2. Major changes:
+    * Fixed a bug in the build system
+  - Package `glib': Upgraded from version 2.12.13.1 to 2.24.1. Major changes:
+    * Improvements to threading code
+    * Numerous other changes
+  - Package `hooks': Upgraded from version 1.3 to 2.0. Major changes:
+    * Add support of SPLASH-2 package
+  - Package `imagick': Removed version 6.3.6.
+  - Package `libjpeg': Added initial version 7.0.
+  - Package `libxml2': Upgraded from version 2.6.28 to 2.6.28.1. Major changes:
+    * Fixed file open modes. Patch submitted by Joe Devietti
+  - Package `parmacs': Added initial 1.0.
+    * Support compiling for SPLASH-2 workloads
+  - Package `raytrace': Upgraded from version 1.1 to 1.2. Major changes:
+    * Removed a limitation on thread number, patch submitted by Alex Reshetov and Adam Morrison
+  - Package `streamcluster': Upgraded from version 2.1 to 2.2. Major changes:
+    * Fixed a data race, patch submitted by Darryl Gove
+  - Package `swaptions': Upgraded from version 2.0 to 2.1. Major changes:
+    * Use different random number generator seed for each swaption
+    * Make swaptions dependent on runtime input to defeat smart compilers
+    * Randomize number of years and strike value of each swaption
+    * Resize simulation inputs to improve error rates
+    * Fixed a load imbalance issue, reported by Mark Roth and Kishore Kumar
+  - Package `tbblib': Upgraded from version 2.1-20080605oss to 3.0-20100406oss.
+      Major changes:
+    * New and improved parallel pipeline
+    * Enhanced scalable memory allocator
+    * Portability support for additional systems
+  - Package `vips': Upgraded from version 7.16.2 to 7.22.1. Major changes:
+    * New threading scheduler with decentralized work allocation
+    * Improved interpolation algorithms
+    * Many code optimizations
+    * Details:
+        http://www.vips.ecs.soton.ac.uk/index.php?title=What%27s_New_in_7.22
+        http://www.vips.ecs.soton.ac.uk/index.php?title=What%27s_New_in_7.20
+        http://www.vips.ecs.soton.ac.uk/index.php?title=What%27s_New_in_7.18
+  - Library 'uptcpip' version 1.0 is added into PARSEC
+    * A user-level parallel TCP/IP stack extracted from FreeBSD 8.0
+  - Package 'netdedup' version 1.0 is added into PARSEC
+    * Derived from 'dedup'
+  - Package 'netferret' version 1.0 is added into PARSEC
+    * Derived from 'ferret'
+  - Package 'netstreamcluster' version 1.0 is added into PARSEC
+    * Derived from 'streamcluster'
+  - Extension directory 'ext' is added into PARSEC directory tree.
+    * Add "splash2" directory for the original SPLASH-2 
+    * Add "splash2x" directory for the extended SPLASH-2x
+    * Details:
+        http://parsec.cs.princeton.edu/doc/memo-splash2x-input.pdf 
+
+
+Changes from 2.0 to 2.1
+=======================
+
+The most important changes in detail:
+  - Package `blackscholes': Upgraded from version 2.0 to 2.1. Major changes:
+    * Use affinity partitioner in TBB version, patch submitted by Michael Voss
+    * Changed benchmark to take all input from file
+    * Wrote program to create input files
+    * Created input files (input data unchanged)
+    * Calculated prices are now written to output file
+    * Unnecessary barrier removed
+    * Resized test input to make it compatible with SIMD version
+  - Package `canneal': Upgraded from version 2.0 to 2.1. Major changes:
+    * Support for Alpha CPUs added, patch submitted by Mark Gebhart
+  - Package `facesim': Upgraded from version 1.1 to 1.2. Major changes:
+    * Added routines to write results to disk
+    * Removed code to write log to output file from ROI
+  - Package `fluidanimate': Upgraded from version 2.0 to 2.1. Major changes:
+    * Replaced pthreads barriers with custom spin barrier implementation
+    * Serial version fixed, patch submitted by Orestis Agathokleous
+    * Error resulting in too much output fixed, patch submitted by
+      John Henning
+    * Corrupted value in native input corrected
+    * Fixed file input of TBB version, patch submitted by Grishma Kotecha
+  - Package `hooks': Upgraded from version 1.2 to 1.3. Major changes:
+    * Build libhooks as a shared library
+  - Package `libtool': Added initial version 2.2.6a
+  - Package `raytrace': Upgraded from version 1.0 to 1.1. Major changes:
+    * Performance bug fixed, patch submitted by Marc de Kruijf
+    * Support for Alpha CPUs added, patch submitted by Mark Gebhart
+  - Package `streamcluster': Upgraded from version 2.0 to 2.1. Major changes:
+    * Replaced pthreads barriers with custom spin barrier implementation
+    * Deadlock fixed, patch submitted by Matthew Watkins
+    * Timing code removed
+  - Package `x264': Upgraded from version r1047 to r1047.1. Major changes:
+    * Aligned memory accesses, patch submitted by Christian Fensch
+  - Tool `parsecmgmt': Upgraded from version 2.0 to 2.1. Major changes:
+    * Made PARSECPLAT string detection more robust
+    * Place log files in separate, platform-specific directories
+    * Always append build config name to PARSECPLAT
+
+
+
+Changes from 1.0 to 2.0
+=======================
+
+You should expect to see noticeable changes in the characteristics of the
+following benchmarks: bodytrack, canneal, dedup and x264.
+
+It is possible that the characteristics of all other programs that were updated
+have changed, too. The only guarantee for identical characteristics is an
+identical source code (assuming everything else also remains the same).
+
+The most important changes in detail:
+  - Package `blackscholes': Upgraded from version 1.0 to 2.0. Major changes:
+    * New parallelization based on Intel TBB added, patch submitted by
+      Gilberto Contreras
+    * New parallelization based on OpenMP added, patch submitted by Nikolay
+      Kurtov
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+    * Windows port added, patch submitted by Nikolay Kurtov
+    * Several bugfixes, patch submitted by Nikolay Kurtov
+  - Package `bodytrack': Upgraded from version 1.1 to 2.0. Major changes:
+    * New parallelization based on Intel TBB added
+    * Particle resampling kernel parallelized
+    * Asynchronous I/O for image file accesses added
+    * Processing stages now pipelined, program will work on multiple frames
+      simultaneously
+    * gcc 4.3 syntax issues fixed, patch submitted by Wim Heirman
+    * Typo in `simlarge' run configuration fixed
+  - Package `canneal': Upgraded from version 1.0 to 2.0. Major changes:
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+    * Changed parallelization model
+    * Termination condition changed, number of steps can now be chosen at
+      program start
+    * Resized inputs to be smaller using new termination condition
+  - Package `cmake': Added initial version 2.6.1
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+  - Package `dedup': Upgraded from version 1.1 to 2.0. Major changes:
+    * More cache efficient serial version
+    * More effective and computationally intensive input stream fragmentation
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+    * Deadlock fixed, patch submitted by Jiaqi Zhang
+    * malloc bug fixed, patch submitted by Nikolay Kurtov
+  - Package `facesim': Upgraded from version 1.0 to 1.1. Major changes:
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+    * gcc 4.3 syntax issues fixed, patch submitted by Wim Heirman
+  - Package `ferret': Upgraded from version 1.0 to 1.1. Major changes:
+    * Serial version of build system fixed
+    * Build system changed to prefer PARSEC libraries over system installations
+    * Solaris 10 / Sparc portability issues fixed
+    * gcc 4.3 syntax issues fixed, patch submitted by Wim Heirman
+  - Package `fluidanimate': Upgraded from version 1.1 to 2.0. Major changes:
+    * New parallelization based on Intel TBB added, patch submitted by
+      Gilberto Contreras
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+    * gcc 4.3 syntax issues fixed, patch submitted by Wim Heirman
+  - Package `mesa': Added initial version 7.2.1
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+  - Package `freqmine': Upgraded from version 1.0 to 1.1. Major changes:
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+    * gcc 4.3 syntax issues fixed, patch submitted by Wim Heirman
+    * A few bugfixes, patches submitted by Saugata Ghose and Intel
+  - Package `glib': Upgraded from version 2.12.13 to 2.12.13.1. Major changes:
+    * gcc 4.3 syntax issues fixed, patch submitted by Wim Heirman
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+  - Package `hooks': Upgraded from version 1.1 to 1.2. Major changes:
+    * Doxygen source code documentation
+  - Package `raytrace': Added initial version 1.0
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+  - Package `ssl': Added initial version 0.9.8j.1
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+  - Package `streamcluster': Upgraded from version 1.0 to 2.0. Major changes:
+    * New parallelization based on Intel TBB added, patch submitted by
+      Gilberto Contreras
+  - Package `swaptions': Upgraded from version 1.0 to 2.0. Major changes:
+    * New parallelization based on Intel TBB added, patch submitted by
+      by Gilberto Contreras
+    * gcc 4.3 syntax issues fixed, patch submitted by Wim Heirman
+  - Package `tbblib': Added initial version 2.1-20080605oss
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+  - Package `vips': Upgraded from version 7.12.5  to 7.16.2 . Major changes:
+    * Build system changed to prefer PARSEC libraries over system installations
+    * Solaris 10 / Sparc portability issues resolved
+    * Syntax compatible with gcc 4.3
+    * Many bugfixes & cleanups
+    * Details: http://www.vips.ecs.soton.ac.uk/supported/7.16/ChangeLog-vips.txt
+  - Package `x264': Upgraded from version r680 to r1047.1. Major changes:
+    * Solaris 10 / Sparc portability issues fixed, patch submitted by Christian
+      Fensch
+    * Missing `simdev' input added
+    * Typo in `simlarge' run configuration fixed
+    * Numerous bugfixes
+    * Various nondeterminisms eliminated
+    * Several new assembly kernel implementations added
+    * Lots of tuning
+    * Details: http://www.digital-digest.com/software/x264_history.html
+  - Package `yasm': Upgraded from version 0.6.2 to 0.7.1. Major changes:
+    * Support for Intel Advanced Vector Extensions (AVX)
+    * Support for ELF32 and ELF64 TLS (thread local storage) relocations
+    * Many bugfixes
+    * Details: http://www.tortall.net/projects/yasm/wiki/Release0.7.1
+  - Package `zlib': Added initial version 1.2.3
+  - Tool `parsecmgmt': Upgraded from version 1.0 to 2.0. Major changes:
+    * Paths to libraries in CC_HOME directory is now added to LD_LIBRARY_PATH
+    * Name of auto-generated file with build information changed from
+      `compile-info' to `build-info'
+    * Extensions can now be specified with argument `-x' to allow multiple
+      installations for the same platform
+    * Support for different parallelization models
+    * Auto-detect available input sets, aliases and packages at runtime
+    * Option to keep an already existing run directory
+    * Conditional package dependencies (also depend on build configuration)
+    * Renamed action `uninstallall' to `fulluninstall'
+    * Renamed action `cleanall' to `fullclean'
+  - Other framework changes:
+    * Man pages for framework tools and hooks added
+    * Script env.sh to setup useful environment variables added
+

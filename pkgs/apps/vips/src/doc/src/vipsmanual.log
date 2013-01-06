@@ -1,0 +1,1150 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.5.9)  9 JUN 2010 21:39
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**\makeatletter\def\HCode{\futurelet\HCode\HChar}\def\HChar{\ifx"\HCode\def\HCo
+de"##1"{\Link##1}\expandafter\HCode\else\expandafter\Link\fi}\def\Link#1.a.b.c.
+{\g@addto@macro\@documentclasshook{\RequirePackage[#1,html]{tex4ht}}\let\HCode\
+documentstyle\def\documentstyle{\let\documentstyle\HCode\expandafter\def\csname
+ tex4ht\endcsname{#1,html}\def\HCode####1{\documentstyle[tex4ht,}\@ifnextchar[{
+\HCode}{\documentstyle[tex4ht]}}}\makeatother\HCode html.cfg,3.a.b.c.\input  vi
+psmanual.tex
+(./vipsmanual.tex (/usr/share/texmf-texlive/tex/latex/base/book.cls
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/bk10.clo
+File: bk10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf/tex/generic/tex4ht/tex4ht.sty
+version 2008-10-27-17:23
+Package: tex4ht 
+--------------------------------------
+--- Note --- for _ at preamble, use the command line option `early_'
+--------------------------------------
+--------------------------------------
+--- Note --- for ^ at preamble, use the command line option `early^'
+--------------------------------------
+\tmp:toks=\toks14
+)
+(/usr/share/texmf/tex/generic/tex4ht/usepackage.4ht
+version 2009-05-21-09:32
+)
+(/usr/share/texmf-texlive/tex/latex/geometry/geometry.sty
+Package: geometry 2008/12/21 v4.2 Page Geometry
+
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode not detected.
+)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+\Gm@cnth=\count88
+\Gm@cntv=\count89
+\c@Gm@tempcnt=\count90
+\Gm@bindingoffset=\dimen103
+\Gm@wd@mp=\dimen104
+\Gm@odd@mp=\dimen105
+\Gm@even@mp=\dimen106
+\Gm@dimlist=\toks16
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+
+(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen107
+\Gin@req@width=\dimen108
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(/etc/texmf/tex/latex/config/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: dvips.def on input line 130.
+
+(/usr/share/texmf-texlive/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+(/usr/share/texmf-texlive/tex/latex/psnfss/times.sty
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+(/usr/share/texmf-texlive/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip43
+\f@ncyO@elh=\skip44
+\f@ncyO@erh=\skip45
+\f@ncyO@olh=\skip46
+\f@ncyO@orh=\skip47
+\f@ncyO@elf=\skip48
+\f@ncyO@erf=\skip49
+\f@ncyO@olf=\skip50
+\f@ncyO@orf=\skip51
+)
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+) (./mydefs.tex
+\c@boink=\count91
+\fred=\skip52
+) (./html.cfg (/usr/share/texmf/tex/generic/tex4ht/tex4ht.4ht
+version 2009-01-07-07:11
+--------------------------------------
+--- Note --- for additional information, use the command line option `info'
+--------------------------------------
+
+::::::::::::::::::::::::::::::::::::::::::
+ TeX4ht info is available in the log file 
+::::::::::::::::::::::::::::::::::::::::::
+) (/usr/share/texmf/tex/generic/tex4ht/tex4ht.sty
+version 2008-10-27-17:23
+
+--- needs --- tex4ht vipsmanual ---
+\tmp:cnt=\count92
+\openout15 = `vipsmanual.tmp'.
+
+(./vipsmanual.tmp)
+\tmp:dim=\skip53
+--------------------------------------
+--- Note --- for XML code, use the command line option `xml' or `xhtml'
+--------------------------------------
+ (./vipsmanual.xref)
+\:refout=\write3
+\openout3 = `vipsmanual.xref'.
+
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+--------------------------------------
+--- Note --- to remove the <?xml version=...?> processing instruction use the c
+ommand line option `no-VERSION'
+--------------------------------------
+--------------------------------------
+--- Note --- to remove the DOCTYPE declaration use the command line option `no-
+DOCTYPE'
+--------------------------------------
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+)
+--------------------------------------
+--- Note --- for marking of the base font, use the command line option `fonts+'
+
+--------------------------------------
+--------------------------------------
+--- Note --- for non active _, use the command line option `no_'
+--------------------------------------
+--------------------------------------
+--- Note --- for _ of catcode 13, use the command line option `_13'
+--------------------------------------
+--------------------------------------
+--- Note --- for non active ^, use the command line option `no^'
+--------------------------------------
+--------------------------------------
+--- Note --- for ^ of catcode 13, use the command line option `^13'
+--------------------------------------
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+--------------------------------------
+--- Note --- For section filenames that reflect on their titles use the command
+ line option `sec-filename'
+--------------------------------------
+--------------------------------------
+--- Note --- for alternative charset, use the command line option `charset=...'
+
+--------------------------------------
+--------------------------------------
+--- Note --- to ignore CSS font decoration, use the `NoFonts' command line opti
+on
+--------------------------------------
+--------------------------------------
+--- Note --- for jpg bitmaps of pictures, use the `jpg' command line option. (C
+haracter bitmaps are controled only by `g' records of tex4ht.env and `-g' switc
+hes of tex4ht.c) 
+--------------------------------------
+--------------------------------------
+--- Note --- for gif bitmaps of pictures, use the `gif' command line option. (C
+haracter bitmaps are controled only by `g' records of tex4ht.env and `-g' switc
+hes of tex4ht.c) 
+--------------------------------------
+--------------------------------------
+--- Note --- for content and toc in 2 frames, use the command line option `fram
+es'
+--------------------------------------
+--------------------------------------
+--- Note --- for content, toc, and footnotes in 3 frames, use the command line 
+option `frames-fn'
+--------------------------------------
+--------------------------------------
+--- Note --- for file extension name xht, use the command line option `xht'
+--------------------------------------
+TeX4ht package options: 3,html
+--------------------------------------
+--- Note --- to ignore CSS code, use the command line option `-css
+--------------------------------------
+--------------------------------------
+--- Note --- for inline CSS code, use the command line option `css-in'
+--------------------------------------
+--------------------------------------
+--- Note --- for pop ups on mouse over, use the command line option `mouseover'
+
+--------------------------------------
+--------------------------------------
+--- Note --- for addressing images in a subdirectory, use the command line opti
+on `imgdir:.../'
+--------------------------------------
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+)
+\:tokwrite=\toks17
+\:tokpage=\toks18
+--------------------------------------
+--- Note --- for back links to toc, use the command line option `sections+'
+--------------------------------------
+--------------------------------------
+--- Note --- for linear crosslinks of pages, use the command line option `next'
+
+--------------------------------------
+\openout15 = `vipsmanual.4ct'.
+
+\:tocout=\write4
+\openout4 = `vipsmanual.4tc'.
+
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+)
+(/usr/share/texmf/tex/generic/tex4ht/latex.4ht
+version 2009-05-21-09:32
+--------------------------------------
+--- Note --- for links into captions, instead of float heads, use the command l
+ine option `refcaption'
+--------------------------------------
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+--------------------------------------
+--- Note --- For mini tocs immediately aftter the header use the command line o
+ption `minitoc<'
+--------------------------------------
+--------------------------------------
+--- Note --- for enumerated list elements with valued data, use the command lin
+e option `enumerate+'
+--------------------------------------
+--------------------------------------
+--- Note --- for enumerated list elements li's with value attributes, use the c
+ommand line option `enumerate-'
+--------------------------------------
+--------------------------------------
+--- Note --- for CSS2 code, use the command line option `css2'
+--------------------------------------
+--------------------------------------
+--- Note --- for pictorial tabular, use the command line option `pic-tabular'
+--------------------------------------
+--------------------------------------
+--- Note --- for bitmap fbox'es, use the command line option `pic-fbox'
+--------------------------------------
+--------------------------------------
+--- Note --- for bitmap framebox'es, use the command line option `pic-framebox'
+
+--------------------------------------
+--------------------------------------
+--- Note --- for inline footnotes use command line option `fn-in'
+--------------------------------------
+--------------------------------------
+--- Note --- for tracing of latex font commands, use the command line option `f
+onts'
+--------------------------------------
+--------------------------------------
+--- Note --- for width specifications of tabular p entries, use the `p-width' c
+ommand line option or a configuration similar to \Configure{HColWidth}{\HCode{ 
+style="width:\HColWidth"}}
+--------------------------------------
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+--------------------------------------
+--- Note --- for pictorial eqnarray, use the command line option `pic-eqnarray'
+
+--------------------------------------
+--------------------------------------
+--- Note --- for pictorial array, use the command line option `pic-array'
+--------------------------------------
+--------------------------------------
+--- Note --- for pictorial $...$ environments, use the command line option `pic
+-m' (not recommended!!)
+--------------------------------------
+--------------------------------------
+--- Note --- for pictorial $...$ and $$...$$ environments with latex alt, use t
+he command line option `pic-m+' (not safe!!)
+--------------------------------------
+--------------------------------------
+--- Note --- for pictorial array, use the command line option `pic-array'
+--------------------------------------
+))
+(/usr/share/texmf/tex/generic/tex4ht/fontmath.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+))
+(/usr/share/texmf/tex/generic/tex4ht/book.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+--------------------------------------
+--- Note --- for tocs without * entries, use command line option `notoc*'
+--------------------------------------
+--------------------------------------
+--- Note --- for tocs without * entries, use command line option `notoc*'
+--------------------------------------
+--------------------------------------
+--- Note --- for tocs without * entries, use command line option `notoc*'
+--------------------------------------
+--------------------------------------
+--- Note --- to eliminate mini tables of contents, use the command line option 
+`nominitoc'
+--------------------------------------
+--------------------------------------
+--- Note --- to eliminate mini tables of contents, use the command line option 
+`nominitoc'
+--------------------------------------
+--------------------------------------
+--- Note --- for frames-like object-based table of contents, use the command li
+ne option `obj-toc'
+--------------------------------------
+--------------------------------------
+--- Note --- for files named derived from section titles, use the command line 
+option `sec-filename'
+--------------------------------------
+--------------------------------------
+--- Note --- for i-columns index, use the command line option `index=i' (e.g., 
+index=2)
+--------------------------------------
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+))
+(/usr/share/texmf/tex/generic/tex4ht/graphicx.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+))
+(/usr/share/texmf/tex/generic/tex4ht/graphics.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+--------------------------------------
+--- Note --- if included graphics are of degraded quality, try the command line
+ options `graphics-num' or `graphics-'. The `num' should provide the density of
+ pixels in the bitmaps (e.g., 110). 
+--------------------------------------
+--------------------------------------
+--- Note --- for key dimensions try the option `Gin-dim'; for key dimensions wh
+en bounding box is unavailable try `Gin-dim+'; neither is recommended
+--------------------------------------
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+))
+(/usr/share/texmf/tex/generic/tex4ht/dvips.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+))
+(/usr/share/texmf/tex/generic/tex4ht/color.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+))
+(/usr/share/texmf/tex/generic/tex4ht/dvipsnam.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf-texlive/tex/latex/graphics/dvipsnam.def)
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+))
+(/usr/share/texmf/tex/generic/tex4ht/ifthen.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+))
+(/usr/share/texmf/tex/generic/tex4ht/html4.4ht
+version 2009-05-18-23:01
+)
+(/usr/share/texmf/tex/generic/tex4ht/html4-math.4ht
+version 2009-05-18-23:01
+)) (./vipsmanual.aux)
+\openout1 = `vipsmanual.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 3.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+*geometry auto-detecting driver*
+*geometry detected driver: dvips*
+-------------------- Geometry parameters
+paper: a4paper
+landscape: --
+twocolumn: true
+twoside: true
+asymmetric: --
+h-parts: 71.70166pt, 0.7\paperwidth , 107.55254pt (default)
+v-parts: 101.40665pt, 0.7\paperheight , 152.11pt (default)
+hmarginratio: 2:3
+vmarginratio: 2:3
+lines: --
+heightrounded: --
+bindingoffset: 0.0pt
+truedimen: --
+includehead: --
+includefoot: --
+includemp: --
+driver: dvips
+-------------------- Page layout dimensions and switches
+\paperwidth  597.50787pt
+\paperheight 845.04684pt
+\textwidth  454.38867pt
+\textheight 591.5302pt
+\oddsidemargin  0.0pt
+\evensidemargin 0.0pt
+\topmargin  -5.93083pt
+\headheight 12.0pt
+\headsep    23.06749pt
+\footskip   30.29494pt
+\marginparwidth 48.0pt
+\marginparsep   10.0pt
+\columnsep  10.0pt
+\skip\footins  9.0pt plus 4.0pt minus 2.0pt
+\hoffset 0.0pt
+\voffset 0.0pt
+\mag 1000
+\@twocolumntrue \@twosidetrue \@mparswitchtrue 
+(1in=72.27pt, 1cm=28.45pt)
+-----------------------
+--- file vipsmanual.css ---
+) [1
+
+
+] [2
+
+] [3
+
+] [1
+
+] [2
+
+
+]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24.88> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 45.
+ (./vipsmanual.4ct
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 18.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+))
+--- file vipsmanualli1.html ---
+ (./vipsmanual.4ct
+[3
+
+]) [4] [5
+
+] [6
+
+]
+--- file vipsmanualli2.html ---
+ (./vipsmanual.4ct) [7
+
+] [8
+
+
+] [9
+
+] [10
+
+]
+--- file vipsmanualli3.html ---
+ (./vipsmanual.4ct)
+[11
+
+] [1
+
+
+] [2
+
+
+]
+Chapter 1.
+--- file vipsmanualch1.html ---
+(./cppintro.tex
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
+ (./vipsmanual.4ct)
+--- file vipsmanualse1.html ---
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 14.
+ [3
+
+]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 32.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 32.
+ [4] [5
+
+
+] [6
+
+
+] [7
+
+
+] [8
+
+
+]
+[9
+
+
+]) (./fileformat.tex [10
+
+
+]
+--- file vipsmanualse2.html ---
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 26.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 26.
+ [11
+
+
+] [12
+
+
+] [13
+
+
+] [14
+
+
+] [15
+
+
+] [16
+
+
+] [17
+
+
+] [18
+
+
+] [19
+
+
+]
+[20
+
+
+] [21
+
+
+] [22
+
+
+]) (./vimage.tex [23
+
+]
+--- file vipsmanualse3.html ---
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
+LaTeX Font Info:    Font shape `OT1/pcr/bx/n' in size <10> not available
+(Font)              Font shape `OT1/pcr/b/n' tried instead on input line 23.
+ [24
+
+] [25] [26] [27] [28] [29] [30] [31]
+[32] [33] [34]) (./vmask.tex [35
+
+]
+--- file vipsmanualse4.html ---
+ [36
+
+] [37] [38] [39]) (./vdisplay.tex [40]
+--- file vipsmanualse5.html ---
+
+[41
+
+] [42]) (./verror.tex [43]
+--- file vipsmanualse6.html ---
+ [44
+
+] [45] [46] [47]) [48
+
+] [49
+
+
+] [50
+
+
+]
+Chapter 2.
+--- file vipsmanualch2.html ---
+(./applintro.tex (./vipsmanual.4ct)
+--- file vipsmanualse7.html ---
+ [51
+
+] [52
+
+
+]
+l.15 --- TeX4ht warning --- Cannot determine size of graphic in figs/arch.png (
+no BoundingBox) ---
+l. 15 --- needs --- figs/arch.png ---
+[53
+
+
+] [54
+
+]) (./iosys.tex [55
+
+]
+--- file vipsmanualse8.html ---
+ [56
+
+] [57] [58
+
+
+] [59
+
+
+] [60
+
+
+] [61
+
+
+] [62
+
+
+] [63
+
+] [64]
+[65] [66] [67] [68
+
+
+] [69
+
+
+] [70
+
+] [71
+
+
+] [72
+
+
+] [73
+
+] [74] [75] [76] [77
+
+
+] [78
+
+
+] [79
+
+]
+[80] [81] [82
+
+
+] [83
+
+
+] [84
+
+] [85
+
+
+] [86
+
+
+]) (./func.tex [87
+
+]
+--- file vipsmanualse9.html ---
+ [88
+
+] [89
+
+] [90
+
+
+] [91
+
+
+]
+[92
+
+] [93] [94] [95] [96] [97] [98] [99] [100] [101] [102] [103] [104])
+(./object.tex [105]
+--- file vipsmanualse10.html ---
+ [106
+
+] [107] [108] [109]) (./format.tex [110]
+--- file vipsmanualse11.html ---
+ [111
+
+] [112
+
+
+]
+[113
+
+]) (./interpolate.tex [114
+
+
+]
+--- file vipsmanualse12.html ---
+ [115
+
+] [116
+
+
+] [117
+
+] [118
+
+] [119] [120]) [121
+
+]
+[122
+
+
+] [123
+
+
+] [124
+
+]
+Chapter 3.
+--- file vipsmanualch3.html ---
+(./operintro.tex (./vipsmanual.4ct)
+--- file vipsmanualse13.html ---
+ [125]) (./wio.tex [126
+
+]
+--- file vipsmanualse14.html ---
+ [127
+
+] [128
+
+]
+[129
+
+
+] [130
+
+] [131
+
+] [132] [133] [134
+
+] [135
+
+
+] [136
+
+] [137
+
+] [138
+
+
+] [139
+
+
+] [140
+
+
+]
+[141
+
+
+] [142
+
+
+]) (./pio.tex [143
+
+
+]
+--- file vipsmanualse15.html ---
+ [144
+
+] [145] [146] [147] [148] [149] [150]
+[151] [152] [153] [154
+
+] [155
+
+
+] [156
+
+
+] [157
+
+
+] [158
+
+
+] [159
+
+
+] [160
+
+] [161
+
+] [162
+
+
+]
+[163
+
+
+] [164
+
+
+] [165
+
+
+] [166
+
+
+] [167
+
+
+] [168
+
+
+] [169
+
+
+] [170
+
+] [171] [172
+
+
+] [173
+
+
+] [174
+
+
+]
+[175
+
+
+] [176
+
+
+] [177
+
+]) (./ipio.tex [178
+
+]
+--- file vipsmanualse16.html ---
+ [179
+
+]) [180
+
+] [181
+
+
+] [182
+
+
+]
+Chapter 4.
+--- file vipsmanualch4.html ---
+(./refintro.tex (./vipsmanual.4ct)
+--- file vipsmanualse17.html ---
+ [183
+
+] [184] [185
+
+] [186
+
+
+] [187
+
+
+])
+(./packages.tex [188
+
+
+]
+--- file vipsmanualse18.html ---
+ [189
+
+
+] [190
+
+
+] [191
+
+] [192
+
+
+] [193
+
+
+] [194
+
+
+] [195
+
+
+] [196
+
+
+] [197
+
+
+]
+[198
+
+
+] [199
+
+
+]
+l.163 --- TeX4ht warning --- Cannot determine size of graphic in figs/interconv
+ert.png (no BoundingBox) ---
+l. 163 --- needs --- figs/interconvert.png ---
+[200
+
+
+] [201
+
+] [202
+
+
+] [203
+
+] [204
+
+
+] [205
+
+
+] [206
+
+] [207
+
+
+] [208
+
+
+] [209
+
+
+]
+l. 385 Writing vipsmanual.idv[1] (vipsmanual0x.png)
+ [210
+
+] [211
+
+]
+[212
+
+
+] [213
+
+
+] [214
+
+
+] [215
+
+
+] [216
+
+] [217
+
+
+] [218
+
+
+] [219
+
+
+] [220
+
+
+] [221
+
+
+] [222
+
+
+] [223
+
+
+]
+[224
+
+
+] [225
+
+
+] [226
+
+] [227
+
+
+] [228
+
+
+] [229
+
+
+] [230
+
+
+] [231
+
+
+] [232
+
+
+] [233
+
+
+] [234
+
+
+] [235
+
+
+]
+[236
+
+
+] [237
+
+
+] [238
+
+
+] [239
+
+
+] [240
+
+
+] [241
+
+
+] [242
+
+
+] [243
+
+
+] [244
+
+
+] [245
+
+
+] [246
+
+
+]) [247
+
+
+]
+[248
+
+
+] (./vipsmanual.aux) ) 
+Here is how much of TeX's memory you used:
+ 6367 strings out of 495062
+ 77939 string characters out of 1182645
+ 258961 words of memory out of 3000000
+ 9394 multiletter control sequences out of 15000+50000
+ 9231 words of font info for 26 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 28i,9n,46p,1597b,545s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on vipsmanual.dvi (262 pages, 906292 bytes).

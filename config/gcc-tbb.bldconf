@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# gcc-tbb.bldconf - file containing global information necessary to build
+#                   PARSEC with gcc and tbb
+#
+# Copyright (C) 2009 Princeton University
+# Written by Christian Bienia
+
+source ${PARSECDIR}/config/gcc.bldconf
+
+# Arguments for programs that use the Intel Threading Building Blocks
+# More information: http://www.threadingbuildingblocks.org/
+TBB_CFLAGS="-I${PARSECDIR}/pkgs/libs/tbblib/inst/${PARSECPLAT}/include"
+TBB_CXXFLAGS="${TBB_CFLAGS}"
+TBB_LDFLAGS="-L${PARSECDIR}/pkgs/libs/tbblib/inst/${PARSECPLAT}/lib"
+TBB_LIBS="-ltbb -ltbbmalloc_proxy -ltbbmalloc -ldl -lrt -lpthread"
+
+# Append to global arguments
+export CFLAGS="${CFLAGS} ${TBB_CFLAGS}"
+export CXXFLAGS="${CXXFLAGS} ${TBB_CXXFLAGS}"
+export LDFLAGS="${LDFLAGS} ${TBB_LDFLAGS}"
+export LIBS="${LIBS} ${TBB_LIBS}"
+

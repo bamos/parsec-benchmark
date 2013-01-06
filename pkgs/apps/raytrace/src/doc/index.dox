@@ -1,0 +1,28 @@
+/*! \mainpage My Personal Index Page
+
+\section intro HoneyBee main documentation
+
+Note: There are _two_ verions of this manual. A "brief" one that
+includes only "hand-written" documentation, and a "full" one that
+contains both hand-written documentation and source code
+documentation.
+
+
+\section building_sec How to build the codebase
+
+See separate page on \ref building
+
+\section usage Usage 
+
+Links to addtl documentation for the frontend scene viewers included in this codebase:
+
+<dl>
+
+<dt>MiniRT/rtview</dt><dd>no documentation, yet</dd>
+
+<dt>DynRTViewer/drtview</dt><dd>see separate \ref drtview_manual </dd>
+
+
+</dl>
+
+ */

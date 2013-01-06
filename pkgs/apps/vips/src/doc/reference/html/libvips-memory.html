@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>memory</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch01.html" title="Core VIPS API">
+<link rel="prev" href="libvips-error.html" title="error">
+<link rel="next" href="libvips-buf.html" title="buf">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-error.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-buf.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-memory.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-memory.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="memory">
+<a name="libvips-memory"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-memory.top_of_page"></a>memory</span></h2>
+<p>memory — memory utilities</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-memory.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-memory.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+#define             <a class="link" href="libvips-memory.html#IM-NEW:CAPS" title="IM_NEW()">IM_NEW</a>                              (IM,
+                                                         T)
+#define             <a class="link" href="libvips-memory.html#IM-ARRAY:CAPS" title="IM_ARRAY()">IM_ARRAY</a>                            (IM,
+                                                         N,
+                                                         T)
+<span class="returnvalue">void</span> *              <a class="link" href="libvips-memory.html#im-malloc" title="im_malloc ()">im_malloc</a>                           (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> sz</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-memory.html#im-free" title="im_free ()">im_free</a>                             (<em class="parameter"><code><span class="type">void</span> *Param1</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-memory.description"></a><h2>Description</h2>
+<p>
+Simple memory allocation utilities. These functions and macros help
+allocate and free memory. Most of VIPS uses them, though some parts use
+the <code class="function">g_malloc()</code> system instead, confusingly.
+</p>
+<p>
+If you compile with <code class="literal">DEBUGM</code> it will track allocations for you, though
+valgrind or dmalloc are better solutions.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-memory.details"></a><h2>Details</h2>
+<div class="refsect2" title="IM_NEW()">
+<a name="IM-NEW:CAPS"></a><h3>IM_NEW()</h3>
+<pre class="programlisting">#define IM_NEW( IM, T ) ((T *) im_malloc( (IM), sizeof( T )))
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>IM</code></em> :</span></p></td>
+<td>allocate memory local to <em class="parameter"><code>IM</code></em>, or <code class="literal">NULL</code> for no auto-free
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>T</code></em> :</span></p></td>
+<td>type of thing to allocate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A pointer of type <em class="parameter"><code>T</code></em> *, or <code class="literal">NULL</code> on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_ARRAY()">
+<a name="IM-ARRAY:CAPS"></a><h3>IM_ARRAY()</h3>
+<pre class="programlisting">#define IM_ARRAY( IM, N, T ) ((T *) im_malloc( (IM), (N) * sizeof( T )))
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>IM</code></em> :</span></p></td>
+<td>allocate memory local to <em class="parameter"><code>IM</code></em>, or <code class="literal">NULL</code> for no auto-free
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>N</code></em> :</span></p></td>
+<td>number of <em class="parameter"><code>T</code></em> 's to allocate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>T</code></em> :</span></p></td>
+<td>type of thing to allocate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A pointer of type <em class="parameter"><code>T</code></em> *, or <code class="literal">NULL</code> on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_malloc ()">
+<a name="im-malloc"></a><h3>im_malloc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              im_malloc                           (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> sz</code></em>);</pre>
+<p>
+Malloc local to <em class="parameter"><code>im</code></em>, that is, the memory will be automatically 
+freed for you when the image is closed. If <em class="parameter"><code>im</code></em> is <code class="literal">NULL</code>, you need to free
+the memory explicitly with <a class="link" href="libvips-memory.html#im-free" title="im_free ()"><code class="function">im_free()</code></a>.
+If allocation fails <a class="link" href="libvips-memory.html#im-malloc" title="im_malloc ()"><code class="function">im_malloc()</code></a> returns <code class="literal">NULL</code> and 
+sets an error message.
+</p>
+<p>
+If two threads try to allocate local to the same <em class="parameter"><code>im</code></em> at the same time, you 
+can get heap corruption.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>allocate memory local to this <span class="type">IMAGE</span>, or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>number of bytes to allocate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a pointer to the allocated memory, or <code class="literal">NULL</code> on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_free ()">
+<a name="im-free"></a><h3>im_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_free                             (<em class="parameter"><code><span class="type">void</span> *Param1</code></em>);</pre>
+<p>
+VIPS free function. VIPS tries to use this instead of <code class="function">free()</code>. It always
+returns zero, so it can be used as a callback handler. 
+</p>
+<p>
+Only use it to free
+memory that was previously allocated with <a class="link" href="libvips-memory.html#im-malloc" title="im_malloc ()"><code class="function">im_malloc()</code></a> with a <code class="literal">NULL</code> first
+argument.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>memory to free
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

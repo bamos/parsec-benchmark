@@ -1,0 +1,124 @@
+We are pleased to announce the release of the SPLASH-2 suite of 
+multiprocessor applications.  SPLASH-2 is the successor to the SPLASH 
+suite that we previously released, and the programs in it are also 
+written assuming a coherent shared address space communication model.  
+SPLASH-2 contains several new applications, as well as improved versions 
+of applications from SPLASH.  The suite is currently available via 
+anonymous ftp to 
+
+     www-flash.stanford.edu (in the pub/splash2 subdirectory)
+     
+and via the World-Wide-Web at 
+
+     http://www-flash.stanford.edu/apps/SPLASH/  
+
+Several programs are currently available, and a few others will be added 
+shortly.  The programs fall into two categories: full applications and 
+kernels.  Additionally, we designate some of these as "core programs" 
+(see below).  The applications and kernels currently available in the 
+SPLASH-2 suite include: 
+
+Applications: 
+  Ocean Simulation
+  Ray Tracer
+  Hierarchical Radiosity
+  Volume Renderer
+  Water Simulation with Spatial Data Structure
+  Water Simulation without Spatial Data Structure
+  Barnes-Hut  (gravitational N-body simulation)
+  Adaptive Fast Multipole (gravitational N-body simulation)
+
+Kernels:
+  FFT
+  Blocked LU Decomposition
+  Blocked Sparse Cholesky Factorization
+  Radix Sort
+
+Programs that will appear soon include:
+
+  PSIM4 - Particle Dynamics Simulation (full application)
+  Conjugate Gradient (kernel)
+  LocusRoute (standard cell router from SPLASH)
+  Protein Structure Prediction
+  Protein Sequencing
+  Parallel Probabilistic Inference
+ 
+In some cases, we provide both well-optimized and less-optimized versions 
+of the programs.  For both the Ocean simulation and the Blocked LU 
+Decomposition kernel, less optimized versions of the codes are currently
+available.
+
+There are important differences between applications in the SPLASH-2 suite
+and applications in the SPLASH suite.  These differences are noted in the
+README.SPLASH2 file in the pub/splash2 directory.  It is *VERY IMPORTANT*
+that you read the README.SPLASH2 file, as well as the individual README 
+files in the program directories, before using the SPLASH-2 programs.  
+These files describe how to run the programs, provide commented annotations
+about how to distribute data on a machine with physically distributed main 
+memory, and provides guidelines on the baseline problem sizes to use when 
+studying architectural interactions through simulation.  
+
+Complete documentation of SPLASH2, including a detailed characterization 
+of performance as well as memory system interactions and synchronization 
+behavior, will appear in the SPLASH2 report that is currently being 
+written.  
+
+
+OPTIMIZATION STRATEGY:
+----------------------
+
+For each application and kernel, we note potential features or 
+enhancements that are typically machine-specific.  These potential 
+enhancements are encapsulated within comments in the code starting with 
+the string "POSSIBLE ENHANCEMENT."  The potential enhancements which we 
+identify are:
+
+  (1) Data Distribution
+
+      We note where data migration routines should be called in order to 
+      enhance locality of data access.  We do not distribute data by 
+      default as different machines implement migration routines in
+      different ways, and on some machines this is not relevant.
+
+  (2) Process-to-Processor Assignment
+  
+      We note where calls can be made to "pin" processes to specific
+      processors so that process migration can be avoided.  We do not
+      do this by default, since different machines implement this 
+      feature in different ways.
+
+In addition, to facilitate simulation studies, we note points in the 
+codes where statistics gathering routines should be turned on so that 
+cold-start and initialization effects can be avoided.
+
+For two programs (Ocean and LU), we provide less-optimized versions of 
+the codes.  The less-optimized versions utilize data structures that 
+lead to simpler implementations, but which do not allow for optimal data 
+distribution (and can generate false-sharing).
+
+
+CORE PROGRAMS:
+--------------
+
+Since the number of programs has increased over SPLASH, and since not 
+everyone may be able to use all the programs in a given study, we 
+identify some of the programs as "core" programs that should be used
+in most studies for comparability.  In the currently available set, 
+these core programs include: 
+
+(1) Ocean Simulation
+(2) Hierarchical Radiosity
+(3) Water Simulation with Spatial data structure
+(4) Barnes-Hut
+(5) FFT
+(6) Blocked Sparse Cholesky Factorization
+(7) Radix Sort 
+
+The less optimized versions of the programs, when available, should be 
+used only in addition to these.
+
+The base problem sizes that we recommend are provided in the README files 
+for individual applications.  Please use at least these for experiments
+with upto 64 processors.  If changes are made to these base parameters 
+for further experimentation, these changes should be explicitly stated 
+in any results that are presented.

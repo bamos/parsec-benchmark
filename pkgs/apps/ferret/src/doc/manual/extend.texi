@@ -1,0 +1,130 @@
+@menu
+* Adding New Vector Distances
+* Adding New Vecset Distances
+* Adding New Indices and Sketches
+* Supporting New Data Types
+@end menu
+
+@anchor{x-extend}
+
+@node Adding New Vector Distances
+@section Adding New Vector Distances
+
+@smallexample
+typedef cass_dist_t (*cass_vec_dist_func_t) (cass_size_t n, void *, void *, void *);
+
+typedef struct _cass_vec_dist_class @{
+        char *name;
+        cass_vec_type_t vec_type;
+        cass_vec_dist_type_t type;
+        cass_vec_dist_func_t dist;
+        /* void ** is actually cass_vec_dist_t ** */
+        int (*describe) (void *, CASS_FILE *);
+        int (*construct) (void **, const char *);
+        int (*checkpoint) (void *, CASS_FILE *);
+        int (*restore) (void **, CASS_FILE *);
+        void (*free) (void *);
+@} cass_vec_dist_class_t;
+
+typedef struct @{
+        uint32_t refcnt;
+        char *name;
+        cass_vec_dist_class_t *class;
+        /* private data... */
+@} cass_vec_dist_t;
+
+@end smallexample
+
+@node Adding New Vecset Distances
+@section Adding New Vecset Distances
+
+@smallexample
+typedef cass_dist_t (*cass_vecset_dist_func_t) (cass_dataset_t *, cass_vecset_id_t,
+                cass_dataset_t *, cass_vecset_id_t , cass_vec_dist_t *vec_dist, void *);
+
+typedef struct _cass_vecset_dist_class@{
+        char *name;
+        cass_vecset_type_t vecset_type;
+        cass_vecset_dist_type_t type;
+        cass_vecset_dist_func_t dist;
+        /* void ** is actually cass_vecset_dist_t ** */
+        int (*describe) (void *, CASS_FILE *);
+        int (*construct) (void **, const char *);
+        int (*checkpoint) (void *, CASS_FILE *);
+        int (*restore) (void **, CASS_FILE *);
+        void (*free) (void *);
+        /* private data... */
+@} cass_vecset_dist_class_t;
+
+typedef struct @{
+        uint32_t refcnt;
+        char *name;
+        int32_t vec_dist;
+        cass_vecset_dist_class_t *class;
+@} cass_vecset_dist_t;
+
+@end smallexample
+
+@node Adding New Indices and Sketches
+@section Adding New Indices and Sketches
+
+@smallexample
+typedef struct _cass_table_opr cass_table_opr_t;
+/*    table operations */
+
+typedef int cass_table_init_private_t (cass_table_t *table,  // See management section
+                                const char *param);
+
+typedef int cass_table_opr_describe_t (cass_table_opr_t *table, CASS_FILE *out);
+
+typedef int cass_table_checkpoint_private_t (cass_table_t *table, CASS_FILE *out);
+
+typedef int cass_table_restore_private_t (cass_table_t *table, CASS_FILE *in);
+
+typedef int cass_table_load_t (cass_table_t *table);  // bring data in mem
+
+typedef int cass_table_release_t (cass_table_t *table);  // release in-mem vecsets.
+
+typedef int cass_table_batch_insert_t (cass_table_t *table, cass_dataset_t *dataset,
+                cass_vecset_id_t start, cass_vecset_id_t end);
+
+typedef int cass_table_query_t(cass_table_t *table, 
+        cass_query_t *query, cass_result_t *result);
+
+typedef int cass_table_batch_query_t(cass_table_t *table, 
+        uint32_t count, cass_query_t **queries, cass_result_t **results);
+
+typedef int cass_table_drop_t(cass_table_t *table);
+
+typedef int cass_table_free_private_t(cass_table_t *table);
+
+typedef char *cass_table_tune_t(cass_table_t *parent, char *extra_input);
+
+struct _cass_table_opr @{
+    char *name;
+    // CASS_DATA or CASS_SKETCH or CASS_INDEX, CASS_OUTOFCORE, CASS_SEQUENTIAL
+    int type;
+    cass_vecset_type_t                vecset_type;
+    cass_vec_type_t                   vec_type;
+    cass_vecset_dist_type_t           dist_vecset;
+    cass_vec_dist_type_t              dist_vec;
+
+    cass_table_tune_t                *tune; // a set of function pointers.
+    cass_table_init_private_t        *init_private;
+    cass_table_batch_insert_t        *batch_insert;
+    cass_table_query_t               *query;
+    cass_table_batch_query_t         *batch_query;
+    cass_table_load_t                *load; // load data
+    cass_table_release_t             *release; // release data
+    cass_table_checkpoint_private_t  *checkpoint_private;
+    cass_table_restore_private_t     *restore_private;
+    cass_table_free_private_t        *free_private;
+    cass_table_opr_describe_t        *describe; // load data
+@};
+
+
+@end smallexample
+
+@node Supporting New Data Types
+@section Supporting New Data Types
+

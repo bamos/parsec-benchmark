@@ -1,0 +1,94 @@
+\input texinfo @c -*-texinfo-*-
+@macro gcctabopt{body}
+@code{\body\}
+@end macro
+
+
+@c %**start of header
+@setfilename ferret.info
+@settitle Ferret Manual
+@c %**end of header
+
+
+@copying
+
+Copyright @copyright{} 2007 Princeton University.
+
+@end copying
+
+@titlepage
+
+@title The Ferret Toolkit
+@subtitle Reference Manual
+
+@author The Ferret Team
+Department of Computer Science, Princeton University
+@sp 1
+
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@summarycontents
+
+@contents
+
+@ifnottex
+
+@node Top
+@top The Ferret Toolkit
+
+@insertcopying
+
+@end ifnottex
+
+@menu
+* Introduction::
+* Installation::
+* The Ferret Library::
+* Data Layout::
+* The Ferret Server::
+* Utility Programs::
+* Extending Ferret::
+* Index::
+@end menu
+
+@node Introduction
+@chapter Introduction
+@include intro.texi
+
+@node Installation
+@chapter Installation
+@include install.texi
+
+@node The Ferret Library
+@chapter The Ferret Library
+@include library.texi
+
+@node Data Layout
+@chapter Data Layout
+@include layout.texi
+
+@node The Ferret Server
+@chapter The Ferret Server
+@include server.texi
+
+@node Utility Programs
+@chapter Utility Programs
+@include util.texi
+
+@node Feature Extraction
+@chapter Feature Extraction
+@include feature.texi
+
+@node Extending Ferret
+@chapter Extending Ferret
+@include extend.texi
+
+@node Index
+@unnumbered Index
+@printindex cp
+
+
+@bye

@@ -1,0 +1,53 @@
+/*! \page node_ownership Memory Handling and Ownership of Scene Graph Nodes
+
+@ingroup api_notes
+
+To avoid as many issues with memory allocatoin/deallocation as
+possible, I propose to use -- at least for the scene graph -- some
+pretty basic but automatic memory deallocation that automatically
+deallocates everything that's no longer used. As a scene graph does
+not allow cyclic references, anyway (you're f***ed if you have them,
+anyway...), this should be pretty straightforward.
+
+To make that happen, I will follow the following rules
+
+<ul>
+
+  <li> every "node" in the scene graph track its list of "parents"
+  (yes, you can have an unlimited number of parents, this is a liberal
+  society ....)
+
+  <li> as soon as a node is destroyed, it tells so to all its
+	dependents, and (recursively) kills all dependents who have no
+	parents left (not too liberal: kids without parents starve
+	immediately). In other words, every node must have at least one
+	parent. \n
+	
+	To facilitate that "every node needs an owner", I will force the
+	app to pass a "parent" for every call that creates a new node. In
+	some cases (like rtNewDataArray) this has to be done explicitly,
+	in many calls, though, it is implicit and not visible (i.e.,
+	rtVertexArray3f() needs to get a reference to a mesh, anyway,
+	which is automatically the parent).
+
+  <li> the only exception to above rule of having at least one parent
+	are "root" nodes (rtNewRoot), which are somewhat similar to openrt's
+	"objects", in that they contain an entire object with an entire
+	scene graph. Note, however, that it is _still_ possible (note: this
+	may be subject to discussion) to cross-reference from one such
+	"object" to another, and to also directly reference some node(s)
+	somewhere deep within another root node's subtree.
+
+  <li>as a consequence of above, rtDestroy makes most sense for root
+  nodes, though I will currently allow it for internal nodes, too, but
+  this is subject to discussion/change (e.g.,: what actually happens
+  when deleting a vertex array node that is still referenced by a mesh
+  !?)
+
+</ul>
+
+note: having parent links in all nodes facilitates some lazy
+bottom-to-top notifications (for lazy update/rebuild schemes), too.
+
+
+*/

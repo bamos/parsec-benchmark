@@ -1,0 +1,83 @@
+
+/*! \page notes_on_data_arrays Notes on Data Arrays
+
+@ingroup api_notes
+
+  Data arrays are similar to CUDA's cudaMalloc -- they essentially
+  generate an object (on the _host_, but inside the driver) to hold a
+  certain amount of (untyped and unformatted) data. That data can, for
+  example, be a set of vertices, normals, etc, and the entire purpose
+  of the object is to share that data array among different parts of
+  the ray tracer (e.g., between two meshes).
+
+  Data arrays can be declared persistent, in which case they will
+  essentially reference into the application's address space (i.e.,
+  using shared data) (see \ref notes_on_persistency).
+ */
+
+
+/*! \page notes_on_persistency Notes on Persistency
+
+@ingroup api_notes
+
+  The idea of persistency is that the application usually _has_ most
+  of it's bulky data in memory, anyway, and having to replicate it in
+  the driver (and lateron on the device, too) is a waste of memory. To
+  avoid that, we foresee two mechanisms:
+
+  a) the applicatoin does not store the data in the first place, but
+  instead has the required block of data be allocated by driver, then
+  maps that buffer, and stores its data in that memory block mapped
+  from the driver (i.e., the driver owns it, but the app maps it)
+
+  b) the app allocates the data and maps it, but tells the driver to
+  not copy the data upon declaration, but to rather map into the
+  application's address space (assuming it's in a format the driver
+  deems suitable).
+
+Examples:
+\verbatim
+Example for version a) (mapping)
+  int numVertices = file.readInt();
+  data_t vtxData = rtNewData(NULL,numVertices * sizeof(vec3f));
+  vec3f *vtx = (vec3f*)rtMapData(vtxData);
+  fread(vtx,sizeof(*vtx),nuMVertices,file);
+
+Example for version b) (persistent object)
+  int numVertices = file.readInt();
+  vec3f *vtx = new vec3f[numVertices];
+  fread(vtx,sizeof(*vtx),nuMVertices,file);
+  rtVertexArray3f(mesh,vtx,numVertices,RT_PERSISTENT);
+  
+Example for version c) (neither of above, will actually _replicate_
+the data on app and driver)
+  int numVertices = file.readInt();
+  vec3f *vtx = new vec3f[numVertices];
+  fread(vtx,sizeof(*vtx),nuMVertices,file);
+  rtVertexArray3f(mesh,vtx,numVertices,RT_DEFAULT); // will _replicate_
+  
+\endverbatim
+
+Note:
+
+<ul> 
+
+<li>if data is actually _shared_ between app and driver, it should not
+be modified by either side while the other is still using it. Though
+the idea of sharing is to facilitate "in place" modifications by the
+app (i.e., the app modifies data directly in the driver's address
+space), it can do that only at "safe" times (after a frame is finished
+-- note: this needs some clarification later on), and it has to
+properly notify the driver that the data has been changed (note:
+either need some rtMarkDirty() call for such modified data, or may
+allow changes only inside rtMap/rtUnmap calls -- the latter looks more
+promising, but need more clarification)
+
+ <li>the driver will _never_ free persistent data, as it is considered
+to belong to the _app_ (even if the app calls a rtDestroy on the node
+'owning' the vertex array 
+
+</ul>
+ */
+
+}

@@ -1,0 +1,5 @@
+ ./benchmark2 corel lsh image 50 "-L 8 -T 20" 25 1 out1
+ ./benchmark2 corel lsh image 50 "-L 8 -T 20" 25 2 out2
+ ./benchmark2 corel lsh image 50 "-L 8 -T 20" 25 3 out3
+ ./benchmark2 corel lsh image 50 "-L 8 -T 20" 25 4 out4
+ ./benchmark2 corel lsh image 50 "-L 8 -T 20" 25 5 out5

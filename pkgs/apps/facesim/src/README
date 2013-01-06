@@ -1,0 +1,85 @@
+===================================
+Name: Face Simulation
+
+Description: 
+
+Face simulation is an increasingly important production-quality physical 
+simulation application.  It animates an anatomical model of a human face driven 
+by the action of facial musculature and the motion of the jawbone.  A time 
+sequence of muscle activation values and kinematic parameters for the jaw motion
+is provided as input.
+
+The collision detection portion of this application (used to ensure lips are 
+modeled properly) has been disabled.  Collision detection is only a small part
+of this application.
+
+It uses Verlet Iteration to update the position, and uses Newton Iteration to 
+solve the constraint equation system. The Newton Iteration will converge in 20
+iterations.
+
+Parallelization: 
+
+The mesh is statically partitioned, one partition per thread.  An overlap region
+is created around the boundaries of each partition to allow the partitions to be
+processed independently.  The cost of this reduced synchronization and 
+communication is redundant computation in some modules, which increases with the
+number of partitions.
+
+=======================================
+Programming Language & Libraries:
+
+This program is written in C and CPP. It depends on PhysBAM physical simulation 
+library and a task queue object file that are distributed as part of this 
+benchmark suite. These two library/object_files will be built automatically. 
+
+=======================================
+User Notes:
+
+There is one environemtal varaiable (PHYSBAM_THREADS) that needs to be set. In
+.cshrc, you can add "setenv PHYSBAM_THREADS 1". In .bashrc, you can add "export
+PHYSBAM_THREADS=1"
+
+If you want to 'make' at the source directory by yourself, please remeber
+to set the variable PHYSBAM to the directory this benchmark exists in.
+ 
+On some systems, you may got a error saying : xxxLockxxSys undefined. This is
+due to you use cxxlib-icc as c++ library at link time. So you can remove this
+option, in Public_Library /Makefile.common, and it then uses the default gcc
+c++ library. 
+
+=======================================
+System Requirement:
+
+To run this benchmark, it needs the minimal memory size of 400MB, with a linux
+OS, and icc higher than v8.1
+
+=======================================
+Input/Output:
+
+The input data files are in ./Public_Data/Face_Data. They describe the position,
+velocity of all the points, and the forces working on them.
+
+The output should be the position safter simulation, but currently we don't 
+output these data into a file, they are gone with memory.
+
+=======================================
+Characteristics:
+
+Hot Spot:
+
+In file FACE_DRIVER.cpp, template<class T,class RW> void FACE_DRIVER<T,RW>::Advance_To_Target_Time(const T target_time) calls
+QUASISTATICS_DRIVER<T,RW>::Advance_To_Target_Time(), which is the Hot Spot. It 
+updates the body's kinematic states, and manipulate the states so that they
+satisfy the constraints.  The main algorithm is Newton Iteration.
+
+=======================================
+Revision History
+
+24/05/2007: Handong Ye, add a parameter to allow to input Newtion iteration number.
+12/08/2006: Chris Hughes & Adam Kerin , initial version of package
+
+=======================================
+Author: see ./COPYRIGHT
+
+Acknowledgements:  Christopher J. Hughes
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source ${PARSECDIR}/pkgs/netapps/netferret/parsec/gcc.bldconf
+
+# Environment to use for configure script and Makefile
+# NOTE: $netferret_flags is set in gcc.bldconf
+build_env="version=\"serial\" ${netferret_flags}"
+

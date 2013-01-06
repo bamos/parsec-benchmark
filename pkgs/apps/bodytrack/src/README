@@ -1,0 +1,149 @@
+      ____                        _      _
+     / ___|____ _   _ ____   ____| |__  | |
+    | |   / ___| | | |  _  \/ ___|  _  \| |
+    | |___| |  | |_| | | | | |___| | | ||_|
+     \____|_|  \_____|_| |_|\____|_| |_|(_) Media benchmarks
+                      
+     © 2006, Intel Corporation, licensed under Apache 2.0 
+     
+
+Body Tracking benchmark 
+--------------------------------------------------------------------------
+
+This benchmark tracks the 3D pose of a human body through an image sequence
+using multiple cameras.  This work is based upon the following works : 
+
+Articulated Body Motion Capture by Stochastic Search
+Jonathan Deutscher and Ian Reid
+International Journal of Computer Vision 61(2), 185-205, 2005
+http://www.springerlink.com/content/k842275774597530/
+
+A. Balan, L. Sigal and M. Black. 
+A Quantitative Evaluation of Video-based 3D Person Tracking. 
+IEEE Workshop on VS-PETS, 349-356, 2005.
+http://www.cs.brown.edu/~alb/software.htm
+
+
+The algorithm uses an annealed particle filter to track the body pose using 
+edges and foreground segmentation as image features, based on a 10 segment
+3D kinematic tree body model. The number of particles and annealing layers are 
+supplied as command line arguments.
+
+
+Usage and File Structure
+----------------------------------------------------------------------------
+
+command line usage : 
+
+TrackingBenchmark (Dataset Path) (# of cameras) (# of frames to process) 
+                  (# of particles) (# of annealing layers)
+                  [thread model] [# of threads] [write .bmp output (nonzero = yes)]
+
+Example : TrackingBenchmark c:\tracking\sequenceB 4 260 3000 8
+
+          This will run 260 frames at the given path with 3000 particles and 
+          8 annealing layers.
+          
+          TrackingBenchmark c:\tracking\sequenceB 4 260 3000 8 1 8 1
+
+          This will run 260 frames at the given path with 3000 particles and 
+          8 annealing layers using OpenMP with 8 threads, saving bmp output for
+          each frame.
+          
+The thread model and # of threads are optional parameters.  If no thread model 
+is supplied it will default to single threaded mode.
+
+The write BMP output parameter defaults to true. If true, it saves a bitmap
+representation of the pose overlaid onto the original camera images for each
+frame. 
+
+The OpenMP thread model defaults to # threads = # processors if no argument is 
+given for the number of threads.           
+
+
+The dataset folder must contain the following file structure : 
+
+<Dataset>
+|
+|-<CAM1>          CAM1 - CAMN contain the raw images for each camera 1 to N.  
+|-<CAM2>              Images within these directories must be BW .bmp files 
+|  ...                named image0000.bmp, image0001.bmp, ... in sequence.
+|-<CAMN>
+|
+|-<FG1>           FG1 - FGN contain the foreground segmentation images for each 
+|-<FG2>              camera 1 to N.  Images within these directories must be BW 
+|  ...              .bmp files binarized to pixel values of either 0 or 255. 
+|-<FGN>
+| 
+|-<CALIB>         CALIB contains the camera calibration files for each camera.
+|  |-Camera1.cal     more information on the format of this file can be found 
+|  |-Camera2.cal     here : http://www.vision.caltech.edu/bouguetj/calib_doc
+|  |...
+|  |-CameraN.cal
+|
+|-BodyShapeParameters.txt
+|-PoseParameters.txt
+|-InitialPose.txt
+
+
+BodyShapeParameters.txt contains the data on the dimensions of the limbs of the 
+                        subject in the sequence (length, top and bottom radii).
+
+PoseParameters.txt contains statistics on the motion of the kinematic tree model.
+				        see BodyPose.h.
+
+InitialPose.txt contains the initial pose of the body model (joint angles and 
+                        anchor in world space).  
+                        
+                        
+Outputs
+------------------------------------------------------------------------------
+The code will generate the following files : 
+
+<DatasetPath>/poses.txt    -    this contains the pose for each tracked frame
+
+<DatasetPath>/Result0000.bmp  - these visualize the result with the tracked 
+<DatasetPath>/Result0001.bmp    geometry overlaid onto all camera images
+....
+<DatasetPath>/ResultNNNN.bmp
+
+
+Building the Code
+------------------------------------------------------------------------------
+note: the code is best viewed with a tab spacing of 4
+
+Windows : 
+A Microsoft Visual Studio 8 Solution file is provided.
+To enable the threading models, add the following lines in main.cpp,
+or add the defines to the project : 
+
+#define USE_OPENMP				//enable one of these to build multithreaded code
+#define USE_THREADS				//if your environment supports them
+
+.icproj files are also included for use with the intel vectorizing compiler. These 
+can be selected by using the compiler IDE integration selecting "Convert to use 
+Intel C++ project system" under the project properties.
+
+Unix :
+A build system based on the GNU autotools is provided to build the program
+on Unix. It is recommended to build the benchmark in a separate directory which
+does not contain the sources.
+
+First, create a new directory for your build and run the configure script:
+
+mkdir objdir
+cd objdir
+/path/to/srcdir/configure [ARGUMENTS...]
+
+OpenMP and regular threading can be enabled by passing --enable-openmp resp.
+--enable-threads to the script, the correct macros will be automatically
+defined. To see a complete list with all supported options, the argument --help
+can be used.
+
+configure will generate all necessary Makefiles to compile and link the
+program. Once it has finished, the program can be built and installed as
+follows:
+
+make
+make install
+

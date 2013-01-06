@@ -1,0 +1,464 @@
+##############################################################################
+# Customizing behavior:
+#
+#   You may override default behavior in a global and project-specific
+#   Makefile.defs file.  The global file is read from $(PHYSBAM_MAKEFILE_DEFS)
+#   (if that's defined) and the project-specific file is read from 
+#   <current_dir>/Makefile.defs
+##############################################################################
+# Variables you may want to override:
+#
+#   EXTRA_DEFS:     
+#       Extra -D<var> flags
+#   PLATFORM:   
+#       Specifies platform (e.g. pentium, pentium4, nocona).
+#   TYPE:   
+#       Specifies build type (e.g. release, debug, profile).  Typically
+#       set by calling e.g. "make TYPE=debug" from commandline.
+#   MACHINE_FLAGS:  
+#       e.g. -march=pentium4, see below for default.
+#   WARNING FLAGS:  
+#       e.g. -Wall, see below for default.
+#   USE_* and HAVE_* flags:
+#       See below
+##############################################################################
+# Note about USE_* and HAVE_* flags:
+#
+# Project specifies which libraries it uses (either requires or makes 
+# optional) with the USE_* flags in the project's Makefile.
+# e.g. USE_OPENGL=yes means the project needs/wants opengl support.
+#
+# Users/machines specify which libraries they have available with the HAVE_*
+# flags.  The default HAVE settings are below, and these can be overridden 
+# using the contents of the global $(PHYSBAM_MAKEFILE_DEFS) file or using the
+# project specific Makefile.defs file.
+# e.g. HAVE_OPENGL=yes means opengl is available on the current machine.
+##############################################################################
+# Note about single and multiple targets:
+#
+# If TARGETS contains a single target then the main source file used will be 
+# $(MAIN_SRC) (or main.cpp by default)
+# If TARGETS contains multiple files then each one's main source will be 
+# <target-name>.cpp
+##############################################################################
+
+SHELL = /bin/sh
+
+CC_FLAGS = $(CXXFLAGS)
+
+ifndef PHYSBAM_LIBDIR
+ifndef PHYSBAM
+PHYSBAM_LIBDIR = .
+else
+PHYSBAM_LIBDIR = $(PHYSBAM)/lib
+endif
+endif
+
+ifeq ($(TYPE),alpha)
+# use Alpha threads library
+USE_ALAMERE_PTHREADS=no
+USE_ALAMERE_TASKQ=yes
+else
+# Alamere pthreads must be used to achieve scaling at low resolutions
+# Alamere TaskQ should be enabled likewise
+ifndef USE_ALAMERE_PTHREADS
+USE_ALAMERE_PTHREADS=yes
+endif
+endif
+
+ifndef USE_ALAMERE_TASKQ
+USE_ALAMERE_TASKQ=yes
+endif
+
+ifeq ($(TYPE),noalamere)
+USE_ALAMERE_PTHREADS=no
+USE_ALAMERE_TASKQ=no
+endif
+
+ifeq ($(TYPE),cachegrind)
+# caveat:  must run with environment variable PHYSBAM_THREADS = 1
+USE_ALAMERE_PTHREADS=no
+USE_ALAMERE_TASKQ=no
+CACHEGRIND_API_DIR = $(HOME)/cachegrind
+PHYSBAM_CC = g++
+CC_FLAGS += -I$(CACHEGRIND_API_DIR) -DCACHEGRIND
+LINK_FLAGS += -L$(CACHEGRIND_API_DIR) -lcachegrind
+endif
+
+VTUNEAPIDIR =/opt/intel/vtune/rdc/analyzer
+
+ifeq ($(HOST),vpl11)
+HAVE_VTUNE=yes
+VTUNEAPIDIR = $(PHYSBAM)/VTune
+SEPDIR = $(HOME)/sep
+ifeq ($(ENABLE_VTUNE),yes)
+# sampling library doesn't link with code compiled with icc 8.1
+PHYSBAM_CC = g++
+$(warning ***Enabling sampling support - compiling with g++***)
+endif
+endif
+
+#ifeq ($(HOST),vpl11)
+#ENABLE_VTUNE=yes
+#endif
+
+ifdef version
+  ifeq "$(version)" "pthreads"
+    # Using standard pthreads library
+    PTHREAD_CC_FLAGS =
+    PTHREAD_LINK_FLAGS = -pthread
+  endif
+endif
+
+ifeq ($(USE_ALAMERE_TASKQ),yes)
+TASKQ_DIR = $(PHYSBAM)/TaskQ
+TASKQ_LIBDIR = $(TASKQ_DIR)/lib
+TASKQ_INCLUDEDIR = $(TASKQ_DIR)/include
+TASKQ_CC_FLAGS = -I$(TASKQ_INCLUDEDIR) -DUSE_ALAMERE_TASKQ
+else
+TASKQ_CC_FLAGS = 
+endif
+
+CC_FLAGS += $(PTHREAD_CC_FLAGS) $(TASKQ_CC_FLAGS)
+
+
+##############################################################################
+# Default HAVE variables
+##############################################################################
+
+HAVE_OPENGL=yes
+HAVE_FLTK=yes
+HAVE_LIBJPEG=no
+HAVE_FFTW=no
+HAVE_OPENEXR=no
+HAVE_COMPRESSION=no
+
+##############################################################################
+# Include global and local overrides
+##############################################################################
+
+ifdef PHYSBAM_MAKEFILE_DEFS
+include $(PHYSBAM_MAKEFILE_DEFS)
+endif
+
+-include Makefile.defs
+
+##############################################################################
+# Default build type and corresponding suffix
+##############################################################################
+
+ifndef PLATFORM
+    # Pseudo-platform to use for PARSEC release
+    PLATFORM = parsec
+endif
+
+ifndef TYPE
+    TYPE = release
+endif
+
+PLATFORM_SUFFIX :=
+TYPE_SUFFIX :=
+# SUFFIX is added to the executable name and the object directory
+ifndef SUFFIX
+ifneq ($(PLATFORM),pentium4)
+    PLATFORM_SUFFIX := _$(PLATFORM)
+endif
+ifneq ($(TYPE),release)
+    TYPE_SUFFIX := _$(TYPE)
+endif
+SUFFIX := $(PLATFORM_SUFFIX)$(TYPE_SUFFIX)
+endif
+
+# Do not use a SUFFIX, PARSEC takes care of that
+SUFFIX :=
+
+##############################################################################
+# Default compiler
+##############################################################################
+
+### x86 version ###
+ifeq ($(USE_ALAMERE_TASKQ),yes)
+	LINK_FLAGS += $(TASKQ_LIBDIR)/taskQ.o 
+endif
+ifeq ($(ENABLE_VTUNE),yes)
+ifeq ($(HOST),vpl11)
+	CC_FLAGS += -I$(SEPDIR)/include -DENABLE_VTUNE
+	LINK_FLAGS += -L$(SEPDIR)/bin -lsampling
+else
+	CC_FLAGS += -I$(VTUNEAPIDIR)/include -DENABLE_VTUNE
+	LINK_FLAGS += -L$(VTUNEAPIDIR)/bin -lVtuneApi -ldl
+endif
+endif
+
+ifndef PHYSBAM_CC
+    PHYSBAM_CC = $(CXX)
+endif
+
+ifndef PHYSBAM_CC_DEPEND
+    PHYSBAM_CC_DEPEND = $(PHYSBAM_CC)
+#    PHYSBAM_CC_DEPEND = g++
+endif
+
+ifndef CC_DEPEND_FLAGS
+    CC_DEPEND_FLAGS = $(PTHREAD_CC_FLAGS) $(TASKQ_CC_FLAGS)
+endif
+
+ifeq ($(HAVE_VTUNE),yes)
+	CC_DEPEND_FLAGS += -I$(VTUNEAPIDIR) -I$(SEPDIR)/include
+endif
+
+# Link rules
+LINK = $(PHYSBAM_CC)
+ifndef AR
+	AR = ar
+endif
+ifeq ($(PHYSBAM_CC),icc)
+    LINK_FLAGS += -Kc++ $(PTHREAD_LINK_FLAGS)
+    CC_FLAGS += -D__thread=___thread
+else
+    LINK_FLAGS += $(PTHREAD_LINK_FLAGS)
+endif
+##############################################################################
+# Default flags
+##############################################################################
+
+# Warning flags
+ifndef WARNING_FLAGS
+ifeq ($(findstring icc,$(PHYSBAM_CC)),)
+    WARNING_FLAGS = -w
+else
+    WARNING_FLAGS = -w
+endif
+endif
+CC_FLAGS += $(WARNING_FLAGS)
+
+# gcc with icc settings
+ifneq ($(findstring icc,$(PHYSBAM_CC)),)
+#    CC_FLAGS += -cxxlib-gcc=/n/form/data/gcc-3.4
+#    LINK_FLAGS += -cxxlib-gcc=/n/form/data/gcc-3.4
+# XXX mjh - duplicates other stuff XXX
+ifdef USE_ALAMERE_THREADS
+    CC_FLAGS += -cxxlib-icc -Kc++ -DUSE_ALAMERE_THREADS -I/home/skuma16/alamereLib/include
+    LINK_FLAGS += -cxxlib-icc -Kc++ -L/home/skuma16/alamereLib/lib -lpthread -ltaskQpthreads
+else
+    CC_FLAGS += -cxxlib-icc -Kc++
+    LINK_FLAGS += -cxxlib-icc -Kc++
+endif
+endif
+
+# Extra flags defined by user
+CC_FLAGS += $(EXTRA_DEFS)
+
+LINK_FLAGS += -xW -lm -L$(PHYSBAM_LIBDIR) $(LDFLAGS) $(LIBS)
+
+# More type-specific flags (put quotes around strings so "debug" won't match "optdebug"
+ifneq ($(findstring "$(TYPE)","release" "optdebug" "noalamere"),)
+CC_FLAGS += -DNDEBUG
+endif
+
+ifneq ($(findstring "$(TYPE)","debug" "optdebug"),)
+    CC_FLAGS += -g 
+    LINK_FLAGS += -g
+endif
+
+ifeq ($(TYPE),profile)
+    CC_FLAGS += -pg -fno-exceptions -DNDEBUG -O2
+    LINK_FLAGS += -pg
+endif
+
+##############################################################################
+# Libraries
+##############################################################################
+
+ifeq ($(USE_OPENGL)$(HAVE_OPENGL),yesyes)
+    LINK_LIBS += -lGL -lGLU -lglut -L/usr/X11R6/lib
+endif
+
+ifeq ($(USE_FLTK)$(HAVE_FLTK),yesyes)
+    CC_FLAGS += -I/usr/X11R6/include
+    LINK_LIBS += -lfltk -L/usr/X11R6/lib -lXft
+ifeq ($(USE_OPENGL)$(HAVE_OPENGL),yesyes)
+    LINK_LIBS += -lfltk_gl
+endif
+endif
+
+ifeq ($(USE_LIBJPEG)$(HAVE_LIBJPEG),yesyes)
+    CC_FLAGS += -DUSE_LIBJPEG
+    LINK_LIBS += -ljpeg
+endif
+
+ifeq ($(USE_FFTW)$(HAVE_FFTW),yesyes)
+    CC_FLAGS += -DUSE_FFTW
+    LINK_LIBS += -lfftw3f -lfftw3
+endif
+
+ifeq ($(USE_OPENEXR)$(HAVE_OPENEXR),yesyes)
+    CC_FLAGS += -DUSE_OPENEXR -I$(PHYSBAM)/External_Libraries/OpenEXR/lib-linux/include/OpenEXR
+    # LINK_LIBS += -L$(PHYSBAM)/External_Libraries/OpenEXR/lib-linux/lib -lIlmImf -lImath -lHalf -lIex -lz
+    LINK_LIBS += $(PHYSBAM)/External_Libraries/OpenEXR/lib-linux/lib/libIlmImf.a \
+    $(PHYSBAM)/External_Libraries/OpenEXR/lib-linux/lib/libImath.a \
+    $(PHYSBAM)/External_Libraries/OpenEXR/lib-linux/lib/libHalf.a \
+    $(PHYSBAM)/External_Libraries/OpenEXR/lib-linux/lib/libIex.a -lz
+endif
+
+ifeq ($(USE_COMPRESSION)$(HAVE_COMPRESSION),yesyes)
+    CC_FLAGS += -DUSE_COMPRESSION
+    LINK_LIBS += -lgzstream$(PLATFORM_SUFFIX) -lz
+endif
+
+##############################################################################
+# Build rules
+##############################################################################
+
+# Actual source location
+SRC = $(LOCAL_SRC)
+SRC += $(addprefix $(PUBLIC_LIBRARY_DIR)/,$(PUBLIC_LIBRARY_SRC))
+SRC += $(addprefix $(PERSONAL_LIBRARIES_DIR)/,$(PERSONAL_LIBRARIES_SRC))
+
+# Location in build directory
+MAPPED_SRC = $(LOCAL_SRC)
+MAPPED_SRC += $(addprefix Public_Library/,$(PUBLIC_LIBRARY_SRC))
+MAPPED_SRC += $(addprefix Personal_Libraries/,$(PERSONAL_LIBRARIES_SRC))
+
+OBJ_DIR = obj$(SUFFIX)
+OBJ = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(MAPPED_SRC))
+
+ifeq ($(TARGET_TYPE),STATIC_LIBRARY)
+
+TARGET_NAMES = $(addsuffix $(SUFFIX).a,$(addprefix $(PHYSBAM_LIBDIR)/lib,$(TARGETS)))
+
+default: $(TARGET_NAMES)
+
+ifeq ($(words $(TARGETS)),1) # Single compilation target
+
+ALL_SRC = $(SRC)
+ALL_MAPPED_SRC = $(MAPPED_SRC)
+
+$(TARGET_NAMES): %$(SUFFIX).a: $(OBJ)
+	mkdir -p $(PHYSBAM_LIBDIR)
+	rm -f $@
+	$(AR) -r $@ $^
+else
+
+$(error "STATIC_LIBRARY does not support multiple targets")
+
+endif
+
+else
+
+TARGET_NAMES = $(addsuffix $(SUFFIX),$(TARGETS))
+LIBRARY_LINK_FLAGS = $(addsuffix $(SUFFIX),$(addprefix -l,$(LIBRARIES)))
+LIBRARY_FILES = $(addsuffix $(SUFFIX).a,$(addprefix $(PHYSBAM_LIBDIR)/lib,$(LIBRARIES)))
+LIBRARY_BUILD = $(addprefix BUILD_,$(LIBRARIES))
+
+default: $(TARGET_NAMES)
+
+ifeq ($(words $(TARGETS)),1) # Single compilation target
+
+ifndef MAIN_SRC
+MAIN_SRC = main.cpp
+endif
+ALL_SRC = $(MAIN_SRC) $(SRC)
+ALL_MAPPED_SRC = $(MAIN_SRC) $(MAPPED_SRC)
+MAIN_OBJ = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(MAIN_SRC))
+
+$(TARGET_NAMES): %$(SUFFIX): $(LIBRARY_FILES) $(MAIN_OBJ) $(OBJ)
+	$(LINK) -Wl,-o,$@ $(MAIN_OBJ) $(OBJ) $(LIBRARY_LINK_FLAGS) $(LINK_LIBS) $(LINK_FLAGS)
+
+else # Multiple compilation targets
+
+MAIN_SRC = $(addsuffix .cpp,$(TARGETS))
+ALL_SRC = $(MAIN_SRC) $(SRC)
+ALL_MAPPED_SRC = $(MAIN_SRC) $(MAPPED_SRC)
+
+$(TARGET_NAMES): %$(SUFFIX): $(LIBRARY_FILES) $(OBJ_DIR)/%.o $(OBJ)
+	$(LINK) $(LINK_FLAGS) -o $@ $(OBJ_DIR)/$*.o $(OBJ) $(LIBRARY_LINK_FLAGS) $(LINK_LIBS)
+
+endif
+
+# Libraries
+# Use "-include" to force it to recursively build the libraries *before* we start processing the local target
+.PHONY: $(LIBRARY_BUILD)
+BUILD_PhysBAM:
+	cd $(PHYSBAM)/Public_Library && $(MAKE) -f Makefile.PhysBAM
+BUILD_PhysBAM_OpenGL:
+	cd $(PHYSBAM)/Public_Library && $(MAKE) -f Makefile.PhysBAM_OpenGL
+BUILD_Eran_Library:
+	cd $(PHYSBAM)/Personal_Libraries/Eran_Library && $(MAKE)
+BUILD_LIBRARIES: $(LIBRARY_BUILD)
+
+ifndef LOCAL
+ifeq ($(findstring $(MAKECMDGOALS),clean clean_depend clean_objects),)
+-include BUILD_LIBRARIES
+endif
+endif
+
+endif
+
+# how to compile each file
+.SUFFIXES:
+$(OBJ_DIR)/Public_Library/%.o: $(PUBLIC_LIBRARY_DIR)/%.cpp
+	$(PHYSBAM_CC) -c $(CC_FLAGS) -o $@ $<
+
+$(OBJ_DIR)/Personal_Libraries/%.o: $(PERSONAL_LIBRARIES_DIR)/%.cpp
+	$(PHYSBAM_CC) -c $(CC_FLAGS) -o $@ $<
+
+$(OBJ_DIR)/%.o:
+	$(PHYSBAM_CC) -c $(CC_FLAGS) -o $@ $<
+
+##############################################################################
+# Automatic dependency generation
+##############################################################################
+# NOTE: In theory we should be able to create dependencies as we compile the files
+# by adding something like the following to the compile directives above:
+# -Wp,-MM,-MP,-MF$(OBJ_DIR)/$*.d,-MT$(OBJ_DIR)/$*.o
+# but distcc does not seem smart enough to handle these arguments so this won't work for now...
+
+ALL_DEPENDENCIES = $(addprefix $(OBJ_DIR)/,$(ALL_MAPPED_SRC:.cpp=.d))
+
+$(OBJ_DIR)/Public_Library/%.d: $(PUBLIC_LIBRARY_DIR)/%.cpp
+	@set -e; mkdir -p $(dir $@); rm -f $@; \
+    echo "Generating $*.d"; \
+    $(PHYSBAM_CC_DEPEND) $(CC_DEPEND_FLAGS) -MP -MM -MT $(OBJ_DIR)/$*.o -MT $(OBJ_DIR)/$*.d $< > $@ || ( echo "*** Removing $*.d" && rm -f $@ );
+
+$(OBJ_DIR)/Personal_Libraries/%.d: $(PERSONAL_LIBRARIES_DIR)/%.cpp
+	@set -e; mkdir -p $(dir $@); rm -f $@; \
+    echo "Generating $*.d"; \
+    $(PHYSBAM_CC_DEPEND) $(CC_DEPEND_FLAGS) -MP -MM -MT $(OBJ_DIR)/$*.o -MT $(OBJ_DIR)/$*.d $< > $@ || ( echo "*** Removing $*.d" && rm -f $@ );
+
+$(OBJ_DIR)/%.d: %.cpp
+	@set -e; mkdir -p $(dir $@); rm -f $@; \
+    echo "Generating $*.d"; \
+    $(PHYSBAM_CC_DEPEND) $(CC_DEPEND_FLAGS) -MP -MM -MT $(OBJ_DIR)/$*.o -MT $(OBJ_DIR)/$*.d $< > $@ || ( echo "*** Removing $*.d" && rm -f $@ );
+
+ifeq ($(findstring $(MAKECMDGOALS),clean clean_depend clean_objects touch_depend touch_objects),)
+-include $(ALL_DEPENDENCIES)
+endif
+
+##############################################################################
+# Clean and Install
+##############################################################################
+
+.PHONY: install clean clean_depend clean_objects
+
+ifdef PHYSBAM_INSTALL
+install:
+	@echo "Installing in $(PHYSBAM_INSTALL)"
+	cp -f $(TARGET_NAMES) $(PHYSBAM_INSTALL)
+endif
+
+clean:
+	-find $(OBJ_DIR) \( -name \*.o -or -name \*.d \) -exec rm {} \;
+	-rm -f $(TARGET_NAMES) *core
+
+clean_depend:
+	-find $(OBJ_DIR) -name \*.d -exec rm {} \;
+
+clean_objects:
+	-find $(OBJ_DIR) -name \*.o -exec rm {} \;
+
+touch_depend:
+	-find $(OBJ_DIR) -name \*.d -exec touch {} \;
+
+touch_objects:
+	-find $(OBJ_DIR) -name \*.o -exec touch {} \;

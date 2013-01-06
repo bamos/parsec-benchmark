@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>morphology</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch03.html" title="VIPS operation API by section (no gtkdoc comments yet)">
+<link rel="prev" href="ch03.html" title="VIPS operation API by section (no gtkdoc comments yet)">
+<link rel="next" href="libvips-resample.html" title="resample">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch03.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-resample.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-morphology.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-morphology.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="morphology">
+<a name="libvips-morphology"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-morphology.top_of_page"></a>morphology</span></h2>
+<p>morphology — morphological operators, rank filters and related image 
+analysis</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-morphology.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-morphology.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-morphology.html#im-dilate" title="im_dilate ()">im_dilate</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-morphology.html#im-erode" title="im_erode ()">im_erode</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-morphology.html#im-rank" title="im_rank ()">im_rank</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> order</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-morphology.html#im-rank-image" title="im_rank_image ()">im_rank_image</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> **in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> index</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-morphology.html#im-maxvalue" title="im_maxvalue ()">im_maxvalue</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> **in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-morphology.html#im-cntlines" title="im_cntlines ()">im_cntlines</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *nolines</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> flag</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-morphology.html#im-zerox" title="im_zerox ()">im_zerox</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> flag</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-morphology.html#im-profile" title="im_profile ()">im_profile</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dir</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-morphology.html#im-label-regions" title="im_label_regions ()">im_label_regions</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *test</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *segments</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-morphology.description"></a><h2>Description</h2>
+<p>
+Erode, dilate, rank, count lines, number regions, etc.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-morphology.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_dilate ()">
+<a name="im-dilate"></a><h3>im_dilate ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_dilate                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_erode ()">
+<a name="im-erode"></a><h3>im_erode ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_erode                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rank ()">
+<a name="im-rank"></a><h3>im_rank ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rank                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> order</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rank_image ()">
+<a name="im-rank-image"></a><h3>im_rank_image ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rank_image                       (<em class="parameter"><code><span class="type">IMAGE</span> **in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> index</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_maxvalue ()">
+<a name="im-maxvalue"></a><h3>im_maxvalue ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_maxvalue                         (<em class="parameter"><code><span class="type">IMAGE</span> **in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_cntlines ()">
+<a name="im-cntlines"></a><h3>im_cntlines ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_cntlines                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *nolines</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> flag</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_zerox ()">
+<a name="im-zerox"></a><h3>im_zerox ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_zerox                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> flag</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_profile ()">
+<a name="im-profile"></a><h3>im_profile ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_profile                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dir</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_label_regions ()">
+<a name="im-label-regions"></a><h3>im_label_regions ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_label_regions                    (<em class="parameter"><code><span class="type">IMAGE</span> *test</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *segments</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-morphology.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-boolean.html" title="boolean">boolean</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

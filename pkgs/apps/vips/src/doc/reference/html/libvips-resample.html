@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>resample</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch03.html" title="VIPS operation API by section (no gtkdoc comments yet)">
+<link rel="prev" href="libvips-morphology.html" title="morphology">
+<link rel="next" href="libvips-mask.html" title="mask">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-morphology.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-mask.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-resample.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-resample.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="resample">
+<a name="libvips-resample"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-resample.top_of_page"></a>resample</span></h2>
+<p>resample — shrink, expand, rotate with a choice of interpolators</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-resample.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-resample.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-resample.html#im-affinei" title="im_affinei ()">im_affinei</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsInterpolate.html" title="VipsInterpolate"><span class="type">VipsInterpolate</span></a> *interpolate</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> b</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> d</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ox</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> oy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ow</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> oh</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-resample.html#im-affinei-all" title="im_affinei_all ()">im_affinei_all</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsInterpolate.html" title="VipsInterpolate"><span class="type">VipsInterpolate</span></a> *interpolate</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> b</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> d</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dy</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-resample.html#im-stretch3" title="im_stretch3 ()">im_stretch3</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dy</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-resample.html#im-shrink" title="im_shrink ()">im_shrink</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> xshrink</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> yshrink</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-resample.html#im-rightshift-size" title="im_rightshift_size ()">im_rightshift_size</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xshift</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yshift</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> band_fmt</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-resample.html#im-match-linear" title="im_match_linear ()">im_match_linear</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-resample.html#im-match-linear-search" title="im_match_linear_search ()">im_match_linear_search</a>              (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> hwindowsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> hsearchsize</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-resample.description"></a><h2>Description</h2>
+<p>
+Resample an image in various ways, using a <span class="type">VipsInterpolator</span> to generate
+intermediate values.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-resample.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_affinei ()">
+<a name="im-affinei"></a><h3>im_affinei ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_affinei                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsInterpolate.html" title="VipsInterpolate"><span class="type">VipsInterpolate</span></a> *interpolate</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> b</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> d</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ox</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> oy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ow</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> oh</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_affinei_all ()">
+<a name="im-affinei-all"></a><h3>im_affinei_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_affinei_all                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsInterpolate.html" title="VipsInterpolate"><span class="type">VipsInterpolate</span></a> *interpolate</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> b</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> c</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> d</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dy</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_stretch3 ()">
+<a name="im-stretch3"></a><h3>im_stretch3 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_stretch3                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dx</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> dy</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_shrink ()">
+<a name="im-shrink"></a><h3>im_shrink ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_shrink                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> xshrink</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> yshrink</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rightshift_size ()">
+<a name="im-rightshift-size"></a><h3>im_rightshift_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rightshift_size                  (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xshift</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yshift</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> band_fmt</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_match_linear ()">
+<a name="im-match-linear"></a><h3>im_match_linear ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_match_linear                     (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_match_linear_search ()">
+<a name="im-match-linear-search"></a><h3>im_match_linear_search ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_match_linear_search              (<em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sec</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yr2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xs2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ys2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> hwindowsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> hsearchsize</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

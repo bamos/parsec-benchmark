@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source ${PARSECDIR}/pkgs/tools/yasm/parsec/gcc.bldconf
+

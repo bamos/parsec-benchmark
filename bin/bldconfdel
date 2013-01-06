@@ -1,0 +1,326 @@
+#!/bin/bash
+#
+# Copyright (C) 2006-2007, Princeton University
+# All rights reserved.
+# Author: Christian Bienia
+#
+# bldconfdel - Remove a build configuration from the PARSEC benchmark suite
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of Princeton University nor the
+#       names of its contributors may be used to endorse or promote products
+#       derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY CHRISTIAN BIENIA ``AS IS'' AND ANY
+# EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL CHRISTIAN BIENIA BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# CHANGELOG
+#
+# From PARSEC 2.0 to PARSEC 2.1:
+#  - Made PARSECPLAT string detection more robust
+
+
+
+#################################################################
+#                                                               #
+#                         CONFIGURATION                         #
+#                                                               #
+#################################################################
+
+# Define directory of PARSEC benchmark suite
+# If $PARSECDIR is not set, the script tries to autodetect the path
+#export PARSECDIR=""
+
+# Define platform name to use
+# If $PARSECPLAT is not set, the script will automaticaly determine a name
+#export PARSECPLAT=""
+
+
+
+##### There should be no need to touch anything below here #####
+
+# Output prefix to use
+oprefix="[PARSEC]"
+
+
+
+#################################################################
+#                                                               #
+#                           FUNCTIONS                           #
+#                                                               #
+#################################################################
+
+# parsec_init
+#
+# Initialize the script
+#
+# Arguments: none
+function parsec_init {
+  # We need to hard-wire a few commands because we need them for the path detection
+  PWD="pwd"
+  BASENAME="basename"
+  DIRNAME="dirname"
+
+  # Try to find path
+  uniquefile=".parsec_uniquefile"
+  parsecdir=""
+  if [ ! -z "${PARSECDIR}" ]; then
+    # User defined PARSECDIR, check it
+    parsecdir="${PARSECDIR}"
+    if [ ! -f "${parsecdir}/${uniquefile}" ]; then
+      echo "${oprefix} Error: Variable PARSECDIR points to '${PARSECDIR}', but this does not seem to be the PARSEC directory. Either unset PARSECDIR to make me try to autodetect the path or set it to the correct value."
+      exit 1
+    fi
+  else
+    # Try to autodetect path by looking at path used to invoke this script
+
+    # Try to extract absoute or relative path
+    if [ "${0:0:1}" == "/" ]; then
+      # Absolute path given
+      eval parsecdir=$(${DIRNAME} $(${DIRNAME} $0))
+      # Check
+      if [ -f "${parsecdir}/${uniquefile}" ]; then
+        PARSECDIR=${parsecdir}
+      fi
+    else
+      # No absolute path, maybe relative path?
+      eval parsecdir=$(${PWD})/$(${DIRNAME} $(${DIRNAME} $0))
+      # Check
+      if [ -f "${parsecdir}/${uniquefile}" ]; then
+        PARSECDIR=${parsecdir}
+      fi
+    fi
+
+    # If PARSECDIR is still undefined, we try to guess the path
+    if [ -z "${PARSECDIR}" ]; then
+      # Check current directory
+      if [ -f "./${uniquefile}" ]; then
+        eval "parsecdir=\$(${PWD})"
+        PARSECDIR=${parsecdir}
+      fi
+    fi
+    if [ -z "${PARSECDIR}" ]; then
+      # Check next-higher directory
+      if [ -f "../${uniquefile}" ]; then
+        eval "parsecdir=\$(${PWD})/.."
+        PARSECDIR=${parsecdir}
+      fi
+    fi
+  fi
+
+  # Make sure PARSECDIR is defined and exported
+  if [ -z "${PARSECDIR}" ]; then
+    echo "${oprefix} Error: Unable to autodetect path to the PARSEC benchmark suite. Either define an environment variable PARSECDIR, or edit ${me} and set PARSECDIR to the correct value at the beginning of the file."
+    exit 1
+  fi
+  export PARSECDIR
+
+  # Eliminate trailing `/.' from PARSECDIR
+  PARSECDIR=${PARSECDIR/%\/./}
+
+  # Determine OS name to use for automatically determined PARSECPLAT
+  case "${OSTYPE}" in
+  *linux*)   ostype="linux";;
+  *solaris*) ostype="solaris";;
+  *bsd*)     ostype="bsd";;
+  *aix*)     ostype="aix";;
+  *hpux*)    ostype="hpux";;
+  *irix*)    ostype="irix";;
+  *amigaos*) ostype="amigaos";;
+  *beos*)    ostype="beos";;
+  *bsdi*)    ostype="bsdi";;
+  *cygwin*)  ostype="windows";;
+  *darwin*)  ostype="darwin";;
+  *interix*) ostype="interix";;
+  *os2*)     ostype="os2";;
+  *osf*)     ostype="osf";;
+  *sunos*)   ostype="sunos";;
+  *sysv*)    ostype="sysv";;
+  *sco*)     ostype="sco";;
+  *)         ostype="${OSTYPE}";;
+  esac
+
+  # Determine HOST name to use for automatically determined PARSECPLAT
+  case "${HOSTTYPE}" in
+  *i386*)    hosttype="i386";;
+  *x86_64*)  hosttype="amd64";;
+  *amd64*)   hosttype="amd64";;
+  *i486*)    hosttype="amd64";;
+  *sparc*)   hosttype="sparc";;
+  *sun*)     hosttype="sparc";;
+  *ia64*)    hosttype="ia64";;
+  *itanium*) hosttype="ia64";;
+  *powerpc*) hosttype="powerpc";;
+  *ppc*)     hosttype="powerpc";;
+  *alpha*)   hosttype="alpha";;
+  *mips*)    hosttype="mips";;
+  *arm*)     hosttype="arm";;
+  *)         hosttype="${HOSTTYPE}";;
+  esac
+
+  # Determine first part of value to use for PARSECPLAT environment variable if not defined by user
+  # Note: We will append the compiler configuration to that to get the final value for PARSECPLAT
+  hostostype="${hosttype}-${ostype}"
+
+  # Define some global directories
+  benchdir=${parsecdir}/pkgs
+  logdir=${parsecdir}/log
+
+  # Source global configuration file with alias definitions, package dependencies etc.
+  parsecconfig="${PARSECDIR}/config/parsec.conf"
+  if [ -f "${parsecconfig}" ]; then
+    source ${parsecconfig}
+  else
+    echo "${oprefix} Error: Cannot load global configuration file '${parsecconfig}'."
+    exit 1
+  fi
+
+  # Try to load OS-specific configuration to get binaries and correct arguments
+  sysconfig="${PARSECDIR}/config/${ostype}.sysconf"
+  if [ -f "${sysconfig}" ]; then
+    source ${sysconfig}
+  else
+    echo "${oprefix} Error: Cannot load system configuration file '${sysconfig}' for OS type '${ostype}'. Please create a new system configuration file."
+    exit 1
+  fi
+
+  # Setup environment so PARSEC tools are usable by other programs
+  if [ -z "${PATH}" ]; then
+    export PATH="${PARSECDIR}/bin"
+  else
+    export PATH="${PARSECDIR}/bin:${PATH}"
+  fi
+}
+
+# process_args
+#
+# Process args and setup argument-dependent environment
+#
+# Arguments: all arguments given to the script (i.e. "$@")
+function process_args {
+  # Usage
+  eval me=$(${BASENAME} $0)
+  usage="\
+Usage: $me -n NAME [OPTION]...
+
+Remove a configuration from the PARSEC benchmark suite.
+
+Options:
+    -n NAME          Name of the configuration to remove
+    -h               Displays this help message.
+
+Examples:
+    - Remove a configuration 'my-config':
+        $me -n my-config
+    - Display this help:
+        $me -h"
+
+  # Parse arguments
+  parsemode="none"
+  config_name=""
+  need_arg_for=""
+  while [ ! -z "$1" ]; do
+    arg="$1"
+    case "${arg}" in
+      "-n" )
+        if [ ! -z "${need_arg_for}" ]; then
+          echo "${oprefix} Error: ${parsemode} expected between '${need_arg_for}' and '-n'"
+          echo "${usage}"
+          exit 1
+        fi
+        if [ ! -z "${config_name}" ]; then
+          echo "${oprefix} Error: Two configuration names specified"
+          exit 1
+        fi
+        need_arg_for="-n"
+        parsemode="NAME";;
+      "-h" )
+        echo "${usage}"
+        exit 0;;
+      *    )
+        if [ ${arg:0:1} == "-" ]; then
+          echo "${oprefix} Error: Unknown argument '${arg}'"
+          echo "${usage}"
+          exit 1
+        fi
+        need_arg_for=""
+        case "${parsemode}" in
+          "NAME"   )
+            parsemode="none"
+            config_name="${arg}";;
+          *        )
+            echo "${oprefix} Error: Unknown argument '${arg}'"
+            echo "${usage}"
+            exit 1;;
+        esac;;
+    esac
+
+    shift
+  done
+  if [ ! -z "${need_arg_for}" ]; then
+    echo "${oprefix} Error: ${parsemode} expected after '${need_arg_for}'"
+    echo "${usage}"
+    exit 1
+  fi
+
+  # Make sure a configuration name was given
+  if [ -z "${config_name}" ]; then
+    echo "${oprefix} Error: The name of a configuration must be given with option '-n'"
+    exit 1
+  fi
+}
+
+#################################################################
+#                                                               #
+#                             MAIN                              #
+#                                                               #
+#################################################################
+
+# Check version
+if [ ${BASH_VERSINFO[0]} -lt 3 ]; then
+  # We need certain Bash 3 features. e.g. PIPESTATUS (which was available but broken in earlier versions)
+  echo "${oprefix} Warning: At least bash version 3 is recommended. Earlier versions might not function properly. Current version is $BASH_VERSION."
+fi
+
+# Execute functions to setup environment
+parsec_init
+process_args "$@"
+
+# Go through possible configuration files and delete them if they exist
+cnt=0
+filename="${PARSECDIR}/config/${config_name}.bldconf"
+if [ -f "${filename}" ]; then
+  rm ${filename}
+  ((cnt++))
+fi
+for pkg in ${alias_all}; do
+  eval pkggroup="\${group_${pkg}}"
+  filename="${PARSECDIR}/pkgs/${pkggroup}/${pkg}/parsec/${config_name}.bldconf"
+  if [ -f "${filename}" ]; then
+    rm ${filename}
+    ((cnt++))
+  fi
+done
+
+# Print summary
+if [ "${cnt}" -eq "0" ]; then
+  echo "${oprefix} Error: Configuration '${config_name}' does not exist"
+  exit 1
+else
+  echo "${oprefix} ${cnt} files deleted"
+  exit 0
+fi

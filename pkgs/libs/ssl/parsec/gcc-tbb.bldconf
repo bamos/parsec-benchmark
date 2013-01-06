@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# gcc-tbb.bldconf - configuration file for PARSEC
+
+source ${PARSECDIR}/pkgs/libs/ssl/parsec/gcc.bldconf
+

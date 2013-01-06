@@ -1,0 +1,94 @@
+Preamble
+========
+
+PARSEC is the result of the work of many people. First and foremost the authors
+of the benchmark programs should be mentioned. They are too numerous to be
+listed here, the README files and comments at the beginning of each source code
+file provide detailed information about code authorship.
+
+Our goal is to provide a complete list of all contributors. But we are not
+impeccable, and it is possible that we did not list all contributors in a way
+which sufficiently appreciates their work. In this case we would be grateful
+for a notification which would allow us to correct our mistake.
+
+
+PARSEC 3.0
+==========
+
+The following PARSEC users contributed to the next version of the benchmark
+suite:
+
+  - Rafael Asenjo, University of Malaga (dedup malloc patch)
+  - Joe Devietti, University of Washington (file open mode patch)
+  - Chris Fensch, University of Edinburgh (ferret deadlock & TBB patches)
+  - Joseph Greathouse, University of Michigan (facesim patches)
+  - Darryl Gove, Oracle (streamcluster data race)
+  - Paul Keir, University of Glasgow (blackschole patches)
+  - Alex Reshetov, Intel (raytrace patch)
+  - George Kurian, MIT (provide splash2 package)
+
+Three main changes to PARSEC 3.0 were done by Yungang Bao during whose 
+postdoctral research at Princeton: 
+  - Add network benchmarks as well as a user-level parallel TCP/IP stack
+  - Integrate SPLASH-2 and the inputs-enlarged SPLASH-2x into PARSEC framework.
+  - Redesign the framework for supporting external suites.
+
+
+PARSEC 2.1
+==========
+
+The following PARSEC users contributed to the next version of the benchmark
+suite:
+
+  - Orestis Agathokleous, Cyprus University (fluidanimate bugfix)
+  - Christian Fensch, University of Cambridge (x264 bugfix)
+  - Mark Gebhart, University of Texas at Austin (Alpha support)
+  - John Henning, Sun Microsystems (fluidanimate bugfix)
+  - Thomas Karcher, University of Karlsruhe (several smaller fixes)
+  - Grishma Kotecha, Intel (file input of fluidanimate TBB version)
+  - Marc de Kruijf, University of Wisconsin-Madison (raytrace bugfix)
+  - Michael Voss, Intel (blackscholes TBB improvements)
+  - Matthew Watkins, Cornell University (streamcluster bugfix)
+
+
+PARSEC 2.0
+==========
+
+The second release of PARSEC incorporated patches submitted by various users
+of the benchmark suite. The following individuals contributed to PARSEC 2.0:
+
+  - Gilberto Contreras, Princeton University (Intel TBB support for four
+      workloads)
+  - Christian Fensch, University of Cambridge (Solaris 10 / Sparc port of many
+      PARSEC workloads)
+  - Saugata Ghose, Cornell University (freqmine bugfixes)
+  - Wim Heirman, University of Gent (GCC 4.3 port of PARSEC)
+  - Nikolay Kurtov, Intel (blackscholes bugfixes, dedup bugfixes, Windows and
+      OpenMP port of blackscholes)
+  - Jiaqi Zhang, Tsinghua University (dedup bugfixes)
+
+You can find details about the contributions in the CHANGELOG.
+
+
+PARSEC 1.0
+==========
+
+The first version of PARSEC is the outcome of a joint venture between Princeton
+University and Intel Corporation. It includes several key applications
+developed at Princeton University and significant parts of the original RMS
+Benchmark Suite from Intel Corporation.
+
+The initial benchmark selection was decided on by Christian Bienia. He also
+sized all input sets, wrote the PARSEC framework and created the final
+structure of the PARSEC distribution. He was advised by Prof. Kai Li, who
+provided helpful insights and directed the development of the suite.
+Prof. Jaswinder Pal Singh assisted with his experience from the creation of
+the SPLASH-2 benchmark suite.
+
+At Intel Corporation, Tim Mattson was instrumental at facilitating the public
+release of the RMS benchmark programs. He identified many of the programs which
+could be released and convinced other people of the value of a public benchmark
+suite. The Intel Application Research Lab had a leading role in the development
+of the RMS applications. Stanford University allowed the release of parts of
+their PhysBAM library.
+

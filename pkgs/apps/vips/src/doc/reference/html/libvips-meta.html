@@ -1,0 +1,1138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>meta</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch01.html" title="Core VIPS API">
+<link rel="prev" href="libvips-callback.html" title="callback">
+<link rel="next" href="libvips-region.html" title="region">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-callback.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-region.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-meta.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-meta.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="meta">
+<a name="libvips-meta"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-meta.top_of_page"></a>meta</span></h2>
+<p>meta — get and set image metadata</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-meta.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-meta.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+#define             <a class="link" href="libvips-meta.html#IM-META-EXIF-NAME:CAPS" title="IM_META_EXIF_NAME">IM_META_EXIF_NAME</a>
+#define             <a class="link" href="libvips-meta.html#IM-META-ICC-NAME:CAPS" title="IM_META_ICC_NAME">IM_META_ICC_NAME</a>
+#define             <a class="link" href="libvips-meta.html#IM-META-XML:CAPS" title="IM_META_XML">IM_META_XML</a>
+#define             <a class="link" href="libvips-meta.html#IM-META-RESOLUTION-UNIT:CAPS" title="IM_META_RESOLUTION_UNIT">IM_META_RESOLUTION_UNIT</a>
+#define             <a class="link" href="libvips-meta.html#IM-TYPE-SAVE-STRING:CAPS" title="IM_TYPE_SAVE_STRING">IM_TYPE_SAVE_STRING</a>
+<span class="returnvalue">GType</span>               <a class="link" href="libvips-meta.html#im-save-string-get-type" title="im_save_string_get_type ()">im_save_string_get_type</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
+const <span class="returnvalue">char</span> *        <a class="link" href="libvips-meta.html#im-save-string-get" title="im_save_string_get ()">im_save_string_get</a>                  (<em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-meta.html#im-save-string-set" title="im_save_string_set ()">im_save_string_set</a>                  (<em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-meta.html#im-save-string-setf" title="im_save_string_setf ()">im_save_string_setf</a>                 (<em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+#define             <a class="link" href="libvips-meta.html#IM-TYPE-AREA:CAPS" title="IM_TYPE_AREA">IM_TYPE_AREA</a>
+<span class="returnvalue">GType</span>               <a class="link" href="libvips-meta.html#im-area-get-type" title="im_area_get_type ()">im_area_get_type</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+#define             <a class="link" href="libvips-meta.html#IM-TYPE-REF-STRING:CAPS" title="IM_TYPE_REF_STRING">IM_TYPE_REF_STRING</a>
+<span class="returnvalue">GType</span>               <a class="link" href="libvips-meta.html#im-ref-string-get-type" title="im_ref_string_get_type ()">im_ref_string_get_type</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-ref-string-set" title="im_ref_string_set ()">im_ref_string_set</a>                   (<em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);
+const <span class="returnvalue">char</span> *        <a class="link" href="libvips-meta.html#im-ref-string-get" title="im_ref_string_get ()">im_ref_string_get</a>                   (<em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>);
+<span class="returnvalue">size_t</span>              <a class="link" href="libvips-meta.html#im-ref-string-get-length" title="im_ref_string_get_length ()">im_ref_string_get_length</a>            (<em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>);
+#define             <a class="link" href="libvips-meta.html#IM-TYPE-BLOB:CAPS" title="IM_TYPE_BLOB">IM_TYPE_BLOB</a>
+<span class="returnvalue">GType</span>               <a class="link" href="libvips-meta.html#im-blob-get-type" title="im_blob_get_type ()">im_blob_get_type</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span> *              <a class="link" href="libvips-meta.html#im-blob-get" title="im_blob_get ()">im_blob_get</a>                         (<em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *data_length</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-blob-set" title="im_blob_set ()">im_blob_set</a>                         (<em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> free_fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> length</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()">im_meta_set</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">GValue</span> *Param3</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libvips-meta.html#im-meta-remove" title="im_meta_remove ()">im_meta_remove</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()">im_meta_get</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">GValue</span> *Param3</code></em>);
+<span class="returnvalue">GType</span>               <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()">im_meta_get_typeof</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-set-int" title="im_meta_set_int ()">im_meta_set_int</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> i</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-get-int" title="im_meta_get_int ()">im_meta_get_int</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *i</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-set-double" title="im_meta_set_double ()">im_meta_set_double</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> d</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-get-double" title="im_meta_get_double ()">im_meta_get_double</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *d</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-set-area" title="im_meta_set_area ()">im_meta_set_area</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> Param3</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *Param4</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-get-area" title="im_meta_get_area ()">im_meta_get_area</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> **data</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-set-string" title="im_meta_set_string ()">im_meta_set_string</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-get-string" title="im_meta_get_string ()">im_meta_get_string</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **str</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-set-blob" title="im_meta_set_blob ()">im_meta_set_blob</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> free_fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *blob</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> blob_length</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-meta.html#im-meta-get-blob" title="im_meta_get_blob ()">im_meta_get_blob</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> **blob</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *blob_length</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-meta.description"></a><h2>Description</h2>
+<p>
+You can attach arbitrary metadata to images. Metadata is copied as images
+are processed, so all images which used this image as input, directly or
+indirectly, will have this same bit of metadata attached to them. Copying
+is implemented with reference-counted pointers, so it is efficient, even for
+large items of data. This does however mean that metadata items need to be
+immutable. Metadata
+is handy for things like ICC profiles or EXIF data.
+</p>
+<p>
+Various convenience functions (eg. <a class="link" href="libvips-meta.html#im-meta-set-int" title="im_meta_set_int ()"><code class="function">im_meta_set_int()</code></a>) let you easily attach 
+simple types like
+numbers, strings and memory blocks to images. Use <a class="link" href="libvips-header.html#im-header-map" title="im_header_map ()"><code class="function">im_header_map()</code></a> to loop
+over an image's fields, including all metadata.
+</p>
+<p>
+Items of metadata are identified by strings. Some strings are reserved, for
+example the ICC pofile for an image is known by convention as
+"icc-profile-data".
+</p>
+<p>
+If you save an image in VIPS format, all metadata (with a restriction, see
+below) is automatically saved for you in a block of XML at the end of the
+file. When you load a VIPS image, the metadata is restored. You can use the
+'edvips' command-line tool to extract or replace this block of XML.
+</p>
+<p>
+VIPS metadata is based on GValue. See the docs for that system if you want
+to do fancy stuff such as defining a new metadata type.
+VIPS defines a new GValue called "im_save_string", a variety of string. If 
+your GValue can be transformed to im_save_string, it will be saved and
+loaded to and from VIPS files for you.
+</p>
+<p>
+VIPS provides a couple of base classes which implement
+reference-counted areas of memory. If you base your metadata on one of
+these types, it can be copied between images efficiently.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-meta.details"></a><h2>Details</h2>
+<div class="refsect2" title="IM_META_EXIF_NAME">
+<a name="IM-META-EXIF-NAME:CAPS"></a><h3>IM_META_EXIF_NAME</h3>
+<pre class="programlisting">#define IM_META_EXIF_NAME "exif-data"
+</pre>
+<p>
+The name that JPEG read and write operations use for the image's EXIF data.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_META_ICC_NAME">
+<a name="IM-META-ICC-NAME:CAPS"></a><h3>IM_META_ICC_NAME</h3>
+<pre class="programlisting">#define IM_META_ICC_NAME "icc-profile-data"
+</pre>
+<p>
+The name we use to attach an ICC profile. The file read and write
+operations for TIFF, JPEG, PNG and others use this item of metadata to
+attach and save ICC profiles. The profile is updated by the
+<a class="link" href="libvips-colour.html#im-icc-transform" title="im_icc_transform ()"><code class="function">im_icc_transform()</code></a> operations.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_META_XML">
+<a name="IM-META-XML:CAPS"></a><h3>IM_META_XML</h3>
+<pre class="programlisting">#define IM_META_XML "xml-header"
+</pre>
+<p>
+The original XML that was used to code the metadata after reading a VIPS
+format file.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_META_RESOLUTION_UNIT">
+<a name="IM-META-RESOLUTION-UNIT:CAPS"></a><h3>IM_META_RESOLUTION_UNIT</h3>
+<pre class="programlisting">#define IM_META_RESOLUTION_UNIT "resolution-unit"
+</pre>
+<p>
+The JPEG and TIFF read and write operations use this to record the
+file's preferred unit for resolution.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_SAVE_STRING">
+<a name="IM-TYPE-SAVE-STRING:CAPS"></a><h3>IM_TYPE_SAVE_STRING</h3>
+<pre class="programlisting">#define IM_TYPE_SAVE_STRING (im_save_string_get_type())
+</pre>
+<p>
+The <span class="type">GType</span> for an "im_save_string".
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_save_string_get_type ()">
+<a name="im-save-string-get-type"></a><h3>im_save_string_get_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>               im_save_string_get_type             (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_save_string_get ()">
+<a name="im-save-string-get"></a><h3>im_save_string_get ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        im_save_string_get                  (<em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>);</pre>
+<p>
+Get the C string held internally by the GValue.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>GValue to get from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The C string held by <em class="parameter"><code>value</code></em>. This must not be freed.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_save_string_set ()">
+<a name="im-save-string-set"></a><h3>im_save_string_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_save_string_set                  (<em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);</pre>
+<p>
+Copies the C string into <em class="parameter"><code>value</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>GValue to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>C string to copy into the GValue
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_save_string_setf ()">
+<a name="im-save-string-setf"></a><h3>im_save_string_setf ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_save_string_setf                 (<em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Generates a string and copies it into <em class="parameter"><code>value</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>GValue to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>printf()-style format string
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>arguments to <code class="function">printf()</code>-formatted <em class="parameter"><code>fmt</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_AREA">
+<a name="IM-TYPE-AREA:CAPS"></a><h3>IM_TYPE_AREA</h3>
+<pre class="programlisting">#define IM_TYPE_AREA (im_area_get_type())
+</pre>
+<p>
+The <span class="type">GType</span> for an <span class="type">im_area</span>.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_area_get_type ()">
+<a name="im-area-get-type"></a><h3>im_area_get_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>               im_area_get_type                    (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_REF_STRING">
+<a name="IM-TYPE-REF-STRING:CAPS"></a><h3>IM_TYPE_REF_STRING</h3>
+<pre class="programlisting">#define IM_TYPE_REF_STRING (im_ref_string_get_type())
+</pre>
+<p>
+The <span class="type">GType</span> for an <span class="type">im_refstring</span>.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_ref_string_get_type ()">
+<a name="im-ref-string-get-type"></a><h3>im_ref_string_get_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>               im_ref_string_get_type              (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_ref_string_set ()">
+<a name="im-ref-string-set"></a><h3>im_ref_string_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_ref_string_set                   (<em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);</pre>
+<p>
+Copies the C string <em class="parameter"><code>str</code></em> into <em class="parameter"><code>value</code></em>. 
+</p>
+<p>
+im_ref_string are immutable C strings that are copied between images by
+copying reference-counted pointers, making the much more efficient than
+regular GValue strings.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>GValue to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>C string to copy into the GValue
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_ref_string_get ()">
+<a name="im-ref-string-get"></a><h3>im_ref_string_get ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        im_ref_string_get                   (<em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>);</pre>
+<p>
+Get the C string held internally by the GValue.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>GValue to get from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The C string held by <em class="parameter"><code>value</code></em>. This must not be freed.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_ref_string_get_length ()">
+<a name="im-ref-string-get-length"></a><h3>im_ref_string_get_length ()</h3>
+<pre class="programlisting"><span class="returnvalue">size_t</span>              im_ref_string_get_length            (<em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>);</pre>
+<p>
+Gets the cached string length held internally by the refstring.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>GValue to get from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The length of the string.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_TYPE_BLOB">
+<a name="IM-TYPE-BLOB:CAPS"></a><h3>IM_TYPE_BLOB</h3>
+<pre class="programlisting">#define IM_TYPE_BLOB (im_blob_get_type())
+</pre>
+<p>
+The <span class="type">GType</span> for an <span class="type">im_blob</span>.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_blob_get_type ()">
+<a name="im-blob-get-type"></a><h3>im_blob_get_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>               im_blob_get_type                    (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_blob_get ()">
+<a name="im-blob-get"></a><h3>im_blob_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              im_blob_get                         (<em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *data_length</code></em>);</pre>
+<p>
+Get the address of the blob (binary large object) being held in <em class="parameter"><code>value</code></em> and
+optionally return its length in <em class="parameter"><code>blob_length</code></em>.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-blob-set" title="im_blob_set ()"><code class="function">im_blob_set()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>GValue to get from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blob_length</code></em> :</span></p></td>
+<td>return the blob length here, optionally
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The blob address.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_blob_set ()">
+<a name="im-blob-set"></a><h3>im_blob_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_blob_set                         (<em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> free_fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> length</code></em>);</pre>
+<p>
+Sets <em class="parameter"><code>value</code></em> to hold a pointer to <em class="parameter"><code>blob</code></em>. When <em class="parameter"><code>value</code></em> is freed, <em class="parameter"><code>blob</code></em> will be
+freed with <em class="parameter"><code>free_fn</code></em>. <em class="parameter"><code>value</code></em> also holds a note of the length of the memory
+area.
+</p>
+<p>
+blobs are things like ICC profiles or EXIF data. They are relocatable, and
+are saved to VIPS files for you coded as base64 inside the XML. They are
+copied by copying reference-counted pointers.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-blob-get" title="im_blob_get ()"><code class="function">im_blob_get()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>GValue to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>free_fn</code></em> :</span></p></td>
+<td>free function for <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blob</code></em> :</span></p></td>
+<td>pointer to area of memory
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blob_length</code></em> :</span></p></td>
+<td>length of memory area
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_set ()">
+<a name="im-meta-set"></a><h3>im_meta_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_set                         (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">GValue</span> *Param3</code></em>);</pre>
+<p>
+Set a piece of metadata on <em class="parameter"><code>im</code></em>. Any old metadata with that name is
+destroyed. The GValue is copied into the image, so you need to unset the
+value when you're done with it.
+</p>
+<p>
+For example, to set an integer on an image (though you would use the
+convenience function <a class="link" href="libvips-meta.html#im-meta-set-int" title="im_meta_set_int ()"><code class="function">im_meta_set_int()</code></a> in practice), you would need:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+GValue value = { 0 };
+
+g_value_init( &amp;value, G_TYPE_INT );
+g_value_set_int( &amp;value, 42 );
+
+if( im_meta_set( im, field, &amp;value ) ) {
+  g_value_unset( &amp;value );
+  return( -1 );
+}
+g_value_unset( &amp;value );
+
+return( 0 );
+</pre></div>
+<p>
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to set the metadata on
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>the name to give the metadata
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>the GValue to copy into the image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_remove ()">
+<a name="im-meta-remove"></a><h3>im_meta_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            im_meta_remove                      (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>);</pre>
+<p>
+Find and remove an item of metadata. Return <code class="literal">FALSE</code> if no metadata of that
+name was found.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to test
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>the name to search for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if an item of metadata of that name was found and removed
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_get ()">
+<a name="im-meta-get"></a><h3>im_meta_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_get                         (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">GValue</span> *Param3</code></em>);</pre>
+<p>
+Fill <em class="parameter"><code>value_copy</code></em> with a copy of the metadata. <em class="parameter"><code>value_copy</code></em> must be zeroed 
+but uninitialised.
+</p>
+<p>
+This will return -1 and add a message to the error buffer if the item
+of metadata does not exist. Use <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a> to test for the 
+existence
+of a piece of metadata first if you are not certain it will be there.
+</p>
+<p>
+For example, to read a double from an image (though of course you would use
+<a class="link" href="libvips-meta.html#im-meta-get-double" title="im_meta_get_double ()"><code class="function">im_meta_get_double()</code></a> in practice):
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+GValue value = { 0 };
+double d;
+
+if( im_meta_get( im, field, &amp;value ) )
+  return( -1 );
+
+if( G_VALUE_TYPE( &amp;value ) != G_TYPE_DOUBLE ) {
+  im_error( "mydomain", _( "field \"%s\" is of type %s, not double" ),
+    field, g_type_name( G_VALUE_TYPE( &amp;value ) ) );
+  g_value_unset( &amp;value );
+  return( -1 );
+}
+
+d = g_value_get_double( &amp;value );
+g_value_unset( &amp;value );
+
+return( 0 );
+</pre></div>
+<p>
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a>, <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to get the metadata from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>the name to give the metadata
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value_copy</code></em> :</span></p></td>
+<td>the GValue is copied into this
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_get_typeof ()">
+<a name="im-meta-get-typeof"></a><h3>im_meta_get_typeof ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>               im_meta_get_typeof                  (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>);</pre>
+<p>
+Read the GType for an item of metadata. Returns zero if there is no
+metadata of that name.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to test
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>the name to search for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the GType of the metadata, or zero if there is no
+metadata of that name.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_set_int ()">
+<a name="im-meta-set-int"></a><h3>im_meta_set_int ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_set_int                     (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> i</code></em>);</pre>
+<p>
+Attaches <em class="parameter"><code>i</code></em> as a metadata item on <em class="parameter"><code>im</code></em> under the name <em class="parameter"><code>field</code></em>. A convenience
+function over <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-get-int" title="im_meta_get_int ()"><code class="function">im_meta_get_int()</code></a>, <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach the metadata to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>i</code></em> :</span></p></td>
+<td>metadata value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_get_int ()">
+<a name="im-meta-get-int"></a><h3>im_meta_get_int ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_get_int                     (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *i</code></em>);</pre>
+<p>
+Gets <em class="parameter"><code>i</code></em> from <em class="parameter"><code>im</code></em> under the name <em class="parameter"><code>field</code></em>. A convenience
+function over <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>. Use <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a> to test for the 
+existance
+of a piece of metadata.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-set-int" title="im_meta_set_int ()"><code class="function">im_meta_set_int()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to get the metadata from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>i</code></em> :</span></p></td>
+<td>return metadata value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_set_double ()">
+<a name="im-meta-set-double"></a><h3>im_meta_set_double ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_set_double                  (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> d</code></em>);</pre>
+<p>
+Attaches <em class="parameter"><code>d</code></em> as a metadata item on <em class="parameter"><code>im</code></em> under the name <em class="parameter"><code>field</code></em>. A convenience
+function over <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-get-double" title="im_meta_get_double ()"><code class="function">im_meta_get_double()</code></a>, <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach the metadata to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>d</code></em> :</span></p></td>
+<td>metadata value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_get_double ()">
+<a name="im-meta-get-double"></a><h3>im_meta_get_double ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_get_double                  (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *d</code></em>);</pre>
+<p>
+Gets <em class="parameter"><code>d</code></em> from <em class="parameter"><code>im</code></em> under the name <em class="parameter"><code>field</code></em>. A convenience
+function over <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>. Use <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a> to test for the 
+existance
+of a piece of metadata.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-set-double" title="im_meta_set_double ()"><code class="function">im_meta_set_double()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to get the metadata from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>d</code></em> :</span></p></td>
+<td>return metadata value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_set_area ()">
+<a name="im-meta-set-area"></a><h3>im_meta_set_area ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_set_area                    (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> Param3</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *Param4</code></em>);</pre>
+<p>
+Attaches <em class="parameter"><code>data</code></em> as a metadata item on <em class="parameter"><code>im</code></em> under the name <em class="parameter"><code>field</code></em>. When VIPS
+no longer needs the metadata, it will be freed with <em class="parameter"><code>free_fn</code></em>.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-get-double" title="im_meta_get_double ()"><code class="function">im_meta_get_double()</code></a>, <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach the metadata to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>free_fn</code></em> :</span></p></td>
+<td>free function for <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>pointer to area of memory
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_get_area ()">
+<a name="im-meta-get-area"></a><h3>im_meta_get_area ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_get_area                    (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> **data</code></em>);</pre>
+<p>
+Gets <em class="parameter"><code>data</code></em> from <em class="parameter"><code>im</code></em> under the name <em class="parameter"><code>field</code></em>. A convenience
+function over <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>. Use <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a> to test for the 
+existance
+of a piece of metadata.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-set-area" title="im_meta_set_area ()"><code class="function">im_meta_set_area()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to get the metadata from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>return metadata value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_set_string ()">
+<a name="im-meta-set-string"></a><h3>im_meta_set_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_set_string                  (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);</pre>
+<p>
+Attaches <em class="parameter"><code>str</code></em> as a metadata item on <em class="parameter"><code>im</code></em> under the name <em class="parameter"><code>field</code></em>. A convenience
+function over <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a> using an im_ref_string.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-get-double" title="im_meta_get_double ()"><code class="function">im_meta_get_double()</code></a>, <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a>, im_ref_string
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach the metadata to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>metadata value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_get_string ()">
+<a name="im-meta-get-string"></a><h3>im_meta_get_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_get_string                  (<em class="parameter"><code><span class="type">IMAGE</span> *Param1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **str</code></em>);</pre>
+<p>
+Gets <em class="parameter"><code>str</code></em> from <em class="parameter"><code>im</code></em> under the name <em class="parameter"><code>field</code></em>. A convenience
+function over <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>. Use <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a> to test for the 
+existance
+of a piece of metadata.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-set-string" title="im_meta_set_string ()"><code class="function">im_meta_set_string()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a>,
+im_ref_string
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to get the metadata from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>return metadata value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_set_blob ()">
+<a name="im-meta-set-blob"></a><h3>im_meta_set_blob ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_set_blob                    (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> free_fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *blob</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> blob_length</code></em>);</pre>
+<p>
+Attaches <em class="parameter"><code>blob</code></em> as a metadata item on <em class="parameter"><code>im</code></em> under the name <em class="parameter"><code>field</code></em>. A convenience
+function over <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a> using an im_blob.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-get-blob" title="im_meta_get_blob ()"><code class="function">im_meta_get_blob()</code></a>, <a class="link" href="libvips-meta.html#im-meta-set" title="im_meta_set ()"><code class="function">im_meta_set()</code></a>, im_blob
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach the metadata to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>free_fn</code></em> :</span></p></td>
+<td>free function for <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blob</code></em> :</span></p></td>
+<td>pointer to area of memory
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blob_length</code></em> :</span></p></td>
+<td>length of memory area
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_meta_get_blob ()">
+<a name="im-meta-get-blob"></a><h3>im_meta_get_blob ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_meta_get_blob                    (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> **blob</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *blob_length</code></em>);</pre>
+<p>
+Gets <em class="parameter"><code>blob</code></em> from <em class="parameter"><code>im</code></em> under the name <em class="parameter"><code>field</code></em>, optionally return its length in
+<em class="parameter"><code>blob_length</code></em>. A convenience
+function over <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>. Use <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a> to test for the 
+existance
+of a piece of metadata.
+</p>
+<p>
+See also: <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get-typeof" title="im_meta_get_typeof ()"><code class="function">im_meta_get_typeof()</code></a>, <a class="link" href="libvips-meta.html#im-blob-get" title="im_blob_get ()"><code class="function">im_blob_get()</code></a>, im_blob
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to get the metadata from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata name
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blob</code></em> :</span></p></td>
+<td>pointer to area of memory
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blob_length</code></em> :</span></p></td>
+<td>return the blob length here, optionally
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-meta.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-header.html" title="header">header</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

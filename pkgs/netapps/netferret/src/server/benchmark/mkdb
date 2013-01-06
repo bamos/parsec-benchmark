@@ -1,0 +1,32 @@
+#!/bin/bash
+
+base=corel # the environment directory
+tmp=`mktemp`
+
+rm -rf $base
+mkdir $base
+./cass_init $base
+./cass_add_vec_dist $base trivial trivial ""
+./cass_add_vec_dist $base hamming hamming ""
+./cass_add_vec_dist $base L1_float L1_float ""
+./cass_add_vec_dist $base L2_float L2_float ""
+./cass_add_vec_dist $base cosine cosine ""
+./cass_add_vecset_dist $base trivial trivial ""
+./cass_add_vecset_dist $base single single ""
+./cass_add_vecset_dist $base myemd myemd ""
+./cass_add_vecset_dist $base emd emd ""
+
+./cass_add_cfg $base cfg_corel 2 float 14
+./cass_add_map $base map_corel indirect
+./cass_add_table $base corel cfg_corel map_corel
+#../cass_add_sketch2 $base corel "-W 3.2 -M 256"
+./cass_import $base corel corel.txt
+#../cass_tune_sketch1 $base corel > $tmp
+#echo " -B 128 -H 3" >> $tmp
+#../cass_add_sketch1 $base corel $tmp
+#T = 50  L = 11  M = 14  W = 2.71886 
+#T = 50  L = 8   M = 15  W = 3.01885     miss = 0.0999723        cost = 0.256513
+
+./cass_add_index $base corel "lsh" "-L 12 -M 17 -w 4.0708 -H 19697 -recall" "lsh"
+
+rm $tmp

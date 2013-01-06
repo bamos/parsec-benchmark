@@ -1,0 +1,35 @@
+# Makefile for the PARSEC hooks library
+#
+# Copyright (C) 2006-2009 by Princeton University
+# Author: Christian Bienia
+
+PREFIX=${PARSECDIR}/pkgs/libs/hooks/inst/${PARSECPLAT}
+
+#AR=ar
+#RANLIB=ranlib
+
+TARGET=libhooks.a
+OBJS=hooks.o
+INCLUDEDIR=include
+
+
+
+all: $(OBJS)
+	$(AR) rcs $(TARGET) $(OBJS)
+	$(RANLIB) $(TARGET)
+
+%.o : %.c
+	$(CC) $(CFLAGS) -Wall -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -c $<
+
+clean:
+	rm -f $(OBJS)
+	rm -f $(TARGET)
+
+install:
+	mkdir -p $(PREFIX)/lib
+	cp -f $(TARGET) $(PREFIX)/lib
+	mkdir -p $(PREFIX)/include
+	cp -rf $(INCLUDEDIR)/* $(PREFIX)/include
+
+.PHONY: all clean install
+

@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# simlarge.runconf - file containing information necessary to run a specific
+#                    program of the PARSEC benchmark suite
+#
+# Copyright (C) 2007 Princeton University
+# Written by Christian Bienia
+
+# This is the information which we need to run the program. Each package of the
+# benchmark suite has such a file with information that will be added to the
+# global configuration. All variables set in the global configuration files can
+# be referenced here.
+
+
+# Binary file to execute, relative to installation root
+run_exec="bin/vips"
+
+# VIPS expects the number of threads in an environment variable
+export IM_CONCURRENCY=${NTHREADS}
+
+# Arguments to use
+run_args="im_benchmark bigben_2662x5500.v output.v"
+

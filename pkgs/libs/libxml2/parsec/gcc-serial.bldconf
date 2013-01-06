@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source ${PARSECDIR}/pkgs/libs/libxml2/parsec/gcc.bldconf
+
+# Override configuration flags
+build_conf="--disable-shared --without-threads"
+

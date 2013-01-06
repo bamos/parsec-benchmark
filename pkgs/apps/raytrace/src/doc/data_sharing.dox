@@ -1,0 +1,29 @@
+/*! \page data_sharing Sharing Data between different objects (e.g., two meshes sharing vertex set)
+
+@ingroup api_notes
+
+different ways of sharing data like, e.g., triangle connectivity: 
+
+a) share the actual host memory, then declare as persistent
+vec3i *vtx = new vec3i[N];
+rtVertexArray3f(mesh1,vtx,RT_PERSISTENT);
+rtVertexArray3f(mesh2,vtx,RT_PERSISTENT);
+
+b) create a singel data array object, then assign that to both meshes
+vec3i *vtx = new vec3i[N];
+data_t v = rtNewVertexArray(vtx,N*sizeof(*vtx),RT_PERSISTENT);
+rtVertexArray(mesh1,v);
+rtVertexArray(mesh2,v);
+
+see: \ref notes_on_persistency, \ref notes_on_data_arrays
+
+Note: Keep in mind that this sharing here is _only_ on the driver
+level, and _only_ for nodes in the scene graph; what the device part
+of the ray tracer decides wrt sharing is up to the kernel. In many
+cases, it will actually _have_ to replicate data, such as sharing a
+set of vertices in meshes with different transformatoins associated to
+them. (btw: for that reason, we explicitly decouple vertex posns,
+normals, colors, and connectivity, as many of the latter can be shared
+even onthe device even if the posns have to be transformed)
+
+*/

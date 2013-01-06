@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source ${PARSECDIR}/pkgs/libs/uptcpip/parsec/gcc.bldconf
+

@@ -1,0 +1,36 @@
+
+/*! \page example_new_mesh Creating a new mesh, and passing data to it 
+
+ @ingroup examples
+
+Creating a new mesh as a standalone root node
+\verbatim
+// parse the data
+vector<vec3f> vtxPos, vtxNor;
+vector<vec3i> triangle; // i.e., connectivity
+int shaderID;
+ParseModelFile(modelFile, &connectity, &vtxNor, &triangle, &shaderID);
+
+// generate the mesh
+node_t root = rtNewRoot(RT_HIDDEN);
+mesh_t mesh = rtTriangleMesh(root);
+// allocate vertex array of 3-float vertices (hope the mesh's
+// implementation likes three-float vertices !)... */
+data_t vertex_array = rtNewCoordArray(mesh,RT_FLOAT3);
+
+// ... and write data to it. as vertex array data is same as the
+// format we write, there's not type conversion, but a single
+// memcpy 
+rtCoords3f(vertex_array,&cube_vertex[0][0],8,RT_PRIVATE);
+
+// same for the connectivity data
+data_t index_array = rtNewIndexArray(mesh,RT_INT3);
+assert(rtValidData(index_array));
+rtIndices3i(index_array,&cube_tris[0][0],12,RT_PRIVATE);
+
+
+rtShaderArray(mesh,&shaderID,1,0); // same shader for all triangles (num=1), not persistent
+\endverbatim
+
+
+*/

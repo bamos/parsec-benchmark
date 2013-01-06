@@ -1,0 +1,264 @@
+@menu
+cass_init
+cass_describe
+cass_add_vec_dist
+cass_add_vec_set_dist
+cass_add_cfg
+cass_add_map
+cass_add_table
+cass_add_sketch
+cass_query
+cass_import
+cass_export
+@end menu
+
+@node cass_init
+@section @command{cass_init}
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_init <@var{path}>}
+@item @emph{Description:}
+Creat a database in the given directory.
+@item @emph{Options:}
+@table @gcctabopt
+@item @var{path}
+The path to where to create the database.
+@end table
+@end table
+
+@node cass_describe
+@section @command{cass_describe}
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_describe <@var{path}>}
+@item @emph{Description:}
+Dump textual description of the database.
+@item @emph{Options:}
+
+@table @gcctabopt
+@item @var{path}
+The database directory.
+@end table
+@end table
+
+
+@node cass_add_vec_dist
+@section @command{cass_add_vec_dist }
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_add_vec_dist <@var{path}> <@var{name}> <@var{class}> <@var{param}>}
+@item @emph{Description:}
+Add a vector distance to the databse.
+@item @emph{Options:}
+@table @gcctabopt
+@item @var{path}
+The database directory.
+@item @var{name}
+The name of the distance to add.
+@item @var{class}
+The name of the class of the distance.
+@item @var{param}
+Parameters to the construct method of the class.
+@end table
+@end table
+
+
+@node cass_add_vec_set_dist
+@section @command{cass_add_vec_set_dist}
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_add_vec_set_dist <@var{path}> <@var{name}> <@var{class}> <@var{param}>}
+@item @emph{Description:}
+Add a vecset distance to the database.
+@item @emph{Options:}
+
+@table @gcctabopt
+@item @var{path}
+The database directory.
+@item @var{name}
+The name of the distance to add.
+@item @var{class}
+The name of the class of the distance.
+@item @var{param}
+Parameters to the construct method of the class.
+@end table
+@end table
+
+
+@node cass_add_cfg
+@section @command{cass_add_cfg}
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_add_cfg <@var{path}> <@var{cfg name}> <@var{vecset type}> <@var{vec
+	type}> <@var{dim}>}
+@item @emph{Description:}
+Add a vecset configuration to the database.
+@item @emph{Options:} 
+
+@table @gcctabopt
+@item @var{path}
+The database.
+@item @var{cfg name}
+Name of the configuration to add.
+@item @var{vecset type}
+The vecset type, can be the following values.
+@table @code
+@item 1
+For @code{CASS_VECSET_SINGLE}.
+@item 2
+For @code{CASS_VECSET_SET}.
+@end table
+@item @var{vec type}
+The vector type, can be the following values.
+@table @code
+@item int
+@item float
+@item bit
+@end table
+@item @var{dim}
+Dimension of feature vector.
+@end table
+@end table
+
+
+@node cass_add_map
+@section @command{cass_add_map}
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_add_map <@var{path}> <@var{map name}> <@var{param}>}
+@item @emph{Description:}
+Add a map to the database.
+@item @emph{Options:}
+@table @gcctabopt
+@item @var{path}
+The database.
+@item @var{map name}
+Name of the map to add.
+@item @var{param}
+Can be one of the following values.
+@table @code
+@item direct
+The external ID are sequential integers start from 0 and  do not require mapping.
+@item indirect
+The external ID are strings and require to be converted to sequential integers
+for internal usage.
+@end table
+@end table
+@end table
+
+
+@node cass_add_table
+@section @command{cass_add_table}
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_add_table <@var{path}> <@var{table name}>  <@var{cfg}> <@var{map}>}
+@item @emph{Description:}
+Add a table to the database.
+@item @emph{Options:}
+@table @gcctabopt
+@item @var{path}
+The database.
+@item @var{table name}
+Name of the table.
+@item @var{cfg}
+Name of the configuration to use for the table.
+@item @var{map}
+Name of the map to use for the table.
+@end table
+@end table
+
+
+@node cass_add_sketch
+@section @command{cass_add_sketch}
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_add_sketch}
+@item @emph{Description:}
+
+@item @emph{Options:}
+
+@table @gcctabopt
+@end table
+@end table
+
+
+@node cass_query
+@section @command{cass_query}
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_query <@var{path}> <@var{table}> <@var{benchmark}> <@var{#query}>
+	<@var{K}> <@var{T1}> <@var{T2}> [@var{extra1}] [@var{extra2}]}
+@item @emph{Description:}
+The table parameter should be like "shape@@sketch2", which indicates the database
+to use the sketch.  If "shape" is used, then sketch will not be used and linear
+scan will be carried out.
+
+The query algorithm works in the following way:
+
+1. @var{T1} candidates are found using the sketch algorithm.  If @var{extra1} presents, it
+is passed to the sketch query algorithm.
+2. The candidates are further filtered using the sketch algorithm, with the best
+@var{T2} candidates left.  If @var{extra2} presents, it is passed to the sketch query
+algorithm.
+
+The benchmark files use true K-NN's found by linear scan as ground truth.
+
+Examples are
+
+../cass_run_query all shape@@sketch2 ~/data/query_shape 100 100 2000 1000 ""
+"-asym"
+
+This will first use the sketch to find 2000 candidate, and then use asymmetric
+method to refine the candidate set to 1000 candidates.
+
+For now, the benchmark file has 10000 queries, each with 200 nearest neighbors,
+    so you need to make sure that <# query> <= 10000 && <top k> <= 200.
+
+@item @emph{Options:}
+
+@table @gcctabopt
+@end table
+@end table
+
+
+@node cass_import
+@section @command{cass_import}
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_import <@var{path}> <@var{table}> <@var{input}>}
+@item @emph{Description:}
+Import external data to a table
+@item @emph{Options:}
+
+@table @gcctabopt
+@item @var{path}
+The database.
+@item @var{table}
+The table to import data to.
+@item @var{input}
+The path to the input file.
+@end table
+@end table
+
+
+@node cass_export
+@section @command{cass_export}
+@table @asis
+@item @emph{Synopsis:}
+@code{cass_export <@var{path}> <@var{table}> <@var{ouput}>}
+@item @emph{Description:}
+Dump the data of a table to a text file.
+@item @emph{Options:}
+
+@table @gcctabopt
+@item @var{path}
+The database.
+@item @var{table}
+The table to export.
+@item @var{output}
+The output file name.
+@end table
+@end table
+
+
+

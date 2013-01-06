@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source ${PARSECDIR}/ext/splash2x/apps/water_nsquared/parsec/gcc.bldconf
+

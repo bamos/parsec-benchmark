@@ -1,0 +1,1358 @@
+@menu
+* Using the Ferret Library
+* Portability
+* Error Handling
+* Utility Routines
+* Data Types
+* Vector and Vecset Distances
+* Tables
+* Multiple Modality Support
+* Vector Distance Reference
+* Vecset Distance Reference
+* Index and Sketch Reference
+@end menu
+
+@node Using the Ferret Library
+@section Using the Ferret Library
+After successful installation, you only need to put the following line to your
+code before the first reference to the Ferret Library data types or routines.
+@smallexample
+	#include <cass.h>
+@end smallexample
+To link against the Ferret Library, add the option @option{-lcass} to the
+command line of @command{ld} or @command{gcc}.
+
+@node Portability
+@section Portability
+
+For portability purpose, the following primitive types are used in the Ferret
+Library, so that the compile to the same size on all machines.
+
+@smallexample
+int32_t
+uint32_t
+uint64_t
+uchar
+@end smallexample
+
+The database files are portable between 32-bit and 64-bit machines, but not
+between machines of different endians for now.  To make it portable between
+different endians, only the file IO module (@file{cass_file.c}) needs to be modified.
+
+@node Error Handling
+@section Error Handling
+
+Most of the Ferret Library routines return 0 for success and a non-zero error
+code if some error happens.  Following is a list of possible error codes.
+
+@smallexample
+CASS_ERR_OUTOFMEM
+CASS_ERR_MALFORMATVEC
+CASS_ERR_PARAMETER
+CASS_ERR_IO
+CASS_ERR_CORRUPTED
+@end smallexample
+
+The following function converts an error code into a string for display.
+@table @asis
+@item @emph{Prototype:}
+@code{const char* cass_strerror (int err);}
+@end table
+
+@node Utility Routines
+@section Utility Routines
+This section documents the general utility data structures and routines that are
+not perticularly related to nearest neighbor search, but will make program
+easier.  You do not need to initialize the library to use the routines
+documented in this section.
+
+@subsection Dynamic arrrays
+Maintaining a dynamic (growable) array is always a pain in the plain C
+language.  The Ferret Library provides a set of macros to ease the programmer's
+life.  A dynamic array of type @code{@emph{T}} is declared as the following struct:
+@smallexample
+	struct @{
+	        cass_size_t inc;
+	        cass_size_t size;
+	        cass_size_t len;
+	        @emph{T} *data
+	@} @emph{array};
+@end smallexample
+where @code{len} is the number of elements actually in the array and @code{size} is
+the size of the memory allocated, pointed to by @code{data}.  When the array
+needs to grow, @code{size} is incremented by @code{inc}, and the memory is
+reallocated.  All @code{inc}, @code{size} and @code{len} are numbers of
+elements instead of actual bytes.  To access the @code{i}-th element of
+@code{@emph{array}}, use @code{@emph{array}.data[i]}.
+
+Any structure declared following the above template can be handled by the macros
+documented in this section, despite the type of @code{@emph{T}} and the actual
+name of the struct.  Using the array declaration macro @code{ARRAY_TYPE}, the
+declaration of an array can be as easy as
+@smallexample
+	ARRAY_TYPE(@emph{T}) @emph{array};
+@end smallexample
+
+The following small example shows the operations of an array of @code{char}.
+
+@smallexample
+	ARRAY_TYPE(char) s;
+	ARRAY_INIT(s);
+
+	ARRAY_APPEND(s, 'A');
+	ARRAY_APPEND(s, 'B');
+	ARRAY_GET(s, 0);        /* should be 'A' */
+	ARRAY_LEN(s);           /* should be 2 */
+
+	/* enumerate the array */
+	ARRAY_BEGIN_FOREACH(s, c)
+	@{
+	        putchar(c);
+	@} ARRAY_END_FOREACH(s, c);
+
+	ARRAY_CLEANUP(array);
+@end smallexample
+
+The following items are to be noticed.
+@itemize @bullet
+@item All macros accepts the array variable instead of pointer to the variable.
+@item The type of array elements can be obtained by the GCC extension
+@code{typeof @code{@emph{array}.data[0]}}
+@item The details of the array struct are considered exposed, and any changes
+made to the struct are assumed safe, so long as the following holds:
+@smallexample
+	   len <= size
+	&& inc > 0
+	&& (size == 0 || data != NULL)
+@end smallexample
+@item The array struct can safely contain other elements and they will not be
+touched by the macros.  To add extra elements to the struct, the user need to
+explicitly declare the struct, the @code{ARRAY_TYPE} macro will not help.
+@item The user is responsible for managing the dynamically allocated memory
+pointed to by the array element, should they be pointers.
+@end itemize
+
+@subsubsection Declaration
+@table @asis
+@item @emph{Macro}:
+@code{ARRAY_TYPE(type) @emph{array};}
+
+@code{@emph{array} = ARRAY_WRAPPER(data, len);}
+
+@item @emph{Description}:
+@code{ARRAY_TYPE} expands to the type declaration of a struct for a dynamic array of
+the given type.  @code{ARRAY_WRAPPER} makes an array variable out of a chunk of
+memory allocated by @code{malloc}, specified by the pointer to the first
+element, @code{data}, and the number of element, @code{len}.
+
+@end table
+
+@subsubsection Initialization
+@table @asis
+@item @emph{Macro}:
+@code{ARRAY_INIT(array)}
+
+@code{ARRAY_INIT_SIZE(array, initial_size)}
+@item @emph{Description}:
+Initialize an array.  The latter set the size of array to @code{initial_size}
+and allocates the memory of this size.
+@end table
+
+@subsubsection Cleanup
+@table @asis
+@item @emph{Macro}:
+@code{ARRAY_CLEANUP(array)}
+@item @emph{Description}:
+Release the dynamically allocated memory of the array.
+@end table
+
+@subsubsection Field access
+@table @asis
+@item @emph{Macro}:
+@code{ARRAY_INC(array)}
+
+@code{ARRAY_SET_INC(array, inc)}
+
+@code{ARRAY_LEN(array)}
+
+@code{ARRAY_RAW_SIZE(array)}
+
+@code{ARRAY_SIZE(array)}
+
+@code{ARRAY_EXPAND(array, new_size)}
+
+@item @emph{Description:}
+These macros access the various fields of the array struct.
+The macro @code{ARRAY_RAW_SIZE} returns the raw size of data in bytes actually
+present in the array, which is equal to @code{@emph{array}.len *
+sizeof(@emph{array}.data[0])}.
+
+@code{ARRAY_EXPAND} will grow the array if necessary so that the size of the array is at
+least @code{new_size}.
+
+@end table
+
+@subsubsection Element access
+@table @asis
+@item @emph{Macro:}
+@code{ARRAY_GET(array, i)}
+
+@code{ARRAY_SET(array, i, elem)}
+
+@code{ARRAY_APPEND(array, elem)}
+
+@code{ARRAY_APPEND_UNSAFE(array, elem)}
+
+@code{ARRAY_TRUNC(array)        /* same as array.len = 0 */}
+
+@code{ARRAY_MERGE(array, array2)}
+
+@code{ARRAY_MERGE_RAW(array, data, len)}
+
+@item @emph{Description:}
+For @code{ARRAY_GET} and @code{ARRAY_SET}, you need to ensure that @code{i <
+@emph{array}.len}. 
+
+@code{ARRAY_APPEND} will automatically grow the array when
+space is not enough, but @code{ARRAY_APPEND_UNSAFE} will not.  The latter is
+faster though, and can be used when total size of the array is known and fixed
+at initialization.
+
+@code{ARRAY_MERGE} appends all the elements in @code{array2} to @code{array},
+growing @code(array) when necessary. @code{ARRAY_MERGE_RAW} is similar, but the
+second array is given by the pointer to the first element of the array and the number of
+elements.
+
+@end table
+
+@subsubsection Element enumeration
+@table @asis
+@item @emph{Macro:}
+@smallexample
+ARRAY_BEGIN_FOREACH(array, cursor) @{
+
+      ...@emph{your code}...
+
+@} ARRAY_END_FOREACH(array, cursor);
+
+
+ARRAY_BEGIN_FOREACH_P(array, cursor_p) @{
+
+      ...@emph{your code}...
+
+@} ARRAY_END_FOREACH_P(array, cursor_p);
+@end smallexample
+@item @emph{Description:}
+These two sets of macros enumerate the elements in an array.  @code{cursor(_p)} does
+not need to be declared outside the block (actually, any declaration of
+@code{cursor(_p)} outside the block will be overridden).  The former pair of
+macros passes the element in value and the latter in reference, which can reduce
+the overhead of copying the elements when they are large.  You can use any name
+for @code{cursor(_p)} so long as they match in the @code{..._BEGIN_...} and
+@code{..._END_...} macros.
+@end table
+
+@subsection Heaps
+
+The Ferret Library provides binary heap support on top of the dynamic array routines
+described in the previous section.  A heap is just a dynamic array, except that
+the elements in the array follow certain order.  The heap routines described
+below directly operate on array structs.
+
+@table @asis
+@item @emph{Prototype:}
+@code{HEAP_EMPTY(heap)        /*boolean, whether the heap is empty */ }
+
+@code{HEAP_HEAD(heap)         /*the smallest element in the heap, in value */ }
+
+@code{HEAP_ENQUEUE(heap, elem, ge)}
+
+@code{HEAP_DEQUEUE(heap, ge)  /* does not return the element */ }
+
+@code{HEAP_ENQUEUE_UPDATE(heap, elem, ge, update)}
+
+@code{HEAP_DEQUEUE_UPDATE(heap, elem, ge, update)}
+
+@item @emph{Description:}
+Both @code{HEAP_ENQUEUE} and @code{HEAP_DEQUEUE} require an extra parameter
+@code{ge}, the comparator, which can be either a function pointer or a macro.
+For any two variable @code{a} and @code{b} of the type of heap element,
+@code{ge(&a,&b)} should return 1 if @code{a >= b} and 0 if not.
+
+Sometimes, the elements of the heap need to known their own index in the heap.
+The situation is complicated because the enqueue and dequeue operations need to
+reorder some of the heap elements.  The macros @code{HEAP_ENQUEUE_UPDATE} and
+@code{HEAP_DEQUEUE_UPDATE} allow the user to track the offset of heap elements.
+The extra parameter @code{update} and be a function pointer or a macro, and for
+each element @code{a} which is rellocated to the new offset @code{i},
+@code{update(&a, i)} will be invoked.
+
+For @code{HEAP_DEQUEUE(_UPDATE)}, the head of the heap is thrown away silently.
+You need to call @code{HEAP_HEAD} in advance if you need to keep the dequeued
+element.
+
+All the heap macros described here assume the elements of the array are in
+binary heap order.  You can safely access the heap data by other array macros in
+read-only manner, but updates other than @code{ARRAY_EXPAND} are not advised
+because they may destroy the heap order.
+
+@end table
+
+@subsection Maintaining top-K elements
+
+Maintaining a list of the best K structs with respect to certain field is a
+common job and the Ferret Toolkit provides a set of macros to do this
+efficiently.
+
+The macros documented below works on an array of @code{K} structs with a comparable
+field @code{key}.
+
+@table @asis
+@item @emph{Prototype:}
+@code{TOPK_INIT (array, key, K, init)}
+@item @emph{Description:}
+Initialize the @code{key} field of each of the @code{K} element to value
+@code{init}.  For @code{K} maximal values, @code{init} should be minimal value
+possible, and for the minimal values the opposite.
+
+@item @emph{Prototype:}
+@code{TOPK_INSERT_MIN (array, key, K, elem)}
+@item @emph{Description:}
+Keep the @code{K} minimal element in @code{array} with regard to the field
+@code{key}.  If @code{elem} is smaller than the existing largest element in
+@code{array}, it replace that largest element.
+
+@item @emph{Prototype:}
+@code{TOPK_INSERT_MAX (array, key, K, elem)}
+@item @emph{Description:}
+Similar to @code{TOPK_INSERT_MIN}, except for it keeps the @code{K} maximal
+elements.
+
+@item @emph{Prototype:}
+@code{TOPK_SORT_MIN (array, key, K)}
+@item @emph{Description:}
+The above two macros use heap for high performance and the result is that the
+result array is not sorted according to @code{key}.  This macro sorts the array
+in descending order according to @code{key}.  Note that this macro can only sort
+arrays prepared with @code{TOPK_INSERT_MIN}.
+
+@item @emph{Prototype:}
+@code{TOPK_INSERT_MIN_UNIQ (array, key, K, elem)}
+@item @emph{Description:}
+Similar to @code{TOPK_INSERT_MIN}, except it assures that every one in
+@code{array} has a unique @code{index} field.  For now, the name of the field
+@code{index} is not customizable.  This is to be fixed fixed in later versions of the
+toolkit.  To keep the uniqueness, the naive array insertion instead of heap is
+used, and the result is sorted.
+
+@end table
+
+Following is a small example.  Given the query point id $code{q} and the set of
+data point id @code{data[]}, we want to get the @code{K} points in @code{data[]}
+that is closest to @code{q}.
+
+@smallexample
+	#define K 10
+
+	typedef struct @{
+	        float key;
+	        int index;
+	@} foo_t;
+
+	foo_t min[K], foo;
+
+	TOPK_INIT(min, key, K, MAXFLOAT);
+
+	for (i = 0; i < data_len; i++)
+	@{
+	       foo.key = dist(q, data[i]); 
+	       foo.index = i;
+	       TOPK_INSERT_MIN(min, key, K, foo);
+	@}
+
+	/* sort the result*/
+	TOPK_SORT_MIN(min, key, K);
+@end smallexample
+
+@subsection Portable file IO
+
+@table @asis
+@item @emph{Prototype:}
+@code{typedef struct ... CASS_FILE;}
+
+@code{CASS_FILE *cass_open (const char *path, const char *mode);}
+
+@code{void cass_close (CASS_FILE *)};
+
+@code{/* @emph{type} can be one of @{ int32, uint32, uint64, size, float,
+	 double, char */}
+
+@code{int cass_read_@emph{type} (@emph{type} *, size_t nmemb, CASS_FILE *);}
+
+@code{int cass_write_@emph{type} (const @emph{type} *, size_t nmemb, CASS_FILE *);}
+
+@code{char *cass_read_pchar (CASS_FILE *);}
+
+@code{int cass_write_pchar (const char *, CASS_FILE *);}
+
+@item @emph{Description:}
+These routines intend to be a portable way of doing I/O, so that the file
+produced from a machine of one architecture can be read by a machine of another
+architecture.  For now, the portability is not realized and these routines are
+just a wrapper of stdio.  @code{CASS_FILE} is same as @code{FILE} for now.
+@end table
+
+@subsection Timer
+@table @asis
+@item @emph{Prototype:}
+@code{typedef struct ... stimer_t};
+
+@code{void stimer_tick (stimer_t *timer);}
+
+@code{float stimer_tuck (stimer_t *timer, const char *msg);}
+
+@item @emph{Description:}
+These routines are used to measure the wall time used by certain piece of code.
+@code{stimer_tick} initialize the @code{timer} struct and record the start time,
+@code{stimer_tuck} stop timing and returns the elapsed time.  If @code{msg} is
+not @code{NULL}, the elapsed time is printed to @code{stdout} together with
+@code{msg}.
+
+@end table
+
+@subsection Replacement of @code{malloc}, @code{calloc} and @code{realloc}
+@table @asis
+@item @emph{Prototype:}
+	@code{@emph{type *} type_alloc (@emph{type});}
+
+	@code{@emph{type *} type_calloc (@emph{type}, cass_size_t len);}
+
+	@code{@emph{type *} type_realloc (@emph{type}, @emph{type} *ptr, cass_size_t len);}
+@item @emph{Description:}
+These macros are just wrappers of @code{malloc}, @code{calloc} and
+@code{realloc}.  They accept @code{@emph{type}} instead of
+@code{sizeof(@emph{type})}, and return pointer of type @code{@emph{type *}}
+instead of @code{void *}.
+@end table
+
+@subsection Vectors and Matrices
+Two dimensional array, or matrix, of size @code{M*N} are stored in memory in the following way.
+First, a chunk of memory to hold @code{M*N} elements are allocated.  Then a
+chunk of memory to hold @code{M} pointer to the rows are allocated, and
+initialized to the start memory address of each row.  @code{matrix3} is the
+3-dimensional array.
+
+@table @asis
+@item @emph{Prototype:}
+
+	@code{@emph{type **} type_matrix_alloc (@emph(type), cass_size_t row,
+			cass_size_t col);}
+
+	@code{void matrix_free (@emph{type} **matrix);}
+
+	@code{@emph{type ***} type_matrix3_alloc (@emph(type), cass_size_t num,
+			cass_size_t row, cass_size_t col);}
+
+	@code{void matrix3_free (@emph{type} ***matrix);}
+@item @emph{Description:}
+	Allocate/free memory for the matrix.
+
+
+@item @emph{Prototype:}
+	@code{int type_matrix_load_stream (@emph{type}, FILE *stream,
+			cass_size_t *row, cass_size_t *col, @emph{type}
+			***matrix);}
+
+	@code{int type_matrix_load_file (@emph{type}, const char *path,
+			cass_size_t *row, cass_size_t *col, @emph{type}
+			***matrix);}
+
+	@code{int type_matrix_dump_stream (@emph{type}, FILE *stream,
+			cass_size_t row, cass_size_t col, @emph{type}
+			**matrix);}
+
+	@code{int type_matrix_dump_file (@emph{type}, const char *path,
+			cass_size_t row, cass_size_t col, @emph{type}
+			**matrix);}
+@item @emph{Description:}
+	Read and write matrix, either with a stream or a file.  These routines
+	are not portable and are to be modified to use @code{CASS_FILE} instead.
+
+@item @emph{Prototype:}
+	@code{int type_matrix_map_file (@emph{type}, const char *path,
+			cass_size_t *row, cass_size_t *col, @emph{type}
+			***matrix);}
+
+	@code{int matrix_unmap_file (void **matrix);}
+@item @emph{Description:}
+	Memory mapping, similar to @code{type_matrix_load_file}.
+@end table
+
+@node Library Initialization and Cleanup
+@section Library Initialization and Cleanup
+
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_init (void);}
+
+@code{int cass_cleanup (void);}
+@item @emph{Description:}
+Call @code{cass_init} before using any of the Ferret Library routines, and call
+@code{cass_cleanup} at the end of your program.
+@end table
+
+@node Database Environment
+@section Database Environment
+
+@subsection Open and close
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_env_open (cass_env_t **env, char *db_home, uint32_t flags);}
+
+@code{int cass_env_close(cass_env_t *env, uint32_t flags);}
+
+@item @emph{Description:}
+The function @code{cass_env_open} opens a Ferret database for future
+use and send back the environment pointer through the first argument.
+@code{db_home} should contain the path to the directory in which contains the
+Ferret database.  @code{flags} can be one or more of the following flags.
+@table @code
+@item CASS_READONLY
+Open the database read-only.  Without this flag specifiled, the
+database will be opened read-write.
+@item CASS_EXCL
+If the directory does not exist, create the database; otherwise
+fail.
+@item 
+@end table
+
+The function @code{cass_env_close} closes the database provided as
+the first argument.  Currently there's no flags supported and the user should
+always pass in 0.
+
+@end table
+
+
+@subsection Logging
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_env_errmsg(cass_env_t *env, int error, const char *fmt, ...);}
+
+@code{int cass_env_panic(cass_env_t *env, const char *msg);}
+@item @emph{Description:}
+The function @code{cass_env_errmsg} works like @code{fprintf}, except it writes
+the message to the database log file.
+
+The function @code{cass_env_panic} kills the application after printing out the
+error message.
+@end table
+
+@subsection Checkpointing
+@table @asis
+@item @emph{Prototype:}
+
+@code{int cass_env_checkpoint(cass_env_t *env);}
+@item @emph{Description:}
+Flush any changes of the database since last checkpoint into disk.  This
+function may lock the database and cause significant delay to the panding
+modifications.
+@end table
+
+@subsection Describing
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_env_describe (cass_env_t *env, CASS_FILE *);}
+
+@item @emph{Description:}
+This function writes the textual description of the database to the provided
+stream.
+@end table
+
+@node Mapping
+@section Mapping
+
+@node Vector, Vecset and Dataset
+@section Vector, Vecset and Dataset
+
+@subsection  Data structures
+A vecset is a set of vectors, and a dataset is a set of vecsets.  A vecset
+usually contains the feature vectors corresponding to an object, which is
+segmented into several part, with each part described by a vector in the vecset.
+A Ferret table is a dataset, which contains multiple vecsets.  The three
+structures are defined as follows.
+
+@smallexample
+/* vector */
+typedef struct @{
+        float weight;
+        cass_vecset_id_t parent;
+        union @{
+                uchar	data[0];
+                int32_t	int_data[0];
+                float	float_data[0];
+                chunk_t	bit_data[0];
+        @};
+@} cass_vec_t;
+
+/* vecset */
+typedef struct @{
+        uint32_t num_regions;
+        cass_vec_id_t start_vecid;
+@} cass_vecset_t; 
+
+/* dataset */
+typedef struct @{
+        uint32_t 		flags;
+        uint32_t		loaded;
+        cass_size_t             vec_size;
+        cass_size_t             vec_dim;
+        cass_vec_id_t           max_vec;
+        cass_vec_id_t           num_vec;
+        void                    *vec;
+        cass_vecset_id_t        max_vecset;
+        cass_vecset_id_t        num_vecset;
+        cass_vecset_t           *vecset;
+@} cass_dataset_t;
+@end smallexample
+
+@code{cass_vec_t} and @code{cass_vecset_t} are not standalone; they depend on
+information in @code{cass_dataset_t} and even
+@xref{x-config,,@code{cass_vecset_cfg}} to determine how to interprete there
+fields.  The fields of the three structs are explained below.
+
+First, @code{cass_dataset_t}.
+@table @code
+@item flags
+A table can contain either vectors or vecsets, or both, and this field specifies
+what is contained in the dataset.  It can be one of the following values.
+@table @code
+@item CASS_DATASET_VEC
+The datset contains only vector data.
+@item CASS_DATASET_VECSET
+The dataset contains only vecset data.
+@item CASS_DATASET_BOTH
+The dataset contains both vectors and vecsets.
+@end table
+@item loaded
+Whether the feature data (vectors and/or vecsets) are in memory and can be
+accessed through @code{vec}/@code{vecset} field.
+@item vec_size
+Size of a vector in bytes, including a 32-bit weight and the real feature data.
+@item vec_dim
+The dimension of the feature vector.
+@item max_vec
+The maximum number of vectors the memory allocated in @code{vec} can hold.
+@item num_vec
+The real number of vectors in the dataset.
+@item vec
+Pointer to the memory holding the vectors.
+@item max_vecset
+The maximum number of vecsets the memory allocated in @code{vecset} can hold.
+@item num_vecset
+The real number of vecsets in the dataset.
+@item vecset
+Pointer to the memory holding the vecsets.
+@end table
+Second, @code{cass_vecset_t}.
+@table @code
+@item num_regions
+Number of vectors in this vecset.
+@item start_vecid
+The offset of the first vector in the dataset.  The vectors in dataset that
+belong to this vecset are those numbered from @code{start_vecid} to
+@code{(start_vecid + num_regions -1)}.  Thoses numbers are only meaningful to
+the dataset that contains the vecset.
+@end table
+Finally, @code{cass_vec_t}.
+@table @code
+@item weight
+The weight of the vector inside the vecset.
+@item parent
+The id of the vecset which contains the vector.
+@item [int_|float_|bit_]data
+This is the real data of the vector.
+Different field of the union should be
+used according to the configuration of the vecset.  Also, because the
+dimension is variable, these fields works as a place holder.
+@end table
+
+@code{cass_vec_t} requires a bit more explanation.  This struct actually works
+as a placeholder, and when the dimensionality of the vector is determined, the
+real data will always be larger than the struct in size.  In other words,
+@code{sizeof(cass_vec_t)} should never be used except for taking the size
+of the vector without the real feature data.  The variable size of
+@code{cass_vec_t}  makes it a little tricky to locate a perticular vector in a
+dataset.  The following piece of code illustrates how to do the job.
+
+@smallexample
+	/* Get the i-th vector in the dataset */
+	cass_vec_t *vec = (void *)dataset->vec + dataset->vec_size * i;
+@end smallexample
+
+@subsection Dataset routines
+The definition of all the above defined structures are considered explicit, and
+are safe to be modified by the user.  The following routines make common
+operations on datasets easier.
+
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_dataset_init (cass_dataset_t *ds, cass_size_t vec_size,
+		cass_size_t vec_dim, uint32_t flags);}
+@item @emph{Description:}
+Initialize a dataset, without allocating memory to hold the feature data.
+
+@item @emph{Prototype:}
+@code{int cass_dataset_grow (cass_dataset_t *ds, cass_size_t num_vecset,
+		cass_size_t num_vec); }
+@item @emph{Description:}
+(Re-)allocate memory of the dataset so that it can hold at least
+	@code{num_vecset} vecsets and @code{num_vec} vectors.
+
+@item @emph{Prototype:}
+@code{int cass_dataset_release (cass_dataset_t *ds);}
+@item @emph{Description:}
+Release the memory of the feature data.  Not actually frees the @code{ds}
+pointer.
+
+@item @emph{Prototype:}
+@code{int cass_dataset_merge (cass_dataset_t *ds, const cass_dataset_t *src,
+		cass_vecset_id_t start, cass_vecset_id_t num, cass_dataset_map_t
+		map, void *map_param);}
+@item @emph{Description:}
+Merge the @code{num} vecsets start from @code{start} of the dataset @code{src}
+to the dataset @code{ds}, grow @code{ds} when necessary.  If the dataset
+	contains both vectors and vecsets, the @code{parent} field of vectors are
+	updated according to the new position of the corresponding vecsets.
+However, if the dataset contains vector only, the @code{parent} field is
+directly copied.
+
+@item @emph{Prototype:}
+@code{int cass_dataset_checkpoint (cass_dataset_t *ds, CASS_FILE *);}
+@code{int cass_dataset_restore (cass_dataset_t *ds, CASS_FILE *);}
+@item @emph{Description:}
+Read/write the meta data.
+
+@item @emph{Prototype:}
+@code{int cass_dataset_load (cass_dataset_t *ds, CASS_FILE *in);}
+@code{int cass_dataset_dump (cass_dataset_t *ds, CASS_FILE *out);}
+@item @emph{Description:}
+Read/write the feature data.
+
+@item @emph{Description:}
+
+@end table
+
+@node Class, Instance and Registry
+@section Class, Instance and Registry
+The Ferret Toolkit is designed such that many components work as plugins and can
+be customized.  For example, there are different index/sketch plugins that
+meet different requirements of precision, speed and storage overhead.  One
+specific index algorithm can be viewd as a class, and it is instanciated when a
+real index structure is created upon a dataset.  The vecset distance and vector
+distance also follow this paradigm.  For example, a L2 distance algorithm that
+only evaluate with a certain subset of all the dimensions is a class, and it is
+instanciated when the specific interested subset of the dimensions to use is
+provided.  A class is defined with a number of properties and a set of method,
+and a instance of a class also has a set of properties and a pointer to
+the class.  Following is an example showing the structs describing the vector distance
+class and vector distance instances.
+
+@smallexample
+typedef cass_dist_t (*cass_vec_dist_func_t) (cass_size_t n, void *, void *, void *);
+
+/* this is the class */
+typedef struct @{
+        char                   *name;
+        cass_vec_type_t         vec_type;
+        cass_vec_dist_type_t    type;
+        cass_vec_dist_func_t    dist;
+        int (*describe) (void *, CASS_FILE *);
+        int (*construct) (cass_vec_dist_t **, const char *);
+        int (*checkpoint) (void *, CASS_FILE *);
+        int (*restore) (void **, CASS_FILE *);
+        void (*free) (void *);
+@} cass_vec_dist_class_t;
+
+/* this is the instance */
+typedef struct @{
+        uint32_t        refcnt;
+        char           *name;
+        cass_vec_dist_class_t *class;
+        /* private data... */
+@} cass_vec_dist_t;
+
+@end smallexample
+
+Given a struct @code{dist_class} of the class, an instance can be created with
+@code{dist_class->construct}, which returns the constructed instance through
+its first argument.  Because different class accept different parameters, a
+string is used to encode the parameters.  The parameter string could be
+something like @code{"-M 128 -W 3.2"}.
+
+See @xref{x-extend,,Extending Ferret} for more information.
+
+Both class and instance are identified by an internal ID and an external textual name,
+and a registry is used to map between the ID, name and the pointer to the struct.
+Each type of class/instance has its own name space, and the namespaces of class
+and instance are seperate.  For example, you can create a distance instance
+"trivial" from the distance class "trivial".
+
+Following are the registry routines.
+
+@table @asis
+@item @emph{Prototype:}
+@code{typedef struct ... cass_reg_t;}
+@item @emph{Description:}
+This is the registry type.
+
+@item @emph{Prototype:}
+@code{int cass_reg_init (cass_reg_t *reg);}
+
+@code{int cass_reg_init_size (cass_reg_t *reg, cass_size_t size);}
+@item @emph{Description:}
+Initialize a registry.  The latter initialize the registry to hold @code{size}
+entries, and is used when the size of registry is known and fixed in advance.
+
+@item @emph{Prototype:}
+@code{int cass_reg_cleanup (cass_reg_t *reg);}
+@item @emph{Description:}
+Cleanup the registry, release the memory.
+
+@item @emph{Prototype:}
+int32_t cass_reg_lookup (cass_reg_t *, const char *name);
+@item @emph{Description:}
+Map name to ID.  If the name does not exist, -1 is returned.
+
+@item @emph{Prototype:}
+int32_t cass_reg_find (cass_reg_t *, const void *ptr);
+@item @emph{Description:}
+Map pointer to ID.  If the pointer does not exist in the registry, -1 is
+	returned.
+
+@item @emph{Prototype:}
+void *cass_reg_get (cass_reg_t *, uint32_t i);
+@item @emph{Description:}
+Map ID to pointer.
+
+@item @emph{Prototype:}
+int cass_reg_add (cass_reg_t *, const char *name, void *);
+@item @emph{Description:}
+Add an item to the registry, return the ID of the newly added item.
+
+@end table
+
+@node Vector Distance and Vecset Distance
+@section Vector Distance and Vecset Distance
+
+To enable customization, the vector distance and vecset distance come with a
+parameter instead of simply a pointer to function, and the parameter and pointer
+to function are wrapped up in a struct. Following are the relative declarations
+of vector distance.  Both vector/vecset distance follow the class/instance
+model.
+
+Following are declarations relative to vector distance.
+@smallexample
+typedef cass_dist_t (*cass_vec_dist_func_t) (cass_size_t n, void *v1, void *v2,
+		cass_vec_dist_t *);
+
+typedef struct _cass_vec_dist_class {
+        char			*name;
+        cass_vec_type_t          vec_type;
+        cass_vec_dist_type_t     type;
+        cass_vec_dist_func_t     dist;
+
+        int (*describe) (void *, CASS_FILE *);
+        int (*construct) (void **, const char *param);
+        int (*checkpoint) (void *, CASS_FILE *);
+        int (*restore) (void **, CASS_FILE *);
+        void (*free) (void *);
+} cass_vec_dist_class_t;
+
+typedef struct {
+        uint32_t refcnt;
+        char *name;
+        cass_vec_dist_class_t *class;
+        /* private data... */
+} cass_vec_dist_t;
+
+@end smallexample
+
+Following are the explanation of some of the fields of
+@code{cass_vec_dist_class_t}.
+@table @code
+@item vec_type
+The type of vector on which this distance is defined.
+@item type
+Type of the distance.  Can be one of the following values.
+@table @code
+@item    CASS_VEC_DIST_TYPE_TRIVIAL
+@item    CASS_VEC_DIST_TYPE_ID
+@item    CASS_VEC_DIST_TYPE_L1
+@item    CASS_VEC_DIST_TYPE_L2
+@item    CASS_VEC_DIST_TYPE_MAX
+@item    CASS_VEC_DIST_TYPE_HAMMING
+@item    CASS_VEC_DIST_TYPE_COS
+@end table
+Note that the distance type itself do not determine the distance.  For example,
+     L1 distance evaluate using all the dimensions and those evaluated using a
+     subset of the dimensions are all of the type @code{CASS_VEC_DIST_TYPE_L1}.
+
+@item dist
+The pointer to the function.  
+@item describe
+Writes textual describing information to the stream.
+@item construct
+Construct the distance instance using the given textual parameter.
+@item checkpoint
+Write the meta data of distance into a stream.
+@item restore
+Construct a distance instance from a stream.
+@item free
+Free the distance instance.
+@end table
+
+The fields of @code{cass_vec_dist_t} actually do not need explanation.  One
+thing to note that @code{cass_vec_dist_t} is a basic type, and for different
+distance classes, there can be more specific types which can hold private
+information.  For example, if only certain subset of all dimensions are
+interested, then the distance can be defined as follows:
+
+@smallexample
+	typedef struct
+	@{
+		cass_vec_dist_t base;
+		ARRAY_TYPE(int) dim; /* array of interested dimensions */
+	@} cass_l1_dim_t;
+@end smallexample
+One can then safely cast @code{cass_l1_dim_t *} to @code{cass_vec_dist_t *}.
+
+
+
+Following are routines to access the distance classes.  They are just
+specialized version of the vector distance class registry.
+
+@table @asis
+@item @emph{Prototype:}
+@code{int32_t cass_vec_dist_class_lookup (const char *n);}
+
+@code{int32_t cass_vec_dist_class_find (const cass_vec_dist_class_t *p);}
+
+@code{cass_vec_dist_class_t *cass_vec_dist_class_get (uint32_t i);}
+@end table
+
+The declaration of vecset distance is similar.
+@smallexample
+typedef cass_dist_t (*cass_vecset_dist_func_t) (cass_dataset_t *, cass_vecset_id_t,
+		cass_dataset_t *, cass_vecset_id_t , cass_vec_dist_t *vec_dist,
+		cass_vecset_dist_t *);
+
+typedef struct _cass_vecset_dist_class{
+	char *name;
+	cass_vecset_type_t vecset_type;
+	cass_vecset_dist_type_t type;
+	cass_vecset_dist_func_t dist;
+	/* void ** is actually cass_vecset_dist_t ** */
+	int (*describe) (void *, CASS_FILE *);
+	int (*construct) (void **, const char *param);
+	int (*checkpoint) (void *, CASS_FILE *);
+	int (*restore) (void **, CASS_FILE *);
+	void (*free) (void *);
+	/* private data... */
+} cass_vecset_dist_class_t;
+
+typedef struct {
+	uint32_t refcnt;
+	char *name;
+	int32_t vec_dist;
+	cass_vecset_dist_class_t *class;
+} cass_vecset_dist_t;
+
+@end smallexample
+
+
+There are also routines to access the vecset distance class registry.
+@table @asis
+@item @emph{Prototype:}
+@code{int32_t cass_vecset_dist_class_lookup (const char *n);}
+
+@code{int32_t cass_vecset_dist_class_find (const cass_vecset_dist_class_t *p);}
+
+@code{cass_vecset_dist_class_t *cass_vecset_dist_class_get (uint32_t i);}
+@end table
+@node Configurations and Tables
+@section Configurations and Tables
+@anchor{x-config}
+
+Just like a table in a relational database has a scheme, a table in a Ferret
+database has a configuration, which is specified by the user when the table is
+created.  Following is the definition of the configuration struct.
+
+@smallexample
+
+typedef struct @{
+        uint32_t                refcnt;
+        char                   *name;
+        cass_vecset_type_t      vecset_type;
+        cass_vec_type_t         vec_type;
+        cass_size_t             vec_dim;
+        cass_size_t             vec_size;
+        uint32_t                flags;
+@} cass_vecset_cfg_t;
+
+@end smallexample
+
+The fields are explained below.
+
+@table @code
+@item refcnt
+The reference count of the structure.  Unlike the scheme in the relational
+database, which is always associated with a specific table, a configuration in a
+Ferret database is a independent object, and can be shared among more than one
+tables.   The reference count is used to maintain the number of tables, or other
+objects that keep a pointer to the configuration struct.
+@item name
+The name of the configuration.  The memory of the string is owned by the struct,
+and will be freed when the configuration is destroyed.
+@item vecset_type
+Type of the vecset, can be one of the following values:
+@table @code
+@item CASS_VECSET_SINGLE
+Any vecset in the table always has one and only one vector.
+@item CASS_VECSET_SET
+A vecset can have more than one vectors. This is the most common case.
+@item CASS_VECSET_NONE
+The table do not keep data for vecset, but only keep data for vectors.  This is
+used for sketch methods which disregard the vecset and only deal with vectors.
+@end table
+@item vec_type
+The type of the vector, can be one of the following values:
+@table @code
+@item CASS_VEC_INT
+32-bit integer, or @code{int32_t}.
+@item CASS_VEC_FLOAT
+32-bit floating point number, or @code{float}.
+@item CASS_VEC_BIT
+The feature vector is a bit vector.
+@item CASS_VEC_QUANT
+The feature vector is some kind of quantization. Used for certain index method.
+@end table
+@item vec_dim
+The dimension of the feature vector.  For bit vectors, it means the number of
+bits.
+@item vec_size
+The size of the feature vector.  Which include the feature vector and a weight.
+@item flags
+For now always set 0.
+@end table
+
+@subsection Table Creation
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_table_create (cass_table_t **table,
+                                cass_env_t *env,
+                                char *table_name,
+                                uint32_t opr_id,
+                                int32_t cfg_id,
+                                int32_t parent_id,
+                                int32_t parent_cfg_id,
+                                int32_t map_id,
+                                char *param);}
+@item @emph{Description:}
+This routine creates a new table.  Note that this routine does not associate the
+file with its parent.  To do this, use
+@xref{x-tableassociate,,@code{cass_table_associate}}.
+@table @code
+@item table
+The pointer to the newly created table is return through this pointer.
+@item env
+The environment in which the table is created.
+@item table_name
+Name of the table.
+@item opr_id
+The ID of the table class.  See @xref{x-index,,Index and Sketch Reference} for
+possible values.
+@item cfg_id
+The ID of the table configuration.  For tables do not need a configuration, like
+index, @code{cfg_id} can be -1.
+@item parent_id
+The ID of the parent table.  For tables without a parent, use -1.
+@item parent_cfg_id
+The ID of the parent table's configuration.  Can be -1.
+@item map_id
+The ID of the map object to use.
+@item param
+Extra parameters to pass to the detail implementation.  See @xref{x-index,,Index
+and Sketch Reference} for details.
+@end table
+@end table
+
+@subsection Free a Table
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_table_free(cass_table_t *table);}
+@item @emph{Description:}
+This routine frees the table from the main memory.  The on-disk table is not
+destroyed.
+@end table
+
+@subsection Describe a Table 
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_table_describe (cass_table_t *, CASS_FILE *);}
+@item @emph{Description}
+This routine writes textual description of the table to the provided stream.
+@end table
+
+@subsection Import and Export Data
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_table_import_data(cass_table_t *table, char *fname); }
+
+@code{int cass_table_export_data(cass_table_t *table, char *fname); }
+
+@item @emph{Description:}
+These two routines import/export a table from/to a external text file.  See
+@xref{x-fileformat,,Data File Format} for details of the text file format.
+@end table
+
+@subsection Table Association
+@anchor{x-tableassociate}
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_table_associate (cass_table_t *table, int32_t child);}
+
+@code{int cass_table_disassociate (cass_table_t *table, int32_t child);}
+
+@code{cass_table_t *cass_table_parent (cass_table_t *table);}
+@item @emph{Description:}
+@code{cass_table_associate} associates table @code{child} (the ID) to @code{table}, so @code{child} becomes a
+child of @code{table}.  When there are insertion to a table, the same data are
+automatically inserted to its children.
+
+@code{cass_table_disassociate} revokes the relationship.
+
+@code{cass_table_parent} returns the parent of the table, or @code{NULL} when
+the table has no parent.
+
+@end table
+
+
+
+@subsection Load and Release Feature Data
+@table @asis
+@item @emph{Prototype:}
+
+@code{int cass_table_load (cass_table_t *table);}
+
+@code{int cass_table_release (cass_table_t *table);}
+
+@item @emph{Description:}
+When the database is opened, the meta data of all the tables, as well as other
+objects are loaded into memory.  However, the real feature data, 
+(or index/sketches) are not.  In this way, the system knows the structural
+information of the database without too much memory overhead.  The feature data
+are only loaded when necessary and are released when not needed.  If the feature
+data are modified, they are automatically dumped to disk before being released.
+You can refer to the @code{loaded} field of @code{cass_table_t} to determine if
+the feature data are loaded.
+The feature data must be loaded before data insertions or queries.
+
+@end table
+
+@subsection Data Insertion
+
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_table_batch_insert (cass_table_t *table, cass_dataset_t *dataset,
+cass_vecset_id_t start, cass_vecset_id_t end);}
+
+@item @emph{Description:}
+This routine inserts the vecsets in @code{dataset} indexed by the range [@code{start}, @code{end}]
+into @code{table}.
+
+@end table
+
+@node Queries
+@section Queries
+
+There are two types of queries in the Ferret toolkit -- range queries and K-NN
+queries.  K-NN queries are well supported and there are index/sketches for
+various distance measures.  For each query, the user specifies one query vecset
+and the required range/# nearest neighbors, and the system tries the best to
+return the results.  Queries can be in two levels -- vecset level or vector
+level.  In vecset level, the vecsets in the table that are closest to the query
+vecset or within the specified range are returned.  In vector level,
+a queries is carried out for each vector in the query vecset, and the results
+are returned in multiple sets.  Also, in vector level queries, the dataset is
+the union of all the vecsets in the table, and the vecset-vector relationship is
+disregarded.  That means, the more than one vectors in the result set can belong
+to the same vecset.  Further more, the result sets can either be returned as an
+array or as a bitmap.
+
+To issue a query, the user need to prepare a query data structure to specify the
+query information, and provide a result structure to hold the return value.
+The related
+structures are described below.
+
+@smallexample
+typedef struct @{
+        cass_id_t               id;
+        cass_dist_t             dist;
+@} cass_list_entry_t;
+
+typedef ARRAY_TYPE(cass_list_entry_t) cass_list_t;
+
+typedef struct @{
+        uint32_t                flags;
+
+        union @{
+        	bitmap_t        bitmap;
+                cass_list_t     list;
+                ARRAY_TYPE(bitmap_t) bitmaps;
+                ARRAY_TYPE(cass_list_t) lists;
+        @};
+@} cass_result_t;
+
+typedef struct @{
+        uint32_t                flags;
+
+        cass_dataset_t         *dataset;
+        cass_id_t               vecset_id;
+
+        cass_size_t             topk;
+        cass_dist_t             range;
+
+        char                   *extra_params;
+        cass_result_t          *candidate;
+
+        int32_t                 vec_dist_id;
+        int32_t                 vecset_dist_id;
+@} cass_query_t;
+@end smallexample
+
+The @code{cass_result_t} is a union plus a @code{flags}, which also appears in
+@code{cass_query_t} and gives information on how to interprete the union and other
+requirements. @code{flags} in @code{cass_query_t} specifies the user requirement
+and @code{flags} in @code{cass_result_t} specify the system response.  The
+possible values of the two are essentially the same.
+Specifically, the user can specify one of the following four
+values in the @code{flags} of the @code{cass_query_t} structure, to specify
+which representation of the result in @code{cass_result_t} is required.
+
+@table @code
+@item CASS_RESULT_BITMAP
+The @code{bitmap} field of the union is used.  The query should be in vecset
+level.
+@item CASS_RESULT_LIST
+The @code{list} field of the union is used.  The query should also be in vecset
+level.
+@item CASS_RESULT_BITMAPS
+The @code{bitmaps} field of the union is used.  The query should be in vector
+level.
+@item CASS_RESULT_LISTS
+The @code{lists} field of the union is used. The query should also be in vector
+level.
+@end table
+Note that for vector level queries, even if there is always only one vector in
+the vecset (the vecset is of the type @code{CASS_VECSET_SINGLE}), either
+@code{bitmaps} or @code{lists} should be used.
+
+The @code{flags} can also have one or more of the following ORed to its value.
+
+@table @code
+@item CASS_RESULT_MALLOC
+The memory to hold the real data in @code{list}/@code{lists} have not been
+allocated by the user and should be allocated by the system.
+@item CASS_RESULT_USERMEM
+The user has allocated memory in @code{list}/@code{lists} and the system should
+use the user provided memory.  This is useful when there are multiple contiguous
+queries, allowing the user to allocate memory once and reuse for the following
+queries .
+@item CASS_RESULT_REALLOC
+The user should not set this flag, but if it appears in the return value, it
+means that the user allocated memory is not enough and the system has
+reallocated the memory.
+@item CASS_RESULT_SORT
+The user requires that the result list to be sorted.
+@item CASS_RESULT_DIST
+The user requires that the @code{dist} field of @code{cass_list_entry_t} be filled if
+@code{list} or @code{lists} is used.  This value means the distance of the
+corresponding vector/vecset to the query vector/vecset.
+@end table
+
+It is important to note that all the above flags are treated as suggestions
+rather than mandatories.  The user should always check the @code{flags} of
+@code{cass_result_t} and interpret the result accordingly.  For example, some of the
+index/sketch algorithm do not refer to the original feature data, and have no
+way to figure out the distance between the data vector/vecset and the query
+vector/vecset, so even if the user requires @code{CASS_RESULT_DIST}, it will not
+be returned.  Some of the index/sketch algorithm keep the K-NN's in a heap, and
+it will be cheap to sort the heap with heap sort than regular quicksort.  In
+that case, if the user requres @code{CASS_RESULT_SORT}, the results will be
+sorted.  For other algorithms, if sorting within the query procedure is no
+faster than outside it by the user, the algorithm will disregard the sorting
+requirement.  Finally, some of the index method, like LSH, will always return
+bitmaps instead of lists.
+
+The other fields of the @code{cass_query_t} are explained below.
+
+@table @code
+@item dataset
+@item vecset_id
+The vecset in @code{dataset} specified by @code{vecset_id} is used as the query
+vecset.
+@item topk
+@item range
+If @code{topk > 0}, the system  does the K-NN query; otherwise, the system does
+the range query which is specified by @code{range}.
+@item extra_params
+The extra parameters, as a string, passed to the query algorithm.  The string is
+interpreted differently by different query index/sketch algorithms.
+@item candidate
+If @code{candidate != NULL}, then the query is carried out within the data
+provided by @code{candidate} instead of the whole dataset.  The often happens
+when the user wants to refine the result of a fast but inaccurate index
+algorithm with a more accurate one.  In that case, @code{candidate} can directly
+point to the previous query result.  In the case of vector level query, the
+order of lists/bitmaps in @code{candidate} should be the same as the order of
+vectors in the query vecset.
+
+@item vec_dist_id
+@item vecset_dist_id
+The vector distance and vecset distance to be used.  If it is a vector level
+query, @code{vecset_dist_id} is disregarded.
+
+@end table
+
+The following routines are used to issues queries to tables.
+
+@table @asis
+@item @emph{Prototype:}
+@code{int cass_table_query (cass_table_t *table, cass_query_t *query,
+cass_result_t *result);}
+
+@code{int cass_table_batch_query (cass_table_t *table, uint32_t count,
+cass_query_t **queries, cass_result_t **results);}
+
+@item @emph{Description:}
+The function of the batch query is same as doing single query multiple times.
+But for some index/sketch algorithm, doing multiple queries in a batch allows
+higher performance.  But this is not always the case.
+@end table
+
+@node Multiple Modality Support
+@section Multiple Modality Support
+
+@node Vector Distance Reference
+@section Vector Distance Reference
+@include vecdist.texi
+
+@node Vecset Distance Reference
+@section Vecset Distance Reference
+@include vecsetdist.texi
+
+@node Index and Sketch Reference
+@section Index and Sketch Reference
+@include index.texi
+
+

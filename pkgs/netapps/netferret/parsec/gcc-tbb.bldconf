@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# gcc-tbb.bldconf - file containing information necessary to build a
+#                   specific program of the PARSEC benchmark suite with
+#                   gcc and pthreads
+#
+# Copyright (C) 2007-2010 Princeton University
+# Written by Christian Bienia
+
+# Compilation and linking options.
+# This is the configuration we'll use to build the program. Each package of the
+# benchmark suite has such a file with information that will be added to the
+# global configuration. All variables set in the global configuration files can
+# be referenced here.
+
+source ${PARSECDIR}/pkgs/netapps/netferret/parsec/gcc-pthreads.bldconf
+

@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>mask</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch03.html" title="VIPS operation API by section (no gtkdoc comments yet)">
+<link rel="prev" href="libvips-resample.html" title="resample">
+<link rel="next" href="libvips-inplace.html" title="inplace">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-resample.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-inplace.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-mask.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-mask.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="mask">
+<a name="libvips-mask"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-mask.top_of_page"></a>mask</span></h2>
+<p>mask — load, save and process mask (matrix) objects</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-mask.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-mask.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+                    <a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK">INTMASK</a>;
+                    <a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK">DOUBLEMASK</a>;
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-create-imask" title="im_create_imask ()">im_create_imask</a>                     (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>);
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-create-imaskv" title="im_create_imaskv ()">im_create_imaskv</a>                    (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-create-dmask" title="im_create_dmask ()">im_create_dmask</a>                     (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-create-dmaskv" title="im_create_dmaskv ()">im_create_dmaskv</a>                    (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-read-imask" title="im_read_imask ()">im_read_imask</a>                       (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-read-dmask" title="im_read_dmask ()">im_read_dmask</a>                       (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-mask.html#im-print-imask" title="im_print_imask ()">im_print_imask</a>                      (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-mask.html#im-print-dmask" title="im_print_dmask ()">im_print_dmask</a>                      (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mask.html#im-write-imask" title="im_write_imask ()">im_write_imask</a>                      (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mask.html#im-write-dmask" title="im_write_dmask ()">im_write_dmask</a>                      (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mask.html#im-write-imask-name" title="im_write_imask_name ()">im_write_imask_name</a>                 (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mask.html#im-write-dmask-name" title="im_write_dmask_name ()">im_write_dmask_name</a>                 (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mask.html#im-free-imask" title="im_free_imask ()">im_free_imask</a>                       (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mask.html#im-free-dmask" title="im_free_dmask ()">im_free_dmask</a>                       (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>);
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-log-imask" title="im_log_imask ()">im_log_imask</a>                        (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> min_ampl</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-log-dmask" title="im_log_dmask ()">im_log_dmask</a>                        (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> min_ampl</code></em>);
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-gauss-imask" title="im_gauss_imask ()">im_gauss_imask</a>                      (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> min_ampl</code></em>);
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-gauss-imask-sep" title="im_gauss_imask_sep ()">im_gauss_imask_sep</a>                  (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> min_ampl</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-gauss-dmask" title="im_gauss_dmask ()">im_gauss_dmask</a>                      (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> min_ampl</code></em>);
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-dup-imask" title="im_dup_imask ()">im_dup_imask</a>                        (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-dup-dmask" title="im_dup_dmask ()">im_dup_dmask</a>                        (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-scale-dmask" title="im_scale_dmask ()">im_scale_dmask</a>                      (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-mask.html#im-norm-dmask" title="im_norm_dmask ()">im_norm_dmask</a>                       (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>);
+<span class="returnvalue">int</span> *               <a class="link" href="libvips-mask.html#im-offsets45" title="im_offsets45 ()">im_offsets45</a>                        (<em class="parameter"><code><span class="type">int</span> size</code></em>);
+<span class="returnvalue">int</span> *               <a class="link" href="libvips-mask.html#im-offsets90" title="im_offsets90 ()">im_offsets90</a>                        (<em class="parameter"><code><span class="type">int</span> size</code></em>);
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-rotate-imask90" title="im_rotate_imask90 ()">im_rotate_imask90</a>                   (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-rotate-imask45" title="im_rotate_imask45 ()">im_rotate_imask45</a>                   (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-rotate-dmask90" title="im_rotate_dmask90 ()">im_rotate_dmask90</a>                   (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-rotate-dmask45" title="im_rotate_dmask45 ()">im_rotate_dmask45</a>                   (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-mattrn" title="im_mattrn ()">im_mattrn</a>                           (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-matcat" title="im_matcat ()">im_matcat</a>                           (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in2</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-matmul" title="im_matmul ()">im_matmul</a>                           (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in2</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-lu-decomp" title="im_lu_decomp ()">im_lu_decomp</a>                        (<em class="parameter"><code>const <a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mat</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mask.html#im-lu-solve" title="im_lu_solve ()">im_lu_solve</a>                         (<em class="parameter"><code>const <a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *lu</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *vec</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-matinv" title="im_matinv ()">im_matinv</a>                           (<em class="parameter"><code>const <a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mat</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-mask.html#im-matinv-inplace" title="im_matinv_inplace ()">im_matinv_inplace</a>                   (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mat</code></em>);
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-mask.html#im-local-dmask" title="im_local_dmask ()">im_local_dmask</a>                      (<em class="parameter"><code><span class="type">struct _VipsImage</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>);
+<a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           <a class="link" href="libvips-mask.html#im-local-imask" title="im_local_imask ()">im_local_imask</a>                      (<em class="parameter"><code><span class="type">struct _VipsImage</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-mask.description"></a><h2>Description</h2>
+<p>
+These operations load, save and process mask objects. Masks are used as
+paramaters to convolution and morphology operators, and to represent
+matrices. 
+</p>
+<p>
+This API is horrible and clunky. Surely it will be replaced soon.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-mask.details"></a><h2>Details</h2>
+<div class="refsect2" title="INTMASK">
+<a name="INTMASK:CAPS"></a><h3>INTMASK</h3>
+<pre class="programlisting">typedef struct {
+	int xsize;
+	int ysize;
+	int scale;
+	int offset;
+	int *coeff;
+	char *filename;
+} INTMASK;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="DOUBLEMASK">
+<a name="DOUBLEMASK:CAPS"></a><h3>DOUBLEMASK</h3>
+<pre class="programlisting">typedef struct {
+	int xsize;
+	int ysize;
+	double scale;
+	double offset;
+	double *coeff;
+	char *filename;
+} DOUBLEMASK;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_create_imask ()">
+<a name="im-create-imask"></a><h3>im_create_imask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_create_imask                     (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_create_imaskv ()">
+<a name="im-create-imaskv"></a><h3>im_create_imaskv ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_create_imaskv                    (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_create_dmask ()">
+<a name="im-create-dmask"></a><h3>im_create_dmask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_create_dmask                     (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_create_dmaskv ()">
+<a name="im-create-dmaskv"></a><h3>im_create_dmaskv ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_create_dmaskv                    (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_read_imask ()">
+<a name="im-read-imask"></a><h3>im_read_imask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_read_imask                       (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_read_dmask ()">
+<a name="im-read-dmask"></a><h3>im_read_dmask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_read_dmask                       (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_print_imask ()">
+<a name="im-print-imask"></a><h3>im_print_imask ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_print_imask                      (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_print_dmask ()">
+<a name="im-print-dmask"></a><h3>im_print_dmask ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_print_dmask                      (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_write_imask ()">
+<a name="im-write-imask"></a><h3>im_write_imask ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_write_imask                      (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_write_dmask ()">
+<a name="im-write-dmask"></a><h3>im_write_dmask ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_write_dmask                      (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_write_imask_name ()">
+<a name="im-write-imask-name"></a><h3>im_write_imask_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_write_imask_name                 (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_write_dmask_name ()">
+<a name="im-write-dmask-name"></a><h3>im_write_dmask_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_write_dmask_name                 (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_free_imask ()">
+<a name="im-free-imask"></a><h3>im_free_imask ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_free_imask                       (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_free_dmask ()">
+<a name="im-free-dmask"></a><h3>im_free_dmask ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_free_dmask                       (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_log_imask ()">
+<a name="im-log-imask"></a><h3>im_log_imask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_log_imask                        (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> min_ampl</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_log_dmask ()">
+<a name="im-log-dmask"></a><h3>im_log_dmask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_log_dmask                        (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> min_ampl</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_gauss_imask ()">
+<a name="im-gauss-imask"></a><h3>im_gauss_imask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_gauss_imask                      (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> min_ampl</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_gauss_imask_sep ()">
+<a name="im-gauss-imask-sep"></a><h3>im_gauss_imask_sep ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_gauss_imask_sep                  (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> min_ampl</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_gauss_dmask ()">
+<a name="im-gauss-dmask"></a><h3>im_gauss_dmask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_gauss_dmask                      (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> min_ampl</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_dup_imask ()">
+<a name="im-dup-imask"></a><h3>im_dup_imask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_dup_imask                        (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_dup_dmask ()">
+<a name="im-dup-dmask"></a><h3>im_dup_dmask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_dup_dmask                        (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_scale_dmask ()">
+<a name="im-scale-dmask"></a><h3>im_scale_dmask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_scale_dmask                      (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_norm_dmask ()">
+<a name="im-norm-dmask"></a><h3>im_norm_dmask ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_norm_dmask                       (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_offsets45 ()">
+<a name="im-offsets45"></a><h3>im_offsets45 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span> *               im_offsets45                        (<em class="parameter"><code><span class="type">int</span> size</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_offsets90 ()">
+<a name="im-offsets90"></a><h3>im_offsets90 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span> *               im_offsets90                        (<em class="parameter"><code><span class="type">int</span> size</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rotate_imask90 ()">
+<a name="im-rotate-imask90"></a><h3>im_rotate_imask90 ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_rotate_imask90                   (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rotate_imask45 ()">
+<a name="im-rotate-imask45"></a><h3>im_rotate_imask45 ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_rotate_imask45                   (<em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rotate_dmask90 ()">
+<a name="im-rotate-dmask90"></a><h3>im_rotate_dmask90 ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_rotate_dmask90                   (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_rotate_dmask45 ()">
+<a name="im-rotate-dmask45"></a><h3>im_rotate_dmask45 ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_rotate_dmask45                   (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *m</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_mattrn ()">
+<a name="im-mattrn"></a><h3>im_mattrn ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_mattrn                           (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_matcat ()">
+<a name="im-matcat"></a><h3>im_matcat ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_matcat                           (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in2</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_matmul ()">
+<a name="im-matmul"></a><h3>im_matmul ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_matmul                           (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in2</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_lu_decomp ()">
+<a name="im-lu-decomp"></a><h3>im_lu_decomp ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_lu_decomp                        (<em class="parameter"><code>const <a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mat</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_lu_solve ()">
+<a name="im-lu-solve"></a><h3>im_lu_solve ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lu_solve                         (<em class="parameter"><code>const <a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *lu</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> *vec</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_matinv ()">
+<a name="im-matinv"></a><h3>im_matinv ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_matinv                           (<em class="parameter"><code>const <a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mat</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_matinv_inplace ()">
+<a name="im-matinv-inplace"></a><h3>im_matinv_inplace ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_matinv_inplace                   (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mat</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_local_dmask ()">
+<a name="im-local-dmask"></a><h3>im_local_dmask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_local_dmask                      (<em class="parameter"><code><span class="type">struct _VipsImage</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_local_imask ()">
+<a name="im-local-imask"></a><h3>im_local_imask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="returnvalue">INTMASK</span></a> *           im_local_imask                      (<em class="parameter"><code><span class="type">struct _VipsImage</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#INTMASK:CAPS" title="INTMASK"><span class="type">INTMASK</span></a> *mask</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

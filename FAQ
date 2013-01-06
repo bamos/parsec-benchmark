@@ -1,0 +1,199 @@
+Q: PARSEC does not build on my system. What do I have to do?
+
+A: First, make sure that your build configuration correctly specifies which
+compilers, arguments and other build tools to use. If you still get errors you
+should expect to fix those yourself. We did a lot of testing to make minimize
+the number of problems but every system is different. A large number of people
+use PARSEC, please understand that we can't offer any support. If you identify
+and fix any problems on your platform then please consider sending us a patch.
+Alternatively, you can also use our precompiled binaries if they are available
+for your platform.
+
+
+
+Q: I use my simulator to simulate to first x billion instructions of a PARSEC
+benchmark, but the characteristics I get are very different from the ones
+reported for the workload. What's going on?
+
+A: Don't do that! You will get wrong results. Most workloads have multiple
+computational phases with different characteristics. In most cases simply
+simulating the first x billion instructions will not reach all these phases,
+so your measurements will not capture the full range of behavior of the
+benchmark. Even in very simple cases where the workload has only one
+computational phase, you might run into the issue that simulating an
+insufficient number of instructions will give you incorrect results because
+certain effects such as reuse of data in large caches only show up during
+later stages of the program. Sampling is a better solution to get accurate
+results without having to simulate the full program (see other questions).
+
+
+
+Q: My simulator takes way too long to run the PARSEC benchmarks with input
+simsmall / simmedium / simlarge. Can't you make it smaller?
+
+A: Unfortunately that isn't possible. The problem is that reducing the amount
+of computation for an input also usually scales down the working set sizes and
+the amount of parallelism available. A program needs to touch all data in a
+working set at least once for it to get loaded into the cache, which means that
+the computational complexity grows at least linearly with the working set sizes.
+In other words, scaling up the working set sizes of a workload from 1 MB to 100
+MB will typically increase the computational demands by at least two orders of
+magnitude. We already took advantage of all possible ways to minimize run time
+without distorting the characteristics too much when we created the simulation
+inputs. If you are constrained by simulation time then you might want to
+consider sampling (see other questions).
+
+
+
+Q: I don't get good speedups for the PARSEC workloads on my machine. Why?
+
+A: You probably use the simulation inputs and measure the execution time of the
+whole program. You should only measure the execution time of the Region-of-
+Interest (ROI) instead. The simulation inputs have a significantly reduced
+parallel phase that exaggerates the proportions of the serial initialization
+and shutdown phase. This causes an artificial reduction of the achievable
+speedup due to Amdahl's Law. The inflation of the initialization and shutdown
+phase relative to the size of the parallel phase is a scaling artifact that
+should be compensated for.
+
+
+
+Q: I would like to measure speedups or characteristics using the entire
+execution time of the workloads, not just the Region-of-Interest. What can I do?
+
+A: You should use the native inputs for that. They provide input data more
+similar to real program problem sizes so that the serial initialization and
+shutdown phases of the program don't matter, at least as long as you don't run
+performance experiments with very large numbers of cores.
+
+
+
+Q: Which simulators can I use with PARSEC?
+
+A: PARSEC is simulator-agnostic, which means that you can use it with everything
+that is able to execute or interpret binaries. That includes real machines as
+well as all types of simulators or hardware emulators.
+
+
+
+Q: Which simulators do you recommend?
+
+A: We don't give recommendations for simulators because it really depends on
+the individual requirements what makes sense. There is no one-size-fits-all
+simulator. However, we do recommend to use the bigger simulation inputs for
+your experiments, which means you will have to use something that is very, very
+fast. We know of three methods that are feasible for that:
+
+a) Native execution
+
+This method runs the programs directly on real machines. Measurements can be
+obtained with profiling, performance counters or a similar method.
+
+b) Less detailed simulation / emulation
+
+This approach sacrifices accuracy for speed. There are a number of tools which
+are able to run binaries only a little slower than a real machine.
+
+c) Cycle-accurate simulation with sampling
+
+This type of simulators uses a method known as sampling which simulates only
+a small subset of the whole instruction stream. The simulator is able to
+identify which parts of the program need to be simulated in detail and which
+parts can be skipped. By simulating only the necessary program parts very high
+simulation speeds can be achieved without sacrificing much accuracy. Sampling
+can reduce simulation time by several orders of magnitude.
+
+Unfortunately the majority of detailed simulators does not support sampling,
+but there are some which already implement this method.
+
+
+
+Q: When I try to build PARSEC on Sparc + Solaris I get an error message which
+says that there are only 32 registers. The error message looks about as follows:
+
+/var/tmp/cc6dYs2Q.s: Assembler messages:
+/var/tmp/cc6dYs2Q.s:165: Error: Illegal operands: There are only 32 
+single precision f registers; [0-31]
+/var/tmp/cc6dYs2Q.s:187: Error: Illegal operands: There are only 32 
+single precision f registers; [0-31]
+/var/tmp/cc6dYs2Q.s:203: Error: Illegal operands: There are only 32 
+single precision f registers; [0-31]
+/var/tmp/cc6dYs2Q.s:1591: Error: Illegal operands: There are only
+32 single precision f registers; [0-31]
+/var/tmp/cc6dYs2Q.s:1605: Error: Illegal operands: There are only
+32 single precision f registers; [0-31]
+...
+
+A: You are using a broken version of the GNU binutils assembler as. You need
+to install a new version of the GNU binutils and recompile gcc so that it uses
+the assembler of the new binutils version. Unfortunately the current versions of
+the binutils of the popular SFW consolidation project is affected by this. The
+assembler and linker of the GNU binutils version 2.18 and 2.19.51 worked fine
+for us, but 2.19.51 has a buggy version of ar and ranlib (see next question).
+
+
+
+Q: When I try to build PARSEC on Sparc + Solaris I get an error message which
+says that one of the static libraries is not a valid archive. The error message
+looks about as follows:
+
+mklib: Making SunOS static library:  libGL.a
+gar: /home/cbienia/parsec-2.0/pkgs/libs/mesa/obj/sparc-solaris.gcc/src/mesa/libmesa.a is not a valid archive
+ x - api_arrayelt.o
+ x - api_loopback.o
+ x - api_noop.o
+ x - api_validate.o
+gmake[4]: *** [../../../../lib/libGL.a] Error 1
+
+A: You are using a broken version of the GNU ar, ranlib and strip utility. You
+need to install a different version of the GNU binutils and update your PARSEC
+build configuration so that the new tools are used. Unfortunately the latest
+version of the GNU binutils is affected by this. Use an older version instead.
+The binutils version currently distributed by the SFW consolidation project
+(version 2.15) work, as does version 2.18. Simply edit your build configuration
+and update the variables AR, RANLIB and STRIP so they point to the desired
+binaries.
+
+
+
+Q: When I try to build PARSEC on Sparc + Solaris I get an error from the linker
+which says that the `-R' flag is unknown.
+
+A: You are using the Sun linker which is incompatible with some of the build
+systems of some PARSEC packages. We recommend to use the linker of the GNU
+binutils instead. You need to rebuild your compiler to change the linker.
+
+
+
+Q: I have trouble compiling gcc on Sparc + Solaris. How can I get a working
+version of gcc?
+
+A: You need a reasonably recent version of gcc to build PARSEC (at least version
+4.2). The gcc binaries installed by default and currently available from the SFW
+consolidation project are too old. We recommend to build your own version of
+gcc, which can be a little tricky. There are reports that the most up to date
+versions of gcc do not compile on Solaris. We were successful with gcc 4.2.1.
+
+You need to build gcc in a directory that is different from the source tree, and
+you must provide a few flags pointing the build system to the correct versions
+of the GNU assembler and linker distributed with the GNU binutils. The following
+configuration line worked for us:
+
+../gcc-4.2.1/configure --with-gnu-as --with-as=/usr/local/binutils-2.18/bin/as --with-gnu-ld --with-ld=/usr/local/binutils-2.18/bin/ld --enable-shared --prefix=/usr/local/gcc-4.2.1 --enable-languages=c,c++
+
+Then run GNU make to build gcc. It is usually called `gmake' on Solaris. Please
+notice that the assembler and linker of some versions of the GNU binutils is
+broken (see other questions). The ones that come with GNU binutils version
+2.18 and 2.19.51 worked on our Solaris machine, but you might have to build them
+yourself.
+
+
+
+Q: If I try to build the GNU binutils on Sparc + Solaris I get errors which say
+that __FILE_OFFSET_BITS is being redefined. How can I get the binutils to
+compile?
+
+A: The easiest solution is to simply undefine the macro before it is defined
+again. To do that simply insert an `#undef __FILE_OFFSET_BITS' just before the
+location that causes the error.
+

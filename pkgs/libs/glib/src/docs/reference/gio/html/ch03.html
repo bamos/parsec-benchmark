@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Running GIO applications</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="GIO Reference Manual">
+<link rel="up" href="pt01.html" title="Part I. GIO Overview">
+<link rel="prev" href="ch02.html" title="Compiling GIO applications">
+<link rel="next" href="extending-gio.html" title="Extending GIO">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
+<td><a accesskey="p" href="ch02.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="pt01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GIO Reference Manual</th>
+<td><a accesskey="n" href="extending-gio.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="chapter" title="Running GIO applications">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="id475051"></a>Running GIO applications</h2></div></div></div>
+<p>
+      GIO inspects a few of environment variables in addition to the
+      ones used by GLib.
+    </p>
+<p title="XDG_DATA_HOME, XDG_DATA_DIRS"><b><code class="envar">XDG_DATA_HOME</code>, <code class="envar">XDG_DATA_DIRS</code>. </b>
+        GIO uses these environment variables to locate MIME information. 
+        For more information, see the <a class="ulink" href="http://freedesktop.org/Standards/shared-mime-info-spec" target="_top">Shared MIME-info Database</a>
+        and the <a class="ulink" href="http://freedesktop.org/Standards/basedir-spec" target="_top">Base Directory Specification</a>.
+      </p>
+<p title="GVFS_DISABLE_FUSE"><b><code class="envar">GVFS_DISABLE_FUSE</code>. </b>
+        This variable can be set to keep <span class="type">Gvfs</span> from starting the fuse backend,
+        which may be unwanted or unnecessary in certain situations.
+      </p>
+<p>
+      The following environment variables are only useful for debugging
+      GIO itself or modules that it loads. They should not be set in a
+      production environment.
+    </p>
+<p title="GIO_USE_VFS"><b><code class="envar">GIO_USE_VFS</code>. </b>
+        This environment variable can be set to the name of a <a class="link" href="GVfs.html" title="GVfs"><span class="type">GVfs</span></a> 
+        implementation to override the default for debugging purposes.
+        The <a class="link" href="GVfs.html" title="GVfs"><span class="type">GVfs</span></a> implementation for local files that is included in GIO 
+        has the name "local", the implementation in the gvfs module has 
+        the name "gvfs". 
+      </p>
+<p title="GIO_USE_VOLUME_MONITOR"><b><code class="envar">GIO_USE_VOLUME_MONITOR</code>. </b>
+        This variable can be set to the name of a <a class="link" href="GVolumeMonitor.html" title="GVolumeMonitor"><span class="type">GVolumeMonitor</span></a> 
+        implementation to override the default for debugging purposes.
+        The <a class="link" href="GVolumeMonitor.html" title="GVolumeMonitor"><span class="type">GVolumeMonitor</span></a> implementation for local files that is included
+        in GIO has the name "unix", the hal-based implementation in the
+        gvfs module has the name "hal".
+      </p>
+<p title="GIO_USE_URI_ASSOCIATION"><b><code class="envar">GIO_USE_URI_ASSOCIATION</code>. </b>
+        This variable can be set to the name of a <a class="link" href="gio-Desktop-file-based-GAppInfo.html#GDesktopAppInfoLookup"><span class="type">GDesktopAppInfoLookup</span></a>
+        implementation to override the default for debugging purposes.
+        GIO does not include a <a class="link" href="gio-Desktop-file-based-GAppInfo.html#GDesktopAppInfoLookup"><span class="type">GDesktopAppInfoLookup</span></a> implementation,
+        the GConf-based implementation in the gvfs module has the name
+        "gconf".  
+      </p>
+<p title="GVFS_INOTIFY_DIAG"><b><code class="envar">GVFS_INOTIFY_DIAG</code>. </b>
+        When this environment variable is set and GIO has been built
+        with inotify support, a dump of diagnostic inotify information 
+        will be written every 20 seconds to a file named
+        <code class="filename">/tmp/gvfsdid.<em class="replaceable"><code>pid</code></em></code>.
+      </p>
+<p title="GIO_EXTRA_MODULES"><b><code class="envar">GIO_EXTRA_MODULES</code>. </b>
+	When this environment variable is set to a path, or a set of 
+	paths separated by a colon, GIO will attempt to load
+	modules from within the path.
+      </p>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

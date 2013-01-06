@@ -1,0 +1,2324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>colour</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch02.html" title="VIPS operation API by section">
+<link rel="prev" href="libvips-relational.html" title="relational">
+<link rel="next" href="libvips-conversion.html" title="conversion">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-relational.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-conversion.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-colour.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-colour.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="colour">
+<a name="libvips-colour"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-colour.top_of_page"></a>colour</span></h2>
+<p>colour — colour operators</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-colour.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-colour.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+#define             <a class="link" href="libvips-colour.html#IM-D93-X0:CAPS" title="IM_D93_X0">IM_D93_X0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D93-Y0:CAPS" title="IM_D93_Y0">IM_D93_Y0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D93-Z0:CAPS" title="IM_D93_Z0">IM_D93_Z0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D75-X0:CAPS" title="IM_D75_X0">IM_D75_X0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D75-Y0:CAPS" title="IM_D75_Y0">IM_D75_Y0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D75-Z0:CAPS" title="IM_D75_Z0">IM_D75_Z0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D65-X0:CAPS" title="IM_D65_X0">IM_D65_X0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D65-Y0:CAPS" title="IM_D65_Y0">IM_D65_Y0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D65-Z0:CAPS" title="IM_D65_Z0">IM_D65_Z0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D55-X0:CAPS" title="IM_D55_X0">IM_D55_X0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D55-Y0:CAPS" title="IM_D55_Y0">IM_D55_Y0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D55-Z0:CAPS" title="IM_D55_Z0">IM_D55_Z0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D50-X0:CAPS" title="IM_D50_X0">IM_D50_X0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D50-Y0:CAPS" title="IM_D50_Y0">IM_D50_Y0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D50-Z0:CAPS" title="IM_D50_Z0">IM_D50_Z0</a>
+#define             <a class="link" href="libvips-colour.html#IM-A-X0:CAPS" title="IM_A_X0">IM_A_X0</a>
+#define             <a class="link" href="libvips-colour.html#IM-A-Y0:CAPS" title="IM_A_Y0">IM_A_Y0</a>
+#define             <a class="link" href="libvips-colour.html#IM-A-Z0:CAPS" title="IM_A_Z0">IM_A_Z0</a>
+#define             <a class="link" href="libvips-colour.html#IM-B-X0:CAPS" title="IM_B_X0">IM_B_X0</a>
+#define             <a class="link" href="libvips-colour.html#IM-B-Y0:CAPS" title="IM_B_Y0">IM_B_Y0</a>
+#define             <a class="link" href="libvips-colour.html#IM-B-Z0:CAPS" title="IM_B_Z0">IM_B_Z0</a>
+#define             <a class="link" href="libvips-colour.html#IM-C-X0:CAPS" title="IM_C_X0">IM_C_X0</a>
+#define             <a class="link" href="libvips-colour.html#IM-C-Y0:CAPS" title="IM_C_Y0">IM_C_Y0</a>
+#define             <a class="link" href="libvips-colour.html#IM-C-Z0:CAPS" title="IM_C_Z0">IM_C_Z0</a>
+#define             <a class="link" href="libvips-colour.html#IM-E-X0:CAPS" title="IM_E_X0">IM_E_X0</a>
+#define             <a class="link" href="libvips-colour.html#IM-E-Y0:CAPS" title="IM_E_Y0">IM_E_Y0</a>
+#define             <a class="link" href="libvips-colour.html#IM-E-Z0:CAPS" title="IM_E_Z0">IM_E_Z0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D3250-X0:CAPS" title="IM_D3250_X0">IM_D3250_X0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D3250-Y0:CAPS" title="IM_D3250_Y0">IM_D3250_Y0</a>
+#define             <a class="link" href="libvips-colour.html#IM-D3250-Z0:CAPS" title="IM_D3250_Z0">IM_D3250_Z0</a>
+<span class="returnvalue">void</span>                <a class="link" href="libvips-colour.html#im-col-ab2Ch" title="im_col_ab2Ch ()">im_col_ab2Ch</a>                        (<em class="parameter"><code><span class="type">float</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *C</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *h</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-colour.html#im-col-Ch2ab" title="im_col_Ch2ab ()">im_col_Ch2ab</a>                        (<em class="parameter"><code><span class="type">float</span> C</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> h</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *b</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-colour.html#im-col-XYZ2Lab" title="im_col_XYZ2Lab ()">im_col_XYZ2Lab</a>                      (<em class="parameter"><code><span class="type">float</span> X</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> Y</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> Z</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *L</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *b</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-colour.html#im-col-Lab2XYZ" title="im_col_Lab2XYZ ()">im_col_Lab2XYZ</a>                      (<em class="parameter"><code><span class="type">float</span> L</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *X</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *Y</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *Z</code></em>);
+<span class="returnvalue">float</span>               <a class="link" href="libvips-colour.html#im-col-pythagoras" title="im_col_pythagoras ()">im_col_pythagoras</a>                   (<em class="parameter"><code><span class="type">float</span> L1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> L2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b2</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-colour.html#im-col-make-tables-UCS" title="im_col_make_tables_UCS ()">im_col_make_tables_UCS</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">float</span>               <a class="link" href="libvips-colour.html#im-col-L2Lucs" title="im_col_L2Lucs ()">im_col_L2Lucs</a>                       (<em class="parameter"><code><span class="type">float</span> L</code></em>);
+<span class="returnvalue">float</span>               <a class="link" href="libvips-colour.html#im-col-Lucs2L" title="im_col_Lucs2L ()">im_col_Lucs2L</a>                       (<em class="parameter"><code><span class="type">float</span> Lucs</code></em>);
+<span class="returnvalue">float</span>               <a class="link" href="libvips-colour.html#im-col-C2Cucs" title="im_col_C2Cucs ()">im_col_C2Cucs</a>                       (<em class="parameter"><code><span class="type">float</span> C</code></em>);
+<span class="returnvalue">float</span>               <a class="link" href="libvips-colour.html#im-col-Cucs2C" title="im_col_Cucs2C ()">im_col_Cucs2C</a>                       (<em class="parameter"><code><span class="type">float</span> Cucs</code></em>);
+<span class="returnvalue">float</span>               <a class="link" href="libvips-colour.html#im-col-Ch2hucs" title="im_col_Ch2hucs ()">im_col_Ch2hucs</a>                      (<em class="parameter"><code><span class="type">float</span> C</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> h</code></em>);
+<span class="returnvalue">float</span>               <a class="link" href="libvips-colour.html#im-col-Chucs2h" title="im_col_Chucs2h ()">im_col_Chucs2h</a>                      (<em class="parameter"><code><span class="type">float</span> C</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> hucs</code></em>);
+<span class="returnvalue">double</span>              <a class="link" href="libvips-colour.html#im-col-ab2h" title="im_col_ab2h ()">im_col_ab2h</a>                         (<em class="parameter"><code><span class="type">double</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> b</code></em>);
+<span class="returnvalue">float</span>               <a class="link" href="libvips-colour.html#im-col-dECMC" title="im_col_dECMC ()">im_col_dECMC</a>                        (<em class="parameter"><code><span class="type">float</span> L1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> L2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b2</code></em>);
+<span class="returnvalue">float</span>               <a class="link" href="libvips-colour.html#im-col-dE00" title="im_col_dE00 ()">im_col_dE00</a>                         (<em class="parameter"><code><span class="type">float</span> L1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> L2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b2</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-Lab2LCh" title="im_Lab2LCh ()">im_Lab2LCh</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-LCh2Lab" title="im_LCh2Lab ()">im_LCh2Lab</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-LabQ2XYZ" title="im_LabQ2XYZ ()">im_LabQ2XYZ</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-rad2float" title="im_rad2float ()">im_rad2float</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-float2rad" title="im_float2rad ()">im_float2rad</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-LCh2UCS" title="im_LCh2UCS ()">im_LCh2UCS</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-Lab2LabQ" title="im_Lab2LabQ ()">im_Lab2LabQ</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-Lab2LabS" title="im_Lab2LabS ()">im_Lab2LabS</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-Lab2XYZ" title="im_Lab2XYZ ()">im_Lab2XYZ</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-Lab2XYZ-temp" title="im_Lab2XYZ_temp ()">im_Lab2XYZ_temp</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> X0</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Y0</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Z0</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-Lab2UCS" title="im_Lab2UCS ()">im_Lab2UCS</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-LabQ2Lab" title="im_LabQ2Lab ()">im_LabQ2Lab</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-LabQ2LabS" title="im_LabQ2LabS ()">im_LabQ2LabS</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-LabS2LabQ" title="im_LabS2LabQ ()">im_LabS2LabQ</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-LabS2Lab" title="im_LabS2Lab ()">im_LabS2Lab</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-UCS2XYZ" title="im_UCS2XYZ ()">im_UCS2XYZ</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-UCS2LCh" title="im_UCS2LCh ()">im_UCS2LCh</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-UCS2Lab" title="im_UCS2Lab ()">im_UCS2Lab</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-XYZ2Lab" title="im_XYZ2Lab ()">im_XYZ2Lab</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-XYZ2Lab-temp" title="im_XYZ2Lab_temp ()">im_XYZ2Lab_temp</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> X0</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Y0</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Z0</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-XYZ2UCS" title="im_XYZ2UCS ()">im_XYZ2UCS</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-sRGB2XYZ" title="im_sRGB2XYZ ()">im_sRGB2XYZ</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-XYZ2sRGB" title="im_XYZ2sRGB ()">im_XYZ2sRGB</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-Yxy2XYZ" title="im_Yxy2XYZ ()">im_Yxy2XYZ</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-XYZ2Yxy" title="im_XYZ2Yxy ()">im_XYZ2Yxy</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-dECMC-fromLab" title="im_dECMC_fromLab ()">im_dECMC_fromLab</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-dE00-fromLab" title="im_dE00_fromLab ()">im_dE00_fromLab</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-dE-fromXYZ" title="im_dE_fromXYZ ()">im_dE_fromXYZ</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-dE-fromLab" title="im_dE_fromLab ()">im_dE_fromLab</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-lab-morph" title="im_lab_morph ()">im_lab_morph</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> L_offset</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> L_scale</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> a_scale</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> b_scale</code></em>);
+enum                <a class="link" href="libvips-colour.html#VipsIntent" title="enum VipsIntent">VipsIntent</a>;
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-icc-present" title="im_icc_present ()">im_icc_present</a>                      (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-icc-transform" title="im_icc_transform ()">im_icc_transform</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *input_profile_filename</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *output_profile_filename</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-colour.html#VipsIntent" title="enum VipsIntent"><span class="type">VipsIntent</span></a> intent</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-icc-import" title="im_icc_import ()">im_icc_import</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *input_profile_filename</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-colour.html#VipsIntent" title="enum VipsIntent"><span class="type">VipsIntent</span></a> intent</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-icc-import-embedded" title="im_icc_import_embedded ()">im_icc_import_embedded</a>              (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-colour.html#VipsIntent" title="enum VipsIntent"><span class="type">VipsIntent</span></a> intent</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-icc-export-depth" title="im_icc_export_depth ()">im_icc_export_depth</a>                 (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> depth</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *output_profile_filename</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-colour.html#VipsIntent" title="enum VipsIntent"><span class="type">VipsIntent</span></a> intent</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-colour.html#im-icc-ac2rc" title="im_icc_ac2rc ()">im_icc_ac2rc</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *profile_filename</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-colour.description"></a><h2>Description</h2>
+<p>
+These operators let you transform coordinates and images between colour 
+spaces, calculate colour differences, and move 
+to and from device spaces.
+</p>
+<p>
+Radiance images have four 8-bits bands and store 8 bits of R, G and B and
+another 8 bits of exponent, common to all channels. They are widely used in
+the HDR imaging community.
+</p>
+<p>
+The colour functions can be divided into three main groups. First, 
+functions to transform images between the different colour spaces supported 
+by VIPS: <span class="emphasis"><em>RGB</em></span> (also referred to as
+<span class="emphasis"><em>disp</em></span>), <span class="emphasis"><em>sRGB</em></span>,  
+<span class="emphasis"><em>XYZ</em></span>, <span class="emphasis"><em>Yxy</em></span>, 
+<span class="emphasis"><em>Lab</em></span>, <span class="emphasis"><em>LabQ</em></span>, 
+<span class="emphasis"><em>LabS</em></span>, <span class="emphasis"><em>LCh</em></span> and
+<span class="emphasis"><em>UCS</em></span>). Secondly, there are a set of operations for 
+calculating colour difference metrics. Finally, VIPS wraps LittleCMS and
+uses it to provide a set of operations for reading and writing images with
+ICC profiles.
+</p>
+<p>
+This figure shows how the VIPS colour spaces interconvert:
+</p>
+<p>
+<img src="interconvert.png">
+</p>
+<p>
+The colour spaces supported by VIPS are:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p>
+      <span class="emphasis"><em><code class="code">LabQ</code></em></span>
+</p>
+<p>
+ This is the principal VIPS colorimetric storage format. 
+	 LabQ images have four 8-bit bands and store 10 bits of L and 11 bits 
+	 of a and b.
+</p>
+<p>
+	 You cannot perform calculations on <code class="code">LabQ</code> images (they are
+	 tagged with <a class="link" href="libvips-image.html#IM-CODING-LABQ:CAPS"><code class="literal">IM_CODING_LABQ</code></a>), though a few operations such as
+	 <a class="link" href="libvips-conversion.html#im-extract-area" title="im_extract_area ()"><code class="function">im_extract_area()</code></a> will work directly with them.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      <span class="emphasis"><em><code class="code">LabS</code></em></span>
+</p>
+<p>
+ This format represents coordinates in CIELAB space as a 
+ three-band <a class="link" href="libvips-image.html#IM-BANDFMT-SHORT:CAPS"><span class="type">IM_BANDFMT_SHORT</span></a> image, scaled to fit the full range of 
+ bits. It is the best format for computation, being relatively 
+ compact, quick, and accurate. Colour values expressed in this way 
+ are hard to visualise.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      <span class="emphasis"><em><code class="code">Lab</code></em></span>
+</p>
+<p>
+	 Lab colourspace represents CIELAB colour values with a three-band
+ <a class="link" href="libvips-image.html#IM-BANDFMT-FLOAT:CAPS"><span class="type">IM_BANDFMT_FLOAT</span></a> image. This is the simplest format for general 
+ work: adding the constant 50 to the L channel, for example, has the 
+ expected result.
+</p>
+<p>
+ VIPS uses D65 LAB, but you can use other colour temperatures with a
+ little effort, see <a class="link" href="libvips-colour.html#im-XYZ2Lab-temp" title="im_XYZ2Lab_temp ()"><code class="function">im_XYZ2Lab_temp()</code></a>.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      <span class="emphasis"><em><code class="code">XYZ</code></em></span>
+</p>
+<p>
+	 CIE XYZ colour space represented as a three-band <a class="link" href="libvips-image.html#IM-BANDFMT-FLOAT:CAPS"><code class="literal">IM_BANDFMT_FLOAT</code></a>
+ image.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      <span class="emphasis"><em><code class="code">Yxy</code></em></span>
+</p>
+<p>
+	 CIE Yxy colour space represented as a three-band <a class="link" href="libvips-image.html#IM-BANDFMT-FLOAT:CAPS"><code class="literal">IM_BANDFMT_FLOAT</code></a>
+ image.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      <span class="emphasis"><em><code class="code">RGB</code></em></span>
+</p>
+<p>
+(also refered to as <code class="code">disp</code>+) This is a generic 8-bit RGB
+image. VIPS has a system for going to and from RGB with a simple
+display structure, but it's mostly deprecated. See 
+disp.
+</p>
+<p>
+Use <code class="function">im_icc_export()</code> and friends as a modern replacement.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      <span class="emphasis"><em><code class="code">LCh</code></em></span>
+</p>
+<p>
+	 Like <code class="code">Lab</code>, but rectangular <code class="code">ab</code> coordinates 
+	 are replaced with 
+	 polar <code class="code">Ch</code> (Chroma and hue) coordinates. 
+	 Hue angles are expressed in degrees.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      <span class="emphasis"><em><code class="code">UCS</code></em></span>
+</p>
+<p>
+      A colour space based on the CMC(1:1) colour difference measurement. 
+      This is a highly uniform colour space, much better than CIELAB for 
+      expressing small differences. Conversions to and from 
+      <code class="code">UCS</code> are extremely slow.
+    </p>
+</li>
+</ul></div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-colour.details"></a><h2>Details</h2>
+<div class="refsect2" title="IM_D93_X0">
+<a name="IM-D93-X0:CAPS"></a><h3>IM_D93_X0</h3>
+<pre class="programlisting">#define IM_D93_X0 (89.7400)
+</pre>
+<p>
+Areas under curves for D93, 2 degree observer.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_D93_Y0">
+<a name="IM-D93-Y0:CAPS"></a><h3>IM_D93_Y0</h3>
+<pre class="programlisting">#define IM_D93_Y0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D93_Z0">
+<a name="IM-D93-Z0:CAPS"></a><h3>IM_D93_Z0</h3>
+<pre class="programlisting">#define IM_D93_Z0 (130.7700)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D75_X0">
+<a name="IM-D75-X0:CAPS"></a><h3>IM_D75_X0</h3>
+<pre class="programlisting">#define IM_D75_X0 (94.9682)
+</pre>
+<p>
+Areas under curves for D75, 2 degree observer.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_D75_Y0">
+<a name="IM-D75-Y0:CAPS"></a><h3>IM_D75_Y0</h3>
+<pre class="programlisting">#define IM_D75_Y0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D75_Z0">
+<a name="IM-D75-Z0:CAPS"></a><h3>IM_D75_Z0</h3>
+<pre class="programlisting">#define IM_D75_Z0 (122.5710)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D65_X0">
+<a name="IM-D65-X0:CAPS"></a><h3>IM_D65_X0</h3>
+<pre class="programlisting">#define IM_D65_X0 (95.0470)
+</pre>
+<p>
+Areas under curves for D65, 2 degree observer.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_D65_Y0">
+<a name="IM-D65-Y0:CAPS"></a><h3>IM_D65_Y0</h3>
+<pre class="programlisting">#define IM_D65_Y0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D65_Z0">
+<a name="IM-D65-Z0:CAPS"></a><h3>IM_D65_Z0</h3>
+<pre class="programlisting">#define IM_D65_Z0 (108.8827)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D55_X0">
+<a name="IM-D55-X0:CAPS"></a><h3>IM_D55_X0</h3>
+<pre class="programlisting">#define IM_D55_X0 (95.6831)
+</pre>
+<p>
+Areas under curves for D55, 2 degree observer.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_D55_Y0">
+<a name="IM-D55-Y0:CAPS"></a><h3>IM_D55_Y0</h3>
+<pre class="programlisting">#define IM_D55_Y0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D55_Z0">
+<a name="IM-D55-Z0:CAPS"></a><h3>IM_D55_Z0</h3>
+<pre class="programlisting">#define IM_D55_Z0 (92.0871)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D50_X0">
+<a name="IM-D50-X0:CAPS"></a><h3>IM_D50_X0</h3>
+<pre class="programlisting">#define IM_D50_X0 (96.4250)
+</pre>
+<p>
+Areas under curves for D50, 2 degree observer.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_D50_Y0">
+<a name="IM-D50-Y0:CAPS"></a><h3>IM_D50_Y0</h3>
+<pre class="programlisting">#define IM_D50_Y0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D50_Z0">
+<a name="IM-D50-Z0:CAPS"></a><h3>IM_D50_Z0</h3>
+<pre class="programlisting">#define IM_D50_Z0 (82.4680)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_A_X0">
+<a name="IM-A-X0:CAPS"></a><h3>IM_A_X0</h3>
+<pre class="programlisting">#define IM_A_X0 (109.8503)
+</pre>
+<p>
+Areas under curves for illuminant A (2856K), 2 degree observer.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_A_Y0">
+<a name="IM-A-Y0:CAPS"></a><h3>IM_A_Y0</h3>
+<pre class="programlisting">#define IM_A_Y0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_A_Z0">
+<a name="IM-A-Z0:CAPS"></a><h3>IM_A_Z0</h3>
+<pre class="programlisting">#define IM_A_Z0 (35.5849)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_B_X0">
+<a name="IM-B-X0:CAPS"></a><h3>IM_B_X0</h3>
+<pre class="programlisting">#define IM_B_X0 (99.0720)
+</pre>
+<p>
+Areas under curves for illuminant B (4874K), 2 degree observer.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_B_Y0">
+<a name="IM-B-Y0:CAPS"></a><h3>IM_B_Y0</h3>
+<pre class="programlisting">#define IM_B_Y0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_B_Z0">
+<a name="IM-B-Z0:CAPS"></a><h3>IM_B_Z0</h3>
+<pre class="programlisting">#define IM_B_Z0 (85.2230)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_C_X0">
+<a name="IM-C-X0:CAPS"></a><h3>IM_C_X0</h3>
+<pre class="programlisting">#define IM_C_X0 (98.0700)
+</pre>
+<p>
+Areas under curves for illuminant C (6774K), 2 degree observer.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_C_Y0">
+<a name="IM-C-Y0:CAPS"></a><h3>IM_C_Y0</h3>
+<pre class="programlisting">#define IM_C_Y0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_C_Z0">
+<a name="IM-C-Z0:CAPS"></a><h3>IM_C_Z0</h3>
+<pre class="programlisting">#define IM_C_Z0 (118.2300)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_E_X0">
+<a name="IM-E-X0:CAPS"></a><h3>IM_E_X0</h3>
+<pre class="programlisting">#define IM_E_X0 (100.0)
+</pre>
+<p>
+Areas under curves for equal energy illuminant E.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_E_Y0">
+<a name="IM-E-Y0:CAPS"></a><h3>IM_E_Y0</h3>
+<pre class="programlisting">#define IM_E_Y0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_E_Z0">
+<a name="IM-E-Z0:CAPS"></a><h3>IM_E_Z0</h3>
+<pre class="programlisting">#define IM_E_Z0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D3250_X0">
+<a name="IM-D3250-X0:CAPS"></a><h3>IM_D3250_X0</h3>
+<pre class="programlisting">#define IM_D3250_X0 (105.6590)
+</pre>
+<p>
+Areas under curves for black body at 3250K, 2 degree observer.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_D3250_Y0">
+<a name="IM-D3250-Y0:CAPS"></a><h3>IM_D3250_Y0</h3>
+<pre class="programlisting">#define IM_D3250_Y0 (100.0)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IM_D3250_Z0">
+<a name="IM-D3250-Z0:CAPS"></a><h3>IM_D3250_Z0</h3>
+<pre class="programlisting">#define IM_D3250_Z0 (45.8501)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_col_ab2Ch ()">
+<a name="im-col-ab2Ch"></a><h3>im_col_ab2Ch ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_col_ab2Ch                        (<em class="parameter"><code><span class="type">float</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *C</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *h</code></em>);</pre>
+<p>
+Calculate Ch from ab, h in degrees.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>CIE a* value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>CIE b* value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>C</code></em> :</span></p></td>
+<td>return Chroma
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>h</code></em> :</span></p></td>
+<td>return Hue angle (degrees)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_Ch2ab ()">
+<a name="im-col-Ch2ab"></a><h3>im_col_Ch2ab ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_col_Ch2ab                        (<em class="parameter"><code><span class="type">float</span> C</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> h</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *b</code></em>);</pre>
+<p>
+Calculate ab from Ch, h in degrees.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>C</code></em> :</span></p></td>
+<td>Chroma
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>h</code></em> :</span></p></td>
+<td>Hue angle (degrees)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>return CIE a* value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>return CIE b* value
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_XYZ2Lab ()">
+<a name="im-col-XYZ2Lab"></a><h3>im_col_XYZ2Lab ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_col_XYZ2Lab                      (<em class="parameter"><code><span class="type">float</span> X</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> Y</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> Z</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *L</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *b</code></em>);</pre>
+<p>
+Calculate Lab from XYZ, D65.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-XYZ2Lab-temp" title="im_XYZ2Lab_temp ()"><code class="function">im_XYZ2Lab_temp()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>X</code></em> :</span></p></td>
+<td>Input CIE XYZ colour
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L</code></em> :</span></p></td>
+<td>return CIE Lab value
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_Lab2XYZ ()">
+<a name="im-col-Lab2XYZ"></a><h3>im_col_Lab2XYZ ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_col_Lab2XYZ                      (<em class="parameter"><code><span class="type">float</span> L</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *X</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *Y</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> *Z</code></em>);</pre>
+<p>
+Calculate XYZ from Lab, D65.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-Lab2XYZ-temp" title="im_Lab2XYZ_temp ()"><code class="function">im_Lab2XYZ_temp()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L</code></em> :</span></p></td>
+<td>Input CIE Lab value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>X</code></em> :</span></p></td>
+<td>Return CIE XYZ colour
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_pythagoras ()">
+<a name="im-col-pythagoras"></a><h3>im_col_pythagoras ()</h3>
+<pre class="programlisting"><span class="returnvalue">float</span>               im_col_pythagoras                   (<em class="parameter"><code><span class="type">float</span> L1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> L2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b2</code></em>);</pre>
+<p>
+Pythagorean distance between two points in colour space. Lab/XYZ/UCS etc.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L1</code></em> :</span></p></td>
+<td>Input coordinate 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L2</code></em> :</span></p></td>
+<td>Input coordinate 2
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_make_tables_UCS ()">
+<a name="im-col-make-tables-UCS"></a><h3>im_col_make_tables_UCS ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_col_make_tables_UCS              (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Make the lookup tables for ucs.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_col_L2Lucs ()">
+<a name="im-col-L2Lucs"></a><h3>im_col_L2Lucs ()</h3>
+<pre class="programlisting"><span class="returnvalue">float</span>               im_col_L2Lucs                       (<em class="parameter"><code><span class="type">float</span> L</code></em>);</pre>
+<p>
+Calculate Lucs from L.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L</code></em> :</span></p></td>
+<td>CIE L*
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> Lucs
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_Lucs2L ()">
+<a name="im-col-Lucs2L"></a><h3>im_col_Lucs2L ()</h3>
+<pre class="programlisting"><span class="returnvalue">float</span>               im_col_Lucs2L                       (<em class="parameter"><code><span class="type">float</span> Lucs</code></em>);</pre>
+<p>
+Calculate L from Lucs using a table. Call <a class="link" href="libvips-colour.html#im-col-make-tables-UCS" title="im_col_make_tables_UCS ()"><code class="function">im_col_make_tables_UCS()</code></a> at
+least once before using this function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L</code></em> :</span></p></td>
+<td>L ucs
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> L*
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_C2Cucs ()">
+<a name="im-col-C2Cucs"></a><h3>im_col_C2Cucs ()</h3>
+<pre class="programlisting"><span class="returnvalue">float</span>               im_col_C2Cucs                       (<em class="parameter"><code><span class="type">float</span> C</code></em>);</pre>
+<p>
+Calculate Cucs from C.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>C</code></em> :</span></p></td>
+<td>Chroma
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> Cucs.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_Cucs2C ()">
+<a name="im-col-Cucs2C"></a><h3>im_col_Cucs2C ()</h3>
+<pre class="programlisting"><span class="returnvalue">float</span>               im_col_Cucs2C                       (<em class="parameter"><code><span class="type">float</span> Cucs</code></em>);</pre>
+<p>
+Calculate C from Cucs using a table. 
+Call <a class="link" href="libvips-colour.html#im-col-make-tables-UCS" title="im_col_make_tables_UCS ()"><code class="function">im_col_make_tables_UCS()</code></a> at
+least once before using this function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>Cucs</code></em> :</span></p></td>
+<td>Cucs
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> C.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_Ch2hucs ()">
+<a name="im-col-Ch2hucs"></a><h3>im_col_Ch2hucs ()</h3>
+<pre class="programlisting"><span class="returnvalue">float</span>               im_col_Ch2hucs                      (<em class="parameter"><code><span class="type">float</span> C</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> h</code></em>);</pre>
+<p>
+Calculate hucs from C and h.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>C</code></em> :</span></p></td>
+<td>Chroma
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>h</code></em> :</span></p></td>
+<td>Hue (degrees)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> hucs.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_Chucs2h ()">
+<a name="im-col-Chucs2h"></a><h3>im_col_Chucs2h ()</h3>
+<pre class="programlisting"><span class="returnvalue">float</span>               im_col_Chucs2h                      (<em class="parameter"><code><span class="type">float</span> C</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> hucs</code></em>);</pre>
+<p>
+Calculate h from C and hucs, using a table.
+Call <a class="link" href="libvips-colour.html#im-col-make-tables-UCS" title="im_col_make_tables_UCS ()"><code class="function">im_col_make_tables_UCS()</code></a> at
+least once before using this function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>C</code></em> :</span></p></td>
+<td>Chroma
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hucs</code></em> :</span></p></td>
+<td>Hue ucs (degrees)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> h.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_ab2h ()">
+<a name="im-col-ab2h"></a><h3>im_col_ab2h ()</h3>
+<pre class="programlisting"><span class="returnvalue">double</span>              im_col_ab2h                         (<em class="parameter"><code><span class="type">double</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> b</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>CIE a
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>CIE b
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> Hue (degrees) 
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_dECMC ()">
+<a name="im-col-dECMC"></a><h3>im_col_dECMC ()</h3>
+<pre class="programlisting"><span class="returnvalue">float</span>               im_col_dECMC                        (<em class="parameter"><code><span class="type">float</span> L1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> L2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b2</code></em>);</pre>
+<p>
+CMC colour difference from a pair of Lab values.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L1</code></em> :</span></p></td>
+<td>Input coordinate 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L2</code></em> :</span></p></td>
+<td>Input coordinate 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> CMC(1:1) colour difference
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_col_dE00 ()">
+<a name="im-col-dE00"></a><h3>im_col_dE00 ()</h3>
+<pre class="programlisting"><span class="returnvalue">float</span>               im_col_dE00                         (<em class="parameter"><code><span class="type">float</span> L1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b1</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> L2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> a2</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> b2</code></em>);</pre>
+<p>
+CIEDE2000, from: 
+</p>
+<p>
+Luo, Cui, Rigg, "The Development of the CIE 2000 Colour-Difference 
+Formula: CIEDE2000", COLOR research and application, pp 340
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L1</code></em> :</span></p></td>
+<td>Input coordinate 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L2</code></em> :</span></p></td>
+<td>Input coordinate 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> CIE dE2000 colour difference.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_Lab2LCh ()">
+<a name="im-Lab2LCh"></a><h3>im_Lab2LCh ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_Lab2LCh                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn Lab to LCh.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_LCh2Lab ()">
+<a name="im-LCh2Lab"></a><h3>im_LCh2Lab ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_LCh2Lab                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn LCh to Lab.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_LabQ2XYZ ()">
+<a name="im-LabQ2XYZ"></a><h3>im_LabQ2XYZ ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_LabQ2XYZ                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert an image from LabQ (Coding == IM_CODING_LABQ) to XYZ.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_rad2float ()">
+<a name="im-rad2float"></a><h3>im_rad2float ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rad2float                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Unpack a RAD (<a class="link" href="libvips-image.html#IM-CODING-RAD:CAPS"><span class="type">IM_CODING_RAD</span></a>) image to a three-band float image.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-rad2float" title="im_rad2float ()"><code class="function">im_rad2float()</code></a>, <a class="link" href="libvips-colour.html#im-LabQ2LabS" title="im_LabQ2LabS ()"><code class="function">im_LabQ2LabS()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_float2rad ()">
+<a name="im-float2rad"></a><h3>im_float2rad ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_float2rad                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert a three-band float image to Radiance 32-bit packed format.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-rad2float" title="im_rad2float ()"><code class="function">im_rad2float()</code></a>, <span class="type">VipsFormatRad</span>, <a class="link" href="libvips-colour.html#im-LabQ2Lab" title="im_LabQ2Lab ()"><code class="function">im_LabQ2Lab()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_LCh2UCS ()">
+<a name="im-LCh2UCS"></a><h3>im_LCh2UCS ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_LCh2UCS                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn LCh to UCS.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_Lab2LabQ ()">
+<a name="im-Lab2LabQ"></a><h3>im_Lab2LabQ ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_Lab2LabQ                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert a Lab three-band float image to LabQ (<a class="link" href="libvips-image.html#IM-CODING-LABQ:CAPS"><span class="type">IM_CODING_LABQ</span></a>).
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-LabQ2Lab" title="im_LabQ2Lab ()"><code class="function">im_LabQ2Lab()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_Lab2LabS ()">
+<a name="im-Lab2LabS"></a><h3>im_Lab2LabS ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_Lab2LabS                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn Lab to LabS, signed 16-bit int fixed point.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_Lab2XYZ ()">
+<a name="im-Lab2XYZ"></a><h3>im_Lab2XYZ ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_Lab2XYZ                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn D65 Lab to XYZ.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_Lab2XYZ_temp ()">
+<a name="im-Lab2XYZ-temp"></a><h3>im_Lab2XYZ_temp ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_Lab2XYZ_temp                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> X0</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Y0</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Z0</code></em>);</pre>
+<p>
+Turn Lab to XYZ. <em class="parameter"><code>X0</code></em>, <em class="parameter"><code>y0</code></em>, <em class="parameter"><code>Z0</code></em> give the Lab colour temperature.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>X0</code></em> :</span></p></td>
+<td>colour temperature
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>Y0</code></em> :</span></p></td>
+<td>colour temperature
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>Z0</code></em> :</span></p></td>
+<td>colour temperature
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_Lab2UCS ()">
+<a name="im-Lab2UCS"></a><h3>im_Lab2UCS ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_Lab2UCS                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert an image from Lab to UCS.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_LabQ2Lab ()">
+<a name="im-LabQ2Lab"></a><h3>im_LabQ2Lab ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_LabQ2Lab                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Unpack a LabQ (<a class="link" href="libvips-image.html#IM-CODING-LABQ:CAPS"><span class="type">IM_CODING_LABQ</span></a>) image to a three-band float image.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-LabQ2Lab" title="im_LabQ2Lab ()"><code class="function">im_LabQ2Lab()</code></a>, <a class="link" href="libvips-colour.html#im-LabQ2LabS" title="im_LabQ2LabS ()"><code class="function">im_LabQ2LabS()</code></a>, <a class="link" href="libvips-colour.html#im-rad2float" title="im_rad2float ()"><code class="function">im_rad2float()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_LabQ2LabS ()">
+<a name="im-LabQ2LabS"></a><h3>im_LabQ2LabS ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_LabQ2LabS                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Unpack a LabQ (<a class="link" href="libvips-image.html#IM-CODING-LABQ:CAPS"><span class="type">IM_CODING_LABQ</span></a>) image to a three-band signed short image.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-LabS2LabQ" title="im_LabS2LabQ ()"><code class="function">im_LabS2LabQ()</code></a>, <a class="link" href="libvips-colour.html#im-LabQ2Lab" title="im_LabQ2Lab ()"><code class="function">im_LabQ2Lab()</code></a>, <a class="link" href="libvips-colour.html#im-rad2float" title="im_rad2float ()"><code class="function">im_rad2float()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_LabS2LabQ ()">
+<a name="im-LabS2LabQ"></a><h3>im_LabS2LabQ ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_LabS2LabQ                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert a LabS three-band signed short image to LabQ
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-LabQ2LabS" title="im_LabQ2LabS ()"><code class="function">im_LabQ2LabS()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_LabS2Lab ()">
+<a name="im-LabS2Lab"></a><h3>im_LabS2Lab ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_LabS2Lab                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert a LabS three-band signed short image to a three-band float image.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-Lab2LabS" title="im_Lab2LabS ()"><code class="function">im_Lab2LabS()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_UCS2XYZ ()">
+<a name="im-UCS2XYZ"></a><h3>im_UCS2XYZ ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_UCS2XYZ                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert an image from UCS to XYZ.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_UCS2LCh ()">
+<a name="im-UCS2LCh"></a><h3>im_UCS2LCh ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_UCS2LCh                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn UCS to LCh.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_UCS2Lab ()">
+<a name="im-UCS2Lab"></a><h3>im_UCS2Lab ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_UCS2Lab                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert an image from UCS to Lab.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_XYZ2Lab ()">
+<a name="im-XYZ2Lab"></a><h3>im_XYZ2Lab ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_XYZ2Lab                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn XYZ to D65 Lab.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_XYZ2Lab_temp ()">
+<a name="im-XYZ2Lab-temp"></a><h3>im_XYZ2Lab_temp ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_XYZ2Lab_temp                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> X0</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Y0</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Z0</code></em>);</pre>
+<p>
+Turn XYZ to Lab. <em class="parameter"><code>X0</code></em>, <em class="parameter"><code>y0</code></em>, <em class="parameter"><code>Z0</code></em> give the Lab colour temperature.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>X0</code></em> :</span></p></td>
+<td>colour temperature
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>Y0</code></em> :</span></p></td>
+<td>colour temperature
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>Z0</code></em> :</span></p></td>
+<td>colour temperature
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_XYZ2UCS ()">
+<a name="im-XYZ2UCS"></a><h3>im_XYZ2UCS ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_XYZ2UCS                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_sRGB2XYZ ()">
+<a name="im-sRGB2XYZ"></a><h3>im_sRGB2XYZ ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_sRGB2XYZ                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert an image from sRGB to XYZ. 
+The conversion is supposed to be quick
+rather than accurate. Use an ICC profile with <a class="link" href="libvips-colour.html#im-icc-transform" title="im_icc_transform ()"><code class="function">im_icc_transform()</code></a> for more
+precision.
+</p>
+<p>
+See also: im_icc_transform.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_XYZ2sRGB ()">
+<a name="im-XYZ2sRGB"></a><h3>im_XYZ2sRGB ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_XYZ2sRGB                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert an image from XYZ to sRGB. The conversion is supposed to be quick
+rather than accurate. Use an ICC profile with <a class="link" href="libvips-colour.html#im-icc-transform" title="im_icc_transform ()"><code class="function">im_icc_transform()</code></a> for more
+precision.
+</p>
+<p>
+See also: im_icc_transform.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_Yxy2XYZ ()">
+<a name="im-Yxy2XYZ"></a><h3>im_Yxy2XYZ ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_Yxy2XYZ                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn Yxy to XYZ.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_XYZ2Yxy ()">
+<a name="im-XYZ2Yxy"></a><h3>im_XYZ2Yxy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_XYZ2Yxy                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn XYZ to Yxy.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_dECMC_fromLab ()">
+<a name="im-dECMC-fromLab"></a><h3>im_dECMC_fromLab ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_dECMC_fromLab                    (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Calculate dE CMC from two Lab images.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>first input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>second input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_dE00_fromLab ()">
+<a name="im-dE00-fromLab"></a><h3>im_dE00_fromLab ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_dE00_fromLab                     (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Calculate CIE dE00 from two Lab images.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>first input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>second input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_dE_fromXYZ ()">
+<a name="im-dE-fromXYZ"></a><h3>im_dE_fromXYZ ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_dE_fromXYZ                       (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Calculate CIELAB dE 1976 from a pair of XYZ images.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>first input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>second input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_dE_fromLab ()">
+<a name="im-dE-fromLab"></a><h3>im_dE_fromLab ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_dE_fromLab                       (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Calculate CIE dE 1976 from two Lab images.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>first input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>second input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_lab_morph ()">
+<a name="im-lab-morph"></a><h3>im_lab_morph ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lab_morph                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> L_offset</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> L_scale</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> a_scale</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> b_scale</code></em>);</pre>
+<p>
+Morph an image in CIELAB colour space. Useful for certain types of gamut
+mapping, or correction of greyscales on some printers.
+</p>
+<p>
+We perform three adjustments:
+	
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p>
+      <span class="emphasis"><em>cast</em></span>
+</p>
+<p>
+Pass in <em class="parameter"><code>mask</code></em> containing CIELAB readings for a neutral greyscale. For
+example:
+</p>
+<p>
+</p>
+<table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td align="left">3</td>
+<td align="left">4</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td align="left">14.23</td>
+<td align="left">4.8</td>
+<td align="left">-3.95</td>
+</tr>
+<tr>
+<td align="left">18.74</td>
+<td align="left">2.76</td>
+<td align="left">-2.62</td>
+</tr>
+<tr>
+<td align="left">23.46</td>
+<td align="left">1.4</td>
+<td align="left">-1.95</td>
+</tr>
+<tr>
+<td align="left">27.53</td>
+<td align="left">1.76</td>
+<td align="left">-2.01</td>
+</tr>
+</tbody>
+</table>
+<p>
+</p>
+<p>
+Interpolation from this makes cast corrector. The top and tail are
+interpolated towards [0, 0, 0] and [100, 0, 0], intermediate values are 
+interpolated along straight lines fitted between the specified points. 
+Rows may be in any order (ie. they need not be sorted on L*).
+</p>
+<p>
+Each pixel is displaced in a/b by the amount specified for that L in the
+table.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      <span class="emphasis"><em>L*</em></span>
+</p>
+<p>
+Pass in scale and offset for L. L' = (L + offset) * scale.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      <span class="emphasis"><em>saturation</em></span>
+</p>
+<p>
+scale a and b by these amounts, eg. 1.5 increases saturation. 
+    </p>
+</li>
+</ul></div>
+<p>
+</p>
+<p>
+Find the top two by generating and printing a greyscale. Find the bottom
+by printing a Macbeth and looking at a/b spread
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>cast correction table
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L_offset</code></em> :</span></p></td>
+<td>L adjustment
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>L_scale</code></em> :</span></p></td>
+<td>L adjustment
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a_scale</code></em> :</span></p></td>
+<td>a scale
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b_scale</code></em> :</span></p></td>
+<td>b scale
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="enum VipsIntent">
+<a name="VipsIntent"></a><h3>enum VipsIntent</h3>
+<pre class="programlisting">typedef enum {
+	IM_INTENT_PERCEPTUAL = 0,
+	IM_INTENT_RELATIVE_COLORIMETRIC,
+	IM_INTENT_SATURATION,
+	IM_INTENT_ABSOLUTE_COLORIMETRIC
+} VipsIntent;
+</pre>
+<p>
+The rendering intent. <span class="type">IM_INTENT_ABSOLUTE_COLORIMETRIC</span> is best for
+scientific work, <span class="type">IM_INTENT_RELATIVE_COLORIMETRIC</span> is usually best for 
+accurate communication with other imaging libraries.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_icc_present ()">
+<a name="im-icc-present"></a><h3>im_icc_present ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_icc_present                      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+VIPS can optionally be built without the ICC library. Use this function to
+test for its availability.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> non-zero if the ICC library is present.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_icc_transform ()">
+<a name="im-icc-transform"></a><h3>im_icc_transform ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_icc_transform                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *input_profile_filename</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *output_profile_filename</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-colour.html#VipsIntent" title="enum VipsIntent"><span class="type">VipsIntent</span></a> intent</code></em>);</pre>
+<p>
+Transform an image with the ICC library. The input image is moved to
+profile-connection space with the input profile and then to the output
+space with the output profile.
+</p>
+<p>
+Use <a class="link" href="libvips-colour.html#im-icc-import" title="im_icc_import ()"><code class="function">im_icc_import()</code></a> and <a class="link" href="libvips-colour.html#im-icc-export-depth" title="im_icc_export_depth ()"><code class="function">im_icc_export_depth()</code></a> to do either the first or 
+second half of this operation in isolation.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-icc-import" title="im_icc_import ()"><code class="function">im_icc_import()</code></a>, <a class="link" href="libvips-colour.html#im-icc-export-depth" title="im_icc_export_depth ()"><code class="function">im_icc_export_depth()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>input_profile_filename</code></em> :</span></p></td>
+<td>get the input profile from here
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>output_profile_filename</code></em> :</span></p></td>
+<td>get the output profile from here
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>intent</code></em> :</span></p></td>
+<td>transform with this intent
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_icc_import ()">
+<a name="im-icc-import"></a><h3>im_icc_import ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_icc_import                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *input_profile_filename</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-colour.html#VipsIntent" title="enum VipsIntent"><span class="type">VipsIntent</span></a> intent</code></em>);</pre>
+<p>
+Import an image with the ICC library. The input image in device space 
+is moved to D65 LAB with the input profile.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-icc-transform" title="im_icc_transform ()"><code class="function">im_icc_transform()</code></a>, <a class="link" href="libvips-colour.html#im-icc-import-embedded" title="im_icc_import_embedded ()"><code class="function">im_icc_import_embedded()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>input_profile_filename</code></em> :</span></p></td>
+<td>get the input profile from here
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>intent</code></em> :</span></p></td>
+<td>transform with this intent
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_icc_import_embedded ()">
+<a name="im-icc-import-embedded"></a><h3>im_icc_import_embedded ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_icc_import_embedded              (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-colour.html#VipsIntent" title="enum VipsIntent"><span class="type">VipsIntent</span></a> intent</code></em>);</pre>
+<p>
+Import an image with the ICC library. The input image in device space 
+is moved to D65 LAB with the input profile attached to the image under the
+name <a class="link" href="libvips-meta.html#IM-META-ICC-NAME:CAPS" title="IM_META_ICC_NAME"><span class="type">IM_META_ICC_NAME</span></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-icc-transform" title="im_icc_transform ()"><code class="function">im_icc_transform()</code></a>, <a class="link" href="libvips-colour.html#im-icc-import" title="im_icc_import ()"><code class="function">im_icc_import()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>intent</code></em> :</span></p></td>
+<td>transform with this intent
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_icc_export_depth ()">
+<a name="im-icc-export-depth"></a><h3>im_icc_export_depth ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_icc_export_depth                 (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> depth</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *output_profile_filename</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-colour.html#VipsIntent" title="enum VipsIntent"><span class="type">VipsIntent</span></a> intent</code></em>);</pre>
+<p>
+Export an image with the ICC library. The input image in 
+D65 LAB is transformed to device space using the supplied profile.
+<em class="parameter"><code>depth</code></em> can be 8 or 16, for 8 or 16-bit image export.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-icc-transform" title="im_icc_transform ()"><code class="function">im_icc_transform()</code></a>, <a class="link" href="libvips-colour.html#im-icc-import" title="im_icc_import ()"><code class="function">im_icc_import()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>depth</code></em> :</span></p></td>
+<td>depth to export at
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>output_profile_filename</code></em> :</span></p></td>
+<td>use this profile
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>intent</code></em> :</span></p></td>
+<td>transform with this intent
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_icc_ac2rc ()">
+<a name="im-icc-ac2rc"></a><h3>im_icc_ac2rc ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_icc_ac2rc                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *profile_filename</code></em>);</pre>
+<p>
+Transform an image from absolute to relative colorimetry using the
+MediaWhitePoint stored in the ICC profile.
+</p>
+<p>
+See also: <a class="link" href="libvips-colour.html#im-icc-transform" title="im_icc_transform ()"><code class="function">im_icc_transform()</code></a>, <a class="link" href="libvips-colour.html#im-icc-import" title="im_icc_import ()"><code class="function">im_icc_import()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile_filename</code></em> :</span></p></td>
+<td>use this profile
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-colour.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-arithmetic.html" title="arithmetic">arithmetic</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

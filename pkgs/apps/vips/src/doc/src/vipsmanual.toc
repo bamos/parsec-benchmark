@@ -1,0 +1,120 @@
+\contentsline {chapter}{\numberline {1}VIPS from C++ and Python}{1}
+\contentsline {section}{\numberline {1.1}Introduction}{1}
+\contentsline {subsection}{\numberline {1.1.1}If you've used the C API}{1}
+\contentsline {section}{\numberline {1.2}The VIPS file format}{1}
+\contentsline {subsection}{\numberline {1.2.1}VIPS file header}{1}
+\contentsline {subsection}{\numberline {1.2.2}Computation formats}{3}
+\contentsline {subsection}{\numberline {1.2.3}Storage formats}{3}
+\contentsline {section}{\numberline {1.3}The \texttt {VImage} class}{3}
+\contentsline {subsection}{\numberline {1.3.1}Constructors}{3}
+\contentsline {subsection}{\numberline {1.3.2}File conversion}{5}
+\contentsline {subsection}{\numberline {1.3.3}Projection functions}{6}
+\contentsline {subsection}{\numberline {1.3.4}Assignment}{6}
+\contentsline {subsection}{\numberline {1.3.5}Computing with \texttt {VImage}s}{7}
+\contentsline {subsection}{\numberline {1.3.6}Writing results}{7}
+\contentsline {subsection}{\numberline {1.3.7}Type conversions}{8}
+\contentsline {section}{\numberline {1.4}The \texttt {VMask} class}{8}
+\contentsline {subsection}{\numberline {1.4.1}Constructors}{8}
+\contentsline {subsection}{\numberline {1.4.2}Projection functions}{8}
+\contentsline {subsection}{\numberline {1.4.3}Assignment}{8}
+\contentsline {subsection}{\numberline {1.4.4}Computing with \texttt {VMask}}{9}
+\contentsline {subsection}{\numberline {1.4.5}\texttt {VIMask} operations}{9}
+\contentsline {subsection}{\numberline {1.4.6}\texttt {VDMask} operations}{9}
+\contentsline {subsection}{\numberline {1.4.7}Output of masks}{9}
+\contentsline {section}{\numberline {1.5}The \texttt {VDisplay} class}{9}
+\contentsline {subsection}{\numberline {1.5.1}Constructors}{9}
+\contentsline {subsection}{\numberline {1.5.2}Projection functions}{10}
+\contentsline {section}{\numberline {1.6}The \texttt {VError} class}{10}
+\contentsline {subsection}{\numberline {1.6.1}Constructors}{10}
+\contentsline {subsection}{\numberline {1.6.2}Projection functions}{10}
+\contentsline {subsection}{\numberline {1.6.3}Computing with \texttt {VError}}{10}
+\contentsline {subsection}{\numberline {1.6.4}Convenience function}{10}
+\contentsline {chapter}{\numberline {2}VIPS for C programmers}{11}
+\contentsline {section}{\numberline {2.1}Introduction}{11}
+\contentsline {section}{\numberline {2.2}Core C API}{11}
+\contentsline {subsection}{\numberline {2.2.1}Startup}{11}
+\contentsline {subsection}{\numberline {2.2.2}Image descriptors}{13}
+\contentsline {subsection}{\numberline {2.2.3}Header fields}{13}
+\contentsline {subsection}{\numberline {2.2.4}Opening and closing}{13}
+\contentsline {subsection}{\numberline {2.2.5}Examples}{16}
+\contentsline {subsection}{\numberline {2.2.6}Metadata}{16}
+\contentsline {subsection}{\numberline {2.2.7}History}{19}
+\contentsline {subsection}{\numberline {2.2.8}Eval callbacks}{19}
+\contentsline {subsection}{\numberline {2.2.9}Detailed rules for descriptors}{19}
+\contentsline {subsection}{\numberline {2.2.10}Automatic resource deallocation}{19}
+\contentsline {subsubsection}{Local image descriptors}{19}
+\contentsline {subsubsection}{Local memory allocation}{19}
+\contentsline {subsubsection}{Other local operations}{21}
+\contentsline {subsection}{\numberline {2.2.11}Error handling}{21}
+\contentsline {subsection}{\numberline {2.2.12}Joining operations together}{21}
+\contentsline {subsubsection}{How it works}{21}
+\contentsline {subsubsection}{Pitfalls with partials}{22}
+\contentsline {subsubsection}{Non-image output}{22}
+\contentsline {subsubsection}{Calculating twice}{22}
+\contentsline {subsubsection}{Blocking computation}{23}
+\contentsline {subsubsection}{Limitations}{23}
+\contentsline {section}{\numberline {2.3}Function dispatch and plug-ins}{23}
+\contentsline {subsection}{\numberline {2.3.1}Simple plugin example}{24}
+\contentsline {subsection}{\numberline {2.3.2}A more complicated example}{27}
+\contentsline {subsection}{\numberline {2.3.3}Adding new types}{27}
+\contentsline {subsection}{\numberline {2.3.4}Using function dispatch in your application}{29}
+\contentsline {subsubsection}{Adding and removing functions}{29}
+\contentsline {subsubsection}{Searching the function database}{29}
+\contentsline {subsubsection}{Building argument structures and running commands}{30}
+\contentsline {section}{\numberline {2.4}The VIPS base class: \texttt {VipsObject}}{30}
+\contentsline {subsection}{\numberline {2.4.1}Properties}{30}
+\contentsline {subsubsection}{Lookup}{30}
+\contentsline {subsubsection}{Create}{31}
+\contentsline {subsubsection}{Build}{31}
+\contentsline {subsubsection}{Use}{31}
+\contentsline {subsection}{\numberline {2.4.2}Convenience functions}{31}
+\contentsline {section}{\numberline {2.5}Image formats}{31}
+\contentsline {subsection}{\numberline {2.5.1}How a format is represented}{32}
+\contentsline {subsection}{\numberline {2.5.2}The format class}{32}
+\contentsline {subsection}{\numberline {2.5.3}Finding a format}{32}
+\contentsline {subsection}{\numberline {2.5.4}Convenience functions}{32}
+\contentsline {section}{\numberline {2.6}Interpolators}{32}
+\contentsline {subsection}{\numberline {2.6.1}How an interpolator is represented}{32}
+\contentsline {subsection}{\numberline {2.6.2}A sample interpolator}{34}
+\contentsline {subsection}{\numberline {2.6.3}Writing a VIPS operation that takes an interpolator as an argument}{34}
+\contentsline {subsection}{\numberline {2.6.4}Passing an interpolator to a VIPS operation}{34}
+\contentsline {chapter}{\numberline {3}Writing VIPS operations}{37}
+\contentsline {section}{\numberline {3.1}Introduction}{37}
+\contentsline {subsection}{\numberline {3.1.1}Why use VIPS?}{37}
+\contentsline {subsection}{\numberline {3.1.2}I/O styles}{37}
+\contentsline {section}{\numberline {3.2}Programming WIO operations}{38}
+\contentsline {subsection}{\numberline {3.2.1}Input from an image}{38}
+\contentsline {subsection}{\numberline {3.2.2}Output to an image}{40}
+\contentsline {subsection}{\numberline {3.2.3}Polymorphism}{40}
+\contentsline {section}{\numberline {3.3}Programming PIO functions}{40}
+\contentsline {subsection}{\numberline {3.3.1}Easy PIO with \texttt {im\_wrapone()} and \texttt {im\_wrapmany()}}{44}
+\contentsline {subsection}{\numberline {3.3.2}Region descriptors}{46}
+\contentsline {subsection}{\numberline {3.3.3}Image input with regions}{46}
+\contentsline {subsection}{\numberline {3.3.4}Splitting into sequences}{47}
+\contentsline {subsection}{\numberline {3.3.5}Output to regions}{53}
+\contentsline {subsection}{\numberline {3.3.6}Callbacks}{53}
+\contentsline {subsubsection}{Close callbacks}{53}
+\contentsline {subsubsection}{Preclose callbacks}{53}
+\contentsline {subsubsection}{Eval callbacks}{56}
+\contentsline {subsection}{\numberline {3.3.7}Memory allocation revisited}{56}
+\contentsline {section}{\numberline {3.4}Programming in-place functions}{56}
+\contentsline {chapter}{\numberline {4}VIPS reference}{57}
+\contentsline {section}{\numberline {4.1}Introduction}{57}
+\contentsline {section}{\numberline {4.2}VIPS packages}{57}
+\contentsline {subsection}{\numberline {4.2.1}Arithmetic}{57}
+\contentsline {subsection}{\numberline {4.2.2}Relational}{59}
+\contentsline {subsection}{\numberline {4.2.3}Boolean}{59}
+\contentsline {subsection}{\numberline {4.2.4}Colour}{59}
+\contentsline {subsection}{\numberline {4.2.5}Conversion}{62}
+\contentsline {subsection}{\numberline {4.2.6}Matricies}{62}
+\contentsline {subsection}{\numberline {4.2.7}Convolution}{65}
+\contentsline {subsection}{\numberline {4.2.8}In-place operations}{65}
+\contentsline {subsection}{\numberline {4.2.9}Frequency filtering}{65}
+\contentsline {subsection}{\numberline {4.2.10}Histograms and LUTs}{66}
+\contentsline {subsection}{\numberline {4.2.11}Morphology}{66}
+\contentsline {subsection}{\numberline {4.2.12}Mosaicing}{68}
+\contentsline {subsection}{\numberline {4.2.13}CImg functions}{68}
+\contentsline {subsection}{\numberline {4.2.14}Other}{70}
+\contentsline {subsection}{\numberline {4.2.15}IO functions}{70}
+\contentsline {subsection}{\numberline {4.2.16}Format functions}{70}
+\contentsline {subsection}{\numberline {4.2.17}Resample functions}{70}

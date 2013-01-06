@@ -1,0 +1,46 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces \texttt {invert} program in C++}}{2}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces \texttt {invert} program in Python}}{2}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces VIPS software architecture}}{12}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Hello World for VIPS}}{14}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces The \texttt {IMAGE} descriptor}}{15}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Print width and height of an image}}{17}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Find photographic negative}}{18}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Sum an array of images}}{20}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Two image-processing operations joined together}}{22}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Threshold an image at the mean value}}{23}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Registering a format in a plugin}}{33}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Registering an interpolator in a plugin}}{35}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Find average of image}}{39}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Invert an image}}{41}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Calculate \texttt {exp()} for an image}}{42}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Calculate \texttt {exp()} for an image (cont)}}{43}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces First PIO average of image}}{48}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces First PIO average of image (cont.)}}{49}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Final PIO average of image}}{50}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Final PIO average of image (cont.)}}{51}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Final PIO average of image (cont.)}}{52}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces PIO invert}}{54}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces PIO invert (cont.)}}{55}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Arithmetic functions}}{60}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Relational functions}}{61}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Boolean functions}}{61}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces VIPS colour space conversion}}{62}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Colour functions}}{63}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Conversion functions}}{64}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Conversion functions (cont.)}}{65}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Matrix functions}}{66}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Convolution functions}}{67}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces In-place operations}}{68}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Fourier functions}}{68}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Histogram/LUT functions}}{69}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Morphological functions}}{69}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Mosaic functions}}{70}
+\contentsline {figure}{\numberline {4.15}{\ignorespaces CImg functions}}{71}
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Other functions}}{71}
+\contentsline {figure}{\numberline {4.17}{\ignorespaces IO functions}}{71}
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Format functions}}{72}
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Resample functions}}{72}

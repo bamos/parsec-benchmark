@@ -1,0 +1,859 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>VipsThreadState</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch01.html" title="Core VIPS API">
+<link rel="prev" href="libvips-generate.html" title="generate">
+<link rel="next" href="libvips-error.html" title="error">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-generate.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-error.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#VipsThreadState.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#VipsThreadState.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#VipsThreadState.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry" title="VipsThreadState">
+<a name="VipsThreadState"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="VipsThreadState.top_of_page"></a>VipsThreadState</span></h2>
+<p>VipsThreadState — pools of worker threads</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="VipsThreadState.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="VipsThreadState.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+                    <a class="link" href="VipsThreadState.html#VipsThreadState-struct" title="VipsThreadState">VipsThreadState</a>;
+                    <a class="link" href="VipsThreadState.html#VipsThreadStateClass" title="VipsThreadStateClass">VipsThreadStateClass</a>;
+<span class="returnvalue">void</span> *              <a class="link" href="VipsThreadState.html#vips-thread-state-set" title="vips_thread_state_set ()">vips_thread_state_set</a>               (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<a class="link" href="VipsThreadState.html" title="VipsThreadState"><span class="returnvalue">VipsThreadState</span></a> *   <a class="link" href="VipsThreadState.html#vips-thread-state-new" title="vips_thread_state_new ()">vips_thread_state_new</a>               (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);
+<a class="link" href="VipsThreadState.html" title="VipsThreadState"><span class="returnvalue">VipsThreadState</span></a> *   (<a class="link" href="VipsThreadState.html#VipsThreadStart" title="VipsThreadStart ()">*VipsThreadStart</a>)                  (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="VipsThreadState.html#VipsThreadpoolAllocate" title="VipsThreadpoolAllocate ()">*VipsThreadpoolAllocate</a>)           (<em class="parameter"><code><a class="link" href="VipsThreadState.html" title="VipsThreadState"><span class="type">VipsThreadState</span></a> *state</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> *stop</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="VipsThreadState.html#VipsThreadpoolWork" title="VipsThreadpoolWork ()">*VipsThreadpoolWork</a>)               (<em class="parameter"><code><a class="link" href="VipsThreadState.html" title="VipsThreadState"><span class="type">VipsThreadState</span></a> *state</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="VipsThreadState.html#VipsThreadpoolProgress" title="VipsThreadpoolProgress ()">*VipsThreadpoolProgress</a>)           (<em class="parameter"><code><span class="type">void</span> *a</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsThreadState.html#vips-threadpool-run" title="vips_threadpool_run ()">vips_threadpool_run</a>                 (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsThreadStart" title="VipsThreadStart ()"><span class="type">VipsThreadStart</span></a> start</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsThreadpoolAllocate" title="VipsThreadpoolAllocate ()"><span class="type">VipsThreadpoolAllocate</span></a> allocate</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsThreadpoolWork" title="VipsThreadpoolWork ()"><span class="type">VipsThreadpoolWork</span></a> work</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsThreadpoolProgress" title="VipsThreadpoolProgress ()"><span class="type">VipsThreadpoolProgress</span></a> progress</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="VipsThreadState.html#vips-get-tile-size" title="vips_get_tile_size ()">vips_get_tile_size</a>                  (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *tile_width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *tile_height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *nlines</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="VipsThreadState.html#VipsRegionWrite" title="VipsRegionWrite ()">*VipsRegionWrite</a>)                  (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *region</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *area</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsThreadState.html#vips-sink-disc" title="vips_sink_disc ()">vips_sink_disc</a>                      (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsRegionWrite" title="VipsRegionWrite ()"><span class="type">VipsRegionWrite</span></a> write_fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);
+<span class="returnvalue">void</span> *              (<a class="link" href="VipsThreadState.html#VipsStart" title="VipsStart ()">*VipsStart</a>)                        (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="VipsThreadState.html#VipsGenerate" title="VipsGenerate ()">*VipsGenerate</a>)                     (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="VipsThreadState.html#VipsStop" title="VipsStop ()">*VipsStop</a>)                         (<em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsThreadState.html#vips-sink" title="vips_sink ()">vips_sink</a>                           (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsStart" title="VipsStart ()"><span class="type">VipsStart</span></a> start</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsGenerate" title="VipsGenerate ()"><span class="type">VipsGenerate</span></a> generate</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsStop" title="VipsStop ()"><span class="type">VipsStop</span></a> stop</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsThreadState.html#vips-sink-tile" title="vips_sink_tile ()">vips_sink_tile</a>                      (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_height</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsStart" title="VipsStart ()"><span class="type">VipsStart</span></a> start</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsGenerate" title="VipsGenerate ()"><span class="type">VipsGenerate</span></a> generate</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsStop" title="VipsStop ()"><span class="type">VipsStop</span></a> stop</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="VipsThreadState.html#VipsSinkNotify" title="VipsSinkNotify ()">*VipsSinkNotify</a>)                   (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *rect</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsThreadState.html#vips-sink-screen" title="vips_sink_screen ()">vips_sink_screen</a>                    (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *in</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> max_tiles</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> priority</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsSinkNotify" title="VipsSinkNotify ()"><span class="type">VipsSinkNotify</span></a> notify</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsThreadState.html#vips-sink-memory" title="vips_sink_memory ()">vips_sink_memory</a>                    (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="VipsThreadState.html#im--print-renders" title="im__print_renders ()">im__print_renders</a>                   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="VipsThreadState.html#im-concurrency-set" title="im_concurrency_set ()">im_concurrency_set</a>                  (<em class="parameter"><code><span class="type">int</span> concurrency</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsThreadState.html#im-concurrency-get" title="im_concurrency_get ()">im_concurrency_get</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="VipsThreadState.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----<a class="link" href="libvips-VipsArgument.html#VipsObject">VipsObject</a>
+         +----VipsThreadState
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="VipsThreadState.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="VipsThreadState.html#vips-threadpool-run" title="vips_threadpool_run ()"><code class="function">vips_threadpool_run()</code></a> loops a set of threads over an image. Threads take it
+in turns to allocate units of work (a unit might be a tile in an image),
+then run in parallel to process those units. An optional progress function
+can be used to give feedback.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="VipsThreadState.details"></a><h2>Details</h2>
+<div class="refsect2" title="VipsThreadState">
+<a name="VipsThreadState-struct"></a><h3>VipsThreadState</h3>
+<pre class="programlisting">typedef struct _VipsThreadState VipsThreadState;</pre>
+<p>
+These per-thread values are carried around for your use by
+<a class="link" href="VipsThreadState.html#vips-threadpool-run" title="vips_threadpool_run ()"><code class="function">vips_threadpool_run()</code></a>. They are private to each thread, so they are a
+useful place
+for <a class="link" href="VipsThreadState.html#VipsThreadpoolAllocate" title="VipsThreadpoolAllocate ()"><span class="type">VipsThreadpoolAllocate</span></a> and <a class="link" href="VipsThreadState.html#VipsThreadpoolWork" title="VipsThreadpoolWork ()"><span class="type">VipsThreadpoolWork</span></a> to communicate.
+</p>
+<p>
+<em class="parameter"><code>reg</code></em> is created for you at the start of processing and freed at the end,
+but you can do what you like with it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="VipsThreadStateClass">
+<a name="VipsThreadStateClass"></a><h3>VipsThreadStateClass</h3>
+<pre class="programlisting">typedef struct {
+	VipsObjectClass parent_class;
+} VipsThreadStateClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_thread_state_set ()">
+<a name="vips-thread-state-set"></a><h3>vips_thread_state_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              vips_thread_state_set               (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_thread_state_new ()">
+<a name="vips-thread-state-new"></a><h3>vips_thread_state_new ()</h3>
+<pre class="programlisting"><a class="link" href="VipsThreadState.html" title="VipsThreadState"><span class="returnvalue">VipsThreadState</span></a> *   vips_thread_state_new               (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsThreadStart ()">
+<a name="VipsThreadStart"></a><h3>VipsThreadStart ()</h3>
+<pre class="programlisting"><a class="link" href="VipsThreadState.html" title="VipsThreadState"><span class="returnvalue">VipsThreadState</span></a> *   (*VipsThreadStart)                  (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsThreadpoolAllocate ()">
+<a name="VipsThreadpoolAllocate"></a><h3>VipsThreadpoolAllocate ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*VipsThreadpoolAllocate)           (<em class="parameter"><code><a class="link" href="VipsThreadState.html" title="VipsThreadState"><span class="type">VipsThreadState</span></a> *state</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> *stop</code></em>);</pre>
+<p>
+This function is called to allocate a new work unit for the thread. It is
+always single-threaded, so it can modify per-pool state (such as a
+counter). 
+</p>
+<p>
+<em class="parameter"><code>a</code></em>, <em class="parameter"><code>b</code></em>, <em class="parameter"><code>c</code></em> are the values supplied to the call to 
+<a class="link" href="VipsThreadState.html#vips-threadpool-run" title="vips_threadpool_run ()"><code class="function">vips_threadpool_run()</code></a>.
+</p>
+<p>
+It should set <em class="parameter"><code>stop</code></em> to <code class="literal">TRUE</code> to indicate that no work could be allocated
+because the job is done.
+</p>
+<p>
+See also: <a class="link" href="VipsThreadState.html#vips-threadpool-run" title="vips_threadpool_run ()"><code class="function">vips_threadpool_run()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>per-thread state
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stop</code></em> :</span></p></td>
+<td>set this to signal end of computation
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="VipsThreadpoolWork ()">
+<a name="VipsThreadpoolWork"></a><h3>VipsThreadpoolWork ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*VipsThreadpoolWork)               (<em class="parameter"><code><a class="link" href="VipsThreadState.html" title="VipsThreadState"><span class="type">VipsThreadState</span></a> *state</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);</pre>
+<p>
+This function is called to process a work unit. Many copies of this can run
+at once, so it should not write to the per-pool state. It can write to
+per-thread state.
+</p>
+<p>
+<em class="parameter"><code>a</code></em>, <em class="parameter"><code>b</code></em>, <em class="parameter"><code>c</code></em> are the values supplied to the call to 
+<a class="link" href="VipsThreadState.html#vips-threadpool-run" title="vips_threadpool_run ()"><code class="function">vips_threadpool_run()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="VipsThreadState.html#vips-threadpool-run" title="vips_threadpool_run ()"><code class="function">vips_threadpool_run()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>per-thread state
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="VipsThreadpoolProgress ()">
+<a name="VipsThreadpoolProgress"></a><h3>VipsThreadpoolProgress ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*VipsThreadpoolProgress)           (<em class="parameter"><code><span class="type">void</span> *a</code></em>);</pre>
+<p>
+This function is called by the main thread once for every work unit
+processed. It can be used to give the user progress feedback.
+</p>
+<p>
+See also: <a class="link" href="VipsThreadState.html#vips-threadpool-run" title="vips_threadpool_run ()"><code class="function">vips_threadpool_run()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_threadpool_run ()">
+<a name="vips-threadpool-run"></a><h3>vips_threadpool_run ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 vips_threadpool_run                 (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsThreadStart" title="VipsThreadStart ()"><span class="type">VipsThreadStart</span></a> start</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsThreadpoolAllocate" title="VipsThreadpoolAllocate ()"><span class="type">VipsThreadpoolAllocate</span></a> allocate</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsThreadpoolWork" title="VipsThreadpoolWork ()"><span class="type">VipsThreadpoolWork</span></a> work</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsThreadpoolProgress" title="VipsThreadpoolProgress ()"><span class="type">VipsThreadpoolProgress</span></a> progress</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);</pre>
+<p>
+This function runs a set of threads over an image. Each thread first calls
+<em class="parameter"><code>start</code></em> to create new per-thread state, then runs
+<em class="parameter"><code>allocate</code></em> to set up a new work unit (perhaps the next tile in an image, for
+example), then <em class="parameter"><code>work</code></em> to process that work unit. After each unit is
+processed, <em class="parameter"><code>progress</code></em> is called, so that the operation can give
+progress feedback. <em class="parameter"><code>progress</code></em> may be <code class="literal">NULL</code>.
+</p>
+<p>
+Each thread has private state that the <em class="parameter"><code>allocate</code></em> and <em class="parameter"><code>work</code></em> functions can 
+use to communicate. This state is created by each worker as it starts using
+<em class="parameter"><code>start</code></em>. Use the state destructor to clean up.
+</p>
+<p>
+<em class="parameter"><code>allocate</code></em> and <em class="parameter"><code>start</code></em> are always single-threaded (so they can write to the 
+per-pool state), whereas <em class="parameter"><code>work</code></em> can be executed concurrently. <em class="parameter"><code>progress</code></em> is 
+always called by 
+the main thread (ie. the thread which called <a class="link" href="VipsThreadState.html#vips-threadpool-run" title="vips_threadpool_run ()"><code class="function">vips_threadpool_run()</code></a>).
+</p>
+<p>
+See also: <code class="function">im_wbuffer2()</code>, <a class="link" href="VipsThreadState.html#im-concurrency-set" title="im_concurrency_set ()"><code class="function">im_concurrency_set()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to loop over
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>start</code></em> :</span></p></td>
+<td>allocate per-thread state
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>allocate</code></em> :</span></p></td>
+<td>allocate a work unit
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>work</code></em> :</span></p></td>
+<td>process a work unit
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>progress</code></em> :</span></p></td>
+<td>give progress feedback about a work unit, or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_get_tile_size ()">
+<a name="vips-get-tile-size"></a><h3>vips_get_tile_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                vips_get_tile_size                  (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *tile_width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *tile_height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *nlines</code></em>);</pre>
+<p>
+Pick a tile size and a buffer height for this image and the current
+value of <a class="link" href="VipsThreadState.html#im-concurrency-get" title="im_concurrency_get ()"><code class="function">im_concurrency_get()</code></a>. The buffer height 
+will always be a multiple of tile_height.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to guess for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tile_width</code></em> :</span></p></td>
+<td>return selected tile width 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tile_height</code></em> :</span></p></td>
+<td>return selected tile height 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nlines</code></em> :</span></p></td>
+<td>return buffer height in scanlines
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="VipsRegionWrite ()">
+<a name="VipsRegionWrite"></a><h3>VipsRegionWrite ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*VipsRegionWrite)                  (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *region</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *area</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);</pre>
+<p>
+The function should write the pixels in <em class="parameter"><code>region</code></em>. <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are the values
+passed into <code class="function">vips_discsink()</code>.
+</p>
+<p>
+See also: <code class="function">vips_discsink()</code>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>region</code></em> :</span></p></td>
+<td>pixels to write
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_sink_disc ()">
+<a name="vips-sink-disc"></a><h3>vips_sink_disc ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 vips_sink_disc                      (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsRegionWrite" title="VipsRegionWrite ()"><span class="type">VipsRegionWrite</span></a> write_fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);</pre>
+<p>
+<a class="link" href="VipsThreadState.html#vips-sink-disc" title="vips_sink_disc ()"><code class="function">vips_sink_disc()</code></a> loops over <em class="parameter"><code>im</code></em>, top-to-bottom, generating it in sections.
+As each section is produced, <em class="parameter"><code>write_fn</code></em> is called.
+</p>
+<p>
+<em class="parameter"><code>write_fn</code></em> is always called single-threaded (though not always from the same
+thread), it's always given image
+sections in top-to-bottom order, and there are never any gaps.
+</p>
+<p>
+This operation is handy for making image sinks which output to things like 
+disc files.
+</p>
+<p>
+See also: <a class="link" href="VipsThreadState.html#im-concurrency-set" title="im_concurrency_set ()"><code class="function">im_concurrency_set()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to process
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>write_fn</code></em> :</span></p></td>
+<td>called for every batch of pixels
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>client data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="VipsStart ()">
+<a name="VipsStart"></a><h3>VipsStart ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              (*VipsStart)                        (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsGenerate ()">
+<a name="VipsGenerate"></a><h3>VipsGenerate ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*VipsGenerate)                     (<em class="parameter"><code><a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsStop ()">
+<a name="VipsStop"></a><h3>VipsStop ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*VipsStop)                         (<em class="parameter"><code><span class="type">void</span> *seq</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_sink ()">
+<a name="vips-sink"></a><h3>vips_sink ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 vips_sink                           (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsStart" title="VipsStart ()"><span class="type">VipsStart</span></a> start</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsGenerate" title="VipsGenerate ()"><span class="type">VipsGenerate</span></a> generate</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsStop" title="VipsStop ()"><span class="type">VipsStop</span></a> stop</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Loops over an image. <em class="parameter"><code>generate</code></em> is called for every pixel in the image, with
+the <em class="parameter"><code>reg</code></em> argument being a region of pixels for processing. <a class="link" href="VipsThreadState.html#vips-sink" title="vips_sink ()"><code class="function">vips_sink()</code></a> is
+used to implement operations like <a class="link" href="libvips-arithmetic.html#im-avg" title="im_avg ()"><code class="function">im_avg()</code></a> which have no image output.
+</p>
+<p>
+Each set of pixels is sized according to the requirements of the image
+pipeline that generated <em class="parameter"><code>im</code></em>.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>, <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>scan over this image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>start</code></em> :</span></p></td>
+<td>start sequences with this function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>generate</code></em> :</span></p></td>
+<td>generate pixels with this function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stop</code></em> :</span></p></td>
+<td>stop sequences with this function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_sink_tile ()">
+<a name="vips-sink-tile"></a><h3>vips_sink_tile ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 vips_sink_tile                      (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_height</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsStart" title="VipsStart ()"><span class="type">VipsStart</span></a> start</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsGenerate" title="VipsGenerate ()"><span class="type">VipsGenerate</span></a> generate</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsStop" title="VipsStop ()"><span class="type">VipsStop</span></a> stop</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Loops over an image. <em class="parameter"><code>generate</code></em> is called for every pixel in the image, with
+the <em class="parameter"><code>reg</code></em> argument being a region of pixels for processing. 
+<a class="link" href="VipsThreadState.html#vips-sink-tile" title="vips_sink_tile ()"><code class="function">vips_sink_tile()</code></a> is
+used to implement operations like <a class="link" href="libvips-arithmetic.html#im-avg" title="im_avg ()"><code class="function">im_avg()</code></a> which have no image output.
+</p>
+<p>
+Each set of
+pixels is <em class="parameter"><code>tile_width</code></em> by <em class="parameter"><code>tile_height</code></em> pixels (less at the image edges). 
+This is handy for things like
+writing a tiled TIFF image, where tiles have to be generated with a certain
+size.
+</p>
+<p>
+See also: <a class="link" href="VipsThreadState.html#vips-sink" title="vips_sink ()"><code class="function">vips_sink()</code></a>, <a class="link" href="VipsThreadState.html#vips-get-tile-size" title="vips_get_tile_size ()"><code class="function">vips_get_tile_size()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>scan over this image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tile_width</code></em> :</span></p></td>
+<td>tile width
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tile_height</code></em> :</span></p></td>
+<td>tile height
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>start</code></em> :</span></p></td>
+<td>start sequences with this function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>generate</code></em> :</span></p></td>
+<td>generate pixels with this function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stop</code></em> :</span></p></td>
+<td>stop sequences with this function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="VipsSinkNotify ()">
+<a name="VipsSinkNotify"></a><h3>VipsSinkNotify ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*VipsSinkNotify)                   (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *rect</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_sink_screen ()">
+<a name="vips-sink-screen"></a><h3>vips_sink_screen ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 vips_sink_screen                    (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *in</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> max_tiles</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> priority</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="VipsThreadState.html#VipsSinkNotify" title="VipsSinkNotify ()"><span class="type">VipsSinkNotify</span></a> notify</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>);</pre>
+<p>
+This operation renders <em class="parameter"><code>in</code></em> in the background, making pixels available on
+<em class="parameter"><code>out</code></em> as they are calculated. The <em class="parameter"><code>notify</code></em> callback is run every time a new
+set of pixels are available. Calculated pixels are kept in a cache with
+tiles sized <em class="parameter"><code>tile_width</code></em> by <em class="parameter"><code>tile_height</code></em> pixels and with at most <em class="parameter"><code>max_tiles</code></em> 
+tiles.
+If <em class="parameter"><code>max_tiles</code></em> is -1, the cache is of unlimited size (up to the maximum image
+size).
+The <em class="parameter"><code>mask</code></em> image is a one-band uchar image and has 255 for pixels which are 
+currently in cache and 0 for uncalculated pixels.
+</p>
+<p>
+Only a single sink is calculated at any one time, though many may be
+alive. Use <em class="parameter"><code>priority</code></em> to indicate which renders are more important:  
+zero means normal
+priority, negative numbers are low priority, positive numbers high
+priority.
+</p>
+<p>
+Calls to <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a> on <em class="parameter"><code>out</code></em> return immediately and hold whatever is
+currently in cache for that <a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> (check <em class="parameter"><code>mask</code></em> to see which parts of the
+<a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> are valid). Any pixels in the <a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> which are not in cache are added
+to a queue, and the <em class="parameter"><code>notify</code></em> callback will trigger when those pixels are
+ready.
+</p>
+<p>
+The <em class="parameter"><code>notify</code></em> callback is run from one of the background threads. In the 
+callback
+you need to somehow send a message to the main thread that the pixels are
+ready. In a glib-based application, this is easily done with <code class="function">g_idle_add()</code>.
+</p>
+<p>
+If <em class="parameter"><code>notify</code></em> is <code class="literal">NULL</code> then <a class="link" href="libvips-generate.html#im-render-priority" title="im_render_priority ()"><code class="function">im_render_priority()</code></a> runs synchronously.
+<a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a> on <em class="parameter"><code>out</code></em> will always block until the pixels have been
+calculated.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-cache" title="im_cache ()"><code class="function">im_cache()</code></a>, <a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>, <a class="link" href="VipsThreadState.html#vips-sink-disc" title="vips_sink_disc ()"><code class="function">vips_sink_disc()</code></a>, <a class="link" href="VipsThreadState.html#vips-sink" title="vips_sink ()"><code class="function">vips_sink()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>mask image indicating valid pixels
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tile_width</code></em> :</span></p></td>
+<td>tile width
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tile_height</code></em> :</span></p></td>
+<td>tile height
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max_tiles</code></em> :</span></p></td>
+<td>maximum tiles to cache
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>priority</code></em> :</span></p></td>
+<td>rendering priority
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notify</code></em> :</span></p></td>
+<td>pixels are ready notification callback
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>client data for callback
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on sucess, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_sink_memory ()">
+<a name="vips-sink-memory"></a><h3>vips_sink_memory ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 vips_sink_memory                    (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>);</pre>
+<p>
+Loops over an image, generating it to a memory buffer attached to the
+image. 
+</p>
+<p>
+See also: <a class="link" href="VipsThreadState.html#vips-sink" title="vips_sink ()"><code class="function">vips_sink()</code></a>, <a class="link" href="VipsThreadState.html#vips-get-tile-size" title="vips_get_tile_size ()"><code class="function">vips_get_tile_size()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>generate this image to memory
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im__print_renders ()">
+<a name="im--print-renders"></a><h3>im__print_renders ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im__print_renders                   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_concurrency_set ()">
+<a name="im-concurrency-set"></a><h3>im_concurrency_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_concurrency_set                  (<em class="parameter"><code><span class="type">int</span> concurrency</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_concurrency_get ()">
+<a name="im-concurrency-get"></a><h3>im_concurrency_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_concurrency_get                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="VipsThreadState.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-generate.html" title="generate">generate</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

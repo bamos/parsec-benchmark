@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>video</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch03.html" title="VIPS operation API by section (no gtkdoc comments yet)">
+<link rel="prev" href="libvips-other.html" title="other">
+<link rel="next" href="libvips-cimg-funcs.html" title="cimg_funcs">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-other.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-cimg-funcs.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-video.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-video.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="video">
+<a name="libvips-video"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-video.top_of_page"></a>video</span></h2>
+<p>video — various video grabbers</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-video.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-video.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-video.html#im-video-v4l1" title="im_video_v4l1 ()">im_video_v4l1</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> channel</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> brightness</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> colour</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> contrast</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> hue</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ngrabs</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-video.html#im-video-test" title="im_video_test ()">im_video_test</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> brightness</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> error</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-video.description"></a><h2>Description</h2>
+<p>
+Read an image from a video source.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-video.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_video_v4l1 ()">
+<a name="im-video-v4l1"></a><h3>im_video_v4l1 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_video_v4l1                       (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *device</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> channel</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> brightness</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> colour</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> contrast</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> hue</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ngrabs</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_video_test ()">
+<a name="im-video-test"></a><h3>im_video_test ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_video_test                       (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> brightness</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> error</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-video.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-image.html" title="image">image</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

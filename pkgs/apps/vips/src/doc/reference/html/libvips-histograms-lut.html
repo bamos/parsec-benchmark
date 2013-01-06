@@ -1,0 +1,1429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>histograms_lut</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch02.html" title="VIPS operation API by section">
+<link rel="prev" href="libvips-freq-filt.html" title="freq_filt">
+<link rel="next" href="ch03.html" title="VIPS operation API by section (no gtkdoc comments yet)">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-freq-filt.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="ch03.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-histograms-lut.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-histograms-lut.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="histograms_lut">
+<a name="libvips-histograms-lut"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-histograms-lut.top_of_page"></a>histograms_lut</span></h2>
+<p>histograms_lut — find, manipulate and apply histograms and lookup tables</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-histograms-lut.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-histograms-lut.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()">im_histgr</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-histnD" title="im_histnD ()">im_histnD</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bins</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-hist-indexed" title="im_hist_indexed ()">im_hist_indexed</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *index</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *value</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-identity" title="im_identity ()">im_identity</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-identity-ushort" title="im_identity_ushort ()">im_identity_ushort</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> sz</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-invertlut" title="im_invertlut ()">im_invertlut</a>                        (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *input</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *output</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> lut_size</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-buildlut" title="im_buildlut ()">im_buildlut</a>                         (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *input</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *output</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-project" title="im_project ()">im_project</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *hout</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *vout</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-histnorm" title="im_histnorm ()">im_histnorm</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-histcum" title="im_histcum ()">im_histcum</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-histeq" title="im_histeq ()">im_histeq</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-histspec" title="im_histspec ()">im_histspec</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *hin</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *href</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-ismonotonic" title="im_ismonotonic ()">im_ismonotonic</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-histplot" title="im_histplot ()">im_histplot</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *hist</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *histplot</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-maplut" title="im_maplut ()">im_maplut</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-hist" title="im_hist ()">im_hist</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-hsp" title="im_hsp ()">im_hsp</a>                              (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-gammacorrect" title="im_gammacorrect ()">im_gammacorrect</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> exponent</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-mpercent" title="im_mpercent ()">im_mpercent</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> percent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-mpercent-hist" title="im_mpercent_hist ()">im_mpercent_hist</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *hist</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> percent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-heq" title="im_heq ()">im_heq</a>                              (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-lhisteq" title="im_lhisteq ()">im_lhisteq</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xwin</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ywin</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-stdif" title="im_stdif ()">im_stdif</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> m0</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> b</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> s0</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xwin</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ywin</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-tone-build-range" title="im_tone_build_range ()">im_tone_build_range</a>                 (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> in_max</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> out_max</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Lb</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Lw</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ps</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Pm</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ph</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> S</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> M</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> H</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-tone-build" title="im_tone_build ()">im_tone_build</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Lb</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Lw</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ps</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Pm</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ph</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> S</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> M</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> H</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-tone-analyse" title="im_tone_analyse ()">im_tone_analyse</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ps</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Pm</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ph</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> S</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> M</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> H</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-histograms-lut.html#im-tone-map" title="im_tone_map ()">im_tone_map</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-histograms-lut.description"></a><h2>Description</h2>
+<p>
+Histograms and look-up tables are 1xn or nx1 images, where n is less than
+256 or less than 65536, corresponding to 8- and 16-bit unsigned int images. 
+They are
+tagged with a <a class="link" href="libvips-image.html#VipsType" title="enum VipsType"><span class="type">VipsType</span></a> of IM_TYPE_HISTOGRAM and usually displayed by
+user-interfaces such as nip2 as plots rather than images.
+</p>
+<p>
+These functions can be broadly grouped as things to find or build 
+histograms (<a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()"><code class="function">im_histgr()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-buildlut" title="im_buildlut ()"><code class="function">im_buildlut()</code></a>, <code class="function">in_identity()</code>), operations that 
+manipulate histograms in some way (<a class="link" href="libvips-histograms-lut.html#im-histcum" title="im_histcum ()"><code class="function">im_histcum()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-histnorm" title="im_histnorm ()"><code class="function">im_histnorm()</code></a>), operations
+to apply histograms (<a class="link" href="libvips-histograms-lut.html#im-maplut" title="im_maplut ()"><code class="function">im_maplut()</code></a>), and a variety of utility 
+operations.
+</p>
+<p>
+A final group of operations build tone curves. These are useful in
+pre-press work for adjusting the appearance of images. They are designed
+for CIELAB images, but might be useful elsewhere.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-histograms-lut.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_histgr ()">
+<a name="im-histgr"></a><h3>im_histgr ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_histgr                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>);</pre>
+<p>
+Find the histogram of <em class="parameter"><code>in</code></em>. Find the histogram for band <em class="parameter"><code>bandno</code></em> (producing a
+one-band histogram), or for all bands (producing an n-band histogram) if 
+<em class="parameter"><code>bandno</code></em> is -1. 
+</p>
+<p>
+<em class="parameter"><code>in</code></em> must be u8 or u16. <em class="parameter"><code>out</code></em> is always u32.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-hist-indexed" title="im_hist_indexed ()"><code class="function">im_hist_indexed()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-histeq" title="im_histeq ()"><code class="function">im_histeq()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bandno</code></em> :</span></p></td>
+<td>band to equalise
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_histnD ()">
+<a name="im-histnD"></a><h3>im_histnD ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_histnD                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bins</code></em>);</pre>
+<p>
+Make a one, two or three dimensional histogram of a 1, 2 or
+3 band image. Divide each axis into a certain number of bins .. ie.
+output is 1 x bins, bins x bins, or bins x bins x bins bands.
+uchar and ushort only.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()"><code class="function">im_histgr()</code></a>, <code class="function">im_histindexed()</code>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bins</code></em> :</span></p></td>
+<td>number of bins to make on each axis
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_hist_indexed ()">
+<a name="im-hist-indexed"></a><h3>im_hist_indexed ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_hist_indexed                     (<em class="parameter"><code><span class="type">IMAGE</span> *index</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *value</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Make a histogram of <em class="parameter"><code>value</code></em>, but use image <em class="parameter"><code>index</code></em> to pick the bins. In other
+words, element zero in <em class="parameter"><code>out</code></em> contains the sum of all the pixels in <em class="parameter"><code>value</code></em>
+whose corresponding pixel in <em class="parameter"><code>index</code></em> is zero.
+</p>
+<p>
+<em class="parameter"><code>index</code></em> must have just one band and be u8 or u16. <em class="parameter"><code>value</code></em> must be
+non-complex. <em class="parameter"><code>out</code></em> always has the same size and format as <em class="parameter"><code>value</code></em>.
+</p>
+<p>
+This operation is useful in conjunction with <a class="link" href="libvips-morphology.html#im-label-regions" title="im_label_regions ()"><code class="function">im_label_regions()</code></a>. You can
+use it to find the centre of gravity of blobs in an image, for example.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()"><code class="function">im_histgr()</code></a>, <a class="link" href="libvips-morphology.html#im-label-regions" title="im_label_regions ()"><code class="function">im_label_regions()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_identity ()">
+<a name="im-identity"></a><h3>im_identity ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_identity                         (<em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>);</pre>
+<p>
+Creates a image file with Xsize=256, Ysize=1, Bands=<em class="parameter"><code>bands</code></em>,
+BandFmt=IM_BANDFMT_UCHAR, Type=IM_TYPE_HISTOGRAM.
+</p>
+<p>
+The created image consist a <em class="parameter"><code>bands</code></em>-bands linear lut and is the basis 
+for building up look-up tables.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-identity-ushort" title="im_identity_ushort ()"><code class="function">im_identity_ushort()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>lut</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bands</code></em> :</span></p></td>
+<td>number of bands to create
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_identity_ushort ()">
+<a name="im-identity-ushort"></a><h3>im_identity_ushort ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_identity_ushort                  (<em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> sz</code></em>);</pre>
+<p>
+As <a class="link" href="libvips-histograms-lut.html#im-identity" title="im_identity ()"><code class="function">im_identity()</code></a>, but make a ushort LUT. ushort LUTs can be up to 65536
+elements - <em class="parameter"><code>sz</code></em> is the number of elements required.
+</p>
+<p>
+The created image consist a <em class="parameter"><code>bands</code></em>-bands linear lut and is the basis 
+for building up look-up tables.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-identity" title="im_identity ()"><code class="function">im_identity()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>lut</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bands</code></em> :</span></p></td>
+<td>number of bands to create
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sz</code></em> :</span></p></td>
+<td>size of LUT to create
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_invertlut ()">
+<a name="im-invertlut"></a><h3>im_invertlut ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_invertlut                        (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *input</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *output</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> lut_size</code></em>);</pre>
+<p>
+Given a mask of target values and real values, generate a LUT which
+will map reals to targets. Handy for linearising images from
+measurements of a colour chart. All values in [0,1]. Piecewise linear
+interpolation, extrapolate head and tail to 0 and 1.
+</p>
+<p>
+Eg. input like this:
+</p>
+<p>
+  </p>
+<table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td align="left">4</td>
+<td align="left">3</td>
+<td class="auto-generated"> </td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td align="left">0.1</td>
+<td align="left">0.2</td>
+<td align="left">0.3</td>
+<td align="left">0.1</td>
+</tr>
+<tr>
+<td align="left">0.2</td>
+<td align="left">0.4</td>
+<td align="left">0.4</td>
+<td align="left">0.2</td>
+</tr>
+<tr>
+<td align="left">0.7</td>
+<td align="left">0.5</td>
+<td align="left">0.6</td>
+<td align="left">0.3</td>
+</tr>
+</tbody>
+</table>
+<p>
+</p>
+<p>
+Means a patch with 10% reflectance produces an image with 20% in
+channel 1, 30% in channel 2, and 10% in channel 3, and so on.
+</p>
+<p>
+Inputs don't need to be sorted (we do that). Generate any precision
+LUT, typically you might ask for 256 elements.
+</p>
+<p>
+It won't work too well for non-monotonic camera responses 
+(we should fix this). Interpolation is simple piecewise linear; we ought to 
+do something better really.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-buildlut" title="im_buildlut ()"><code class="function">im_buildlut()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-invertlut" title="im_invertlut ()"><code class="function">im_invertlut()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>input</code></em> :</span></p></td>
+<td>input mask
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>output</code></em> :</span></p></td>
+<td>output LUT
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>lut_size</code></em> :</span></p></td>
+<td>generate this much
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_buildlut ()">
+<a name="im-buildlut"></a><h3>im_buildlut ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_buildlut                         (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *input</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *output</code></em>);</pre>
+<p>
+This operation builds a lookup table from a set of points. Intermediate
+values are generated by piecewise linear interpolation. 
+</p>
+<p>
+For example, consider this 2 x 2 matrix of (x, y) coordinates:
+</p>
+<p>
+  </p>
+<table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">255</td>
+<td align="left">100</td>
+</tr>
+</tbody>
+</table>
+<p>
+</p>
+<p>
+We then generate:
+</p>
+<p>
+  </p>
+<table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th align="left">Index</th>
+<th align="left">Value</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">0.4</td>
+</tr>
+<tr>
+<td align="left">...</td>
+<td align="left">etc. by linear interpolation</td>
+</tr>
+<tr>
+<td align="left">255</td>
+<td align="left">100</td>
+</tr>
+</tbody>
+</table>
+<p>
+</p>
+<p>
+This is then written as the output image, with the left column giving the
+index in the image to place the value.
+</p>
+<p>
+The (x, y) points don't need to be sorted: we do that. You can have 
+several Ys, each becomes a band in the output LUT. You don't need to
+start at zero, any integer will do, including negatives.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-identity" title="im_identity ()"><code class="function">im_identity()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-invertlut" title="im_invertlut ()"><code class="function">im_invertlut()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>input</code></em> :</span></p></td>
+<td>input mask
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>output</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_project ()">
+<a name="im-project"></a><h3>im_project ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_project                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *hout</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *vout</code></em>);</pre>
+<p>
+Find the horizontal and vertical projections of an image, ie. the sum
+of every row of pixels, and the sum of every column of pixels. The output
+format is uint, int or double, depending on the input format.
+</p>
+<p>
+Non-complex images only.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()"><code class="function">im_histgr()</code></a>, <a class="link" href="libvips-morphology.html#im-profile" title="im_profile ()"><code class="function">im_profile()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hout</code></em> :</span></p></td>
+<td>sums of rows
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>vout</code></em> :</span></p></td>
+<td>sums of columns
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_histnorm ()">
+<a name="im-histnorm"></a><h3>im_histnorm ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_histnorm                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Normalise histogram ... normalise range to make it square (ie. max ==
+number of elements). Normalise each band separately.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-histcum" title="im_histcum ()"><code class="function">im_histcum()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_histcum ()">
+<a name="im-histcum"></a><h3>im_histcum ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_histcum                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Form cumulative histogram. 
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-histnorm" title="im_histnorm ()"><code class="function">im_histnorm()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_histeq ()">
+<a name="im-histeq"></a><h3>im_histeq ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_histeq                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Histogram equalisation: normalised cumulative histogram. 
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-heq" title="im_heq ()"><code class="function">im_heq()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_histspec ()">
+<a name="im-histspec"></a><h3>im_histspec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_histspec                         (<em class="parameter"><code><span class="type">IMAGE</span> *hin</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *href</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>);</pre>
+<p>
+Creates a lut which, when applied to the image from which histogram <em class="parameter"><code>in</code></em> was
+formed, will produce an image whose PDF matches that of the image from 
+which <em class="parameter"><code>ref</code></em> was formed.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-hsp" title="im_hsp ()"><code class="function">im_hsp()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()"><code class="function">im_histgr()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-maplut" title="im_maplut ()"><code class="function">im_maplut()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ref</code></em> :</span></p></td>
+<td>reference histogram 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_ismonotonic ()">
+<a name="im-ismonotonic"></a><h3>im_ismonotonic ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_ismonotonic                      (<em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *out</code></em>);</pre>
+<p>
+Test <em class="parameter"><code>lut</code></em> for monotonicity. <em class="parameter"><code>out</code></em> is set non-zero if <em class="parameter"><code>lut</code></em> is monotonic.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-tone-build-range" title="im_tone_build_range ()"><code class="function">im_tone_build_range()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>lut</code></em> :</span></p></td>
+<td>lookup-table to test
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>set non-zero if <em class="parameter"><code>lut</code></em> is monotonic 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_histplot ()">
+<a name="im-histplot"></a><h3>im_histplot ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_histplot                         (<em class="parameter"><code><span class="type">IMAGE</span> *hist</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *histplot</code></em>);</pre>
+<p>
+Plot a 1 by any or any by 1 image file as a max by any or 
+any by max image using these rules:
+</p>
+<p>
+<span class="emphasis"><em>unsigned char</em></span> max is always 256 
+</p>
+<p>
+<span class="emphasis"><em>other unsigned integer types</em></span> output 0 - maxium 
+value of <em class="parameter"><code>in</code></em>.
+</p>
+<p>
+<span class="emphasis"><em>signed int types</em></span> min moved to 0, max moved to max + min.
+</p>
+<p>
+<span class="emphasis"><em>float types</em></span> min moved to 0, max moved to any 
+(square output)
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-hist-indexed" title="im_hist_indexed ()"><code class="function">im_hist_indexed()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-histeq" title="im_histeq ()"><code class="function">im_histeq()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_maplut ()">
+<a name="im-maplut"></a><h3>im_maplut ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_maplut                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>);</pre>
+<p>
+Map an image through another image acting as a LUT (Look Up Table). 
+The lut may have any type, and the output image will be that type.
+</p>
+<p>
+The input image will be cast to one of the unsigned integer types, that is,
+IM_BANDFMT_UCHAR, IM_BANDFMT_USHORT or IM_BANDFMT_UINT.
+</p>
+<p>
+If <em class="parameter"><code>lut</code></em> is too small for the input type (for example, if <em class="parameter"><code>in</code></em> is
+IM_BANDFMT_UCHAR but <em class="parameter"><code>lut</code></em> only has 100 elements), the lut is padded out
+by copying the last element. Overflows are reported at the end of 
+computation.
+If <em class="parameter"><code>lut</code></em> is too large, extra values are ignored. 
+</p>
+<p>
+If <em class="parameter"><code>lut</code></em> has one band, then all bands of <em class="parameter"><code>in</code></em> pass through it. If <em class="parameter"><code>lut</code></em>
+has same number of bands as <em class="parameter"><code>in</code></em>, then each band is mapped
+separately. If <em class="parameter"><code>in</code></em> has one band, then <em class="parameter"><code>lut</code></em> may have many bands and
+the output will have the same number of bands as <em class="parameter"><code>lut</code></em>.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()"><code class="function">im_histgr()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-identity" title="im_identity ()"><code class="function">im_identity()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>lut</code></em> :</span></p></td>
+<td>look-up table
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_hist ()">
+<a name="im-hist"></a><h3>im_hist ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_hist                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>);</pre>
+<p>
+Find and plot the histogram of <em class="parameter"><code>in</code></em>. If <em class="parameter"><code>bandno</code></em> is -1, plot all bands. 
+Otherwise plot the specified band.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()"><code class="function">im_histgr()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-histplot" title="im_histplot ()"><code class="function">im_histplot()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bandno</code></em> :</span></p></td>
+<td>band to plot
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_hsp ()">
+<a name="im-hsp"></a><h3>im_hsp ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_hsp                              (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *ref</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Maps image <em class="parameter"><code>in</code></em> to image <em class="parameter"><code>out</code></em>, adjusting the histogram to match image <em class="parameter"><code>ref</code></em>.
+Both images should have the same number of bands.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-histspec" title="im_histspec ()"><code class="function">im_histspec()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()"><code class="function">im_histgr()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ref</code></em> :</span></p></td>
+<td>reference histogram 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_gammacorrect ()">
+<a name="im-gammacorrect"></a><h3>im_gammacorrect ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_gammacorrect                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> exponent</code></em>);</pre>
+<p>
+Gamma-correct an 8- or 16-bit unsigned image with a lookup table. The
+output format is the same as the input format.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-identity" title="im_identity ()"><code class="function">im_identity()</code></a>, <a class="link" href="libvips-arithmetic.html#im-powtra" title="im_powtra ()"><code class="function">im_powtra()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-maplut" title="im_maplut ()"><code class="function">im_maplut()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>exponent</code></em> :</span></p></td>
+<td>gamma factor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_mpercent ()">
+<a name="im-mpercent"></a><h3>im_mpercent ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_mpercent                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> percent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *out</code></em>);</pre>
+<p>
+<a class="link" href="libvips-histograms-lut.html#im-mpercent" title="im_mpercent ()"><code class="function">im_mpercent()</code></a> returns (through the <em class="parameter"><code>out</code></em> parameter) the threshold above 
+which there are <em class="parameter"><code>percent</code></em> values of <em class="parameter"><code>in</code></em>. If for example percent=.1, the
+number of pels of the input image with values greater than the returned 
+int will correspond to 10% of all pels of the image.
+</p>
+<p>
+The function works for uchar and ushort images only.  It can be used 
+to threshold the scaled result of a filtering operation.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()"><code class="function">im_histgr()</code></a>, <a class="link" href="libvips-morphology.html#im-profile" title="im_profile ()"><code class="function">im_profile()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>percent</code></em> :</span></p></td>
+<td>threshold percentage
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output threshold value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_mpercent_hist ()">
+<a name="im-mpercent-hist"></a><h3>im_mpercent_hist ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_mpercent_hist                    (<em class="parameter"><code><span class="type">IMAGE</span> *hist</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> percent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *out</code></em>);</pre>
+<p>
+Just like <a class="link" href="libvips-histograms-lut.html#im-mpercent" title="im_mpercent ()"><code class="function">im_mpercent()</code></a>, except it works on an image histogram. Handy if
+you want to run <a class="link" href="libvips-histograms-lut.html#im-mpercent" title="im_mpercent ()"><code class="function">im_mpercent()</code></a> several times without having to recompute the
+histogram each time.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-mpercent" title="im_mpercent ()"><code class="function">im_mpercent()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hist</code></em> :</span></p></td>
+<td>input histogram image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>percent</code></em> :</span></p></td>
+<td>threshold percentage
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output threshold value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_heq ()">
+<a name="im-heq"></a><h3>im_heq ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_heq                              (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandno</code></em>);</pre>
+<p>
+Histogram-equalise <em class="parameter"><code>in</code></em>. Equalise using band <em class="parameter"><code>bandno</code></em>, or if <em class="parameter"><code>bandno</code></em> is -1,
+equalise all bands.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-lhisteq" title="im_lhisteq ()"><code class="function">im_lhisteq()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-histgr" title="im_histgr ()"><code class="function">im_histgr()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-histeq" title="im_histeq ()"><code class="function">im_histeq()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bandno</code></em> :</span></p></td>
+<td>band to equalise
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_lhisteq ()">
+<a name="im-lhisteq"></a><h3>im_lhisteq ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lhisteq                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xwin</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ywin</code></em>);</pre>
+<p>
+Performs local histogram equalisation on <em class="parameter"><code>in</code></em> using a
+window of size <em class="parameter"><code>xwin</code></em> by <em class="parameter"><code>ywin</code></em> centered on the input pixel. Works only on 
+monochrome images.
+</p>
+<p>
+The output image is the same size as the input image. The edge pixels are
+created by copy edge pixels of the input image outwards.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-stdif" title="im_stdif ()"><code class="function">im_stdif()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-heq" title="im_heq ()"><code class="function">im_heq()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xwin</code></em> :</span></p></td>
+<td>width of region
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hwin</code></em> :</span></p></td>
+<td>height of region
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_stdif ()">
+<a name="im-stdif"></a><h3>im_stdif ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_stdif                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> a</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> m0</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> b</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> s0</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xwin</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ywin</code></em>);</pre>
+<p>
+<a class="link" href="libvips-histograms-lut.html#im-stdif" title="im_stdif ()"><code class="function">im_stdif()</code></a> preforms statistical differencing according to the formula
+given in page 45 of the book "An Introduction to Digital Image 
+Processing" by Wayne Niblack. This transformation emphasises the way in 
+which a pel differs statistically from its neighbours. It is useful for 
+enhancing low-contrast images with lots of detail, such as X-ray plates.
+</p>
+<p>
+At point (i,j) the output is given by the equation:
+</p>
+<p>
+vout(i,j) = <em class="parameter"><code>a</code></em> * <em class="parameter"><code>m0</code></em> + (1 - <em class="parameter"><code>a</code></em>) * meanv + 
+      (vin(i,j) - meanv) * (<em class="parameter"><code>b</code></em> * <em class="parameter"><code>s0</code></em>) / (<em class="parameter"><code>s0</code></em> + <em class="parameter"><code>b</code></em> * stdv)
+</p>
+<p>
+Values <em class="parameter"><code>a</code></em>, <em class="parameter"><code>m0</code></em>, <em class="parameter"><code>b</code></em> and <em class="parameter"><code>s0</code></em> are entered, while meanv and stdv are the values
+calculated over a moving window of size <em class="parameter"><code>xwin</code></em>, <em class="parameter"><code>ywin</code></em> centred on pixel (i,j). 
+<em class="parameter"><code>m0</code></em> is the new mean, <em class="parameter"><code>a</code></em> is the weight given to it. <em class="parameter"><code>s0</code></em> is the new standard 
+deviation, <em class="parameter"><code>b</code></em> is the weight given to it. 
+</p>
+<p>
+Try:
+</p>
+<p>
+vips im_stdif $VIPSHOME/pics/huysum.v fred.v 0.5 128 0.5 50 11 11
+</p>
+<p>
+The operation works on one-band uchar images only, and writes a one-band 
+uchar image as its result. The output image has the same size as the 
+input.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-lhisteq" title="im_lhisteq ()"><code class="function">im_lhisteq()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>weight of new mean
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>m0</code></em> :</span></p></td>
+<td>target mean
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>weight of new deviation
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s0</code></em> :</span></p></td>
+<td>target deviation
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xwin</code></em> :</span></p></td>
+<td>width of region
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hwin</code></em> :</span></p></td>
+<td>height of region
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_tone_build_range ()">
+<a name="im-tone-build-range"></a><h3>im_tone_build_range ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tone_build_range                 (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> in_max</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> out_max</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Lb</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Lw</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ps</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Pm</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ph</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> S</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> M</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> H</code></em>);</pre>
+<p>
+<a class="link" href="libvips-histograms-lut.html#im-tone-build-range" title="im_tone_build_range ()"><code class="function">im_tone_build_range()</code></a> generates a tone curve for the adjustment of image 
+levels. It is mostly designed for adjusting the L* part of a LAB image in
+way suitable for print work, but you can use it for other things too.
+</p>
+<p>
+The curve is an unsigned 16-bit image with (<em class="parameter"><code>in_max</code></em> + 1) entries, 
+each in the range [0, <em class="parameter"><code>out_max</code></em>].
+</p>
+<p>
+<em class="parameter"><code>Lb</code></em>, <em class="parameter"><code>Lw</code></em> are expressed as 0-100, as in LAB colour space. You 
+specify the scaling for the input and output images with the <em class="parameter"><code>in_max</code></em> and 
+<em class="parameter"><code>out_max</code></em> parameters.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-ismonotonic" title="im_ismonotonic ()"><code class="function">im_ismonotonic()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-tone-map" title="im_tone_map ()"><code class="function">im_tone_map()</code></a>, <a class="link" href="libvips-histograms-lut.html#im-tone-analyse" title="im_tone_analyse ()"><code class="function">im_tone_analyse()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_tone_build ()">
+<a name="im-tone-build"></a><h3>im_tone_build ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tone_build                       (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Lb</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Lw</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ps</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Pm</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ph</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> S</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> M</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> H</code></em>);</pre>
+<p>
+As <a class="link" href="libvips-histograms-lut.html#im-tone-build-range" title="im_tone_build_range ()"><code class="function">im_tone_build_range()</code></a>, but set 32767 and 32767 as values for <em class="parameter"><code>in_max</code></em> 
+and <em class="parameter"><code>out_max</code></em>. This makes a curve suitable for correcting LABS
+images, the most common case.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-tone-build-range" title="im_tone_build_range ()"><code class="function">im_tone_build_range()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_tone_analyse ()">
+<a name="im-tone-analyse"></a><h3>im_tone_analyse ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tone_analyse                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ps</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Pm</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> Ph</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> S</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> M</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> H</code></em>);</pre>
+<p>
+As <a class="link" href="libvips-histograms-lut.html#im-tone-build" title="im_tone_build ()"><code class="function">im_tone_build()</code></a>, but analyse the histogram of <em class="parameter"><code>in</code></em> and use it to
+pick the 0.1% and 99.9% points for <em class="parameter"><code>Lb</code></em> and <em class="parameter"><code>Lw</code></em>.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-tone-build" title="im_tone_build ()"><code class="function">im_tone_build()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_tone_map ()">
+<a name="im-tone-map"></a><h3>im_tone_map ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tone_map                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *lut</code></em>);</pre>
+<p>
+Map the first channel of <em class="parameter"><code>in</code></em> through <em class="parameter"><code>lut</code></em>. If <em class="parameter"><code>in</code></em> is IM_CODING_LABQ, unpack
+to LABS, map L and then repack. 
+</p>
+<p>
+<em class="parameter"><code>in</code></em> should be a LABS or LABQ image for this to work
+sensibly.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-maplut" title="im_maplut ()"><code class="function">im_maplut()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>lut</code></em> :</span></p></td>
+<td>look-up table
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-histograms-lut.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-image.html" title="image">image</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>VipsArgument</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch04.html" title="Other API (no gtkdoc comments yet)">
+<link rel="prev" href="ch04.html" title="Other API (no gtkdoc comments yet)">
+<link rel="next" href="libvips-transform.html" title="transform">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch04.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-transform.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-VipsArgument.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-VipsArgument.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#libvips-VipsArgument.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#libvips-VipsArgument.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" title="VipsArgument">
+<a name="libvips-VipsArgument"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-VipsArgument.top_of_page"></a>VipsArgument</span></h2>
+<p>VipsArgument</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-VipsArgument.synopsis"></a><h2>Synopsis</h2>
+<a name="VipsObject"></a><pre class="synopsis">                    <a class="link" href="libvips-VipsArgument.html#VipsObject-struct" title="VipsObject">VipsObject</a>;
+                    <a class="link" href="libvips-VipsArgument.html#VipsObjectClass" title="VipsObjectClass">VipsObjectClass</a>;
+enum                <a class="link" href="libvips-VipsArgument.html#VipsArgumentFlags" title="enum VipsArgumentFlags">VipsArgumentFlags</a>;
+#define             <a class="link" href="libvips-VipsArgument.html#VIPS-ARGUMENT-REQUIRED-INPUT:CAPS" title="VIPS_ARGUMENT_REQUIRED_INPUT">VIPS_ARGUMENT_REQUIRED_INPUT</a>
+#define             <a class="link" href="libvips-VipsArgument.html#VIPS-ARGUMENT-OPTIONAL-INPUT:CAPS" title="VIPS_ARGUMENT_OPTIONAL_INPUT">VIPS_ARGUMENT_OPTIONAL_INPUT</a>
+#define             <a class="link" href="libvips-VipsArgument.html#VIPS-ARGUMENT-REQUIRED-OUTPUT:CAPS" title="VIPS_ARGUMENT_REQUIRED_OUTPUT">VIPS_ARGUMENT_REQUIRED_OUTPUT</a>
+#define             <a class="link" href="libvips-VipsArgument.html#VIPS-ARGUMENT-OPTIONAL-OUTPUT:CAPS" title="VIPS_ARGUMENT_OPTIONAL_OUTPUT">VIPS_ARGUMENT_OPTIONAL_OUTPUT</a>
+                    <a class="link" href="libvips-VipsArgument.html#VipsArgument" title="VipsArgument">VipsArgument</a>;
+                    <a class="link" href="libvips-VipsArgument.html#VipsArgumentClass" title="VipsArgumentClass">VipsArgumentClass</a>;
+                    <a class="link" href="libvips-VipsArgument.html#VipsArgumentInstance" title="VipsArgumentInstance">VipsArgumentInstance</a>;
+typedef             <a class="link" href="libvips-VipsArgument.html#VipsArgumentTable" title="VipsArgumentTable">VipsArgumentTable</a>;
+<a class="link" href="libvips-VipsArgument.html#VipsArgumentInstance" title="VipsArgumentInstance"><span class="returnvalue">VipsArgumentInstance</span></a> * <a class="link" href="libvips-VipsArgument.html#vips--argument-get-instance" title="vips__argument_get_instance ()">vips__argument_get_instance</a>      (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentClass" title="VipsArgumentClass"><span class="type">VipsArgumentClass</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *Param2</code></em>);
+<a class="link" href="libvips-VipsArgument.html#VipsArgument" title="VipsArgument"><span class="returnvalue">VipsArgument</span></a> *      <a class="link" href="libvips-VipsArgument.html#vips--argument-table-lookup" title="vips__argument_table_lookup ()">vips__argument_table_lookup</a>         (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentTable" title="VipsArgumentTable"><span class="type">VipsArgumentTable</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">GParamSpec</span> *Param2</code></em>);
+<span class="returnvalue">void</span> *              (<a class="link" href="libvips-VipsArgument.html#VipsArgumentMapFn" title="VipsArgumentMapFn ()">*VipsArgumentMapFn</a>)                (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">GParamSpec</span> *Param2</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentClass" title="VipsArgumentClass"><span class="type">VipsArgumentClass</span></a> *Param3</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentInstance" title="VipsArgumentInstance"><span class="type">VipsArgumentInstance</span></a> *Param4</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">void</span> *              <a class="link" href="libvips-VipsArgument.html#vips-argument-map" title="vips_argument_map ()">vips_argument_map</a>                   (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentMapFn" title="VipsArgumentMapFn ()"><span class="type">VipsArgumentMapFn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-VipsArgument.html#vips-object-set-property" title="vips_object_set_property ()">vips_object_set_property</a>            (<em class="parameter"><code><span class="type">GObject</span> *gobject</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> property_id</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-VipsArgument.html#vips-object-get-property" title="vips_object_get_property ()">vips_object_get_property</a>            (<em class="parameter"><code><span class="type">GObject</span> *gobject</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> property_id</code></em>,
+                                                         <em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-VipsArgument.html#vips-object-build" title="vips_object_build ()">vips_object_build</a>                   (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *object</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-VipsArgument.html#vips-object-print-class" title="vips_object_print_class ()">vips_object_print_class</a>             (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObjectClass" title="VipsObjectClass"><span class="type">VipsObjectClass</span></a> *klass</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-VipsArgument.html#vips-object-print" title="vips_object_print ()">vips_object_print</a>                   (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *object</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-VipsArgument.html#vips-object-class-install-argument" title="vips_object_class_install_argument ()">vips_object_class_install_argument</a>  (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObjectClass" title="VipsObjectClass"><span class="type">VipsObjectClass</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentFlags" title="enum VipsArgumentFlags"><span class="type">VipsArgumentFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> offset</code></em>);
+<span class="returnvalue">void</span> *              (<a class="link" href="libvips-VipsArgument.html#VipsObjectSetArguments" title="VipsObjectSetArguments ()">*VipsObjectSetArguments</a>)           (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *Param2</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *Param3</code></em>);
+<a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="returnvalue">VipsObject</span></a> *        <a class="link" href="libvips-VipsArgument.html#vips-object-new" title="vips_object_new ()">vips_object_new</a>                     (<em class="parameter"><code><span class="type">GType</span> type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObjectSetArguments" title="VipsObjectSetArguments ()"><span class="type">VipsObjectSetArguments</span></a> set</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="returnvalue">VipsObject</span></a> *        <a class="link" href="libvips-VipsArgument.html#vips-object-new-from-string" title="vips_object_new_from_string ()">vips_object_new_from_string</a>         (<em class="parameter"><code>const <span class="type">char</span> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-VipsArgument.html#vips-object-to-string" title="vips_object_to_string ()">vips_object_to_string</a>               (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-buf.html#VipsBuf" title="VipsBuf"><span class="type">VipsBuf</span></a> *buf</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="libvips-VipsArgument.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----VipsObject
+         +----<a class="link" href="VipsFormat.html" title="VipsFormat">VipsFormat</a>
+         +----<a class="link" href="VipsInterpolate.html" title="VipsInterpolate">VipsInterpolate</a>
+         +----<a class="link" href="VipsThreadState.html" title="VipsThreadState">VipsThreadState</a>
+</pre>
+</div>
+<div class="refsect1" title="Properties">
+<a name="libvips-VipsArgument.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="libvips-VipsArgument.html#VipsObject--description" title='The "description" property'>description</a>"              <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="libvips-VipsArgument.html#VipsObject--nickname" title='The "nickname" property'>nickname</a>"                 <span class="type">gchar</span>*                : Read / Write
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-VipsArgument.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-VipsArgument.details"></a><h2>Details</h2>
+<div class="refsect2" title="VipsObject">
+<a name="VipsObject-struct"></a><h3>VipsObject</h3>
+<pre class="programlisting">typedef struct _VipsObject VipsObject;</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsObjectClass">
+<a name="VipsObjectClass"></a><h3>VipsObjectClass</h3>
+<pre class="programlisting">typedef struct {
+	GObjectClass parent_class;
+
+	/* Build the object ... all argument properties have been set,
+	 * now build the thing.
+	 */
+	int (*build)( VipsObject *object );
+
+	/* Try to print something about the class, handy for help displays.
+	 */
+	void (*print_class)( struct _VipsObjectClass *, VipsBuf * );
+
+	/* Try to print something about the object, handy for debugging.
+	 */
+	void (*print)( VipsObject *, VipsBuf * );
+
+	/* Class nickname, eg. "VipsInterpolateBicubic" has "bicubic" as a
+	 * nickname. Not internationalised. 
+	 */
+	const char *nickname;
+
+	/* Class description. Used for help messages, so internationalised.
+	 */
+	const char *description;
+
+	/* Table of arguments for this class and any derived classes. Order
+	 * is important, so keep a traverse list too. We can't rely on the
+	 * ordering given by g_object_class_list_properties() since it comes
+	 * from a hash :-(
+	 */
+	VipsArgumentTable *argument_table;
+	GSList *argument_table_traverse;
+} VipsObjectClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="enum VipsArgumentFlags">
+<a name="VipsArgumentFlags"></a><h3>enum VipsArgumentFlags</h3>
+<pre class="programlisting">typedef enum _VipsArgumentFlags {
+	VIPS_ARGUMENT_NONE = 0,
+
+	/* Must be set in the constructor.
+	 */
+	VIPS_ARGUMENT_REQUIRED = 1,
+
+	/* Can only be set in the constructor.
+	 */
+	VIPS_ARGUMENT_CONSTRUCT = 2,
+
+	/* Can only be set once.
+	 */
+	VIPS_ARGUMENT_SET_ONCE = 4,
+
+	/* Have input &amp; output flags. Both set is an error; neither set is OK.
+	 */
+
+	/* Is an input argument (one we depend on) ... if it's a gobject, we 
+	 * should ref it. In our _dispose(), we should unref it.
+	 */
+	VIPS_ARGUMENT_INPUT = 8,
+
+	/* Is an output argument (one that depends on us) ... if it's a
+	 * gobject, we should ref ourselves. We watch "destroy" on the
+	 * argument: if it goes, we unref ourselves. If we dispose, we
+	 * disconnect the signal.
+	 */
+	VIPS_ARGUMENT_OUTPUT = 16
+} VipsArgumentFlags;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="VIPS_ARGUMENT_REQUIRED_INPUT">
+<a name="VIPS-ARGUMENT-REQUIRED-INPUT:CAPS"></a><h3>VIPS_ARGUMENT_REQUIRED_INPUT</h3>
+<pre class="programlisting">#define             VIPS_ARGUMENT_REQUIRED_INPUT</pre>
+</div>
+<hr>
+<div class="refsect2" title="VIPS_ARGUMENT_OPTIONAL_INPUT">
+<a name="VIPS-ARGUMENT-OPTIONAL-INPUT:CAPS"></a><h3>VIPS_ARGUMENT_OPTIONAL_INPUT</h3>
+<pre class="programlisting">#define             VIPS_ARGUMENT_OPTIONAL_INPUT</pre>
+</div>
+<hr>
+<div class="refsect2" title="VIPS_ARGUMENT_REQUIRED_OUTPUT">
+<a name="VIPS-ARGUMENT-REQUIRED-OUTPUT:CAPS"></a><h3>VIPS_ARGUMENT_REQUIRED_OUTPUT</h3>
+<pre class="programlisting">#define             VIPS_ARGUMENT_REQUIRED_OUTPUT</pre>
+</div>
+<hr>
+<div class="refsect2" title="VIPS_ARGUMENT_OPTIONAL_OUTPUT">
+<a name="VIPS-ARGUMENT-OPTIONAL-OUTPUT:CAPS"></a><h3>VIPS_ARGUMENT_OPTIONAL_OUTPUT</h3>
+<pre class="programlisting">#define             VIPS_ARGUMENT_OPTIONAL_OUTPUT</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsArgument">
+<a name="VipsArgument"></a><h3>VipsArgument</h3>
+<pre class="programlisting">typedef struct {
+	GParamSpec *pspec; /* pspec for this argument */
+
+	/* More stuff, see below */
+} VipsArgument;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsArgumentClass">
+<a name="VipsArgumentClass"></a><h3>VipsArgumentClass</h3>
+<pre class="programlisting">typedef struct {
+	VipsArgument parent;
+
+	/* The class of the object we are an arg for.
+	 */
+	VipsObjectClass *object_class;
+
+	VipsArgumentFlags flags;
+	guint offset;		/* G_STRUCT_OFFSET of member in object */
+} VipsArgumentClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsArgumentInstance">
+<a name="VipsArgumentInstance"></a><h3>VipsArgumentInstance</h3>
+<pre class="programlisting">typedef struct {
+	VipsArgument parent;
+
+	/* The object we are attached to.
+	 */
+	VipsObject *object;
+
+	/* Has been set.
+	 */
+	gboolean assigned;
+
+	/* If this is an output argument, keep the id of our "destroy" handler
+	 * here.
+	 */
+	gulong destroy_id;	
+} VipsArgumentInstance;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsArgumentTable">
+<a name="VipsArgumentTable"></a><h3>VipsArgumentTable</h3>
+<pre class="programlisting">typedef GHashTable VipsArgumentTable;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips__argument_get_instance ()">
+<a name="vips--argument-get-instance"></a><h3>vips__argument_get_instance ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-VipsArgument.html#VipsArgumentInstance" title="VipsArgumentInstance"><span class="returnvalue">VipsArgumentInstance</span></a> * vips__argument_get_instance      (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentClass" title="VipsArgumentClass"><span class="type">VipsArgumentClass</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *Param2</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips__argument_table_lookup ()">
+<a name="vips--argument-table-lookup"></a><h3>vips__argument_table_lookup ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-VipsArgument.html#VipsArgument" title="VipsArgument"><span class="returnvalue">VipsArgument</span></a> *      vips__argument_table_lookup         (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentTable" title="VipsArgumentTable"><span class="type">VipsArgumentTable</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">GParamSpec</span> *Param2</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsArgumentMapFn ()">
+<a name="VipsArgumentMapFn"></a><h3>VipsArgumentMapFn ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              (*VipsArgumentMapFn)                (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">GParamSpec</span> *Param2</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentClass" title="VipsArgumentClass"><span class="type">VipsArgumentClass</span></a> *Param3</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentInstance" title="VipsArgumentInstance"><span class="type">VipsArgumentInstance</span></a> *Param4</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_argument_map ()">
+<a name="vips-argument-map"></a><h3>vips_argument_map ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              vips_argument_map                   (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentMapFn" title="VipsArgumentMapFn ()"><span class="type">VipsArgumentMapFn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_object_set_property ()">
+<a name="vips-object-set-property"></a><h3>vips_object_set_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                vips_object_set_property            (<em class="parameter"><code><span class="type">GObject</span> *gobject</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> property_id</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_object_get_property ()">
+<a name="vips-object-get-property"></a><h3>vips_object_get_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                vips_object_get_property            (<em class="parameter"><code><span class="type">GObject</span> *gobject</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> property_id</code></em>,
+                                                         <em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                                                         <em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_object_build ()">
+<a name="vips-object-build"></a><h3>vips_object_build ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 vips_object_build                   (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *object</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_object_print_class ()">
+<a name="vips-object-print-class"></a><h3>vips_object_print_class ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                vips_object_print_class             (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObjectClass" title="VipsObjectClass"><span class="type">VipsObjectClass</span></a> *klass</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_object_print ()">
+<a name="vips-object-print"></a><h3>vips_object_print ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                vips_object_print                   (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *object</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_object_class_install_argument ()">
+<a name="vips-object-class-install-argument"></a><h3>vips_object_class_install_argument ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                vips_object_class_install_argument  (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObjectClass" title="VipsObjectClass"><span class="type">VipsObjectClass</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsArgumentFlags" title="enum VipsArgumentFlags"><span class="type">VipsArgumentFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> offset</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsObjectSetArguments ()">
+<a name="VipsObjectSetArguments"></a><h3>VipsObjectSetArguments ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              (*VipsObjectSetArguments)           (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *Param2</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *Param3</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_object_new ()">
+<a name="vips-object-new"></a><h3>vips_object_new ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="returnvalue">VipsObject</span></a> *        vips_object_new                     (<em class="parameter"><code><span class="type">GType</span> type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObjectSetArguments" title="VipsObjectSetArguments ()"><span class="type">VipsObjectSetArguments</span></a> set</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_object_new_from_string ()">
+<a name="vips-object-new-from-string"></a><h3>vips_object_new_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="returnvalue">VipsObject</span></a> *        vips_object_new_from_string         (<em class="parameter"><code>const <span class="type">char</span> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_object_to_string ()">
+<a name="vips-object-to-string"></a><h3>vips_object_to_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                vips_object_to_string               (<em class="parameter"><code><a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-buf.html#VipsBuf" title="VipsBuf"><span class="type">VipsBuf</span></a> *buf</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="libvips-VipsArgument.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "description" property'>
+<a name="VipsObject--description"></a><h3>The <code class="literal">"description"</code> property</h3>
+<pre class="programlisting">  "description"              <span class="type">gchar</span>*                : Read / Write</pre>
+<p>Class description.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2" title='The "nickname" property'>
+<a name="VipsObject--nickname"></a><h3>The <code class="literal">"nickname"</code> property</h3>
+<pre class="programlisting">  "nickname"                 <span class="type">gchar</span>*                : Read / Write</pre>
+<p>Class nickname.</p>
+<p>Default value: ""</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

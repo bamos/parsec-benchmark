@@ -1,0 +1,1740 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>VipsFormat</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch02.html" title="VIPS operation API by section">
+<link rel="prev" href="libvips-convolution.html" title="convolution">
+<link rel="next" href="libvips-freq-filt.html" title="freq_filt">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-convolution.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-freq-filt.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#VipsFormat.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#VipsFormat.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#VipsFormat.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry" title="VipsFormat">
+<a name="VipsFormat"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="VipsFormat.top_of_page"></a>VipsFormat</span></h2>
+<p>VipsFormat — load and save in a variety of formats</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="VipsFormat.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="VipsFormat.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+enum                <a class="link" href="VipsFormat.html#VipsFormatFlags" title="enum VipsFormatFlags">VipsFormatFlags</a>;
+                    <a class="link" href="VipsFormat.html#VipsFormat-struct" title="VipsFormat">VipsFormat</a>;
+                    <a class="link" href="VipsFormat.html#VipsFormatClass" title="VipsFormatClass">VipsFormatClass</a>;
+<span class="returnvalue">void</span> *              <a class="link" href="VipsFormat.html#vips-format-map" title="vips_format_map ()">vips_format_map</a>                     (<em class="parameter"><code><a class="link" href="libvips-util.html#VSListMap2Fn" title="VSListMap2Fn ()"><span class="type">VSListMap2Fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<a class="link" href="VipsFormat.html#VipsFormatClass" title="VipsFormatClass"><span class="returnvalue">VipsFormatClass</span></a> *   <a class="link" href="VipsFormat.html#vips-format-for-file" title="vips_format_for_file ()">vips_format_for_file</a>                (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<a class="link" href="VipsFormat.html#VipsFormatClass" title="VipsFormatClass"><span class="returnvalue">VipsFormatClass</span></a> *   <a class="link" href="VipsFormat.html#vips-format-for-name" title="vips_format_for_name ()">vips_format_for_name</a>                (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<a class="link" href="VipsFormat.html#VipsFormatFlags" title="enum VipsFormatFlags"><span class="returnvalue">VipsFormatFlags</span></a>     <a class="link" href="VipsFormat.html#vips-format-get-flags" title="vips_format_get_flags ()">vips_format_get_flags</a>               (<em class="parameter"><code><a class="link" href="VipsFormat.html#VipsFormatClass" title="VipsFormatClass"><span class="type">VipsFormatClass</span></a> *format</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#vips-format-read" title="vips_format_read ()">vips_format_read</a>                    (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#vips-format-write" title="vips_format_write ()">vips_format_write</a>                   (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-jpeg2vips" title="im_jpeg2vips ()">im_jpeg2vips</a>                        (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-vips2jpeg" title="im_vips2jpeg ()">im_vips2jpeg</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-vips2mimejpeg" title="im_vips2mimejpeg ()">im_vips2mimejpeg</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> qfac</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-vips2bufjpeg" title="im_vips2bufjpeg ()">im_vips2bufjpeg</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> qfac</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **obuf</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *olen</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-tiff2vips" title="im_tiff2vips ()">im_tiff2vips</a>                        (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-vips2tiff" title="im_vips2tiff ()">im_vips2tiff</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-tile-cache" title="im_tile_cache ()">im_tile_cache</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> max_tiles</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-magick2vips" title="im_magick2vips ()">im_magick2vips</a>                      (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-exr2vips" title="im_exr2vips ()">im_exr2vips</a>                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-ppm2vips" title="im_ppm2vips ()">im_ppm2vips</a>                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-vips2ppm" title="im_vips2ppm ()">im_vips2ppm</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-analyze2vips" title="im_analyze2vips ()">im_analyze2vips</a>                     (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-csv2vips" title="im_csv2vips ()">im_csv2vips</a>                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-vips2csv" title="im_vips2csv ()">im_vips2csv</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-png2vips" title="im_png2vips ()">im_png2vips</a>                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-vips2png" title="im_vips2png ()">im_vips2png</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-raw2vips" title="im_raw2vips ()">im_raw2vips</a>                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bpp</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> offset</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-vips2raw" title="im_vips2raw ()">im_vips2raw</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-mat2vips" title="im_mat2vips ()">im_mat2vips</a>                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-rad2vips" title="im_rad2vips ()">im_rad2vips</a>                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="VipsFormat.html#im-vips2rad" title="im_vips2rad ()">im_vips2rad</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="VipsFormat.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----<a class="link" href="libvips-VipsArgument.html#VipsObject">VipsObject</a>
+         +----VipsFormat
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="VipsFormat.description"></a><h2>Description</h2>
+<p>
+VIPS has a simple system for representing image load and save operations in
+a generic way.
+You can ask for a loader for a certain file or select a saver based on a
+filename. Once you have found a format, you can use it to load a file of
+that type, save an image to a file of that type, query files for their type
+and fields, and ask for supported features. You can also call the
+converters directly, if you like. 
+</p>
+<p>
+If you define a new format, support for
+it automatically appears in all VIPS user-interfaces. It will also be
+transparently supported by <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a>.
+</p>
+<p>
+VIPS comes with VipsFormat for TIFF, JPEG, PNG, Analyze, PPM, OpenEXR, CSV,
+Matlab, Radiance, RAW, VIPS and one that wraps libMagick.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="VipsFormat.details"></a><h2>Details</h2>
+<div class="refsect2" title="enum VipsFormatFlags">
+<a name="VipsFormatFlags"></a><h3>enum VipsFormatFlags</h3>
+<pre class="programlisting">typedef enum {
+	VIPS_FORMAT_NONE = 0,		/* No flags set */
+	VIPS_FORMAT_PARTIAL = 1		/* Lazy read OK (eg. tiled tiff) */
+} VipsFormatFlags;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="VipsFormat">
+<a name="VipsFormat-struct"></a><h3>VipsFormat</h3>
+<pre class="programlisting">typedef struct _VipsFormat VipsFormat;</pre>
+<p>
+Actually, we never make <a class="link" href="VipsFormat.html" title="VipsFormat"><code class="literal">VipsFormat</code></a> objects, we just use virtual methods on
+the class object. It is defined as:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+typedef struct _VipsFormatClass {
+  VipsObjectClass parent_class;
+
+  gboolean (*is_a)( const char *filename );
+  int (*header)( const char *filename, IMAGE *out );
+  int (*load)( const char *filename, IMAGE *out );
+  int (*save)( IMAGE *in, const char *filename );
+  VipsFormatFlags (*get_flags)( const char *filename );
+  int priority;
+  const char **suffs;
+} VipsFormatClass;
+</pre></div>
+<p>
+</p>
+<p>
+Add a new format to VIPS by subclassing VipsFormat. Subclasses need to 
+implement at least <code class="function">load()</code> or <code class="function">save()</code>. 
+</p>
+<p>
+These members are:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+<code class="function">is_a()</code> This function should return <code class="literal">TRUE</code> if the file 
+contains an image of this type. If you don't define this function, VIPS
+will use the list of suffixes you supply instead.
+    </p></li>
+<li class="listitem"><p>
+<code class="function">header()</code> This function should load the image header,
+but not load any pixel data. If you don't define it, VIPS will use your
+<code class="function">load()</code> method instead. Return 0 for success, -1 for error, setting
+<a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+    </p></li>
+<li class="listitem"><p>
+<code class="function">load()</code> This function should load the image, or perhaps use <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a> to
+attach something to load sections of the image on demand. 
+Users can embed
+load options in the filename, see (for example) <a class="link" href="VipsFormat.html#im-jpeg2vips" title="im_jpeg2vips ()"><code class="function">im_jpeg2vips()</code></a>.
+If you don't
+define this method, you can still define <code class="function">save()</code> and have a save-only
+format.
+Return 0 for success, -1 for error, setting
+<a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+    </p></li>
+<li class="listitem"><p>
+<code class="function">save()</code> This function should save the image to the file. 
+Users can embed
+save options in the filename, see (for example) <a class="link" href="VipsFormat.html#im-vips2tiff" title="im_vips2tiff ()"><code class="function">im_vips2tiff()</code></a>.
+If you don't
+define this method, you can still define <code class="function">load()</code> and have a load-only
+format.
+Return 0 for success, -1 for error, setting
+<a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+    </p></li>
+<li class="listitem"><p>
+<code class="function">get_flags()</code> This function should return a hint about the properties of this
+loader on this file. If you don't define it, users will always see '0', or
+no flags. 
+    </p></li>
+<li class="listitem"><p>
+<em class="structfield"><code>priority</code></em> Where this format should fit in this 
+list of
+supported formats. 0 is a sensible value for most formats. Set a negative
+value if you want to be lower on the list, positive to move up.
+    </p></li>
+<li class="listitem">
+<p>
+<em class="structfield"><code>suffs</code></em> A <code class="literal">NULL</code>-terminated list of possible file 
+name
+suffixes, for example:
+</p>
+<div class="informalexample"><pre class="programlisting">
+static const char *tiff_suffs[] = { ".tif", ".tiff", NULL };
+</pre></div>
+<p>
+The suffix list is used to select a format to save a file in, and to pick a
+loader if you don't define <code class="function">is_a()</code>.
+    </p>
+</li>
+</ul></div>
+<p>
+</p>
+<p>
+You should also define <em class="structfield"><code>nickname</code></em> and
+<em class="structfield"><code>description</code></em> in <a class="link" href="libvips-VipsArgument.html#VipsObject"><span class="type">VipsObject</span></a>. 
+</p>
+<p>
+At the command-line, use:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+vips --list classes | grep Format
+</pre></div>
+<p>
+</p>
+<p>
+To see a list of all the supported formats.
+</p>
+<p>
+For example, the TIFF format is defined like this:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+typedef VipsFormat VipsFormatTiff;
+typedef VipsFormatClass VipsFormatTiffClass;
+
+static void
+vips_format_tiff_class_init( VipsFormatTiffClass *class )
+{
+	VipsObjectClass *object_class = (VipsObjectClass *) class;
+	VipsFormatClass *format_class = (VipsFormatClass *) class;
+
+	object_class-&gt;nickname = "tiff";
+	object_class-&gt;description = _( "TIFF" );
+
+	format_class-&gt;is_a = istiff;
+	format_class-&gt;header = tiff2vips_header;
+	format_class-&gt;load = im_tiff2vips;
+	format_class-&gt;save = im_vips2tiff;
+	format_class-&gt;get_flags = tiff_flags;
+	format_class-&gt;suffs = tiff_suffs;
+}
+
+static void
+vips_format_tiff_init( VipsFormatTiff *object )
+{
+}
+
+G_DEFINE_TYPE( VipsFormatTiff, vips_format_tiff, VIPS_TYPE_FORMAT );
+</pre></div>
+<p>
+</p>
+<p>
+Then call <code class="function">vips_format_tiff_get_type()</code> somewhere in your init code to link
+the format into VIPS (though of course the tiff format is linked in for you
+already).
+</p>
+</div>
+<hr>
+<div class="refsect2" title="VipsFormatClass">
+<a name="VipsFormatClass"></a><h3>VipsFormatClass</h3>
+<pre class="programlisting">typedef struct {
+	VipsObjectClass parent_class;
+
+	/* Is a file in this format.
+	 */
+	gboolean (*is_a)( const char * );
+
+	/* Read just the header into the IMAGE.
+	 */
+	int (*header)( const char *, IMAGE * );
+
+	/* Load the whole image.
+	 */
+	int (*load)( const char *, IMAGE * );
+
+	/* Write the IMAGE to the file in this format.
+	 */
+	int (*save)( IMAGE *, const char * );
+
+	/* Get the flags for this file in this format.
+	 */
+	VipsFormatFlags (*get_flags)( const char * );
+
+	/* Loop over formats in this order, default 0. We need this because
+	 * some formats can be read by several loaders (eg. tiff can be read
+	 * by the libMagick loader as well as by the tiff loader), and we want
+	 * to make sure the better loader comes first.
+	 */
+	int priority;
+
+	/* Null-terminated list of allowed suffixes, eg. ".tif", ".tiff".
+	 */
+	const char **suffs;
+} VipsFormatClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="vips_format_map ()">
+<a name="vips-format-map"></a><h3>vips_format_map ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              vips_format_map                     (<em class="parameter"><code><a class="link" href="libvips-util.html#VSListMap2Fn" title="VSListMap2Fn ()"><span class="type">VSListMap2Fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Apply a function to every <a class="link" href="VipsFormat.html#VipsFormatClass" title="VipsFormatClass"><code class="literal">VipsFormatClass</code></a> that VIPS knows about. Formats
+are presented to the function in priority order. 
+</p>
+<p>
+Like all VIPS map functions, if <em class="parameter"><code>fn</code></em> returns <code class="literal">NULL</code>, iteration continues. If
+it returns non-<code class="literal">NULL</code>, iteration terminates and that value is returned. The
+map function returns <code class="literal">NULL</code> if all calls return <code class="literal">NULL</code>.
+</p>
+<p>
+See also: <code class="function">im_slist_map()</code>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>function to apply to each <a class="link" href="VipsFormat.html#VipsFormatClass" title="VipsFormatClass"><span class="type">VipsFormatClass</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the result of iteration
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_format_for_file ()">
+<a name="vips-format-for-file"></a><h3>vips_format_for_file ()</h3>
+<pre class="programlisting"><a class="link" href="VipsFormat.html#VipsFormatClass" title="VipsFormatClass"><span class="returnvalue">VipsFormatClass</span></a> *   vips_format_for_file                (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Searches for a format you could use to load a file.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html#vips-format-read" title="vips_format_read ()"><code class="function">vips_format_read()</code></a>, <a class="link" href="VipsFormat.html#vips-format-for-name" title="vips_format_for_name ()"><code class="function">vips_format_for_name()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>file to find a format for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a format on success, <code class="literal">NULL</code> on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_format_for_name ()">
+<a name="vips-format-for-name"></a><h3>vips_format_for_name ()</h3>
+<pre class="programlisting"><a class="link" href="VipsFormat.html#VipsFormatClass" title="VipsFormatClass"><span class="returnvalue">VipsFormatClass</span></a> *   vips_format_for_name                (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Searches for a format you could use to save a file.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html#vips-format-write" title="vips_format_write ()"><code class="function">vips_format_write()</code></a>, <a class="link" href="VipsFormat.html#vips-format-for-file" title="vips_format_for_file ()"><code class="function">vips_format_for_file()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name to find a format for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a format on success, <code class="literal">NULL</code> on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_format_get_flags ()">
+<a name="vips-format-get-flags"></a><h3>vips_format_get_flags ()</h3>
+<pre class="programlisting"><a class="link" href="VipsFormat.html#VipsFormatFlags" title="enum VipsFormatFlags"><span class="returnvalue">VipsFormatFlags</span></a>     vips_format_get_flags               (<em class="parameter"><code><a class="link" href="VipsFormat.html#VipsFormatClass" title="VipsFormatClass"><span class="type">VipsFormatClass</span></a> *format</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Get a set of flags for this file.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>format to test
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to test
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> flags for this format and file
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_format_read ()">
+<a name="vips-format-read"></a><h3>vips_format_read ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 vips_format_read                    (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Searches for a format for this file, then loads the file into <em class="parameter"><code>out</code></em>.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html#vips-format-write" title="vips_format_write ()"><code class="function">vips_format_write()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>write the file to this image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="vips_format_write ()">
+<a name="vips-format-write"></a><h3>vips_format_write ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 vips_format_write                   (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Searches for a format for this name, then saves <em class="parameter"><code>im</code></em> to it.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html#vips-format-read" title="vips_format_read ()"><code class="function">vips_format_read()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to write
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>file to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_jpeg2vips ()">
+<a name="im-jpeg2vips"></a><h3>im_jpeg2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_jpeg2vips                        (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Read a JPEG file into a VIPS image. It can read most 8-bit JPEG images, 
+including CMYK and YCbCr.
+</p>
+<p>
+You can embed options in the filename. They have the form:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+filename.jpg:<span class="emphasis"><em>shrink-factor</em></span>,<span class="emphasis"><em>fail</em></span>
+</pre></div>
+<p>
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+<span class="emphasis"><em>shrink-factor</em></span> 
+Shrink by this integer factor during load.  Allowed values are 1, 2, 4
+and 8. Shrinking during read is very much faster than decompressing the 
+whole image and then shrinking. 
+    </p></li>
+<li class="listitem"><p>
+<span class="emphasis"><em>fail</em></span> 
+This makes the JPEG reader fail on any warnings. This can be useful for 
+detecting truncated files, for example. Normally reading these produces 
+a warning, but no fatal error.  
+    </p></li>
+</ul></div>
+<p>
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+im_jpeg2vips( "fred.jpg:8" out );
+im_jpeg2vips( "fred.jpg:,fail" out );
+</pre></div>
+<p>
+</p>
+<p>
+The first example will shrink by a factor of 8 during load. The second will
+fail with an error if there are any problems loading the file.
+</p>
+<p>
+Any embedded ICC profiles are ignored: you always just get the RGB from 
+the file. Instead, the embedded profile will be attached to the image as 
+metadata.  You need to use something like <a class="link" href="libvips-colour.html#im-icc-import" title="im_icc_import ()"><code class="function">im_icc_import()</code></a> to get CIE 
+values from the file. Any EXIF data is also attached as VIPS metadata.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-vips2jpeg" title="im_vips2jpeg ()"><code class="function">im_vips2jpeg()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vips2jpeg ()">
+<a name="im-vips2jpeg"></a><h3>im_vips2jpeg ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_vips2jpeg                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Write a VIPS image to a file as JPEG.
+</p>
+<p>
+You can embed options in the filename. They have the form:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+filename.jpg:<span class="emphasis"><em>compression</em></span>,<span class="emphasis"><em>profile</em></span>
+</pre></div>
+<p>
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+<span class="emphasis"><em>compression</em></span> 
+Compress with this quality factor. Default 75.
+    </p></li>
+<li class="listitem"><p>
+<span class="emphasis"><em>profile</em></span> 
+Attach this ICC profile. For example, "fred.jpg:,/home/john/srgb.icc" will 
+embed the profile stored in the file "/home/john/srgb.icc" in the JPEG 
+image. This does not affect the pixels which are written, just the way 
+they are tagged. You can use the special string "none" to mean 
+"don't attach a profile".
+    </p></li>
+</ul></div>
+<p>
+</p>
+<p>
+If no profile is specified in the save string and the VIPS header 
+contains an ICC profile named IM_META_ICC_NAME ("icc-profile-data"), the
+profile from the VIPS header will be attached.
+</p>
+<p>
+The image is automatically converted to RGB, Monochrome or CMYK before 
+saving. Any metadata attached to the image is saved as EXIF, if possible.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+im_vips2jpeg( in, "fred.jpg:99,none" );
+</pre></div>
+<p>
+</p>
+<p>
+Will write "fred.jpg" at high-quality with no ICC profile.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-jpeg2vips" title="im_jpeg2vips ()"><code class="function">im_jpeg2vips()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>image to save 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to write to 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vips2mimejpeg ()">
+<a name="im-vips2mimejpeg"></a><h3>im_vips2mimejpeg ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_vips2mimejpeg                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> qfac</code></em>);</pre>
+<p>
+As <a class="link" href="VipsFormat.html#im-vips2jpeg" title="im_vips2jpeg ()"><code class="function">im_vips2jpeg()</code></a>, but save as a mime jpeg on stdout.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-vips2jpeg" title="im_vips2jpeg ()"><code class="function">im_vips2jpeg()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>image to save 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>qfac</code></em> :</span></p></td>
+<td>JPEG quality factor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vips2bufjpeg ()">
+<a name="im-vips2bufjpeg"></a><h3>im_vips2bufjpeg ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_vips2bufjpeg                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> qfac</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **obuf</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *olen</code></em>);</pre>
+<p>
+As <a class="link" href="VipsFormat.html#im-vips2jpeg" title="im_vips2jpeg ()"><code class="function">im_vips2jpeg()</code></a>, but save as a memory buffer. The memory is allocated
+local to <em class="parameter"><code>out</code></em> (that is, when <em class="parameter"><code>out</code></em> is closed the memory will be released,
+pass <code class="literal">NULL</code> to release yourself). 
+</p>
+<p>
+The address of the buffer is returned in <em class="parameter"><code>obuf</code></em>, the length of the buffer in
+<em class="parameter"><code>olen</code></em>. <em class="parameter"><code>olen</code></em> should really be a size_t rather than an int :-(
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-vips2jpeg" title="im_vips2jpeg ()"><code class="function">im_vips2jpeg()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>image to save 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>allocate output buffer local to this
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>qfac</code></em> :</span></p></td>
+<td>JPEG quality factor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obuf</code></em> :</span></p></td>
+<td>return output buffer here
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>olen</code></em> :</span></p></td>
+<td>return output length here
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_tiff2vips ()">
+<a name="im-tiff2vips"></a><h3>im_tiff2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tiff2vips                        (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Read a TIFF file into a VIPS image. It is a full baseline TIFF 6 reader, 
+with extensions for tiled images, multipage images, LAB colour space, 
+pyramidal images and JPEG compression. including CMYK and YCbCr.
+</p>
+<p>
+You can embed a page number in the filename. For example: 
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+im_tiff2vips( "fred.tif:23", out );
+</pre></div>
+<p>
+</p>
+<p>
+Will read page 23. By default, the operation reads the first page.
+</p>
+<p>
+Any ICC profile is read out and attached to the VIPS image.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-vips2tiff" title="im_vips2tiff ()"><code class="function">im_vips2tiff()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vips2tiff ()">
+<a name="im-vips2tiff"></a><h3>im_vips2tiff ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_vips2tiff                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Write a VIPS image to a file as TIFF.
+</p>
+<p>
+You can embed options in the filename. They have the form:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+filename.tif:<span class="emphasis"><em>compression</em></span>,<span class="emphasis"><em>layout</em></span>,<span class="emphasis"><em>multi-res</em></span>,<span class="emphasis"><em>format</em></span>,<span class="emphasis"><em>resolution</em></span>,<span class="emphasis"><em>icc</em></span>, <span class="emphasis"><em>bigtiff</em></span>
+</pre></div>
+<p>
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p>
+<span class="emphasis"><em>compression</em></span> 
+should be one of "none" (no compression), "jpeg" (JPEG compression), 
+"deflate" (ZIP compression), "packbits" (TIFF packbits compression),
+"ccittfax4" (CCITT Group 4 fax encoding), "lzw"  (Lempel-Ziv compression).
+</p>
+<p>
+"jpeg" compression can be followed by a ":" character and a JPEG quality
+level; "lzw" and "deflate" can be followed by a ":" and predictor value. 
+The default compression type is "none", the default JPEG quality factor 
+is 75.
+</p>
+<p>
+Predictor is not set by default. There are three predictor values recognised
+at the moment (2007, July): 1 is no prediction, 2 is a horizontal 
+differencing and 3 is a floating point predictor. Refer to the libtiff 
+specifications for further discussion of various predictors. In short, 
+predictor helps to better compress image, especially in case of digital 
+photos or scanned images and bit depths &gt; 8. Try it to find whether it 
+works for your images.
+</p>
+<p>
+JPEG compression is a good lossy compressor for photographs, packbits is 
+good for 1-bit images, and deflate is the best lossless compression TIFF 
+can do. LZW has patent problems and is no longer recommended.
+    </p>
+</li>
+<li class="listitem">
+<p>
+<span class="emphasis"><em>layout</em></span> 
+should be "strip" (strip layout) or "tile" (tiled layout).
+</p>
+<p>
+"tile" layout can be followed by a ":" character and the horizontal and
+vertical tile size, separated by a "x" character. The default layout is
+"strip", and the default tile size is 128 by 128 pixels.
+    </p>
+</li>
+<li class="listitem"><p>
+<span class="emphasis"><em>multi-res</em></span> 
+should be "flat" (single image) or "pyramid" (many images arranged in a 
+pyramid). The default multi-res mode is "flat".
+    </p></li>
+<li class="listitem"><p>
+<span class="emphasis"><em>format</em></span> 
+shoiuld be "manybit" (don't bit-reduce images) or "onebit" (one band 8 
+bit images are saved as 1 bit). The default format is "multibit". 
+    </p></li>
+<li class="listitem">
+<p>
+<span class="emphasis"><em>resolution</em></span> 
+should be "res_cm"  (output resolution unit is pixels per centimetre) or 
+"res_inch"  (output resolution unit is pixels per inch). The default 
+resolution unit is taken from the header field "resolution-unit"
+(<a class="link" href="libvips-meta.html#IM-META-RESOLUTION-UNIT:CAPS" title="IM_META_RESOLUTION_UNIT"><span class="type">IM_META_RESOLUTION_UNIT</span></a> in C). If this field is not set, then 
+VIPS defaults to cm.
+</p>
+<p>
+The unit can optionally be followed by a ":" character and the 
+horizontal and vertical resolution, separated by a "x" character. 
+You can have a single number with no "x" and set the horizontal and 
+vertical resolutions together. 
+    </p>
+</li>
+<li class="listitem"><p>
+<span class="emphasis"><em>icc</em></span> 
+Attach this ICC profile. 
+This does not affect the pixels which are written, just the way 
+they are tagged. 
+    </p></li>
+<li class="listitem"><p>
+<span class="emphasis"><em>bigtiff</em></span> 
+Set this to 8 to enable bigtiff output. Bigtiff is a variant of the TIFF
+format that allows more than 4GB in a file.
+    </p></li>
+</ul></div>
+<p>
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+im_vips2jpeg( in, "fred.tif:jpeg,tile,pyramid" );
+</pre></div>
+<p>
+</p>
+<p>
+Will write "fred.tif" as a tiled jpeg-compressed pyramid.
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+im_vips2jpeg( in, "fred.tif:packbits,tile,,onebit" ); 
+</pre></div>
+<p>
+</p>
+<p>
+Writes a tiled one bit TIFF image (provided fred.v is a one band 8 bit 
+image) compressed with packbits.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-tiff2vips" title="im_tiff2vips ()"><code class="function">im_tiff2vips()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>image to save 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to write to 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_tile_cache ()">
+<a name="im-tile-cache"></a><h3>im_tile_cache ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tile_cache                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> max_tiles</code></em>);</pre>
+<p>
+This operation behaves rather like <a class="link" href="libvips-conversion.html#im-copy" title="im_copy ()"><code class="function">im_copy()</code></a> between images
+<em class="parameter"><code>in</code></em> and <em class="parameter"><code>out</code></em>, except that it keeps a cache of computed pixels. 
+This cache is made of up to <em class="parameter"><code>max_tiles</code></em> tiles (a value of -1 for
+means any number of tiles), and each tile is of size <em class="parameter"><code>tile_width</code></em>
+by <em class="parameter"><code>tile_height</code></em> pixels. Each cache tile is made with a single call to 
+<a class="link" href="libvips-generate.html#im-prepare" title="im_prepare ()"><code class="function">im_prepare()</code></a>.
+</p>
+<p>
+This is a lower-level operation than <a class="link" href="libvips-generate.html#im-cache" title="im_cache ()"><code class="function">im_cache()</code></a> since it does no 
+subdivision. It is suitable for caching the output of operations like
+<a class="link" href="VipsFormat.html#im-exr2vips" title="im_exr2vips ()"><code class="function">im_exr2vips()</code></a> on tiled images.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-cache" title="im_cache ()"><code class="function">im_cache()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tile_width</code></em> :</span></p></td>
+<td>tile width
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tile_height</code></em> :</span></p></td>
+<td>tile height
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max_tiles</code></em> :</span></p></td>
+<td>maximum number of tiles to cache
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_magick2vips ()">
+<a name="im-magick2vips"></a><h3>im_magick2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_magick2vips                      (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Read in an image using libMagick, the ImageMagick library. This library can
+read more than 80 file formats, including SVG, BMP, EPS, DICOM and many 
+others.
+The reader can handle any ImageMagick image, including the float and double
+formats. It will work with any quantum size, including HDR. Any metadata
+attached to the libMagick image is copied on to the VIPS image.
+</p>
+<p>
+The reader should also work with most versions of GraphicsMagick.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_exr2vips ()">
+<a name="im-exr2vips"></a><h3>im_exr2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_exr2vips                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Read a OpenEXR file into a VIPS image. 
+</p>
+<p>
+The reader can handle scanline and tiled OpenEXR images. It can't handle
+OpenEXR colour management, image attributes, many pixel formats, anything
+other than RGBA.
+</p>
+<p>
+This reader uses the rather limited OpenEXR C API. It should really be
+redone in C++.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_ppm2vips ()">
+<a name="im-ppm2vips"></a><h3>im_ppm2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_ppm2vips                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Read a PPM/PBM/PGM/PFM file into a VIPS image. 
+It can read 1, 8, 16 and 32 bit images, colour or monochrome,
+stored in binary or in ASCII. One bit images become 8 bit VIPS images, 
+with 0 and 255 for 0 and 1.
+</p>
+<p>
+PFM images have the scale factor attached as "pfm-scale".
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-vips2ppm" title="im_vips2ppm ()"><code class="function">im_vips2ppm()</code></a>, <a class="link" href="libvips-meta.html#im-meta-get-double" title="im_meta_get_double ()"><code class="function">im_meta_get_double()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vips2ppm ()">
+<a name="im-vips2ppm"></a><h3>im_vips2ppm ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_vips2ppm                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Write a VIPS image to a file as PPM. It can write 8, 16 or
+32 bit unsigned integer images, float images, colour or monochrome, 
+stored as binary or ASCII. 
+Integer images of more than 8 bits can only be stored in ASCII.
+</p>
+<p>
+When writing float (PFM) images the scale factor is set from the 
+"pfm-scale" metadata.
+</p>
+<p>
+The storage format is indicated by a filename extension, for example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting"> 
+im_vips2ppm( im, "fred.ppm:ascii" )
+</pre></div>
+<p>
+</p>
+<p>
+will write to "fred.ppm" in ascii format. The default is binary.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-ppm2vips" title="im_ppm2vips ()"><code class="function">im_ppm2vips()</code></a>, <a class="link" href="libvips-meta.html#im-meta-set-double" title="im_meta_set_double ()"><code class="function">im_meta_set_double()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>image to save 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to write to 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_analyze2vips ()">
+<a name="im-analyze2vips"></a><h3>im_analyze2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_analyze2vips                     (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Load an Analyze 6.0 file. If <em class="parameter"><code>filename</code></em> is "fred.img", this will look for
+an image header called "fred.hdr" and pixel data in "fred.img". You can
+also load "fred" or "fred.hdr".
+</p>
+<p>
+Images are
+loaded lazilly and byte-swapped, if necessary. The Analyze metadata is read
+and attached.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="libvips-meta.html#im-meta-get" title="im_meta_get ()"><code class="function">im_meta_get()</code></a>, <a class="link" href="libvips-conversion.html#im-grid" title="im_grid ()"><code class="function">im_grid()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_csv2vips ()">
+<a name="im-csv2vips"></a><h3>im_csv2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_csv2vips                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Load a CSV (comma-separated values) file. The output image is always 1 
+band (monochrome), <a class="link" href="libvips-image.html#IM-BANDFMT-DOUBLE:CAPS"><code class="literal">IM_BANDFMT_DOUBLE</code></a>. 
+The reader is deliberately rather fussy: it will fail if there are any 
+short lines, or if the file is too short. It will ignore lines that are 
+too long.
+</p>
+<p>
+Read options can be embedded in the filename. The options can be given 
+in any order and are:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+<span class="emphasis"><em>skip:lines-to-skip</em></span> The number of lines to skip at 
+the start of the file. Default zero.
+    </p></li>
+<li class="listitem"><p>
+<span class="emphasis"><em>line:lines-to-read</em></span> 
+The number of lines to read from the file. Default -1, meaning read to end of
+file.
+    </p></li>
+<li class="listitem"><p>
+<span class="emphasis"><em>whi:whitespace-characters</em></span> 
+The skippable whitespace characters. Default <span class="emphasis"><em>space</em></span> and 
+double quotes (").
+Whitespace characters are always run together.
+    </p></li>
+<li class="listitem"><p>
+<span class="emphasis"><em>sep:separator-characters</em></span> 
+The characters that separate fields. Default ;,<span class="emphasis"><em>tab</em></span>. 
+Separators are never run together.
+    </p></li>
+</ul></div>
+<p>
+</p>
+<p>
+For example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+im_csv2vips( "fred.csv:skip:58,sep:\,,line:3", out );
+</pre></div>
+<p>
+</p>
+<p>
+Will read three lines starting at line 59, with comma as the only
+allowed separator. Note that the ',' has to be escaped with a backslash.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-vips2csv" title="im_vips2csv ()"><code class="function">im_vips2csv()</code></a>, <a class="link" href="libvips-mask.html#im-read-dmask" title="im_read_dmask ()"><code class="function">im_read_dmask()</code></a>, <a class="link" href="VipsFormat.html#im-ppm2vips" title="im_ppm2vips ()"><code class="function">im_ppm2vips()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vips2csv ()">
+<a name="im-vips2csv"></a><h3>im_vips2csv ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_vips2csv                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Save a CSV (comma-separated values) file. The image is written
+one line of text per scanline. Complex numbers are written as 
+"(real,imaginary)" and will need extra parsing I guess. The image must
+have a single band.
+</p>
+<p>
+Write options can be embedded in the filename. The options can be given 
+in any order and are:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+<span class="emphasis"><em>sep:separator-string</em></span> 
+The string to use to separate numbers in the output. 
+The default is "\\t" (tab).
+    </p></li></ul></div>
+<p>
+</p>
+<p>
+For example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+im_csv2vips( in, "fred.csv:sep:\t" );
+</pre></div>
+<p>
+</p>
+<p>
+Will write to fred.csv, separating numbers with tab characters.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-csv2vips" title="im_csv2vips ()"><code class="function">im_csv2vips()</code></a>, <a class="link" href="libvips-mask.html#im-write-dmask" title="im_write_dmask ()"><code class="function">im_write_dmask()</code></a>, <a class="link" href="VipsFormat.html#im-vips2ppm" title="im_vips2ppm ()"><code class="function">im_vips2ppm()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>image to save 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to write to 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_png2vips ()">
+<a name="im-png2vips"></a><h3>im_png2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_png2vips                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Read a PNG file into a VIPS image. It can read all png images, including 8-
+and 16-bit images, 1 and 3 channel, with and without an alpha channel.
+</p>
+<p>
+There is no support for embedded ICC profiles.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-vips2png" title="im_vips2png ()"><code class="function">im_vips2png()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vips2png ()">
+<a name="im-vips2png"></a><h3>im_vips2png ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_vips2png                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Write a VIPS image to a file as PNG.
+</p>
+<p>
+You can embed options in the filename. They have the form:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+filename.png:<span class="emphasis"><em>compression</em></span>,<span class="emphasis"><em>interlace</em></span>
+</pre></div>
+<p>
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+<span class="emphasis"><em>compression</em></span> 
+Compress with this much effort (0 - 9). Default 6.
+    </p></li>
+<li class="listitem"><p>
+<span class="emphasis"><em>interlace</em></span> 
+0 means don't interlace (the default), 1 selects ADAM7 interlacing. Beware
+than an interlaced PNG can be up to 7 times slower to write than a
+non-interlaced image.
+    </p></li>
+</ul></div>
+<p>
+</p>
+<p>
+There is no support for attaching ICC profiles to PNG images.
+</p>
+<p>
+The image is automatically converted to RGB, RGBA, Monochrome or Mono +
+alpha before saving. Images with more than one byte per band element are
+saved as 16-bit PNG, others are saved as 8-bit PNG.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+im_vips2png( in, "fred.png:0,1" );
+</pre></div>
+<p>
+</p>
+<p>
+Will write "fred.png" with no compression and with ADAM7 interlacing.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-png2vips" title="im_png2vips ()"><code class="function">im_png2vips()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>image to save 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to write to 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_raw2vips ()">
+<a name="im-raw2vips"></a><h3>im_raw2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_raw2vips                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bpp</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> offset</code></em>);</pre>
+<p>
+This operation mmaps the file, setting <em class="parameter"><code>out</code></em> so that access to that 
+image will read from the file.
+</p>
+<p>
+Use functions like <a class="link" href="libvips-conversion.html#im-copy-morph" title="im_copy_morph ()"><code class="function">im_copy_morph()</code></a> to set the pixel type, byte ordering 
+and so on.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-vips2raw" title="im_vips2raw ()"><code class="function">im_vips2raw()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to read
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>image width in pixels
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td>image height in pixels
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bpp</code></em> :</span></p></td>
+<td>bytes per pixel 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>skip this many bytes at the start of the file
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vips2raw ()">
+<a name="im-vips2raw"></a><h3>im_vips2raw ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_vips2raw                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>);</pre>
+<p>
+Writes the pixels in <em class="parameter"><code>in</code></em> to the file descriptor. It's handy for writing
+writers for other formats.
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="VipsFormat.html#im-raw2vips" title="im_raw2vips ()"><code class="function">im_raw2vips()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>image to save 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fd</code></em> :</span></p></td>
+<td>file descriptor to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_mat2vips ()">
+<a name="im-mat2vips"></a><h3>im_mat2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_mat2vips                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Read a Matlab save file into a VIPS image. 
+</p>
+<p>
+This operation searches the save
+file for the first array variable with between 1 and 3 dimensions and loads
+it as an image. It will not handle complex images. It does not handle
+sparse matrices. 
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_rad2vips ()">
+<a name="im-rad2vips"></a><h3>im_rad2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rad2vips                         (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Read a Radiance (HDR) file into a VIPS image. 
+</p>
+<p>
+Radiance files are read as <a class="link" href="libvips-image.html#IM-CODING-RAD:CAPS"><span class="type">IM_CODING_RAD</span></a>. They have one byte for each of
+red, green and blue, and one byte of shared exponent. Some operations (like
+<a class="link" href="libvips-conversion.html#im-extract-area" title="im_extract_area ()"><code class="function">im_extract_area()</code></a>) can work directly with images in this format, but 
+mmany (all the arithmetic operations, for example) will not. unpack 
+<a class="link" href="libvips-image.html#IM-CODING-RAD:CAPS"><span class="type">IM_CODING_RAD</span></a> images to 3 band float with <a class="link" href="libvips-colour.html#im-rad2float" title="im_rad2float ()"><code class="function">im_rad2float()</code></a> if you want to do
+arithmetic on them.
+</p>
+<p>
+This operation ignores some header fields, like VIEW and DATE. It will not 
+rotate/flip as the FORMAT string asks.
+</p>
+<p>
+Sections of this reader from Greg Ward and Radiance with kind permission. 
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="libvips-colour.html#im-rad2float" title="im_rad2float ()"><code class="function">im_rad2float()</code></a>, <a class="link" href="VipsFormat.html#im-vips2rad" title="im_vips2rad ()"><code class="function">im_vips2rad()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to load
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vips2rad ()">
+<a name="im-vips2rad"></a><h3>im_vips2rad ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_vips2rad                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Write a VIPS image in Radiance (HDR) format.
+</p>
+<p>
+This operation needs an <a class="link" href="libvips-image.html#IM-CODING-RAD:CAPS"><span class="type">IM_CODING_RAD</span></a> image, or a three-band float image.
+</p>
+<p>
+Sections of this reader from Greg Ward and Radiance with kind permission. 
+</p>
+<p>
+See also: <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>, <a class="link" href="libvips-colour.html#im-float2rad" title="im_float2rad ()"><code class="function">im_float2rad()</code></a>, <a class="link" href="VipsFormat.html#im-rad2vips" title="im_rad2vips ()"><code class="function">im_rad2vips()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>image to save 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to write to 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="VipsFormat.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-image.html" title="image">image</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>callback</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch01.html" title="Core VIPS API">
+<link rel="prev" href="libvips-check.html" title="check">
+<link rel="next" href="libvips-meta.html" title="meta">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-check.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-meta.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-callback.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-callback.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="callback">
+<a name="libvips-callback"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-callback.top_of_page"></a>callback</span></h2>
+<p>callback — image callbacks</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-callback.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-callback.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 (<a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()">*im_callback_fn</a>)                   (<em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-callback.html#im-add-close-callback" title="im_add_close_callback ()">im_add_close_callback</a>               (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-callback.html#im-add-preclose-callback" title="im_add_preclose_callback ()">im_add_preclose_callback</a>            (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-callback.html#im-add-postclose-callback" title="im_add_postclose_callback ()">im_add_postclose_callback</a>           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-callback.html#im-add-written-callback" title="im_add_written_callback ()">im_add_written_callback</a>             (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-callback.html#im-add-evalstart-callback" title="im_add_evalstart_callback ()">im_add_evalstart_callback</a>           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-callback.html#im-add-eval-callback" title="im_add_eval_callback ()">im_add_eval_callback</a>                (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-callback.html#im-add-evalend-callback" title="im_add_evalend_callback ()">im_add_evalend_callback</a>             (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-callback.html#im-add-invalidate-callback" title="im_add_invalidate_callback ()">im_add_invalidate_callback</a>          (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-callback.description"></a><h2>Description</h2>
+<p>
+Images trigger various callbacks at various points in their lifetime. You
+can register callbacks and be notified of various events, such as
+evaluation progress or close.
+</p>
+<p>
+Callbacks should return 0 for success, or -1 on error, setting an error
+message with <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-callback.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_callback_fn ()">
+<a name="im-callback-fn"></a><h3>im_callback_fn ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*im_callback_fn)                   (<em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_add_close_callback ()">
+<a name="im-add-close-callback"></a><h3>im_add_close_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_add_close_callback               (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Attaches a close callback <em class="parameter"><code>fn</code></em> to <em class="parameter"><code>im</code></em>.
+</p>
+<p>
+Close callbacks are triggered exactly once, when the image has been closed
+and most resources freed, but just before the memory for <em class="parameter"><code>im</code></em> is released.
+</p>
+<p>
+Close callbacks are a good place to free memory that was need to generate
+<em class="parameter"><code>im</code></em>. You can close other images and there
+may even be circularity in your close lists.
+</p>
+<p>
+See also: <a class="link" href="libvips-memory.html#im-malloc" title="im_malloc ()"><code class="function">im_malloc()</code></a> (implemented with <a class="link" href="libvips-callback.html#im-add-close-callback" title="im_add_close_callback ()"><code class="function">im_add_close_callback()</code></a>),
+<a class="link" href="libvips-callback.html#im-add-preclose-callback" title="im_add_preclose_callback ()"><code class="function">im_add_preclose_callback()</code></a> (called earlier in the image close process),
+<a class="link" href="libvips-memory.html#im-free" title="im_free ()"><code class="function">im_free()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach callback to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>callback function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_add_preclose_callback ()">
+<a name="im-add-preclose-callback"></a><h3>im_add_preclose_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_add_preclose_callback            (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Attaches a pre-close callback <em class="parameter"><code>fn</code></em> to <em class="parameter"><code>im</code></em>.
+</p>
+<p>
+Pre-close callbacks are triggered exactly once just before an image is
+closed. The image is still valid and you can do anything with it, except
+stop close from happening.
+</p>
+<p>
+Pre-close callbacks are a good place for languae bindings to break as
+association between the language object and the VIPS image.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach callback to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>callback function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_add_postclose_callback ()">
+<a name="im-add-postclose-callback"></a><h3>im_add_postclose_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_add_postclose_callback           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Attaches a close callback <em class="parameter"><code>fn</code></em> to <em class="parameter"><code>im</code></em>.
+</p>
+<p>
+Post-close callbacks are triggered exactly once, just before the memory
+associated with <em class="parameter"><code>im</code></em> is released. 
+</p>
+<p>
+Close callbacks are a good place to delete temporary files. You can close 
+other images and there may even be circularity in your close lists.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach callback to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>callback function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_add_written_callback ()">
+<a name="im-add-written-callback"></a><h3>im_add_written_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_add_written_callback             (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Attaches a written callback <em class="parameter"><code>fn</code></em> to <em class="parameter"><code>im</code></em>.
+</p>
+<p>
+Written callbacks are triggered exactly once, just after <em class="parameter"><code>im</code></em> has been
+written to.
+</p>
+<p>
+Written callbacks are a good place to do background writes to files. VIPS
+uses them to implement (for example) writing to im_open("poop.jpg","w")
+triggering a write to jpeg.
+</p>
+<p>
+Evalend callbacks happen after a real write loop, whereas written is
+triggered even for just attaching some callbacks to a "p" image.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach callback to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>callback function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_add_evalstart_callback ()">
+<a name="im-add-evalstart-callback"></a><h3>im_add_evalstart_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_add_evalstart_callback           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Attaches an eval start callback <em class="parameter"><code>fn</code></em> to <em class="parameter"><code>im</code></em>.
+</p>
+<p>
+Eval start callbacks are called at the beginning of evaluation. They are a 
+good
+place to get ready to give progress notification.
+They can be called 
+many times. Every evalend call is guaranteed to have a matching evalstart,
+but not necessarily any eval calls.
+</p>
+<p>
+Eval callbacks are inherited. That is, any images which use your  image
+as  input  will inherit your eval callbacks. As a result, if you add an
+eval callback to an image, you will be notified if any later image uses
+your image for computation.
+</p>
+<p>
+If  a  later image adds eval callbacks, then the inheritance is broken,
+and that image will recieve notification instead.
+</p>
+<p>
+See also: <a class="link" href="libvips-callback.html#im-add-eval-callback" title="im_add_eval_callback ()"><code class="function">im_add_eval_callback()</code></a>, <a class="link" href="libvips-callback.html#im-add-evalend-callback" title="im_add_evalend_callback ()"><code class="function">im_add_evalend_callback()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach callback to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>callback function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_add_eval_callback ()">
+<a name="im-add-eval-callback"></a><h3>im_add_eval_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_add_eval_callback                (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Attaches an eval callback <em class="parameter"><code>fn</code></em> to <em class="parameter"><code>im</code></em>.
+</p>
+<p>
+Eval callbacks are called during evaluation and are a good place to give
+the user feedback about computation progress. In the eval callback, you may
+look at the <a class="link" href="libvips-image.html#VipsProgress" title="VipsProgress"><span class="type">VipsProgress</span></a> <span class="type">time</span> member of <span class="type">IMAGE</span> to get information about 
+the number of
+pels processed, elapsed time, and so on.
+</p>
+<p>
+Eval callbacks are inherited. That is, any images which use your  image
+as  input  will inherit your eval callbacks. As a result, if you add an
+eval callback to an image, you will be notified if any later image uses
+your image for computation.
+</p>
+<p>
+If  a  later image adds eval callbacks, then the inheritance is broken,
+and that image will recieve notification instead.
+</p>
+<p>
+See also: <a class="link" href="libvips-callback.html#im-add-evalend-callback" title="im_add_evalend_callback ()"><code class="function">im_add_evalend_callback()</code></a>, <a class="link" href="libvips-callback.html#im-add-evalstart-callback" title="im_add_evalstart_callback ()"><code class="function">im_add_evalstart_callback()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach callback to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>callback function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_add_evalend_callback ()">
+<a name="im-add-evalend-callback"></a><h3>im_add_evalend_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_add_evalend_callback             (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Attaches an eval end callback <em class="parameter"><code>fn</code></em> to <em class="parameter"><code>im</code></em>.
+</p>
+<p>
+Eval end callbacks are called at the end of evaluation. They are a good
+place to clean up after progress notification or to display some
+diagnostics about computation (eg. an overflow count). They can be called 
+many times. Every evalend call is guaranteed to have a matching evalstart,
+but not necessarily any eval calls.
+</p>
+<p>
+Eval callbacks are inherited. That is, any images which use your  image
+as  input  will inherit your eval callbacks. As a result, if you add an
+eval callback to an image, you will be notified if any later image uses
+your image for computation.
+</p>
+<p>
+If  a  later image adds eval callbacks, then the inheritance is broken,
+and that image will recieve notification instead.
+</p>
+<p>
+See also: <a class="link" href="libvips-callback.html#im-add-eval-callback" title="im_add_eval_callback ()"><code class="function">im_add_eval_callback()</code></a>, <a class="link" href="libvips-callback.html#im-add-evalstart-callback" title="im_add_evalstart_callback ()"><code class="function">im_add_evalstart_callback()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach callback to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>callback function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_add_invalidate_callback ()">
+<a name="im-add-invalidate-callback"></a><h3>im_add_invalidate_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_add_invalidate_callback          (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-callback.html#im-callback-fn" title="im_callback_fn ()"><span class="type">im_callback_fn</span></a> fn</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *a</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *b</code></em>);</pre>
+<p>
+Attaches an invalidate callback <em class="parameter"><code>fn</code></em> to <em class="parameter"><code>im</code></em>.
+</p>
+<p>
+Invalidate callbacks are triggered
+when VIPS invalidates the cache on an image. This is useful for
+removing images from other, higher-level caches.
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-invalidate" title="im_invalidate ()"><code class="function">im_invalidate()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to attach callback to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fn</code></em> :</span></p></td>
+<td>callback function
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>user data 1
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>user data 2
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-callback.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-image.html" title="image">image</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

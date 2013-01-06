@@ -1,0 +1,2433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>conversion</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch02.html" title="VIPS operation API by section">
+<link rel="prev" href="libvips-colour.html" title="colour">
+<link rel="next" href="libvips-convolution.html" title="convolution">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-colour.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-convolution.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-conversion.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-conversion.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="conversion">
+<a name="libvips-conversion"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-conversion.top_of_page"></a>conversion</span></h2>
+<p>conversion — convert images in some way: change band format, change header, insert, extract, join</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-conversion.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-conversion.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        <a class="link" href="libvips-conversion.html#im-vips2mask" title="im_vips2mask ()">im_vips2mask</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-mask2vips" title="im_mask2vips ()">im_mask2vips</a>                        (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-copy" title="im_copy ()">im_copy</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-copy-set" title="im_copy_set ()">im_copy_set</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsType" title="enum VipsType"><span class="type">VipsType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> xres</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> yres</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xoffset</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yoffset</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-copy-set-meta" title="im_copy_set_meta ()">im_copy_set_meta</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">GValue</span> *meta</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-copy-morph" title="im_copy_morph ()">im_copy_morph</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> bandfmt</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsCoding" title="enum VipsCoding"><span class="type">VipsCoding</span></a> coding</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-copy-swap" title="im_copy_swap ()">im_copy_swap</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-copy-native" title="im_copy_native ()">im_copy_native</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> is_msb_first</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-copy-file" title="im_copy_file ()">im_copy_file</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-clip2fmt" title="im_clip2fmt ()">im_clip2fmt</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-scale" title="im_scale ()">im_scale</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-msb" title="im_msb ()">im_msb</a>                              (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-msb-band" title="im_msb_band ()">im_msb_band</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> band</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-c2amph" title="im_c2amph ()">im_c2amph</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-c2rect" title="im_c2rect ()">im_c2rect</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-ri2c" title="im_ri2c ()">im_ri2c</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *real_in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *imag_in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-c2imag" title="im_c2imag ()">im_c2imag</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-c2real" title="im_c2real ()">im_c2real</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-scaleps" title="im_scaleps ()">im_scaleps</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-falsecolour" title="im_falsecolour ()">im_falsecolour</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-gaussnoise" title="im_gaussnoise ()">im_gaussnoise</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> mean</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-black" title="im_black ()">im_black</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-text" title="im_text ()">im_text</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *text</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *font</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> alignment</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dpi</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-extract-band" title="im_extract_band ()">im_extract_band</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> band</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-extract-bands" title="im_extract_bands ()">im_extract_bands</a>                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> band</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> nbands</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-extract-area" title="im_extract_area ()">im_extract_area</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> left</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> top</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-extract-areabands" title="im_extract_areabands ()">im_extract_areabands</a>                (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> left</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> top</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> band</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> nbands</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-embed" title="im_embed ()">im_embed</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> type</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-bandjoin" title="im_bandjoin ()">im_bandjoin</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-gbandjoin" title="im_gbandjoin ()">im_gbandjoin</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> **in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()">im_insert</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *main</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sub</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-insert-noexpand" title="im_insert_noexpand ()">im_insert_noexpand</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *main</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sub</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-insertset" title="im_insertset ()">im_insertset</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *main</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sub</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *y</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-lrjoin" title="im_lrjoin ()">im_lrjoin</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-tbjoin" title="im_tbjoin ()">im_tbjoin</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-replicate" title="im_replicate ()">im_replicate</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> across</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> down</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-grid" title="im_grid ()">im_grid</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> across</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> down</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-wrap" title="im_wrap ()">im_wrap</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-fliphor" title="im_fliphor ()">im_fliphor</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-flipver" title="im_flipver ()">im_flipver</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-rot90" title="im_rot90 ()">im_rot90</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-rot180" title="im_rot180 ()">im_rot180</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-rot270" title="im_rot270 ()">im_rot270</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-subsample" title="im_subsample ()">im_subsample</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-zoom" title="im_zoom ()">im_zoom</a>                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-conversion.html#im-system" title="im_system ()">im_system</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *cmd</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **out</code></em>);
+<span class="returnvalue">IMAGE</span> *             <a class="link" href="libvips-conversion.html#im-system-image" title="im_system_image ()">im_system_image</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *in_format</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *out_format</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *cmd_format</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **log</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-conversion.description"></a><h2>Description</h2>
+<p>
+These operations convert an image in some way. They can be split into a two
+main groups.
+</p>
+<p>
+The first set of operations change an image's format in some way. You
+can change the band format (for example, cast to 32-bit unsigned
+int), form complex images from real images, convert images to
+matrices and back, change header fields, and a few others.
+</p>
+<p>
+The second group move pixels about in some way. You can flip, rotate,
+extract, insert and join pairs of images in various ways.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-conversion.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_vips2mask ()">
+<a name="im-vips2mask"></a><h3>im_vips2mask ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="returnvalue">DOUBLEMASK</span></a> *        im_vips2mask                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *out</code></em>);</pre>
+<p>
+Make a mask from an image. All images are cast to <a class="link" href="libvips-image.html#IM-BANDFMT-DOUBLE:CAPS"><code class="literal">IM_BANDFMT_DOUBLE</code></a>
+before processing. There are two cases for handling bands:
+</p>
+<p>
+If the image has a single band, <a class="link" href="libvips-conversion.html#im-vips2mask" title="im_vips2mask ()"><code class="function">im_vips2mask()</code></a> will write a mask the same
+size as the image.
+</p>
+<p>
+If the image has more than one band, it must be one pixel high or wide. In
+this case the output mask uses that axis to represent band values.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-mask2vips" title="im_mask2vips ()"><code class="function">im_mask2vips()</code></a>, <a class="link" href="libvips-arithmetic.html#im-measure-area" title="im_measure_area ()"><code class="function">im_measure_area()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>outname</code></em> :</span></p></td>
+<td>name for output mask 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> with <em class="parameter"><code>outname</code></em> set as the name, or NULL on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_mask2vips ()">
+<a name="im-mask2vips"></a><h3>im_mask2vips ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_mask2vips                        (<em class="parameter"><code><a class="link" href="libvips-mask.html#DOUBLEMASK:CAPS" title="DOUBLEMASK"><span class="type">DOUBLEMASK</span></a> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Write a one-band, <a class="link" href="libvips-image.html#IM-BANDFMT-DOUBLE:CAPS"><code class="literal">IM_BANDFMT_DOUBLE</code></a> image to <em class="parameter"><code>out</code></em> based on mask <em class="parameter"><code>in</code></em>.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-vips2mask" title="im_vips2mask ()"><code class="function">im_vips2mask()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input mask
+<em class="parameter"><code>out</code></em> output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_copy ()">
+<a name="im-copy"></a><h3>im_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_copy                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Copy an image. VIPS copies images by copying pointers, so this operation is
+fast, even for very large images.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-copy" title="im_copy ()"><code class="function">im_copy()</code></a>, <a class="link" href="libvips-conversion.html#im-copy-set" title="im_copy_set ()"><code class="function">im_copy_set()</code></a>, <a class="link" href="libvips-conversion.html#im-copy-morph" title="im_copy_morph ()"><code class="function">im_copy_morph()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_copy_set ()">
+<a name="im-copy-set"></a><h3>im_copy_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_copy_set                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsType" title="enum VipsType"><span class="type">VipsType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> xres</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> yres</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xoffset</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yoffset</code></em>);</pre>
+<p>
+Copy an image, changing informational header fields on the way.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-copy" title="im_copy ()"><code class="function">im_copy()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>new VipsType to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xres</code></em> :</span></p></td>
+<td>new Xres to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>yres</code></em> :</span></p></td>
+<td>new Yres to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xoffset</code></em> :</span></p></td>
+<td>new Xoffset to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>yoffset</code></em> :</span></p></td>
+<td>new Yoffset to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_copy_set_meta ()">
+<a name="im-copy-set-meta"></a><h3>im_copy_set_meta ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_copy_set_meta                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *field</code></em>,
+                                                         <em class="parameter"><code><span class="type">GValue</span> *meta</code></em>);</pre>
+<p>
+Copy an image, changing a metadata field. You can use this to, for example,
+update the ICC profile attached to an image.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-copy" title="im_copy ()"><code class="function">im_copy()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>field</code></em> :</span></p></td>
+<td>metadata field to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value to set for the field
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_copy_morph ()">
+<a name="im-copy-morph"></a><h3>im_copy_morph ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_copy_morph                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> bandfmt</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsCoding" title="enum VipsCoding"><span class="type">VipsCoding</span></a> coding</code></em>);</pre>
+<p>
+Copy an image, changing header fields which alter pixel addressing. The
+pixel data itself is unchanged, this operation just changes the header
+fields. 
+</p>
+<p>
+If you change the header fields such that the <code class="function">sizeof()</code> a pixel changes,
+you'll get an error.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-copy" title="im_copy ()"><code class="function">im_copy()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bands</code></em> :</span></p></td>
+<td>new number of bands
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bandfmt</code></em> :</span></p></td>
+<td>new band format
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>coding</code></em> :</span></p></td>
+<td>new coding
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_copy_swap ()">
+<a name="im-copy-swap"></a><h3>im_copy_swap ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_copy_swap                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Copy an image, swapping byte order between little and big endian. This
+really does change image pixels and does not just alter the header.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-copy" title="im_copy ()"><code class="function">im_copy()</code></a>, <a class="link" href="libvips-util.html#im-amiMSBfirst" title="im_amiMSBfirst ()"><code class="function">im_amiMSBfirst()</code></a>, <a class="link" href="libvips-check.html#im-isMSBfirst" title="im_isMSBfirst ()"><code class="function">im_isMSBfirst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_copy_native ()">
+<a name="im-copy-native"></a><h3>im_copy_native ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_copy_native                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> is_msb_first</code></em>);</pre>
+<p>
+Copy an image to native order, that is, the order for the executing
+program.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-copy-swap" title="im_copy_swap ()"><code class="function">im_copy_swap()</code></a>, <a class="link" href="libvips-util.html#im-amiMSBfirst" title="im_amiMSBfirst ()"><code class="function">im_amiMSBfirst()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>is_msb_first</code></em> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if <em class="parameter"><code>in</code></em> is in most-significant first form
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_copy_file ()">
+<a name="im-copy-file"></a><h3>im_copy_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_copy_file                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Copy an image to a disc file, then copy again to output. If the image is
+already a disc file, just copy straight through.
+</p>
+<p>
+The disc file is allocated in the same way as <a class="link" href="libvips-conversion.html#im-system-image" title="im_system_image ()"><code class="function">im_system_image()</code></a>. A disc
+file is created in /tmp (change this with the TMPDIR environment
+variable) named something like "vips-12-34985.v" and the image is written
+to that file. The file is automatically deleted when <em class="parameter"><code>out</code></em> is closed.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-copy" title="im_copy ()"><code class="function">im_copy()</code></a>, <a class="link" href="libvips-conversion.html#im-system-image" title="im_system_image ()"><code class="function">im_system_image()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_clip2fmt ()">
+<a name="im-clip2fmt"></a><h3>im_clip2fmt ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_clip2fmt                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> fmt</code></em>);</pre>
+<p>
+Convert <em class="parameter"><code>in</code></em> to <em class="parameter"><code>fmt</code></em> format. You can convert between any pair of formats.
+Floats are truncated (not rounded). Out of range values are clipped.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-scale" title="im_scale ()"><code class="function">im_scale()</code></a>, <a class="link" href="libvips-conversion.html#im-ri2c" title="im_ri2c ()"><code class="function">im_ri2c()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>format to convert to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_scale ()">
+<a name="im-scale"></a><h3>im_scale ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_scale                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Search the image for the maximum and minimum value, then return the image
+as unsigned 8-bit, scaled so that the maximum value is 255 and the
+minimum is zero.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-clip2fmt" title="im_clip2fmt ()"><code class="function">im_clip2fmt()</code></a>, <a class="link" href="libvips-conversion.html#im-scaleps" title="im_scaleps ()"><code class="function">im_scaleps()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_msb ()">
+<a name="im-msb"></a><h3>im_msb ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_msb                              (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn any integer image to 8-bit unsigned char by discarding all but the most
+significant byte.
+Signed values are converted to unsigned by adding 128.
+</p>
+<p>
+This operator also works for LABQ coding.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-msb-band" title="im_msb_band ()"><code class="function">im_msb_band()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_msb_band ()">
+<a name="im-msb-band"></a><h3>im_msb_band ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_msb_band                         (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> band</code></em>);</pre>
+<p>
+Turn any integer image to a single-band 8-bit unsigned char by discarding 
+all but the most significant byte from the selected band. 
+Signed values are converted to unsigned by adding 128.
+</p>
+<p>
+This operator also works for LABQ coding.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-msb-band" title="im_msb_band ()"><code class="function">im_msb_band()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>band</code></em> :</span></p></td>
+<td>select this band
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_c2amph ()">
+<a name="im-c2amph"></a><h3>im_c2amph ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_c2amph                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert a complex image from rectangular to polar coordinates. Angles are
+expressed in degrees.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-c2rect" title="im_c2rect ()"><code class="function">im_c2rect()</code></a>, <a class="link" href="libvips-arithmetic.html#im-abs" title="im_abs ()"><code class="function">im_abs()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_c2rect ()">
+<a name="im-c2rect"></a><h3>im_c2rect ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_c2rect                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert a complex image from polar to rectangular coordinates. Angles are
+expressed in degrees.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-c2amph" title="im_c2amph ()"><code class="function">im_c2amph()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_ri2c ()">
+<a name="im-ri2c"></a><h3>im_ri2c ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_ri2c                             (<em class="parameter"><code><span class="type">IMAGE</span> *real_in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *imag_in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Compose two real images to make a complex image. If either <em class="parameter"><code>in1</code></em> or <em class="parameter"><code>in2</code></em> are
+<a class="link" href="libvips-image.html#IM-BANDFMT-DOUBLE:CAPS"><code class="literal">IM_BANDFMT_DOUBLE</code></a>, <em class="parameter"><code>out</code></em> is <a class="link" href="libvips-image.html#IM-BANDFMT-DPCOMPLEX:CAPS"><code class="literal">IM_BANDFMT_DPCOMPLEX</code></a>. Otherwise <em class="parameter"><code>out</code></em> is
+<a class="link" href="libvips-image.html#IM-BANDFMT-COMPLEX:CAPS"><code class="literal">IM_BANDFMT_COMPLEX</code></a>.
+</p>
+<p>
+If the number of bands differs, one of the images 
+must have one band. In this case, an n-band image is formed from the 
+one-band image by joining n copies of the one-band image together, and then
+the two n-band images are operated upon.
+</p>
+<p>
+The two input images are cast up to the smallest common type (see table 
+Smallest common format in 
+arithmetic).
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-c2real" title="im_c2real ()"><code class="function">im_c2real()</code></a>, <a class="link" href="libvips-conversion.html#im-c2imag" title="im_c2imag ()"><code class="function">im_c2imag()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>input image 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>input image 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_c2imag ()">
+<a name="im-c2imag"></a><h3>im_c2imag ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_c2imag                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Extract the imaginary part of a complex image.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-c2real" title="im_c2real ()"><code class="function">im_c2real()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_c2real ()">
+<a name="im-c2real"></a><h3>im_c2real ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_c2real                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Extract the real part of a complex image.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-c2imag" title="im_c2imag ()"><code class="function">im_c2imag()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_scaleps ()">
+<a name="im-scaleps"></a><h3>im_scaleps ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_scaleps                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Scale a power spectrum. Transform with log10(1.0 + pow(x, 0.25)) + .5, 
+then scale so max == 255.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-scale" title="im_scale ()"><code class="function">im_scale()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_falsecolour ()">
+<a name="im-falsecolour"></a><h3>im_falsecolour ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_falsecolour                      (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Turn a 1-band 8-bit image into a 3-band 8-bit image with a false colour
+map. The map is supposed to make small differences in brightness more
+obvious.
+</p>
+<p>
+See also: <a class="link" href="libvips-histograms-lut.html#im-maplut" title="im_maplut ()"><code class="function">im_maplut()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_gaussnoise ()">
+<a name="im-gaussnoise"></a><h3>im_gaussnoise ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_gaussnoise                       (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> mean</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> sigma</code></em>);</pre>
+<p>
+Make a one band float image of gaussian noise with the specified
+distribution. The noise distribution is created by averaging 12 random 
+numbers with the appropriate weights.
+</p>
+<p>
+See also: <a class="link" href="libvips-convolution.html#im-addgnoise" title="im_addgnoise ()"><code class="function">im_addgnoise()</code></a>, <a class="link" href="libvips-other.html#im-make-xy" title="im_make_xy ()"><code class="function">im_make_xy()</code></a>, <a class="link" href="libvips-conversion.html#im-text" title="im_text ()"><code class="function">im_text()</code></a>, <a class="link" href="libvips-conversion.html#im-black" title="im_black ()"><code class="function">im_black()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>output width
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>output height
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mean</code></em> :</span></p></td>
+<td>average value in output
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sigma</code></em> :</span></p></td>
+<td>standard deviation in output
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_black ()">
+<a name="im-black"></a><h3>im_black ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_black                            (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>);</pre>
+<p>
+Make a black unsigned char image of a specified size.
+</p>
+<p>
+See also: <a class="link" href="libvips-other.html#im-make-xy" title="im_make_xy ()"><code class="function">im_make_xy()</code></a>, <a class="link" href="libvips-conversion.html#im-text" title="im_text ()"><code class="function">im_text()</code></a>, <a class="link" href="libvips-conversion.html#im-gaussnoise" title="im_gaussnoise ()"><code class="function">im_gaussnoise()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>output width
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>output height
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bands</code></em> :</span></p></td>
+<td>number of output bands
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_text ()">
+<a name="im-text"></a><h3>im_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_text                             (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *text</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *font</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> alignment</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> dpi</code></em>);</pre>
+<p>
+Draw the string <em class="parameter"><code>text</code></em> to an image. <em class="parameter"><code>out</code></em> is a one-band 8-bit
+unsigned char image, with 0 for no text and 255 for text. Values inbetween
+are used for anti-aliasing.
+</p>
+<p>
+<em class="parameter"><code>text</code></em> is the text to render as a UTF-8 string. It can contain Pango markup,
+for example "&lt;i&gt;The&lt;/i&gt;Guardian".
+</p>
+<p>
+<em class="parameter"><code>font</code></em> is the font to render with, selected by fontconfig. Examples might be
+"sans 12" or perhaps "bitstream charter bold 10".
+</p>
+<p>
+<em class="parameter"><code>width</code></em> is the maximum number of pixels across to draw within. If the
+generated text is wider than this, it will wrap to a new line. In this
+case, <em class="parameter"><code>alignment</code></em> can be used to set the alignment style for multi-line
+text. 0 means left-align, 1 centre, 2 right-align.
+</p>
+<p>
+<em class="parameter"><code>dpi</code></em> sets the resolution to render at. "sans 12" at 72 dpi draws characters
+approximately 12 pixels high.
+</p>
+<p>
+See also: <a class="link" href="libvips-other.html#im-make-xy" title="im_make_xy ()"><code class="function">im_make_xy()</code></a>, <a class="link" href="libvips-conversion.html#im-black" title="im_black ()"><code class="function">im_black()</code></a>, <a class="link" href="libvips-conversion.html#im-gaussnoise" title="im_gaussnoise ()"><code class="function">im_gaussnoise()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td>utf-8 text string to render
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>font</code></em> :</span></p></td>
+<td>font to render with
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>render within this many pixels across
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>alignment</code></em> :</span></p></td>
+<td>left/centre/right alignment
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dpi</code></em> :</span></p></td>
+<td>render at this resolution
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_extract_band ()">
+<a name="im-extract-band"></a><h3>im_extract_band ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_extract_band                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> band</code></em>);</pre>
+<p>
+Extract a single band from an image. 
+Extracting outside <em class="parameter"><code>in</code></em> will trigger an error.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-bandjoin" title="im_bandjoin ()"><code class="function">im_bandjoin()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>band</code></em> :</span></p></td>
+<td>band to extract
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_extract_bands ()">
+<a name="im-extract-bands"></a><h3>im_extract_bands ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_extract_bands                    (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> band</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> nbands</code></em>);</pre>
+<p>
+Extract a number of bands from an image. 
+Extracting outside <em class="parameter"><code>in</code></em> will trigger an error.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-bandjoin" title="im_bandjoin ()"><code class="function">im_bandjoin()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>band</code></em> :</span></p></td>
+<td>first band to extract
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nbands</code></em> :</span></p></td>
+<td>number of bands to extract
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_extract_area ()">
+<a name="im-extract-area"></a><h3>im_extract_area ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_extract_area                     (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> left</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> top</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>);</pre>
+<p>
+Extract an area from an image. 
+Extracting outside <em class="parameter"><code>in</code></em> will trigger an error.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-embed" title="im_embed ()"><code class="function">im_embed()</code></a>, <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()"><code class="function">im_insert()</code></a>, <a class="link" href="libvips-conversion.html#im-extract-bands" title="im_extract_bands ()"><code class="function">im_extract_bands()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>left</code></em> :</span></p></td>
+<td>left edge of rectangle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>top</code></em> :</span></p></td>
+<td>top edge of rectangle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>width of rectangle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td>height of rectangle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_extract_areabands ()">
+<a name="im-extract-areabands"></a><h3>im_extract_areabands ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_extract_areabands                (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> left</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> top</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> band</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> nbands</code></em>);</pre>
+<p>
+Extract an area and a number of bands from an image. Bands number from
+zero. Extracting outside <em class="parameter"><code>in</code></em> will trigger an error.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-embed" title="im_embed ()"><code class="function">im_embed()</code></a>, <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()"><code class="function">im_insert()</code></a>, <a class="link" href="libvips-conversion.html#im-extract-area" title="im_extract_area ()"><code class="function">im_extract_area()</code></a>, <a class="link" href="libvips-conversion.html#im-extract-bands" title="im_extract_bands ()"><code class="function">im_extract_bands()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>left</code></em> :</span></p></td>
+<td>left edge of rectangle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>top</code></em> :</span></p></td>
+<td>top edge rectangle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>width of rectangle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td>height of rectangle
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>band</code></em> :</span></p></td>
+<td>first band to extract
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nbands</code></em> :</span></p></td>
+<td>number of bands to extract
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_embed ()">
+<a name="im-embed"></a><h3>im_embed ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_embed                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> type</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>);</pre>
+<p>
+The opposite of <code class="function">im_extract()</code>: embed an image within a larger image. <em class="parameter"><code>type</code></em>
+controls what appears in the new pels:
+</p>
+<p>
+</p>
+<table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td align="left">0</td>
+<td align="left">black pels (all bytes == 0)</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">extend pels from image edge</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">repeat image</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">mirror image</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">white pels (all bytes == 255)</td>
+</tr>
+</tbody>
+</table>
+<p>
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-extract-area" title="im_extract_area ()"><code class="function">im_extract_area()</code></a>, <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()"><code class="function">im_insert()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>how to generate the edge pixels
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>place <em class="parameter"><code>in</code></em> at this x position in <em class="parameter"><code>out</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>place <em class="parameter"><code>in</code></em> at this y position in <em class="parameter"><code>out</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>
+<em class="parameter"><code>out</code></em> should be this many pixels across
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td>
+<em class="parameter"><code>out</code></em> should be this many pixels down
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_bandjoin ()">
+<a name="im-bandjoin"></a><h3>im_bandjoin ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_bandjoin                         (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Join two images bandwise. 
+If the two images
+have n and m bands respectively, then the output image will have n + m
+bands, with the first n coming from the first image and the last m
+from the second. 
+</p>
+<p>
+The images must be the same size. 
+The two input images are cast up to the smallest common type (see table 
+Smallest common format in 
+arithmetic).
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-gbandjoin" title="im_gbandjoin ()"><code class="function">im_gbandjoin()</code></a>, <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()"><code class="function">im_insert()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>first input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>second input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_gbandjoin ()">
+<a name="im-gbandjoin"></a><h3>im_gbandjoin ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_gbandjoin                        (<em class="parameter"><code><span class="type">IMAGE</span> **in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);</pre>
+<p>
+Join a set of images together, bandwise. 
+If the images
+have n and m bands, then the output image will have n + m
+bands, with the first n coming from the first image and the last m
+from the second. 
+</p>
+<p>
+The images must be the same size. 
+The input images are cast up to the smallest common type (see table 
+Smallest common format in 
+arithmetic).
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-bandjoin" title="im_bandjoin ()"><code class="function">im_bandjoin()</code></a>, <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()"><code class="function">im_insert()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>vector of input images
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nim</code></em> :</span></p></td>
+<td>number of input images
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_insert ()">
+<a name="im-insert"></a><h3>im_insert ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_insert                           (<em class="parameter"><code><span class="type">IMAGE</span> *main</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sub</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Insert one image into another. <em class="parameter"><code>sub</code></em> is inserted into image <em class="parameter"><code>main</code></em> at
+position <em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em> relative to the top LH corner of <em class="parameter"><code>main</code></em>. <em class="parameter"><code>out</code></em> is made large
+enough to hold both <em class="parameter"><code>main</code></em> and <em class="parameter"><code>sub</code></em>. Any areas of <em class="parameter"><code>out</code></em> not coming from
+either <em class="parameter"><code>main</code></em> or <em class="parameter"><code>sub</code></em> are set to black (binary 0). If <em class="parameter"><code>sub</code></em> overlaps <em class="parameter"><code>main</code></em>,
+<em class="parameter"><code>sub</code></em> will appear on top of <em class="parameter"><code>main</code></em>. 
+</p>
+<p>
+If the number of bands differs, one of the images 
+must have one band. In this case, an n-band image is formed from the 
+one-band image by joining n copies of the one-band image together, and then
+the two n-band images are operated upon.
+</p>
+<p>
+The two input images are cast up to the smallest common type (see table 
+Smallest common format in 
+arithmetic).
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-insert-noexpand" title="im_insert_noexpand ()"><code class="function">im_insert_noexpand()</code></a>, <a class="link" href="libvips-conversion.html#im-lrjoin" title="im_lrjoin ()"><code class="function">im_lrjoin()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>main</code></em> :</span></p></td>
+<td>big image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sub</code></em> :</span></p></td>
+<td>small image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>left position of <em class="parameter"><code>sub</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>top position of <em class="parameter"><code>sub</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_insert_noexpand ()">
+<a name="im-insert-noexpand"></a><h3>im_insert_noexpand ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_insert_noexpand                  (<em class="parameter"><code><span class="type">IMAGE</span> *main</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sub</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Insert one image into another. <em class="parameter"><code>sub</code></em> is inserted into image <em class="parameter"><code>main</code></em> at
+position <em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em> relative to the top LH corner of <em class="parameter"><code>main</code></em>. <em class="parameter"><code>out</code></em> is the same
+size as <em class="parameter"><code>main</code></em>. <em class="parameter"><code>sub</code></em> is clipped against the edges of <em class="parameter"><code>main</code></em>. 
+</p>
+<p>
+If the number of bands differs, one of the images 
+must have one band. In this case, an n-band image is formed from the 
+one-band image by joining n copies of the one-band image together, and then
+the two n-band images are operated upon.
+</p>
+<p>
+The two input images are cast up to the smallest common type (see table 
+Smallest common format in 
+arithmetic).
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-insert-noexpand" title="im_insert_noexpand ()"><code class="function">im_insert_noexpand()</code></a>, <a class="link" href="libvips-conversion.html#im-lrjoin" title="im_lrjoin ()"><code class="function">im_lrjoin()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>main</code></em> :</span></p></td>
+<td>big image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sub</code></em> :</span></p></td>
+<td>small image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>left position of <em class="parameter"><code>sub</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>top position of <em class="parameter"><code>sub</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_insertset ()">
+<a name="im-insertset"></a><h3>im_insertset ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_insertset                        (<em class="parameter"><code><span class="type">IMAGE</span> *main</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sub</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *y</code></em>);</pre>
+<p>
+Insert <em class="parameter"><code>sub</code></em> repeatedly into <em class="parameter"><code>main</code></em> at the positions listed in the arrays <em class="parameter"><code>x</code></em>,
+<em class="parameter"><code>y</code></em> of length <em class="parameter"><code>n</code></em>. <em class="parameter"><code>out</code></em> is the same
+size as <em class="parameter"><code>main</code></em>. <em class="parameter"><code>sub</code></em> is clipped against the edges of <em class="parameter"><code>main</code></em>. 
+</p>
+<p>
+This operation is fast for large <em class="parameter"><code>n</code></em>, but will use a memory buffer the size
+of <em class="parameter"><code>out</code></em>. It's useful for things like making scatter plots.
+</p>
+<p>
+If the number of bands differs, one of the images 
+must have one band. In this case, an n-band image is formed from the 
+one-band image by joining n copies of the one-band image together, and then
+the two n-band images are operated upon.
+</p>
+<p>
+The two input images are cast up to the smallest common type (see table 
+Smallest common format in 
+arithmetic).
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()"><code class="function">im_insert()</code></a>, <a class="link" href="libvips-conversion.html#im-lrjoin" title="im_lrjoin ()"><code class="function">im_lrjoin()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>main</code></em> :</span></p></td>
+<td>big image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sub</code></em> :</span></p></td>
+<td>small image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>number of positions
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>left positions of <em class="parameter"><code>sub</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>top positions of <em class="parameter"><code>sub</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_lrjoin ()">
+<a name="im-lrjoin"></a><h3>im_lrjoin ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lrjoin                           (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Join <em class="parameter"><code>left</code></em> and <em class="parameter"><code>right</code></em> together, left-right. If one is taller than the
+other, <em class="parameter"><code>out</code></em> will be has high as the smaller.
+</p>
+<p>
+If the number of bands differs, one of the images 
+must have one band. In this case, an n-band image is formed from the 
+one-band image by joining n copies of the one-band image together, and then
+the two n-band images are operated upon.
+</p>
+<p>
+The two input images are cast up to the smallest common type (see table 
+Smallest common format in 
+arithmetic).
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()"><code class="function">im_insert()</code></a>, <a class="link" href="libvips-conversion.html#im-tbjoin" title="im_tbjoin ()"><code class="function">im_tbjoin()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>left</code></em> :</span></p></td>
+<td>image to go on left
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>right</code></em> :</span></p></td>
+<td>image to go on right
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_tbjoin ()">
+<a name="im-tbjoin"></a><h3>im_tbjoin ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_tbjoin                           (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Join <em class="parameter"><code>top</code></em> and <em class="parameter"><code>bottom</code></em> together, up-down. If one is wider than the
+other, <em class="parameter"><code>out</code></em> will be has wide as the smaller.
+</p>
+<p>
+If the number of bands differs, one of the images 
+must have one band. In this case, an n-band image is formed from the 
+one-band image by joining n copies of the one-band image together, and then
+the two n-band images are operated upon.
+</p>
+<p>
+The two input images are cast up to the smallest common type (see table 
+Smallest common format in 
+arithmetic).
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()"><code class="function">im_insert()</code></a>, <a class="link" href="libvips-conversion.html#im-tbjoin" title="im_tbjoin ()"><code class="function">im_tbjoin()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>top</code></em> :</span></p></td>
+<td>image to go on top
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bottom</code></em> :</span></p></td>
+<td>image to go on bottom
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_replicate ()">
+<a name="im-replicate"></a><h3>im_replicate ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_replicate                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> across</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> down</code></em>);</pre>
+<p>
+Replicate an image x times horizontally and vertically.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-embed" title="im_embed ()"><code class="function">im_embed()</code></a>, <a class="link" href="libvips-conversion.html#im-copy" title="im_copy ()"><code class="function">im_copy()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>across</code></em> :</span></p></td>
+<td>repeat <em class="parameter"><code>in</code></em> this many times across
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>down</code></em> :</span></p></td>
+<td>repeat <em class="parameter"><code>in</code></em> this many times down
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_grid ()">
+<a name="im-grid"></a><h3>im_grid ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_grid                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> tile_height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> across</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> down</code></em>);</pre>
+<p>
+Chop a tall thin image up into a set of tiles, lay the tiles out in a grid. 
+</p>
+<p>
+The input image should be a very tall, thin image containing a list of
+smaller images. Volumetric or time-sequence images are often laid out like
+this. This image is chopped into a series of tiles, each <em class="parameter"><code>tile_height</code></em>
+pixels high and the width of <em class="parameter"><code>in</code></em>. The tiles are then rearranged into a grid
+<em class="parameter"><code>across</code></em> tiles across and <em class="parameter"><code>down</code></em> tiles down in row-major order.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-embed" title="im_embed ()"><code class="function">im_embed()</code></a>, <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()"><code class="function">im_insert()</code></a>, <a class="link" href="libvips-conversion.html#im-lrjoin" title="im_lrjoin ()"><code class="function">im_lrjoin()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tile_height</code></em> :</span></p></td>
+<td>chop into tiles this high
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>across</code></em> :</span></p></td>
+<td>tiles across
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>down</code></em> :</span></p></td>
+<td>tiles down
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_wrap ()">
+<a name="im-wrap"></a><h3>im_wrap ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_wrap                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Slice an image up and move the segments about so that the pixel that was
+at 0, 0 is now at <em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em>.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-embed" title="im_embed ()"><code class="function">im_embed()</code></a>, <a class="link" href="libvips-conversion.html#im-replicate" title="im_replicate ()"><code class="function">im_replicate()</code></a>, <a class="link" href="libvips-freq-filt.html#im-rotquad" title="im_rotquad ()"><code class="function">im_rotquad()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>horizontal displacement
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>vertical displacement
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_fliphor ()">
+<a name="im-fliphor"></a><h3>im_fliphor ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_fliphor                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Flips an image left-right.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-flipver" title="im_flipver ()"><code class="function">im_flipver()</code></a>, <a class="link" href="libvips-conversion.html#im-rot90" title="im_rot90 ()"><code class="function">im_rot90()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_flipver ()">
+<a name="im-flipver"></a><h3>im_flipver ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_flipver                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Flips an image top-bottom.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-fliphor" title="im_fliphor ()"><code class="function">im_fliphor()</code></a>, <a class="link" href="libvips-conversion.html#im-rot90" title="im_rot90 ()"><code class="function">im_rot90()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_rot90 ()">
+<a name="im-rot90"></a><h3>im_rot90 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rot90                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Rotate an image 90 degrees.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-rot180" title="im_rot180 ()"><code class="function">im_rot180()</code></a>, <a class="link" href="libvips-conversion.html#im-rot270" title="im_rot270 ()"><code class="function">im_rot270()</code></a>, <a class="link" href="libvips-resample.html#im-affinei-all" title="im_affinei_all ()"><code class="function">im_affinei_all()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_rot180 ()">
+<a name="im-rot180"></a><h3>im_rot180 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rot180                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Rotate an image 180 degrees.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-rot90" title="im_rot90 ()"><code class="function">im_rot90()</code></a>, <a class="link" href="libvips-conversion.html#im-rot270" title="im_rot270 ()"><code class="function">im_rot270()</code></a>, <a class="link" href="libvips-resample.html#im-affinei-all" title="im_affinei_all ()"><code class="function">im_affinei_all()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_rot270 ()">
+<a name="im-rot270"></a><h3>im_rot270 ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rot270                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Rotate an image 270 degrees.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-rot180" title="im_rot180 ()"><code class="function">im_rot180()</code></a>, <a class="link" href="libvips-conversion.html#im-rot90" title="im_rot90 ()"><code class="function">im_rot90()</code></a>, <a class="link" href="libvips-resample.html#im-affinei-all" title="im_affinei_all ()"><code class="function">im_affinei_all()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_subsample ()">
+<a name="im-subsample"></a><h3>im_subsample ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_subsample                        (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Subsample an image by an integer fraction. This is fast nearest-neighbour
+shrink.
+</p>
+<p>
+See also: <a class="link" href="libvips-resample.html#im-shrink" title="im_shrink ()"><code class="function">im_shrink()</code></a>, <a class="link" href="libvips-resample.html#im-affinei" title="im_affinei ()"><code class="function">im_affinei()</code></a>, <a class="link" href="libvips-conversion.html#im-zoom" title="im_zoom ()"><code class="function">im_zoom()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xshrink</code></em> :</span></p></td>
+<td>horizontal shrink factor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>yshrink</code></em> :</span></p></td>
+<td>vertical shrink factor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_zoom ()">
+<a name="im-zoom"></a><h3>im_zoom ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_zoom                             (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Zoom an image by repeating pixels. This is fast nearest-neighbour
+zoom.
+</p>
+<p>
+See also: <a class="link" href="libvips-resample.html#im-affinei" title="im_affinei ()"><code class="function">im_affinei()</code></a>, <a class="link" href="libvips-conversion.html#im-subsample" title="im_subsample ()"><code class="function">im_subsample()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xfac</code></em> :</span></p></td>
+<td>horizontal scale factor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>yfac</code></em> :</span></p></td>
+<td>vertical scale factor
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_system ()">
+<a name="im-system"></a><h3>im_system ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_system                           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *cmd</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **out</code></em>);</pre>
+<p>
+<a class="link" href="libvips-conversion.html#im-system" title="im_system ()"><code class="function">im_system()</code></a> runs a command on an image, returning the command's output as a
+string. The command is executed with <code class="function">popen()</code>, the first '%<code class="literal">s</code>' in the 
+command being substituted for a filename.
+</p>
+<p>
+If the IMAGE is a file on disc, then the filename will be the name of the 
+real file. If the image is in memory, or the result of a computation, 
+then a new file is created in the temporary area called something like 
+"vips_XXXXXX.v", and that filename given to the command. The file is 
+deleted when the command finishes.
+</p>
+<p>
+The environment variable TMPDIR can be used to set the temporary 
+directory. If it is not set, it defaults to "/tmp".
+</p>
+<p>
+In all cases, <em class="parameter"><code>log</code></em> must be freed with <a class="link" href="libvips-memory.html#im-free" title="im_free ()"><code class="function">im_free()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-system-image" title="im_system_image ()"><code class="function">im_system_image()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to run command on
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cmd</code></em> :</span></p></td>
+<td>command to run
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>stdout of command is returned here
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_system_image ()">
+<a name="im-system-image"></a><h3>im_system_image ()</h3>
+<pre class="programlisting"><span class="returnvalue">IMAGE</span> *             im_system_image                     (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *in_format</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *out_format</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *cmd_format</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **log</code></em>);</pre>
+<p>
+<a class="link" href="libvips-conversion.html#im-system-image" title="im_system_image ()"><code class="function">im_system_image()</code></a> runs a command, passing an image in and getting an image
+back. The command's stdout is returned in <em class="parameter"><code>log</code></em>. 
+</p>
+<p>
+First, <em class="parameter"><code>im</code></em> is written to a file. The filename is formed by substituting
+something like "vips-49857-1" for the first %<code class="literal">s</code> in <em class="parameter"><code>in_format</code></em>, then
+prepending "/tmp". If the environment variable TMPDIR is defined, it
+can be used to set a different temporary directory. If <em class="parameter"><code>in_format</code></em> is
+something like "%<code class="literal">s</code>.png", the file will be written in PNG format.
+</p>
+<p>
+Next an output filename is created in the same way using <em class="parameter"><code>out_format</code></em>. The
+command string to run is made by substituting the first %<code class="literal">s</code> in <em class="parameter"><code>cmd_format</code></em>
+for the name of the input file and the second %<code class="literal">s</code> for the output filename.
+</p>
+<p>
+The command is executed with <code class="function">popen()</code> and the output captured in <em class="parameter"><code>log</code></em>. If
+the command fails, the temporary files are deleted and <a class="link" href="libvips-conversion.html#im-system-image" title="im_system_image ()"><code class="function">im_system_image()</code></a>
+returns NULL. <em class="parameter"><code>log</code></em> is still set.
+</p>
+<p>
+If the command succeeds, the input file is deleted, the output file opened,
+and returned. Closing the output image will automatically delete the file.
+</p>
+<p>
+In all cases, <em class="parameter"><code>log</code></em> must be freed with <a class="link" href="libvips-memory.html#im-free" title="im_free ()"><code class="function">im_free()</code></a>.
+</p>
+<p>
+For example, this call will run the ImageMagick convert program on an
+image, using JPEG files to pass images into and out of the convert command.
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+im_system_image( in, out, 
+  "%s.jpg", "%s.jpg", "convert %s -swirl 45 %s", 
+  &amp;log )
+</pre></div>
+<p>
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-system" title="im_system ()"><code class="function">im_system()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to run command on
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in_format</code></em> :</span></p></td>
+<td>write input file like this
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_format</code></em> :</span></p></td>
+<td>write output filename like this
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cmd_format</code></em> :</span></p></td>
+<td>command to run
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>log</code></em> :</span></p></td>
+<td>stdout of command is returned here
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> an image on success, NULL on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-conversion.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-resample.html" title="resample">resample</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>inplace</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch03.html" title="VIPS operation API by section (no gtkdoc comments yet)">
+<link rel="prev" href="libvips-mask.html" title="mask">
+<link rel="next" href="libvips-mosaicing.html" title="mosaicing">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libvips-mask.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-mosaicing.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-inplace.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-inplace.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="inplace">
+<a name="libvips-inplace"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-inplace.top_of_page"></a>inplace</span></h2>
+<p>inplace — in-place paintbox operations: flood, paste, line,
+circle</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-inplace.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-inplace.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-plotmask" title="im_plotmask ()">im_plotmask</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ix</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> iy</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *mask</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-smear" title="im_smear ()">im_smear</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ix</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> iy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-smudge" title="im_smudge ()">im_smudge</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ix</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> iy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-paintrect" title="im_paintrect ()">im_paintrect</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-circle" title="im_circle ()">im_circle</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> cx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> cy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> radius</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> intensity</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-insertplace" title="im_insertplace ()">im_insertplace</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *main</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sub</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-fastline" title="im_fastline ()">im_fastline</a>                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y2</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *pel</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-fastlineuser" title="im_fastlineuser ()">im_fastlineuser</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> (fn) ()</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *client1</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *client2</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *client3</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-readpoint" title="im_readpoint ()">im_readpoint</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *pel</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-flood" title="im_flood ()">im_flood</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *dout</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-flood-blob" title="im_flood_blob ()">im_flood_blob</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *dout</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-flood-other" title="im_flood_other ()">im_flood_other</a>                      (<em class="parameter"><code><span class="type">IMAGE</span> *test</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mark</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> serial</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *dout</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-flood-copy" title="im_flood_copy ()">im_flood_copy</a>                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-flood-blob-copy" title="im_flood_blob_copy ()">im_flood_blob_copy</a>                  (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-flood-other-copy" title="im_flood_other_copy ()">im_flood_other_copy</a>                 (<em class="parameter"><code><span class="type">IMAGE</span> *test</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mark</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> serial</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-inplace.html#im-lineset" title="im_lineset ()">im_lineset</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *ink</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *x1v</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *y1v</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *x2v</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *y2v</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-inplace.description"></a><h2>Description</h2>
+<p>
+These operations modify the input image. You can't easily use them in
+pipelines, but they are useful for paintbox-style programs.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-inplace.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_plotmask ()">
+<a name="im-plotmask"></a><h3>im_plotmask ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_plotmask                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ix</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> iy</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *mask</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_smear ()">
+<a name="im-smear"></a><h3>im_smear ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_smear                            (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ix</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> iy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_smudge ()">
+<a name="im-smudge"></a><h3>im_smudge ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_smudge                           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ix</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> iy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_paintrect ()">
+<a name="im-paintrect"></a><h3>im_paintrect ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_paintrect                        (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *r</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_circle ()">
+<a name="im-circle"></a><h3>im_circle ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_circle                           (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> cx</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> cy</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> radius</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> intensity</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_insertplace ()">
+<a name="im-insertplace"></a><h3>im_insertplace ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_insertplace                      (<em class="parameter"><code><span class="type">IMAGE</span> *main</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *sub</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>);</pre>
+<p>
+Copy <em class="parameter"><code>sub</code></em> into <em class="parameter"><code>main</code></em> at position <em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em>. The two images must match in
+format, bands and coding.
+</p>
+<p>
+This an inplace operation, so <em class="parameter"><code>main</code></em> is changed. It does not thread and will
+not work well as part of a pipeline.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-insert" title="im_insert ()"><code class="function">im_insert()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>main</code></em> :</span></p></td>
+<td>main image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sub</code></em> :</span></p></td>
+<td>sub-image to insert
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>position to insert
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>position to insert
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_fastline ()">
+<a name="im-fastline"></a><h3>im_fastline ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_fastline                         (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y2</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *pel</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_fastlineuser ()">
+<a name="im-fastlineuser"></a><h3>im_fastlineuser ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_fastlineuser                     (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y1</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y2</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> (fn) ()</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *client1</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *client2</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *client3</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_readpoint ()">
+<a name="im-readpoint"></a><h3>im_readpoint ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_readpoint                        (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *pel</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_flood ()">
+<a name="im-flood"></a><h3>im_flood ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_flood                            (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *dout</code></em>);</pre>
+<p>
+Flood-fill <em class="parameter"><code>im</code></em> with <em class="parameter"><code>ink</code></em>, starting at position <em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em>. The filled area is
+bounded by pixels that are equal to the ink colour, in other words, it
+searches for pixels enclosed by a line of <em class="parameter"><code>ink</code></em>.
+</p>
+<p>
+The bounding box of the modified pixels is returned in <em class="parameter"><code>dout</code></em>.
+</p>
+<p>
+This an inplace operation, so <em class="parameter"><code>im</code></em> is changed. It does not thread and will
+not work well as part of a pipeline. On 32-bit machines, it will be limited
+to 2GB images.
+</p>
+<p>
+See also: <a class="link" href="libvips-inplace.html#im-flood-blob" title="im_flood_blob ()"><code class="function">im_flood_blob()</code></a>, <a class="link" href="libvips-inplace.html#im-flood-other" title="im_flood_other ()"><code class="function">im_flood_other()</code></a>, <a class="link" href="libvips-inplace.html#im-flood-blob-copy" title="im_flood_blob_copy ()"><code class="function">im_flood_blob_copy()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to fill
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>position to start fill
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>position to start fill
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ink</code></em> :</span></p></td>
+<td>colour to fill with
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dout</code></em> :</span></p></td>
+<td>output the bounding box of the filled area 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_flood_blob ()">
+<a name="im-flood-blob"></a><h3>im_flood_blob ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_flood_blob                       (<em class="parameter"><code><span class="type">IMAGE</span> *im</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *dout</code></em>);</pre>
+<p>
+Flood-fill <em class="parameter"><code>im</code></em> with <em class="parameter"><code>ink</code></em>, starting at position <em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em>. The filled area is
+bounded by pixels that are equal to the start pixel, in other words, it
+searches for a blob of same-coloured pixels.
+</p>
+<p>
+The bounding box of the modified pixels is returned in <em class="parameter"><code>dout</code></em>.
+</p>
+<p>
+This an inplace operation, so <em class="parameter"><code>im</code></em> is changed. It does not thread and will
+not work well as part of a pipeline. On 32-bit machines, it will be limited
+to 2GB images.
+</p>
+<p>
+See also: <a class="link" href="libvips-inplace.html#im-flood" title="im_flood ()"><code class="function">im_flood()</code></a>, <a class="link" href="libvips-inplace.html#im-flood-other" title="im_flood_other ()"><code class="function">im_flood_other()</code></a>, <a class="link" href="libvips-inplace.html#im-flood-blob-copy" title="im_flood_blob_copy ()"><code class="function">im_flood_blob_copy()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to fill
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>position to start fill
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>position to start fill
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ink</code></em> :</span></p></td>
+<td>colour to fill with
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dout</code></em> :</span></p></td>
+<td>output the bounding box of the filled area 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_flood_other ()">
+<a name="im-flood-other"></a><h3>im_flood_other ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_flood_other                      (<em class="parameter"><code><span class="type">IMAGE</span> *test</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mark</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> serial</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-rect.html#Rect" title="Rect"><span class="type">Rect</span></a> *dout</code></em>);</pre>
+<p>
+Flood-fill <em class="parameter"><code>mark</code></em> with <em class="parameter"><code>serial</code></em>, starting at position <em class="parameter"><code>x</code></em>, <em class="parameter"><code>y</code></em>. The filled 
+area is bounded by pixels in <em class="parameter"><code>test</code></em> that are equal to the start pixel, in 
+other words, it searches <em class="parameter"><code>test</code></em> for a blob of same-coloured pixels, marking 
+those pixels in <em class="parameter"><code>mark</code></em> with <em class="parameter"><code>serial</code></em>.
+</p>
+<p>
+The bounding box of the modified pixels is returned in <em class="parameter"><code>dout</code></em>.
+</p>
+<p>
+This an inplace operation, so <em class="parameter"><code>mark</code></em> is changed. It does not thread and will
+not work well as part of a pipeline. On 32-bit machines, it will be limited
+to 2GB images.
+</p>
+<p>
+See also: <a class="link" href="libvips-inplace.html#im-flood" title="im_flood ()"><code class="function">im_flood()</code></a>, <a class="link" href="libvips-morphology.html#im-label-regions" title="im_label_regions ()"><code class="function">im_label_regions()</code></a>, <a class="link" href="libvips-inplace.html#im-flood-blob-copy" title="im_flood_blob_copy ()"><code class="function">im_flood_blob_copy()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>test</code></em> :</span></p></td>
+<td>image to test
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mark</code></em> :</span></p></td>
+<td>image to mark
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>position to start fill
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>position to start fill
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>serial</code></em> :</span></p></td>
+<td>mark pixels with this number
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dout</code></em> :</span></p></td>
+<td>output the bounding box of the filled area 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, or -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_flood_copy ()">
+<a name="im-flood-copy"></a><h3>im_flood_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_flood_copy                       (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_flood_blob_copy ()">
+<a name="im-flood-blob-copy"></a><h3>im_flood_blob_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_flood_blob_copy                  (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">PEL</span> *ink</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_flood_other_copy ()">
+<a name="im-flood-other-copy"></a><h3>im_flood_other_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_flood_other_copy                 (<em class="parameter"><code><span class="type">IMAGE</span> *test</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mark</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> serial</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_lineset ()">
+<a name="im-lineset"></a><h3>im_lineset ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_lineset                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *ink</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *x1v</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *y1v</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *x2v</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> *y2v</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

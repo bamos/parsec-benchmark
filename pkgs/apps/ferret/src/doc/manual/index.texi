@@ -1,0 +1,129 @@
+@menu
+* Locality Sensitive Hashing
+* Sketch for L1 Distance
+* Sketch for L2 Distance
+* Sketch for Cosine Distance
+@end menu
+
+@anchor{x-index}
+@node Raw Table
+@subsection Raw Table
+@table @asis
+@item @emph{Name:}
+raw
+@item @emph{Type:}
+@code{CASS_DATA}
+@item @emph{Vector type:}
+@code{CASS_VEC_ANY}
+@item @emph{Vecset type:}
+@code{CASS_ANY}
+@item @emph{Vector distance type:}
+@code{CASS_ANY}
+@item @emph{Vecset distance type:}
+@code{CASS_ANY}
+@item @emph{Parameters:}
+@item @emph{Description:}
+This is the raw table holding the real feature data and is not actually an index
+or sketch.
+@end table
+
+@node Locality Sensitive Hashing
+@subsection Locality Sensitive Hashing
+@table @asis
+@item @emph{Name:}
+LSH
+@item @emph{Type:}
+@code{CASS_VEC_INDEX}
+@item @emph{Vector type:}
+@code{CASS_VEC_FLOAT}
+@item @emph{Vecset type:}
+@code{CASS_ANY}
+@item @emph{Vector distance type:}
+@code{CASS_VEC_DIST_TYPE_L1}
+@item @emph{Vecset distance type:}
+@code{CASS_ANY}
+@item @emph{Parameters:}
+@item @emph{Description:}
+@end table
+
+
+@node Sketch for L1 Distance
+@subsection Sketch for L1 Distance
+@table @asis
+@item @emph{Name:}
+sketch1
+@item @emph{Type:}
+@code{CASS_VEC_SKETCH}
+@item @emph{Vector type:}
+@code{CASS_VEC_FLOAT}
+@item @emph{Vecset type:}
+@code{CASS_ANY}
+@item @emph{Vector distance type:}
+@code{CASS_VEC_DIST_TYPE_L1}
+@item @emph{Vecset distance type:}
+@code{CASS_ANY}
+@item @emph{Parameters:}
+@table @gcctabopt
+@item -B @var{#bit}
+Size of sketch in bits.
+@item -H @var{#xor}
+How many bits to XOR in order to generate one sketch bit.
+@item -min @var{min_array}
+The minimal value of each dimension in the dataset.
+@item -rng @var{range_array}
+The range of each dimension in the dataset
+@item -weight @var{weight_array}
+The weight of each dimension in the dataset.  This parameter is optional and has
+a default value of @code{(1,1,...,1)}.
+@end table
+@item @emph{Description:}
+@end table
+
+@node Sketch for L2 Distance
+@subsection Sketch for L2 Distance
+@table @asis
+@item @emph{Name:}
+sketch2
+@item @emph{Type:}
+@code{CASS_VEC_SKETCH}
+@item @emph{Vector type:}
+@code{CASS_VEC_FLOAT}
+@item @emph{Vecset type:}
+@code{CASS_ANY}
+@item @emph{Vector distance type:}
+@code{CASS_VEC_DIST_TYPE_L2}
+@item @emph{Vecset distance type:}
+@code{CASS_ANY}
+@item @emph{Parameters:}
+@table @gcctabopt
+@item -M @var{#bit}
+Size of sketch in bits.
+@item -W @var{window}
+Window size.
+@end table
+@item @emph{Description:}
+@end table
+
+@node Sketch for Cosine Distance
+@subsection Sketch for Cosine Distance
+@table @asis
+@item @emph{Name:}
+sketch3
+@item @emph{Type:}
+@code{CASS_VEC_SKETCH}
+@item @emph{Vector type:}
+@code{CASS_VEC_FLOAT}
+@item @emph{Vecset type:}
+@code{CASS_ANY}
+@item @emph{Vector distance type:}
+@code{CASS_VEC_DIST_TYPE_COS}
+@item @emph{Vecset distance type:}
+@code{CASS_ANY}
+@item @emph{Parameters:}
+@table @gcctabopt
+@item -M @var{#bit}
+Size of sketch in bits.
+@end table
+@item @emph{Description:}
+@end table
+

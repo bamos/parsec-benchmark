@@ -1,0 +1,699 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>freq_filt</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch02.html" title="VIPS operation API by section">
+<link rel="prev" href="VipsFormat.html" title="VipsFormat">
+<link rel="next" href="libvips-histograms-lut.html" title="histograms_lut">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="VipsFormat.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-histograms-lut.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-freq-filt.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-freq-filt.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="freq_filt">
+<a name="libvips-freq-filt"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-freq-filt.top_of_page"></a>freq_filt</span></h2>
+<p>freq_filt — fourier transforms and frequency-domin filters</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-freq-filt.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-freq-filt.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+enum                <a class="link" href="libvips-freq-filt.html#VipsMaskType" title="enum VipsMaskType">VipsMaskType</a>;
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-freq-filt.html#im-fwfft" title="im_fwfft ()">im_fwfft</a>                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-freq-filt.html#im-invfft" title="im_invfft ()">im_invfft</a>                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-freq-filt.html#im-invfftr" title="im_invfftr ()">im_invfftr</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-freq-filt.html#im-freqflt" title="im_freqflt ()">im_freqflt</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-freq-filt.html#im-disp-ps" title="im_disp_ps ()">im_disp_ps</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-freq-filt.html#im-rotquad" title="im_rotquad ()">im_rotquad</a>                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-freq-filt.html#im-phasecor-fft" title="im_phasecor_fft ()">im_phasecor_fft</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-freq-filt.html#im-flt-image-freq" title="im_flt_image_freq ()">im_flt_image_freq</a>                   (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-freq-filt.html#VipsMaskType" title="enum VipsMaskType"><span class="type">VipsMaskType</span></a> flag</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-freq-filt.html#im-create-fmask" title="im_create_fmask ()">im_create_fmask</a>                     (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-freq-filt.html#VipsMaskType" title="enum VipsMaskType"><span class="type">VipsMaskType</span></a> flag</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-freq-filt.html#im-fractsurf" title="im_fractsurf ()">im_fractsurf</a>                        (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> size</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> frd</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-freq-filt.description"></a><h2>Description</h2>
+<p>
+To and from Fourier space, filter in Fourier space, convert Fourier-space
+images to a displayable form.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-freq-filt.details"></a><h2>Details</h2>
+<div class="refsect2" title="enum VipsMaskType">
+<a name="VipsMaskType"></a><h3>enum VipsMaskType</h3>
+<pre class="programlisting">typedef enum {
+        VIPS_MASK_IDEAL_HIGHPASS = 0,
+        VIPS_MASK_IDEAL_LOWPASS = 1,
+        VIPS_MASK_BUTTERWORTH_HIGHPASS = 2,
+        VIPS_MASK_BUTTERWORTH_LOWPASS = 3,
+        VIPS_MASK_GAUSS_HIGHPASS = 4,
+        VIPS_MASK_GAUSS_LOWPASS = 5,
+
+        VIPS_MASK_IDEAL_RINGPASS = 6,
+        VIPS_MASK_IDEAL_RINGREJECT = 7,
+        VIPS_MASK_BUTTERWORTH_RINGPASS = 8,
+        VIPS_MASK_BUTTERWORTH_RINGREJECT = 9,
+        VIPS_MASK_GAUSS_RINGPASS = 10,
+        VIPS_MASK_GAUSS_RINGREJECT = 11,
+
+        VIPS_MASK_IDEAL_BANDPASS = 12,
+        VIPS_MASK_IDEAL_BANDREJECT = 13,
+        VIPS_MASK_BUTTERWORTH_BANDPASS = 14,
+        VIPS_MASK_BUTTERWORTH_BANDREJECT = 15,
+        VIPS_MASK_GAUSS_BANDPASS = 16,
+        VIPS_MASK_GAUSS_BANDREJECT = 17,
+
+        VIPS_MASK_FRACTAL_FLT = 18
+} VipsMaskType;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="im_fwfft ()">
+<a name="im-fwfft"></a><h3>im_fwfft ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_fwfft                            (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Transform an image to Fourier space.
+</p>
+<p>
+VIPS uses the fftw3 or fftw2 Fourier transform libraries if possible. If 
+they were not available when VIPS was built, it falls back to it's own 
+FFT functions which are slow and only work for square images whose sides
+are a power of two.
+</p>
+<p>
+See also: <a class="link" href="libvips-freq-filt.html#im-invfft" title="im_invfft ()"><code class="function">im_invfft()</code></a>, <a class="link" href="libvips-freq-filt.html#im-disp-ps" title="im_disp_ps ()"><code class="function">im_disp_ps()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_invfft ()">
+<a name="im-invfft"></a><h3>im_invfft ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_invfft                           (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Transform an image from Fourier space to real space. The result is complex.
+If you are OK with a real result, use <a class="link" href="libvips-freq-filt.html#im-invfftr" title="im_invfftr ()"><code class="function">im_invfftr()</code></a> instead, it's quicker.
+</p>
+<p>
+VIPS uses the fftw3 or fftw2 Fourier transform libraries if possible. If 
+they were not available when VIPS was built, it falls back to it's own 
+FFT functions which are slow and only work for square images whose sides
+are a power of two.
+</p>
+<p>
+See also: <a class="link" href="libvips-freq-filt.html#im-invfftr" title="im_invfftr ()"><code class="function">im_invfftr()</code></a>, <a class="link" href="libvips-freq-filt.html#im-fwfft" title="im_fwfft ()"><code class="function">im_fwfft()</code></a>, <a class="link" href="libvips-freq-filt.html#im-disp-ps" title="im_disp_ps ()"><code class="function">im_disp_ps()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_invfftr ()">
+<a name="im-invfftr"></a><h3>im_invfftr ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_invfftr                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Transform an image from Fourier space to real space, giving a real result.
+This is faster than <a class="link" href="libvips-freq-filt.html#im-invfft" title="im_invfft ()"><code class="function">im_invfft()</code></a>, which gives a complex result. 
+</p>
+<p>
+VIPS uses the fftw3 or fftw2 Fourier transform libraries if possible. If 
+they were not available when VIPS was built, it falls back to it's own 
+FFT functions which are slow and only work for square images whose sides
+are a power of two.
+</p>
+<p>
+See also: <a class="link" href="libvips-freq-filt.html#im-invfft" title="im_invfft ()"><code class="function">im_invfft()</code></a>, <a class="link" href="libvips-freq-filt.html#im-fwfft" title="im_fwfft ()"><code class="function">im_fwfft()</code></a>, <a class="link" href="libvips-freq-filt.html#im-disp-ps" title="im_disp_ps ()"><code class="function">im_disp_ps()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_freqflt ()">
+<a name="im-freqflt"></a><h3>im_freqflt ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_freqflt                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *mask</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Filter an image in Fourier space.
+</p>
+<p>
+<em class="parameter"><code>in</code></em> is transformed to Fourier space, multipled with the mask image, then
+transformed back to real space. If <em class="parameter"><code>in</code></em> is already a complex image, just
+multiply then inverse transform.
+</p>
+<p>
+See also: <a class="link" href="libvips-freq-filt.html#im-invfftr" title="im_invfftr ()"><code class="function">im_invfftr()</code></a>, <a class="link" href="libvips-freq-filt.html#im-create-fmask" title="im_create_fmask ()"><code class="function">im_create_fmask()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mask</code></em> :</span></p></td>
+<td>mask image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_disp_ps ()">
+<a name="im-disp-ps"></a><h3>im_disp_ps ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_disp_ps                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Make a displayable (ie. 8-bit unsigned int) power spectrum. 
+</p>
+<p>
+If <em class="parameter"><code>in</code></em> is non-complex, it is transformed to Fourier space. Then the
+absolute value is passed through <a class="link" href="libvips-conversion.html#im-scaleps" title="im_scaleps ()"><code class="function">im_scaleps()</code></a>, and <a class="link" href="libvips-freq-filt.html#im-rotquad" title="im_rotquad ()"><code class="function">im_rotquad()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-scaleps" title="im_scaleps ()"><code class="function">im_scaleps()</code></a>, <a class="link" href="libvips-freq-filt.html#im-rotquad" title="im_rotquad ()"><code class="function">im_rotquad()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_rotquad ()">
+<a name="im-rotquad"></a><h3>im_rotquad ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_rotquad                          (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Rotate the quadrants of the image so that the point that was at the
+top-left is now in the centre. Handy for moving Fourier images to optical
+space.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-wrap" title="im_wrap ()"><code class="function">im_wrap()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_phasecor_fft ()">
+<a name="im-phasecor-fft"></a><h3>im_phasecor_fft ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_phasecor_fft                     (<em class="parameter"><code><span class="type">IMAGE</span> *in1</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *in2</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>);</pre>
+<p>
+Convert the two input images to Fourier space, calculate phase-correlation,
+back to real space.
+</p>
+<p>
+See also: <a class="link" href="libvips-freq-filt.html#im-fwfft" title="im_fwfft ()"><code class="function">im_fwfft()</code></a>, <a class="link" href="libvips-arithmetic.html#im-cross-phase" title="im_cross_phase ()"><code class="function">im_cross_phase()</code></a>,
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>first input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in2</code></em> :</span></p></td>
+<td>second input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_flt_image_freq ()">
+<a name="im-flt-image-freq"></a><h3>im_flt_image_freq ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_flt_image_freq                   (<em class="parameter"><code><span class="type">IMAGE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-freq-filt.html#VipsMaskType" title="enum VipsMaskType"><span class="type">VipsMaskType</span></a> flag</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Creates a mask (see <a class="link" href="libvips-freq-filt.html#im-create-fmask" title="im_create_fmask ()"><code class="function">im_create_fmask()</code></a>) and filters an image with it (see
+<a class="link" href="libvips-freq-filt.html#im-freqflt" title="im_freqflt ()"><code class="function">im_freqflt()</code></a>).
+</p>
+<p>
+See also: <a class="link" href="libvips-freq-filt.html#im-create-fmask" title="im_create_fmask ()"><code class="function">im_create_fmask()</code></a>, <a class="link" href="libvips-freq-filt.html#im-freqflt" title="im_freqflt ()"><code class="function">im_freqflt()</code></a>,
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>mask type
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>mask parameters
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_create_fmask ()">
+<a name="im-create-fmask"></a><h3>im_create_fmask ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_create_fmask                     (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-freq-filt.html#VipsMaskType" title="enum VipsMaskType"><span class="type">VipsMaskType</span></a> flag</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+This operation creates a one-band float image of the specified size. The
+image must be square, and the sides must be a power of two. The image has
+values in the range [0, 1] and is typically used for multiplying against 
+frequency domain images to filter them.
+</p>
+<p>
+All masks are created with the DC component at (0, 0), so you might want to
+rotate the quadrants with <a class="link" href="libvips-freq-filt.html#im-rotquad" title="im_rotquad ()"><code class="function">im_rotquad()</code></a> before viewing. The DC pixel always
+has the value 1.0.
+</p>
+<p>
+The value of <em class="parameter"><code>flag</code></em> sets the type pf mask created, and extra parameters set
+the exact mask shape. All extra parameters are doubles. This table 
+summarises the possible values:
+</p>
+<p>
+</p>
+<div class="table">
+<a name="id517714"></a><p class="title"><b>Table 6. Parameters for <a class="link" href="libvips-freq-filt.html#im-create-fmask" title="im_create_fmask ()"><code class="function">im_create_fmask()</code></a></b></p>
+<div class="table-contents"><table summary="Parameters for im_create_fmask()" border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th align="left"><a class="link" href="libvips-freq-filt.html#VipsMaskType" title="enum VipsMaskType"><span class="type">VipsMaskType</span></a></th>
+<th align="left">nargs</th>
+<th align="left">Parameters (all double)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_IDEAL_HIGHPASS</span></td>
+<td align="left">1</td>
+<td align="left">frequency_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_IDEAL_LOWPASS</span></td>
+<td align="left">1</td>
+<td align="left">frequency_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_BUTTERWORTH_HIGHPASS</span></td>
+<td align="left">3</td>
+<td align="left">order, frequency_cutoff, amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_BUTTERWORTH_LOWPASS</span></td>
+<td align="left">3</td>
+<td align="left">order, frequency_cutoff, amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_GAUSS_HIGHPASS</span></td>
+<td align="left">2</td>
+<td align="left">frequency_cutoff, amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_GAUSS_LOWPASS</span></td>
+<td align="left">2</td>
+<td align="left">frequency_cutoff, amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_IDEAL_RINGPASS</span></td>
+<td align="left">2</td>
+<td align="left">frequency_cutoff, width</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_IDEAL_RINGREJECT</span></td>
+<td align="left">2</td>
+<td align="left">frequency_cutoff, width</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_BUTTERWORTH_RINGPASS</span></td>
+<td align="left">4</td>
+<td align="left">order, frequency_cutoff, width, amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_BUTTERWORTH_RINGREJECT</span></td>
+<td align="left">4</td>
+<td align="left">order, frequency_cutoff, width, amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_GAUSS_RINGPASS</span></td>
+<td align="left">3</td>
+<td align="left">frequency_cutoff, width, amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_GAUSS_RINGREJECT</span></td>
+<td align="left">3</td>
+<td align="left">frequency_cutoff, width, amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_IDEAL_BANDPASS</span></td>
+<td align="left">3</td>
+<td align="left">frequency_cutoffx, frequency_cutoffy, radius</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_IDEAL_BANDREJECT</span></td>
+<td align="left">3</td>
+<td align="left">frequency_cutoffx, frequency_cutoffy, radius</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_BUTTERWORTH_BANDPASS</span></td>
+<td align="left">5</td>
+<td align="left">order, frequency_cutoffx, frequency_cutoffy, radius,
+        amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_BUTTERWORTH_BANDREJECT</span></td>
+<td align="left">5</td>
+<td align="left">order, frequency_cutoffx, frequency_cutoffy, radius,
+        amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_GAUSS_BANDPASS</span></td>
+<td align="left">4</td>
+<td align="left">frequency_cutoffx, frequency_cutoffy, radius, 
+        amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_GAUSS_BANDREJECT</span></td>
+<td align="left">4</td>
+<td align="left">frequency_cutoffx, frequency_cutoffy, radius, 
+        amplitude_cutoff</td>
+</tr>
+<tr>
+<td align="left"><span class="type">VIPS_MASK_FRACTAL_FLT</span></td>
+<td align="left">1</td>
+<td align="left">fractal_dimension</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><br class="table-break">
+</p>
+<p>
+Unless noted below, all parameters are expressed as percentages, scaled to
+[0, 1].
+</p>
+<p>
+<span class="emphasis"><em>High-pass, low-pass masks:</em></span> A high pass filter 
+mask filters the low frequencies while allowing the high frequencies to 
+get through.  The reverse happens with a low pass filter mask.  
+</p>
+<p>
+<span class="emphasis"><em>Ring-pass, ring-reject masks:</em></span> A ring filter passes or
+rejects a range of frequencies. The range is specified by the
+<em class="parameter"><code>frequency_cutoff</code></em> and the <em class="parameter"><code>width</code></em>.
+</p>
+<p>
+<span class="emphasis"><em>Band-pass, band-reject masks:</em></span> These masks are used to
+pass or remove spatial frequencies around a given frequency. The position
+of the frequency to pass or remove is given by <em class="parameter"><code>frequency_cutoffx</code></em> and
+<em class="parameter"><code>frequency_cutoffy</code></em>. The size of the region around the point is given by
+<em class="parameter"><code>radius</code></em>.
+</p>
+<p>
+<span class="emphasis"><em>Ideal filters:</em></span> These filters pass or reject
+frequencies with a sharp cutoff at the transition.
+</p>
+<p>
+<span class="emphasis"><em>Butterworth filters:</em></span> These filters use a Butterworth
+function to separate the frequencies (see Gonzalez and Wintz, Digital
+Image Processing, 1987). The shape of the curve is controlled by <em class="parameter"><code>order</code></em>:
+higher values give a sharper transition.
+</p>
+<p>
+<span class="emphasis"><em>Gaussian filters:</em></span> These filters have a smooth Gaussian
+shape, controlled by <em class="parameter"><code>amplitude_cutoff</code></em>.
+</p>
+<p>
+<span class="emphasis"><em>VIPS_MASK_FRACTAL_FLT:</em></span> This mask is handy for
+filtering images of gaussian noise in order to create surfaces of a given
+fractal dimension. <em class="parameter"><code>fractal_dimension</code></em> should be between 2 and 3.
+</p>
+<p>
+See also: <a class="link" href="libvips-freq-filt.html#im-flt-image-freq" title="im_flt_image_freq ()"><code class="function">im_flt_image_freq()</code></a>, <a class="link" href="libvips-freq-filt.html#im-rotquad" title="im_rotquad ()"><code class="function">im_rotquad()</code></a>,
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to write to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xsize</code></em> :</span></p></td>
+<td>image size
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ysize</code></em> :</span></p></td>
+<td>image size
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>mask type
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>mask parameters
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_fractsurf ()">
+<a name="im-fractsurf"></a><h3>im_fractsurf ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_fractsurf                        (<em class="parameter"><code><span class="type">IMAGE</span> *out</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> size</code></em>,
+                                                         <em class="parameter"><code><span class="type">double</span> frd</code></em>);</pre>
+<p>
+Generate an image of size <em class="parameter"><code>size</code></em> and fractal dimension <em class="parameter"><code>frd</code></em>. The dimension
+should be between 2 and 3.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-gaussnoise" title="im_gaussnoise ()"><code class="function">im_gaussnoise()</code></a>, <a class="link" href="libvips-freq-filt.html#im-flt-image-freq" title="im_flt_image_freq ()"><code class="function">im_flt_image_freq()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>size of image to generate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>frd</code></em> :</span></p></td>
+<td>fractal dimension
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-freq-filt.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-image.html" title="image">image</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

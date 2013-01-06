@@ -1,0 +1,81 @@
+/*! \page building Building the Codebase
+
+@ingroup build_and_use
+
+This page contains information how to build under \ref building_linux, \ref building_apple, and \ref building_windows; as well as how to \ref build_the_docs.
+
+\section building_windows Windows
+
+Somebody please write that...
+
+\section building_linux Linux
+
+Make sure you have the following:
+<ul>
+<li> a working linux distriubtion (I'm using Fedora 7 x86_64 version)
+<li> intel compiler
+<li> X11, OpenGL, glut
+<li> doxygen, if you want to \ref build_the_docs
+</ul>
+
+Then, build via cmake (see \ref building_cmake)
+
+
+
+
+
+
+\section building_apple Apple/MacOSX
+
+Make sure you have the following:
+<ul>
+<li> intel compiler
+<li> xtools
+<li> X11, OpenGL, glut
+<li> ideally: shark (not required for build, but handy to have)
+<li> doxygen, if you want to \ref build_the_docs
+</ul>
+
+
+
+Then, build via cmake (see \ref building_cmake)
+
+
+
+
+
+
+\section building_cmake Building via CMake
+
+CMake is currently the build method of choice for linux and
+apple. Codebase is not configured for windows/cmake builds, yet.
+
+To build via cmake (assuming your codebase is in directory '~/rt'), perform the following steps:
+\verbatim
+cd ~/rt
+mkdir icc-release             % make a build directory
+cd icc-release                % enter that build directory
+ccmake ../                    % call cmake, set BUILD_METHOD to "Release"
+make                          % done. From now on, only call 'make'
+\endverbatim
+
+Note 
+<ul>
+<li> "ccmake ../" will allow you to change options (build method
+or any other options) any time. All configuration options you select
+are "per directory", i.e., you can have one directory for release
+builds, and one for debug builds, or one for hardcoded packet size=16,
+and one for 32, etcpp.
+<li> The name of the build dir is arbitrary, feel free to name as you please
+</ul>
+
+
+
+\section build_the_docs Build the documentation
+
+Make sure you have doxygen installed. Then, call <code>doxygen
+shortmanual.doxyfile</code> for the brief manual, or <code>doxygen
+fullmanual.doxyfile</code> for building the full source code
+documentation.
+  */
+

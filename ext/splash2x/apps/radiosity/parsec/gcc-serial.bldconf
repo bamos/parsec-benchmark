@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source ${PARSECDIR}/ext/splash2x/apps/radiosity/parsec/gcc.bldconf
+
+# Override build environment
+build_env="version=serial"
+

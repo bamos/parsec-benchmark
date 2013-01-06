@@ -1,0 +1,172 @@
+\expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{2}{x2-1000}{QQ2-2-1}{Contents}}{3}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{3}{x3-2000}{QQ2-3-2}{List of Figures}}{7}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{4}{x4-3000}{QQ2-4-3}{List of Tables}}{11}\relax 
+\doTocEntry\tocchapter{1}{\csname a:TocLink\endcsname{5}{x5-40001}{QQ2-5-4}{VIPS from C++ and Python}}{3}\relax 
+\doTocEntry\tocsection{1.1}{\csname a:TocLink\endcsname{6}{x6-50001.1}{QQ2-6-5}{Introduction}}{3}\relax 
+\doTocEntry\tocsubsection{1.1.1}{\csname a:TocLink\endcsname{6}{x6-60001.1.1}{QQ2-6-6}{If you've used the C API}}{3}\relax 
+\doTocEntry\toclof{1.1}{\csname a:TocLink\endcsname{6}{x6-60011}{}{\ignorespaces \texttt  {invert} program in C++}}{figure}\relax 
+\doTocEntry\toclof{1.2}{\csname a:TocLink\endcsname{6}{x6-60022}{}{\ignorespaces \texttt  {invert} program in Python}}{figure}\relax 
+\doTocEntry\tocsection{1.2}{\csname a:TocLink\endcsname{7}{x7-70001.2}{QQ2-7-9}{The VIPS file format}}{11}\relax 
+\doTocEntry\tocsubsection{1.2.1}{\csname a:TocLink\endcsname{7}{x7-80001.2.1}{QQ2-7-10}{VIPS file header}}{11}\relax 
+\doTocEntry\toclot{1.1}{\csname a:TocLink\endcsname{7}{x7-80011}{}{\ignorespaces VIPS header}}{table}\relax 
+\doTocEntry\toclot{1.2}{\csname a:TocLink\endcsname{7}{x7-80022}{}{\ignorespaces Possible values for \texttt  {BandFmt}}}{table}\relax 
+\doTocEntry\toclot{1.3}{\csname a:TocLink\endcsname{7}{x7-80033}{}{\ignorespaces Possible values for \texttt  {Coding}}}{table}\relax 
+\doTocEntry\toclot{1.4}{\csname a:TocLink\endcsname{7}{x7-80044}{}{\ignorespaces Possible values for \texttt  {Type}}}{table}\relax 
+\doTocEntry\tocsubsection{1.2.2}{\csname a:TocLink\endcsname{7}{x7-90001.2.2}{QQ2-7-15}{Computation formats}}{23}\relax 
+\doTocEntry\tocsubsection{1.2.3}{\csname a:TocLink\endcsname{7}{x7-100001.2.3}{QQ2-7-16}{Storage formats}}{23}\relax 
+\doTocEntry\tocsection{1.3}{\csname a:TocLink\endcsname{8}{x8-110001.3}{QQ2-8-17}{The \texttt  {VImage} class}}{24}\relax 
+\doTocEntry\tocsubsection{1.3.1}{\csname a:TocLink\endcsname{8}{x8-120001.3.1}{QQ2-8-18}{Constructors}}{24}\relax 
+\doTocEntry\tocsubsection{1.3.2}{\csname a:TocLink\endcsname{8}{x8-130001.3.2}{QQ2-8-19}{File conversion}}{27}\relax 
+\doTocEntry\tocsubsection{1.3.3}{\csname a:TocLink\endcsname{8}{x8-140001.3.3}{QQ2-8-20}{Projection functions}}{28}\relax 
+\doTocEntry\tocsubsection{1.3.4}{\csname a:TocLink\endcsname{8}{x8-150001.3.4}{QQ2-8-21}{Assignment}}{31}\relax 
+\doTocEntry\tocsubsection{1.3.5}{\csname a:TocLink\endcsname{8}{x8-160001.3.5}{QQ2-8-22}{Computing with \texttt  {VImage}s}}{32}\relax 
+\doTocEntry\tocsubsection{1.3.6}{\csname a:TocLink\endcsname{8}{x8-170001.3.6}{QQ2-8-23}{Writing results}}{33}\relax 
+\doTocEntry\tocsubsection{1.3.7}{\csname a:TocLink\endcsname{8}{x8-180001.3.7}{QQ2-8-24}{Type conversions}}{34}\relax 
+\doTocEntry\tocsection{1.4}{\csname a:TocLink\endcsname{9}{x9-190001.4}{QQ2-9-25}{The \texttt  {VMask} class}}{36}\relax 
+\doTocEntry\tocsubsection{1.4.1}{\csname a:TocLink\endcsname{9}{x9-200001.4.1}{QQ2-9-26}{Constructors}}{36}\relax 
+\doTocEntry\tocsubsection{1.4.2}{\csname a:TocLink\endcsname{9}{x9-210001.4.2}{QQ2-9-27}{Projection functions}}{37}\relax 
+\doTocEntry\tocsubsection{1.4.3}{\csname a:TocLink\endcsname{9}{x9-220001.4.3}{QQ2-9-28}{Assignment}}{37}\relax 
+\doTocEntry\tocsubsection{1.4.4}{\csname a:TocLink\endcsname{9}{x9-230001.4.4}{QQ2-9-29}{Computing with \texttt  {VMask}}}{38}\relax 
+\doTocEntry\tocsubsection{1.4.5}{\csname a:TocLink\endcsname{9}{x9-240001.4.5}{QQ2-9-30}{\texttt  {VIMask} operations}}{39}\relax 
+\doTocEntry\tocsubsection{1.4.6}{\csname a:TocLink\endcsname{9}{x9-250001.4.6}{QQ2-9-31}{\texttt  {VDMask} operations}}{40}\relax 
+\doTocEntry\tocsubsection{1.4.7}{\csname a:TocLink\endcsname{9}{x9-260001.4.7}{QQ2-9-32}{Output of masks}}{40}\relax 
+\doTocEntry\tocsection{1.5}{\csname a:TocLink\endcsname{10}{x10-270001.5}{QQ2-10-33}{The \texttt  {VDisplay} class}}{41}\relax 
+\doTocEntry\tocsubsection{1.5.1}{\csname a:TocLink\endcsname{10}{x10-280001.5.1}{QQ2-10-34}{Constructors}}{41}\relax 
+\doTocEntry\tocsubsection{1.5.2}{\csname a:TocLink\endcsname{10}{x10-290001.5.2}{QQ2-10-35}{Projection functions}}{42}\relax 
+\doTocEntry\tocsection{1.6}{\csname a:TocLink\endcsname{11}{x11-300001.6}{QQ2-11-36}{The \texttt  {VError} class}}{44}\relax 
+\doTocEntry\tocsubsection{1.6.1}{\csname a:TocLink\endcsname{11}{x11-310001.6.1}{QQ2-11-37}{Constructors}}{44}\relax 
+\doTocEntry\tocsubsection{1.6.2}{\csname a:TocLink\endcsname{11}{x11-320001.6.2}{QQ2-11-38}{Projection functions}}{44}\relax 
+\doTocEntry\tocsubsection{1.6.3}{\csname a:TocLink\endcsname{11}{x11-330001.6.3}{QQ2-11-39}{Computing with \texttt  {VError}}}{45}\relax 
+\doTocEntry\tocsubsection{1.6.4}{\csname a:TocLink\endcsname{11}{x11-340001.6.4}{QQ2-11-40}{Convenience function}}{47}\relax 
+\doTocEntry\tocchapter{2}{\csname a:TocLink\endcsname{12}{x12-350002}{QQ2-12-41}{VIPS for C programmers}}{51}\relax 
+\doTocEntry\tocsection{2.1}{\csname a:TocLink\endcsname{13}{x13-360002.1}{QQ2-13-42}{Introduction}}{51}\relax 
+\doTocEntry\toclof{2.1}{\csname a:TocLink\endcsname{13}{x13-360011}{}{\ignorespaces VIPS software architecture}}{figure}\relax 
+\doTocEntry\tocsection{2.2}{\csname a:TocLink\endcsname{14}{x14-370002.2}{QQ2-14-44}{Core C API}}{56}\relax 
+\doTocEntry\tocsubsection{2.2.1}{\csname a:TocLink\endcsname{14}{x14-380002.2.1}{QQ2-14-45}{Startup}}{56}\relax 
+\doTocEntry\toclof{2.2}{\csname a:TocLink\endcsname{14}{x14-380012}{}{\ignorespaces Hello World for VIPS}}{figure}\relax 
+\doTocEntry\tocsubsection{2.2.2}{\csname a:TocLink\endcsname{14}{x14-390002.2.2}{QQ2-14-47}{Image descriptors}}{60}\relax 
+\doTocEntry\toclof{2.3}{\csname a:TocLink\endcsname{14}{x14-390013}{}{\ignorespaces The \texttt  {IMAGE} descriptor}}{figure}\relax 
+\doTocEntry\tocsubsection{2.2.3}{\csname a:TocLink\endcsname{14}{x14-400002.2.3}{QQ2-14-49}{Header fields}}{63}\relax 
+\doTocEntry\tocsubsection{2.2.4}{\csname a:TocLink\endcsname{14}{x14-410002.2.4}{QQ2-14-50}{Opening and closing}}{63}\relax 
+\doTocEntry\tocsubsection{2.2.5}{\csname a:TocLink\endcsname{14}{x14-420002.2.5}{QQ2-14-51}{Examples}}{67}\relax 
+\doTocEntry\toclof{2.4}{\csname a:TocLink\endcsname{14}{x14-420014}{}{\ignorespaces Print width and height of an image}}{figure}\relax 
+\doTocEntry\toclof{2.5}{\csname a:TocLink\endcsname{14}{x14-420025}{}{\ignorespaces Find photographic negative}}{figure}\relax 
+\doTocEntry\tocsubsection{2.2.6}{\csname a:TocLink\endcsname{14}{x14-430002.2.6}{QQ2-14-54}{Metadata}}{73}\relax 
+\doTocEntry\tocsubsection{2.2.7}{\csname a:TocLink\endcsname{14}{x14-440002.2.7}{QQ2-14-55}{History}}{74}\relax 
+\doTocEntry\tocsubsection{2.2.8}{\csname a:TocLink\endcsname{14}{x14-450002.2.8}{QQ2-14-56}{Eval callbacks}}{75}\relax 
+\doTocEntry\tocsubsection{2.2.9}{\csname a:TocLink\endcsname{14}{x14-460002.2.9}{QQ2-14-57}{Detailed rules for descriptors}}{75}\relax 
+\doTocEntry\tocsubsection{2.2.10}{\csname a:TocLink\endcsname{14}{x14-470002.2.10}{QQ2-14-58}{Automatic resource deallocation}}{76}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{14}{x14-480002.2.10}{QQ2-14-59}{Local image descriptors}}{76}\relax 
+\doTocEntry\toclof{2.6}{\csname a:TocLink\endcsname{14}{x14-480016}{}{\ignorespaces Sum an array of images}}{figure}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{14}{x14-490002.2.10}{QQ2-14-61}{Local memory allocation}}{79}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{14}{x14-500002.2.10}{QQ2-14-62}{Other local operations}}{81}\relax 
+\doTocEntry\tocsubsection{2.2.11}{\csname a:TocLink\endcsname{14}{x14-510002.2.11}{QQ2-14-63}{Error handling}}{81}\relax 
+\doTocEntry\tocsubsection{2.2.12}{\csname a:TocLink\endcsname{14}{x14-520002.2.12}{QQ2-14-64}{Joining operations together}}{81}\relax 
+\doTocEntry\toclof{2.7}{\csname a:TocLink\endcsname{14}{x14-520017}{}{\ignorespaces Two image-processing operations joined together}}{figure}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{14}{x14-530002.2.12}{QQ2-14-66}{How it works}}{84}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{14}{x14-540002.2.12}{QQ2-14-67}{Pitfalls with partials}}{84}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{14}{x14-550002.2.12}{QQ2-14-68}{Non-image output}}{84}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{14}{x14-560002.2.12}{QQ2-14-69}{Calculating twice}}{84}\relax 
+\doTocEntry\toclof{2.8}{\csname a:TocLink\endcsname{14}{x14-560018}{}{\ignorespaces Threshold an image at the mean value}}{figure}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{14}{x14-570002.2.12}{QQ2-14-71}{Blocking computation}}{87}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{14}{x14-580002.2.12}{QQ2-14-72}{Limitations}}{87}\relax 
+\doTocEntry\tocsection{2.3}{\csname a:TocLink\endcsname{15}{x15-590002.3}{QQ2-15-73}{Function dispatch and plug-ins}}{88}\relax 
+\doTocEntry\tocsubsection{2.3.1}{\csname a:TocLink\endcsname{15}{x15-600002.3.1}{QQ2-15-74}{Simple plugin example}}{88}\relax 
+\doTocEntry\toclot{2.1}{\csname a:TocLink\endcsname{15}{x15-600011}{}{\ignorespaces Argument type macros}}{table}\relax 
+\doTocEntry\tocsubsection{2.3.2}{\csname a:TocLink\endcsname{15}{x15-610002.3.2}{QQ2-15-76}{A more complicated example}}{95}\relax 
+\doTocEntry\tocsubsection{2.3.3}{\csname a:TocLink\endcsname{15}{x15-620002.3.3}{QQ2-15-77}{Adding new types}}{96}\relax 
+\doTocEntry\tocsubsection{2.3.4}{\csname a:TocLink\endcsname{15}{x15-630002.3.4}{QQ2-15-78}{Using function dispatch in your application}}{101}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{15}{x15-640002.3.4}{QQ2-15-79}{Adding and removing functions}}{101}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{15}{x15-650002.3.4}{QQ2-15-80}{Searching the function database}}{102}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{15}{x15-660002.3.4}{QQ2-15-81}{Building argument structures and running commands}}{103}\relax 
+\doTocEntry\tocsection{2.4}{\csname a:TocLink\endcsname{16}{x16-670002.4}{QQ2-16-82}{The VIPS base class: \texttt  {VipsObject}}}{106}\relax 
+\doTocEntry\tocsubsection{2.4.1}{\csname a:TocLink\endcsname{16}{x16-680002.4.1}{QQ2-16-83}{Properties}}{106}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{16}{x16-690002.4.1}{QQ2-16-84}{Lookup}}{106}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{16}{x16-700002.4.1}{QQ2-16-85}{Create}}{107}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{16}{x16-710002.4.1}{QQ2-16-86}{Build}}{108}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{16}{x16-720002.4.1}{QQ2-16-87}{Use}}{108}\relax 
+\doTocEntry\tocsubsection{2.4.2}{\csname a:TocLink\endcsname{16}{x16-730002.4.2}{QQ2-16-88}{Convenience functions}}{109}\relax 
+\doTocEntry\tocsection{2.5}{\csname a:TocLink\endcsname{17}{x17-740002.5}{QQ2-17-89}{Image formats}}{111}\relax 
+\doTocEntry\tocsubsection{2.5.1}{\csname a:TocLink\endcsname{17}{x17-750002.5.1}{QQ2-17-90}{How a format is represented}}{111}\relax 
+\doTocEntry\tocsubsection{2.5.2}{\csname a:TocLink\endcsname{17}{x17-760002.5.2}{QQ2-17-91}{The format class}}{111}\relax 
+\doTocEntry\toclof{2.9}{\csname a:TocLink\endcsname{17}{x17-760019}{}{\ignorespaces Registering a format in a plugin}}{figure}\relax 
+\doTocEntry\tocsubsection{2.5.3}{\csname a:TocLink\endcsname{17}{x17-770002.5.3}{QQ2-17-93}{Finding a format}}{114}\relax 
+\doTocEntry\tocsubsection{2.5.4}{\csname a:TocLink\endcsname{17}{x17-780002.5.4}{QQ2-17-94}{Convenience functions}}{114}\relax 
+\doTocEntry\tocsection{2.6}{\csname a:TocLink\endcsname{18}{x18-790002.6}{QQ2-18-95}{Interpolators}}{115}\relax 
+\doTocEntry\tocsubsection{2.6.1}{\csname a:TocLink\endcsname{18}{x18-800002.6.1}{QQ2-18-96}{How an interpolator is represented}}{115}\relax 
+\doTocEntry\tocsubsection{2.6.2}{\csname a:TocLink\endcsname{18}{x18-810002.6.2}{QQ2-18-97}{A sample interpolator}}{115}\relax 
+\doTocEntry\toclof{2.10}{\csname a:TocLink\endcsname{18}{x18-8100110}{}{\ignorespaces Registering an interpolator in a plugin}}{figure}\relax 
+\doTocEntry\tocsubsection{2.6.3}{\csname a:TocLink\endcsname{18}{x18-820002.6.3}{QQ2-18-99}{Writing a VIPS operation that takes an interpolator as an argument}}{118}\relax 
+\doTocEntry\tocsubsection{2.6.4}{\csname a:TocLink\endcsname{18}{x18-830002.6.4}{QQ2-18-100}{Passing an interpolator to a VIPS operation}}{119}\relax 
+\doTocEntry\tocchapter{3}{\csname a:TocLink\endcsname{19}{x19-840003}{QQ2-19-101}{Writing VIPS operations}}{125}\relax 
+\doTocEntry\tocsection{3.1}{\csname a:TocLink\endcsname{20}{x20-850003.1}{QQ2-20-102}{Introduction}}{125}\relax 
+\doTocEntry\tocsubsection{3.1.1}{\csname a:TocLink\endcsname{20}{x20-860003.1.1}{QQ2-20-103}{Why use VIPS?}}{125}\relax 
+\doTocEntry\tocsubsection{3.1.2}{\csname a:TocLink\endcsname{20}{x20-870003.1.2}{QQ2-20-104}{I/O styles}}{126}\relax 
+\doTocEntry\tocsection{3.2}{\csname a:TocLink\endcsname{21}{x21-880003.2}{QQ2-21-105}{Programming WIO operations}}{127}\relax 
+\doTocEntry\tocsubsection{3.2.1}{\csname a:TocLink\endcsname{21}{x21-890003.2.1}{QQ2-21-106}{Input from an image}}{127}\relax 
+\doTocEntry\toclof{3.1}{\csname a:TocLink\endcsname{21}{x21-890011}{}{\ignorespaces Find average of image}}{figure}\relax 
+\doTocEntry\tocsubsection{3.2.2}{\csname a:TocLink\endcsname{21}{x21-900003.2.2}{QQ2-21-108}{Output to an image}}{131}\relax 
+\doTocEntry\toclof{3.2}{\csname a:TocLink\endcsname{21}{x21-900012}{}{\ignorespaces Invert an image}}{figure}\relax 
+\doTocEntry\tocsubsection{3.2.3}{\csname a:TocLink\endcsname{21}{x21-910003.2.3}{QQ2-21-110}{Polymorphism}}{137}\relax 
+\doTocEntry\toclof{3.3}{\csname a:TocLink\endcsname{21}{x21-910013}{}{\ignorespaces Calculate \texttt  {exp()} for an image}}{figure}\relax 
+\doTocEntry\toclof{3.4}{\csname a:TocLink\endcsname{21}{x21-910024}{}{\ignorespaces Calculate \texttt  {exp()} for an image (cont)}}{figure}\relax 
+\doTocEntry\tocsection{3.3}{\csname a:TocLink\endcsname{22}{x22-920003.3}{QQ2-22-113}{Programming PIO functions}}{144}\relax 
+\doTocEntry\tocsubsection{3.3.1}{\csname a:TocLink\endcsname{22}{x22-930003.3.1}{QQ2-22-114}{Easy PIO with \texttt  {im\_wrapone()} and \texttt  {im\_wrapmany()}}}{144}\relax 
+\doTocEntry\tocsubsection{3.3.2}{\csname a:TocLink\endcsname{22}{x22-940003.3.2}{QQ2-22-115}{Region descriptors}}{150}\relax 
+\doTocEntry\tocsubsection{3.3.3}{\csname a:TocLink\endcsname{22}{x22-950003.3.3}{QQ2-22-116}{Image input with regions}}{152}\relax 
+\doTocEntry\toclof{3.5}{\csname a:TocLink\endcsname{22}{x22-950015}{}{\ignorespaces First PIO average of image}}{figure}\relax 
+\doTocEntry\toclof{3.6}{\csname a:TocLink\endcsname{22}{x22-950026}{}{\ignorespaces First PIO average of image (cont.)}}{figure}\relax 
+\doTocEntry\tocsubsection{3.3.4}{\csname a:TocLink\endcsname{22}{x22-960003.3.4}{QQ2-22-119}{Splitting into sequences}}{160}\relax 
+\doTocEntry\toclof{3.7}{\csname a:TocLink\endcsname{22}{x22-960017}{}{\ignorespaces Final PIO average of image}}{figure}\relax 
+\doTocEntry\toclof{3.8}{\csname a:TocLink\endcsname{22}{x22-960028}{}{\ignorespaces Final PIO average of image (cont.)}}{figure}\relax 
+\doTocEntry\toclof{3.9}{\csname a:TocLink\endcsname{22}{x22-960039}{}{\ignorespaces Final PIO average of image (cont.)}}{figure}\relax 
+\doTocEntry\tocsubsection{3.3.5}{\csname a:TocLink\endcsname{22}{x22-970003.3.5}{QQ2-22-123}{Output to regions}}{170}\relax 
+\doTocEntry\toclof{3.10}{\csname a:TocLink\endcsname{22}{x22-9700110}{}{\ignorespaces PIO invert}}{figure}\relax 
+\doTocEntry\toclof{3.11}{\csname a:TocLink\endcsname{22}{x22-9700211}{}{\ignorespaces PIO invert (cont.)}}{figure}\relax 
+\doTocEntry\tocsubsection{3.3.6}{\csname a:TocLink\endcsname{22}{x22-980003.3.6}{QQ2-22-126}{Callbacks}}{177}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{22}{x22-990003.3.6}{QQ2-22-127}{Close callbacks}}{177}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{22}{x22-1000003.3.6}{QQ2-22-128}{Preclose callbacks}}{177}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{22}{x22-1010003.3.6}{QQ2-22-129}{Eval callbacks}}{177}\relax 
+\doTocEntry\tocsubsection{3.3.7}{\csname a:TocLink\endcsname{22}{x22-1020003.3.7}{QQ2-22-130}{Memory allocation revisited}}{177}\relax 
+\doTocEntry\tocsection{3.4}{\csname a:TocLink\endcsname{23}{x23-1030003.4}{QQ2-23-131}{Programming in-place functions}}{179}\relax 
+\doTocEntry\tocchapter{4}{\csname a:TocLink\endcsname{24}{x24-1040004}{QQ2-24-132}{VIPS reference}}{183}\relax 
+\doTocEntry\tocsection{4.1}{\csname a:TocLink\endcsname{25}{x25-1050004.1}{QQ2-25-133}{Introduction}}{183}\relax 
+\doTocEntry\toclot{4.1}{\csname a:TocLink\endcsname{25}{x25-1050011}{}{\ignorespaces Miscellaneous programs}}{table}\relax 
+\doTocEntry\tocsection{4.2}{\csname a:TocLink\endcsname{26}{x26-1060004.2}{QQ2-26-135}{VIPS packages}}{189}\relax 
+\doTocEntry\tocsubsection{4.2.1}{\csname a:TocLink\endcsname{26}{x26-1070004.2.1}{QQ2-26-136}{Arithmetic}}{189}\relax 
+\doTocEntry\toclof{4.1}{\csname a:TocLink\endcsname{26}{x26-1070011}{}{\ignorespaces Arithmetic functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.2}{\csname a:TocLink\endcsname{26}{x26-1080004.2.2}{QQ2-26-138}{Relational}}{192}\relax 
+\doTocEntry\toclof{4.2}{\csname a:TocLink\endcsname{26}{x26-1080012}{}{\ignorespaces Relational functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.3}{\csname a:TocLink\endcsname{26}{x26-1090004.2.3}{QQ2-26-140}{Boolean}}{195}\relax 
+\doTocEntry\toclof{4.3}{\csname a:TocLink\endcsname{26}{x26-1090013}{}{\ignorespaces Boolean functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.4}{\csname a:TocLink\endcsname{26}{x26-1100004.2.4}{QQ2-26-142}{Colour}}{198}\relax 
+\doTocEntry\toclof{4.4}{\csname a:TocLink\endcsname{26}{x26-1100014}{}{\ignorespaces VIPS colour space conversion}}{figure}\relax 
+\doTocEntry\toclof{4.5}{\csname a:TocLink\endcsname{26}{x26-1100025}{}{\ignorespaces Colour functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.5}{\csname a:TocLink\endcsname{26}{x26-1110004.2.5}{QQ2-26-145}{Conversion}}{204}\relax 
+\doTocEntry\toclof{4.6}{\csname a:TocLink\endcsname{26}{x26-1110016}{}{\ignorespaces Conversion functions}}{figure}\relax 
+\doTocEntry\toclof{4.7}{\csname a:TocLink\endcsname{26}{x26-1110027}{}{\ignorespaces Conversion functions (cont.)}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.6}{\csname a:TocLink\endcsname{26}{x26-1120004.2.6}{QQ2-26-148}{Matricies}}{210}\relax 
+\doTocEntry\toclof{4.8}{\csname a:TocLink\endcsname{26}{x26-1120018}{}{\ignorespaces Matrix functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.7}{\csname a:TocLink\endcsname{26}{x26-1130004.2.7}{QQ2-26-150}{Convolution}}{214}\relax 
+\doTocEntry\toclof{4.9}{\csname a:TocLink\endcsname{26}{x26-1130019}{}{\ignorespaces Convolution functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.8}{\csname a:TocLink\endcsname{26}{x26-1140004.2.8}{QQ2-26-152}{In-place operations}}{217}\relax 
+\doTocEntry\toclof{4.10}{\csname a:TocLink\endcsname{26}{x26-11400110}{}{\ignorespaces In-place operations}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.9}{\csname a:TocLink\endcsname{26}{x26-1150004.2.9}{QQ2-26-154}{Frequency filtering}}{220}\relax 
+\doTocEntry\toclof{4.11}{\csname a:TocLink\endcsname{26}{x26-11500111}{}{\ignorespaces Fourier functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.10}{\csname a:TocLink\endcsname{26}{x26-1160004.2.10}{QQ2-26-156}{Histograms and LUTs}}{223}\relax 
+\doTocEntry\toclof{4.12}{\csname a:TocLink\endcsname{26}{x26-11600112}{}{\ignorespaces Histogram/LUT functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.11}{\csname a:TocLink\endcsname{26}{x26-1170004.2.11}{QQ2-26-158}{Morphology}}{226}\relax 
+\doTocEntry\toclof{4.13}{\csname a:TocLink\endcsname{26}{x26-11700113}{}{\ignorespaces Morphological functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.12}{\csname a:TocLink\endcsname{26}{x26-1180004.2.12}{QQ2-26-160}{Mosaicing}}{229}\relax 
+\doTocEntry\toclof{4.14}{\csname a:TocLink\endcsname{26}{x26-11800114}{}{\ignorespaces Mosaic functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.13}{\csname a:TocLink\endcsname{26}{x26-1190004.2.13}{QQ2-26-162}{CImg functions}}{232}\relax 
+\doTocEntry\toclof{4.15}{\csname a:TocLink\endcsname{26}{x26-11900115}{}{\ignorespaces CImg functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.14}{\csname a:TocLink\endcsname{26}{x26-1200004.2.14}{QQ2-26-164}{Other}}{235}\relax 
+\doTocEntry\toclof{4.16}{\csname a:TocLink\endcsname{26}{x26-12000116}{}{\ignorespaces Other functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.15}{\csname a:TocLink\endcsname{26}{x26-1210004.2.15}{QQ2-26-166}{IO functions}}{238}\relax 
+\doTocEntry\toclof{4.17}{\csname a:TocLink\endcsname{26}{x26-12100117}{}{\ignorespaces IO functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.16}{\csname a:TocLink\endcsname{26}{x26-1220004.2.16}{QQ2-26-168}{Format functions}}{241}\relax 
+\doTocEntry\toclof{4.18}{\csname a:TocLink\endcsname{26}{x26-12200118}{}{\ignorespaces Format functions}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.17}{\csname a:TocLink\endcsname{26}{x26-1230004.2.17}{QQ2-26-170}{Resample functions}}{244}\relax 
+\doTocEntry\toclof{4.19}{\csname a:TocLink\endcsname{26}{x26-12300119}{}{\ignorespaces Resample functions}}{figure}\relax 

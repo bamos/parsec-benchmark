@@ -1,0 +1,5 @@
+#! /bin/sh
+
+for f in `ls *.tex` ; do
+	awk -v fname=$f -f texdep.awk $f ;
+done

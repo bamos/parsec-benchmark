@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# icc.bldconf - configuration file for PARSEC
+
+source ${PARSECDIR}/pkgs/apps/raytrace/parsec/gcc.bldconf
+

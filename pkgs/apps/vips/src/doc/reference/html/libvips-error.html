@@ -1,0 +1,488 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>error</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch01.html" title="Core VIPS API">
+<link rel="prev" href="VipsThreadState.html" title="VipsThreadState">
+<link rel="next" href="libvips-memory.html" title="memory">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="VipsThreadState.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-memory.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-error.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-error.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="error">
+<a name="libvips-error"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-error.top_of_page"></a>error</span></h2>
+<p>error — error messages and error handling</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-error.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-error.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+const <span class="returnvalue">char</span> *        <a class="link" href="libvips-error.html#im-error-buffer" title="im_error_buffer ()">im_error_buffer</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-error.html#im-error-clear" title="im_error_clear ()">im_error_clear</a>                      (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-error.html#im-error" title="im_error ()">im_error</a>                            (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-error.html#im-verror" title="im_verror ()">im_verror</a>                           (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-error.html#im-error-system" title="im_error_system ()">im_error_system</a>                     (<em class="parameter"><code><span class="type">int</span> err</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-error.html#im-verror-system" title="im_verror_system ()">im_verror_system</a>                    (<em class="parameter"><code><span class="type">int</span> err</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-error.html#im-warn" title="im_warn ()">im_warn</a>                             (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-error.html#im-vwarn" title="im_vwarn ()">im_vwarn</a>                            (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-error.html#im-diag" title="im_diag ()">im_diag</a>                             (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-error.html#im-vdiag" title="im_vdiag ()">im_vdiag</a>                            (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-error.html#error-exit" title="error_exit ()">error_exit</a>                          (<em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-error.description"></a><h2>Description</h2>
+<p>
+VIPS maintains an error buffer (a log of localised text messages), 
+a set of functions
+for adding messages, and a way to access and clear the buffer.
+</p>
+<p>
+The error buffer is global, that is, it is shared between all threads. You
+can add to the buffer from any thread (there is a lock to prevent
+corruption), but it's sensible to only read and clear the buffer from the
+main thread of execution.
+</p>
+<p>
+The general principle is: if you detect an error, log a message for the
+user. If a function you call detects an error, just propogate it and don't
+add another message.
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+IMAGE *im;
+
+if( !(im = im_open( filename, "r" )) )
+  // im_open will set a mmessage, we don't need to
+  return( -1 );
+
+if( im-&gt;Xsize &lt; 100 ) {
+  // we have detected an error, we must set a message
+  im_error( "myprogram", "%s", _( "XSize too small" ) );
+  return( -1 );
+}
+</pre></div>
+<p>
+</p>
+<p>
+The domain argument most of these functions take is not localised and is
+supposed to indicate the component which failed.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-error.details"></a><h2>Details</h2>
+<div class="refsect2" title="im_error_buffer ()">
+<a name="im-error-buffer"></a><h3>im_error_buffer ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        im_error_buffer                     (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Get a pointer to the start of the error buffer as a C string.
+The string is owned by the error system and must not be freed.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error-clear" title="im_error_clear ()"><code class="function">im_error_clear()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the error buffer as a C string which must not be freed
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_error_clear ()">
+<a name="im-error-clear"></a><h3>im_error_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_error_clear                      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Clear and reset the error buffer. This is typically called after presentng
+an error to the user.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error-buffer" title="im_error_buffer ()"><code class="function">im_error_buffer()</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="im_error ()">
+<a name="im-error"></a><h3>im_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_error                            (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Format the string in the style of <code class="function">printf()</code> and append to the error buffer.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error-system" title="im_error_system ()"><code class="function">im_error_system()</code></a>, <a class="link" href="libvips-error.html#im-verror" title="im_verror ()"><code class="function">im_verror()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the source of the error
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>printf()-style format string for the error
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>arguments to the format string
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_verror ()">
+<a name="im-verror"></a><h3>im_verror ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_verror                           (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+Append a message to the error buffer.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the source of the error
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>printf()-style format string for the error
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>arguments to the format string
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_error_system ()">
+<a name="im-error-system"></a><h3>im_error_system ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_error_system                     (<em class="parameter"><code><span class="type">int</span> err</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Format the string in the style of <code class="function">printf()</code> and append to the error buffer.
+Then create and append a localised message based on the system error code,
+usually the value of errno.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-verror-system" title="im_verror_system ()"><code class="function">im_verror_system()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>err</code></em> :</span></p></td>
+<td>the system error code
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the source of the error
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>printf()-style format string for the error
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>arguments to the format string
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_verror_system ()">
+<a name="im-verror-system"></a><h3>im_verror_system ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_verror_system                    (<em class="parameter"><code><span class="type">int</span> err</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+Format the string in the style of <code class="function">printf()</code> and append to the error buffer.
+Then create and append a localised message based on the system error code,
+usually the value of errno.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error-system" title="im_error_system ()"><code class="function">im_error_system()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>err</code></em> :</span></p></td>
+<td>the system error code
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the source of the error
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>printf()-style format string for the error
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>arguments to the format string
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_warn ()">
+<a name="im-warn"></a><h3>im_warn ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_warn                             (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Sends a formatted warning message to stderr. If you define the
+environment variable IM_WARNING, these message are surpressed.
+</p>
+<p>
+Warning messages are used to report things like overflow counts.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-diag" title="im_diag ()"><code class="function">im_diag()</code></a>, <a class="link" href="libvips-error.html#im-vwarn" title="im_vwarn ()"><code class="function">im_vwarn()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the source of the warning message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>printf()-style format string for the message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>arguments to the format string
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vwarn ()">
+<a name="im-vwarn"></a><h3>im_vwarn ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_vwarn                            (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+Sends a formatted warning message to stderr. If you define the
+environment variable IM_WARNING, these message are surpressed.
+</p>
+<p>
+Warning messages are used to report things like overflow counts.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-diag" title="im_diag ()"><code class="function">im_diag()</code></a>, <a class="link" href="libvips-error.html#im-warn" title="im_warn ()"><code class="function">im_warn()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the source of the warning message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>printf()-style format string for the message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>arguments to the format string
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_diag ()">
+<a name="im-diag"></a><h3>im_diag ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_diag                             (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Sends a formatted diagnostic message to stderr. If you define the
+environment variable IM_DIAGNOSTICS, these message are surpressed.
+</p>
+<p>
+Diagnostic messages are used to report details about the operation of
+functions.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-vdiag" title="im_vdiag ()"><code class="function">im_vdiag()</code></a>, <a class="link" href="libvips-error.html#im-warn" title="im_warn ()"><code class="function">im_warn()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the source of the diagnostic message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>printf()-style format string for the message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>arguments to the format string
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_vdiag ()">
+<a name="im-vdiag"></a><h3>im_vdiag ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_vdiag                            (<em class="parameter"><code>const <span class="type">char</span> *domain</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+Sends a formatted diagnostic message to stderr. If you define the
+environment variable IM_DIAGNOSTICS, these message are surpressed.
+</p>
+<p>
+Diagnostic messages are used to report details about the operation of
+functions.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-diag" title="im_diag ()"><code class="function">im_diag()</code></a>, <a class="link" href="libvips-error.html#im-warn" title="im_warn ()"><code class="function">im_warn()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the source of the diagnostic message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>printf()-style format string for the message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>arguments to the format string
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="error_exit ()">
+<a name="error-exit"></a><h3>error_exit ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                error_exit                          (<em class="parameter"><code>const <span class="type">char</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Sends a formatted error message to stderr, then sends the contents of the
+error buffer, if any, then terminates the program with an error code.
+</p>
+<p>
+<em class="parameter"><code>fmt</code></em> may be <code class="literal">NULL</code>, in which case only the error buffer is printed before
+exiting.
+</p>
+<p>
+See also: <a class="link" href="libvips-error.html#im-error" title="im_error ()"><code class="function">im_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>printf()-style format string for the message
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>arguments to the format string
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+% AUTORIGHTS
+% Copyright (C) 2007 Princeton University
+%       
+% This file is part of Ferret Toolkit.
+% 
+% Ferret Toolkit is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2, or (at your option)
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software Foundation,
+% Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+\section{Distance Functions}
+New distance functions can be added by toolkit user. Also the
+customized distance function (eg: L2 distance using only certain
+dimensions from the cass\_vec) can be generated on the fly to satisfy
+customized queries.
+
+\subsection{CASS Distance Functions}
+\begin{verbatim}
+enum cass_vecset_type_t {any_vecset, single_cass_vec, set_of_cass_vecs,
+  ...};
+enum cass_cass_vec_type_t {any_cass_vec, float_array, L1_sketch,
+  multires_sketch, ...};
+enum cass_vecset_dist_measure_t {any_vecset_dist, emd,
+  one_to_one_best_match, ...};
+enum cass_cass_vec_distance_measure_t {any_cass_vec_dist, L1, L2, ...};
+
+float (*cass_cass_vec_dist_func)(cass_cass_vec_t *f1, cass_cass_vec_t *f2);
+float (*cass_vecset_dist_func)(cass_vecset_t *f1, cass_vecset_t *f2);
+
+\end{verbatim}
+

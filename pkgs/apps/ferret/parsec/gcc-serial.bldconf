@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source ${PARSECDIR}/pkgs/apps/ferret/parsec/gcc.bldconf
+
+# Environment to use for configure script and Makefile
+# NOTE: $ferret_flags is set in gcc.bldconf
+build_env="version=\"serial\" ${ferret_flags}"
+

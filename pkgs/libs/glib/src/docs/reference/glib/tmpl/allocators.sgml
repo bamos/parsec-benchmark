@@ -1,0 +1,48 @@
+<!-- ##### SECTION Title ##### -->
+Memory Allocators
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT GAllocator ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION g_allocator_new ##### -->
+<para>
+
+</para>
+
+@name: 
+@n_preallocs: 
+@Returns: 
+
+
+<!-- ##### FUNCTION g_allocator_free ##### -->
+<para>
+
+</para>
+
+@allocator: 
+
+

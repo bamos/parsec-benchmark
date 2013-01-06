@@ -1,0 +1,349 @@
+Date:  Oct 19, 1994
+
+This is the directory for the second release of the Stanford Parallel 
+Applications for Shared-Memory (SPLASH-2) programs. For further 
+information contact splash@mojave.stanford.edu.
+
+PLEASE NOTE:  Due to our limited resources, we will be unable to spend
+much time answering questions about the applications.
+
+splash.tar contains the tared version of all the files.  Grabbing this
+file will get you everything you need.  We also keep the files 
+individually untared for partial retrieval.  The splash.tar file is not
+compressed, but the large files in it are.  We attempted to compress the
+splash.tar file to reduce the file size further, but this resulted in 
+a negative compression ratio.
+
+
+DIFFERENCES BETWEEN SPLASH AND SPLASH-2:
+----------------------------------------
+
+The SPLASH-2 suite contains two types of codes: full applications and 
+kernels.  Each of the codes utilizes the Argonne National Laboratories 
+(ANL) parmacs macros for parallel constructs.  Unlike the codes in the 
+original SPLASH release, each of the codes assumes the use of a 
+"lightweight threads" model (which we hereafter refer to as the "threads" 
+model) in which child processes share the same virtual address space as 
+their parent process.  In order for the codes to function correctly, 
+the CREATE macro should call the proper Unix system routine (e.g. "sproc" 
+in the Silicon Graphics IRIX operating system) instead of the "fork" 
+routine that was used for SPLASH.  The difference is that processes 
+created with the Unix fork command receive their own private copies of 
+all global variables.  In the threads model, child processes share the 
+same virtual address space, and hence all global data.  Some of the 
+codes function correctly when the Unix "fork" command is used for child 
+process creation as well.  Comments in the code header denote those 
+applications which function correctly with "fork."
+
+
+MACROS:
+-------
+
+Macros for the previous release of the SPLASH application suite can be 
+obtained via anonymous ftp to www-flash.stanford.edu.  The macros are 
+contained in the pub/old_splash/splash/macros subdirectory.  HOWEVER, 
+THE MACRO FILES MUST BE MODIFIED IN ORDER TO BE USED WITH SPLASH-2 CODES.
+The CREATE macros must be changed so that they call the proper process
+creation routine (See DIFFERENCES section above) instead of "fork."
+
+In this macros subdirectory, macros and sample makefiles are provided
+for three machines:
+
+Encore Multimax (CMU Mach 2.5: C and Fortran)
+SGI 4D/240      (IRIX System V Release 3.3: C only)
+Alliant FX/8    (Alliant Rev. 5.0: C and Fortran)
+
+These macros work for us with the above operating systems.  Unfortunately,
+our limited resources prevent us from supporting them in any way or
+even fielding questions about them.   If they don't work for you, please
+contact Argonne National Labs for a version that will.  An e-mail address
+to try might be monitor-users-request@mcs.anl.gov. An excerpt from
+a message, received from Argonne, concerning obtaining the macros follows:
+
+"The parmacs package is in the public domain.  Approximately 15 people at
+Argonne (or associated with Argonne or students) have worked on the 
+parmacs package at one time or another.  The parmacs package is 
+implemented via macros using the M4 macropreprocessor (standard on most 
+Unix systems).  Current distribution of the software is somewhat ad hoc.  
+Most C versions can be obtained from netlib (send electronic mail to 
+netlib@ornl.gov with the message send index from parmacs).  Fortran 
+versions have been emailed directly or sent on tape.  The primary 
+documentation for the parmacs package is the book ``Portable Programs for 
+Parallel Processors'' by Lusk, et al, Holt, Rinehart, and Winston 1987."
+
+The makefiles provided in the individual program directories specify
+a null macro set that will turn the parallel programs into sequential
+ones.  Note that we do not have a null macro set for FORTRAN.
+
+
+CODE ENHANCEMENTS:
+------------------
+
+All of the codes are designed for shared address space multiprocessors
+with physically distributed main memory.  For these types of machines, 
+process migration and poor data distribution can decrease performance 
+to suboptimal levels.  In the applications, comments indicating potential 
+enhancements can be found which will improve performance.  Each potential 
+enhancement is denoted by a comment beginning with "POSSIBLE ENHANCEMENT".
+The potential enhancements which we identify are:
+
+  (1) Data Distribution
+  
+      Comments are placed in the code indicating where directives should 
+      be placed so that data can be migrated to the local memories of 
+      nodes, thus allowing for remote communication to be minimized. 
+
+  (2) Process-to-Processor Assignment
+
+      Comments are placed in the code indicating where directives should 
+      be placed so that processes can be "pinned" to processors, 
+      preventing them from migrating from processor to processor.
+
+In addition, to facilitate simulation studies, we note points in the 
+codes where statistics gathering routines should be turned on so that 
+cold-start and initialization effects can be avoided.
+
+As previously mentioned, processes are assumed to be created through calls
+to a "threads" model creation routine.  One important side effect is that 
+this model causes all global variables to be shared (whereas the fork model 
+causes all processes to get their own private copy of global variables).  
+In order to mimic the behavior of global variables in the fork model, many 
+of the applications provide arrays of structures that can be accessed by 
+process ID, such as:
+
+     struct per_process_info {
+       char pad[PAD_LENGTH];
+       unsigned start_time;
+       unsigned end_time;
+       char pad[PAD_LENGTH];
+     } PPI[MAX_PROCS];
+
+In these structures, padding is inserted to ensure that the structure 
+information associated with each process can be placed on a different 
+page of memory, and can thus be explicitly migrated to that processor's
+local memory system.  We follow this strategy for certain variables since 
+these data really belong to a process and should be allocated in its local
+memory.  A programming model that had the ability to declare global private
+data would have automatically ensured that these data were private, and 
+that false sharing did not occur across different structures in the 
+array.  However, since the threads model does not provide this capability,
+it is provided by explicitly introducing arrays of structures with padding.
+The padding constants used in the programs (PAD_LENGTH in this example)
+can easily be changed to suit the particular characteristics of a given
+system.  The actual data that is manipulated by individual applications
+(e.g. grid points, particle data, etc) is not padded, however.
+
+Finally, for some applications we provide less-optimized versions of the 
+codes.  The less-optimized versions utilize data structures that lead to 
+simpler implementations, but which do not allow for optimal data 
+distribution (and can thus generate false-sharing).
+
+
+REPORT:
+-------
+
+A report will be put together shortly describing the structure, function,
+and performance characteristics of each application.  The report will be
+similar to the original SPLASH report (see the original report for the 
+issues discussed).  The report will provide quantitative data (for two
+different cache line size) for characteristics such as working set size
+and miss rates (local versus remote, etc.).  In addition, the report
+will discuss cache behavior and synchronization behavior of the 
+applications as well.  In the mean time, each application directory has 
+a README file that describes how to run each application.  In addition, 
+most applications have comments in their headers describing how to run 
+each application.  
+
+
+README FILES:
+-------------
+
+Each application has an associated README file.  It is VERY important to
+read these files carefully, as they discuss the important parameters to 
+supply for each application, as well as other issues involved in running 
+the programs.  In each README file, we discuss the impact of explicitly
+distributing data on the Stanford DASH Multiprocessor.  Unless otherwise
+specified, we assume that the default data distribution mechanism is 
+through round-robin page allocation.
+
+
+PROBLEM SIZES:
+--------------
+
+For each application, the README file describes a recommended problem
+size that is a reasonable base problem size that both can be simulated 
+and is not too small for reality on a machine with up to 64 processors.
+For the purposes of studying algorithm performance, the parameters 
+associated with each application can be varied.  However, for the 
+purposes of comparing machine architectures, the README files describe 
+which parameters can be varied, and which should remain constant (or at 
+their default values) for comparability.  If the specific "base" 
+parameters that are specified are not used, then results which are 
+reported should explicitly state which parameters were changed, what 
+their new values are, and address why they were changed.
+
+
+CORE PROGRAMS:
+--------------
+
+Since the number of programs has increased over SPLASH, and since not
+everyone may be able to use all the programs in a given study, we
+identify some of the programs as "core" programs that should be used
+in most studies for comparability.  In the currently available set, these
+core programs include:
+
+(1) Ocean Simulation
+(2) Hierarchical Radiosity
+(3) Water Simulation with Spatial data structure
+(4) Barnes-Hut
+(5) FFT
+(6) Blocked Sparse Cholesky Factorization
+(7) Radix Sort
+
+The less optimized versions of the programs, when provided, should be
+used only in addition to these.
+
+
+MAILING LIST:
+-------------
+
+Please send a note to splash@mojave.stanford.edu if you have copied over 
+the programs, so that we can put you on a mailing list for update reports.
+
+
+AUTHORSHIP:
+-----------
+
+The applications provided in the SPLASH-2 suite were developed by a number
+of people.  The report lists authors primarily responsible for the 
+development of each application code.  The codes were made ready for 
+distribution and the README files were prepared by Steven Cameron Woo and 
+Jaswinder Pal Singh.
+
+
+CODE CHANGES:
+-------------
+
+If modifications are made to the codes which improve their performance, 
+we would like to hear about them.  Please send email to 
+splash@mojave.stanford.edu detailing the changes.
+
+
+UPDATE REPORTS:
+---------------
+
+Watch this file for information regarding changes to codes and additions
+to the application suite.
+
+
+CHANGES:
+-------
+
+10-21-94: Ocean code, contiguous partitions, line 247 of slave1.C changed 
+          from
+
+          t2a[0][0] = hh3*t2a[0][0]+hh1*psi[procid][1][0][0];
+        
+          to
+
+          t2a[0][0] = hh3*t2a[0][0]+hh1*t2c[0][0];
+
+          This change does not affect correctness; it is an optimization 
+          that was performed elsewhere in the code but overlooked here.
+
+11-01-94: Barnes, file code_io.C, line 55 changed from
+          
+          in_real(instr, tnow);
+
+          to 
+   
+          in_real(instr, &tnow);
+
+11-01-94: Raytrace, file main.C, lines 216-223 changed from
+
+          if ((pid == 0) || (dostats))
+          CLOCK(end);
+
+          gm->partime[0] = (end - begin) & 0x7FFFFFFF;
+          if (pid == 0) gm->par_start_time = begin;
+
+/*      printf("Process %ld elapsed time %lu.\n", pid, lapsed); */
+
+          }
+
+          to
+
+          if ((pid == 0) || (dostats)) {
+            CLOCK(end);
+            gm->partime[pid] = (end - begin) & 0x7FFFFFFF;
+            if (pid == 0) gm->par_start_time = begin;
+          }
+
+11-13-94: Raytrace, file memory.C
+ 
+          The use of the word MAIN_INITENV in a comment in memory.c causes 
+          m4 to expand this macro, and some implementations may get confused 
+          and generate the wrong C code.
+
+11-13-94: Radiosity, file rad_main.C
+
+          rad_main.C uses the macro CREATE_LITE.  All three instances of 
+          CREATE_LITE should be changed to CREATE.
+
+11-13-94: Water-spatial and Water-nsquared, file makefile
+
+          makefiles were changed so that the compilation phases included the 
+          CFLAGS options instead of the CCOPTS options, which did not exist.
+
+11-17-94: FMM, file particle.C
+
+          Comment regarding data distribution of particle_array data
+          structure is incorrect.  Round-robin allocation should be used.
+
+11-18-94: OCEAN, contiguous partitions, files main.C and linkup.C
+
+          Eliminated a problem which caused non-doubleword aligned 
+          accesses to doublewords for the uniprocessor case.
+
+          main.C: Added lines 467-471:
+
+          if (nprocs%2 == 1) {         /* To make sure that the actual data
+                                          starts double word aligned, add an extra
+                                          pointer */
+            d_size += sizeof(double ***);
+          }
+
+          Added same lines in file linkup.C at line numbers 100 and 159.
+
+07-30-95: RADIX has been changed.  A tree-structured parallel prefix 
+          computation is now used instead of a linear one.
+
+          LU had been modified.  A comment describing how to distribute
+          data (one of the POSSIBLE ENHANCEMENTS) was incorrect for the 
+          contiguous_blocks version of LU.  Also, a modification was made
+          that reduces false sharing at line 206 of lu.C:
+
+          last_malloc[i] = (double *) (((unsigned) last_malloc[i]) + PAGE_SIZE -
+                           ((unsigned) last_malloc[i]) % PAGE_SIZE);
+
+          A subdirectory shmem_files was added under the codes directory.
+          This directory contains a file that can be compiled on SGI machines
+          which replaces the libsgi.a file distributed in the original SPLASH
+          release.
+
+09-26-95: Fixed a bug in LU. Line 201 was changed from
+
+            last_malloc[i] = (double *) G_MALLOC(proc_bytes[i])
+
+          to
+
+            last_malloc[i] = (double *) G_MALLOC(proc_bytes[i] + PAGE_SIZE)
+
+          Fixed similar bugs in WATER-NSQUARED and WATER-SPATIAL.  Both
+          codes needed a barrier added into the mdmain.C files. In both
+          codes, the line 
+            
+            BARRIER(gl->start, NumProcs);
+          
+          was added.  In WATER-NSQUARED, it was added in mdmain.C at line
+          84.  In WATER-SPATIAL, it was added in mdmain.C at line 107.

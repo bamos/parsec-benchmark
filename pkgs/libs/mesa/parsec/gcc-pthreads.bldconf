@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# gcc-pthreads.bldconf - configuration file for PARSEC
+
+source ${PARSECDIR}/pkgs/libs/mesa/parsec/gcc.bldconf
+

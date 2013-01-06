@@ -1,0 +1,1530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>image</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="VIPS Reference Manual">
+<link rel="up" href="ch01.html" title="Core VIPS API">
+<link rel="prev" href="ch01.html" title="Core VIPS API">
+<link rel="next" href="libvips-header.html" title="header">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch01.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">VIPS Reference Manual</th>
+<td><a accesskey="n" href="libvips-header.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libvips-image.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libvips-image.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="image">
+<a name="libvips-image"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libvips-image.top_of_page"></a>image</span></h2>
+<p>image — the VIPS image class</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Stability Level">
+<a name="libvips-image.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libvips-image.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;vips/vips.h&gt;
+
+#define             <a class="link" href="libvips-image.html#IM-MAGIC-INTEL:CAPS" title="IM_MAGIC_INTEL">IM_MAGIC_INTEL</a>
+#define             <a class="link" href="libvips-image.html#IM-MAGIC-SPARC:CAPS" title="IM_MAGIC_SPARC">IM_MAGIC_SPARC</a>
+enum                <a class="link" href="libvips-image.html#VipsDemandStyle" title="enum VipsDemandStyle">VipsDemandStyle</a>;
+enum                <a class="link" href="libvips-image.html#VipsType" title="enum VipsType">VipsType</a>;
+enum                <a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt">VipsBandFmt</a>;
+enum                <a class="link" href="libvips-image.html#VipsCoding" title="enum VipsCoding">VipsCoding</a>;
+                    <a class="link" href="libvips-image.html#VipsProgress" title="VipsProgress">VipsProgress</a>;
+                    <a class="link" href="libvips-image.html#VipsImage" title="VipsImage">VipsImage</a>;
+#define             <a class="link" href="libvips-image.html#IM-IMAGE-SIZEOF-ELEMENT:CAPS" title="IM_IMAGE_SIZEOF_ELEMENT()">IM_IMAGE_SIZEOF_ELEMENT</a>             (I)
+#define             <a class="link" href="libvips-image.html#IM-IMAGE-SIZEOF-PEL:CAPS" title="IM_IMAGE_SIZEOF_PEL()">IM_IMAGE_SIZEOF_PEL</a>                 (I)
+#define             <a class="link" href="libvips-image.html#IM-IMAGE-SIZEOF-LINE:CAPS" title="IM_IMAGE_SIZEOF_LINE()">IM_IMAGE_SIZEOF_LINE</a>                (I)
+#define             <a class="link" href="libvips-image.html#IM-IMAGE-N-ELEMENTS:CAPS" title="IM_IMAGE_N_ELEMENTS()">IM_IMAGE_N_ELEMENTS</a>                 (I)
+#define             <a class="link" href="libvips-image.html#IM-IMAGE-ADDR:CAPS" title="IM_IMAGE_ADDR()">IM_IMAGE_ADDR</a>                       (I,
+                                                         X,
+                                                         Y)
+const <span class="returnvalue">char</span> *        <a class="link" href="libvips-image.html#im-get-argv0" title="im_get_argv0 ()">im_get_argv0</a>                        (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-image.html#im-init-world" title="im_init_world ()">im_init_world</a>                       (<em class="parameter"><code>const <span class="type">char</span> *argv0</code></em>);
+<span class="returnvalue">GOptionGroup</span> *      <a class="link" href="libvips-image.html#im-get-option-group" title="im_get_option_group ()">im_get_option_group</a>                 (<em class="parameter"><code><span class="type">void</span></code></em>);
+const <span class="returnvalue">char</span> *        <a class="link" href="libvips-image.html#im-version-string" title="im_version_string ()">im_version_string</a>                   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-image.html#im-version" title="im_version ()">im_version</a>                          (<em class="parameter"><code><span class="type">int</span> flag</code></em>);
+const <span class="returnvalue">char</span> *        <a class="link" href="libvips-image.html#im-guess-prefix" title="im_guess_prefix ()">im_guess_prefix</a>                     (<em class="parameter"><code>const <span class="type">char</span> *argv0</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *env_name</code></em>);
+const <span class="returnvalue">char</span> *        <a class="link" href="libvips-image.html#im-guess-libdir" title="im_guess_libdir ()">im_guess_libdir</a>                     (<em class="parameter"><code>const <span class="type">char</span> *argv0</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *env_name</code></em>);
+<a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="returnvalue">VipsImage</span></a> *         <a class="link" href="libvips-image.html#im-open" title="im_open ()">im_open</a>                             (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *mode</code></em>);
+#define             <a class="link" href="libvips-image.html#im-open-local" title="im_open_local()">im_open_local</a>                       (IM,
+                                                         NAME,
+                                                         MODE)
+#define             <a class="link" href="libvips-image.html#im-open-local-array" title="im_open_local_array()">im_open_local_array</a>                 (IM,
+                                                         OUT,
+                                                         N,
+                                                         NAME,
+                                                         MODE)
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-image.html#im-close" title="im_close ()">im_close</a>                            (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-image.html#im-invalidate" title="im_invalidate ()">im_invalidate</a>                       (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libvips-image.html#im-initdesc" title="im_initdesc ()">im_initdesc</a>                         (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *image</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandbits</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> bandfmt</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsCoding" title="enum VipsCoding"><span class="type">VipsCoding</span></a> coding</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsType" title="enum VipsType"><span class="type">VipsType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> xres</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> yres</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xo</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yo</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-image.html#im-cp-desc" title="im_cp_desc ()">im_cp_desc</a>                          (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *in</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-image.html#im-cp-descv" title="im_cp_descv ()">im_cp_descv</a>                         (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *in1</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libvips-image.html#im-cp-desc-array" title="im_cp_desc_array ()">im_cp_desc_array</a>                    (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *in[]</code></em>);
+<a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="returnvalue">VipsImage</span></a> *         <a class="link" href="libvips-image.html#im-binfile" title="im_binfile ()">im_binfile</a>                          (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> offset</code></em>);
+<a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="returnvalue">VipsImage</span></a> *         <a class="link" href="libvips-image.html#im-image" title="im_image ()">im_image</a>                            (<em class="parameter"><code><span class="type">void</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> bandfmt</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libvips-image.description"></a><h2>Description</h2>
+<p>
+The VIPS image class and associated types and macros.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="libvips-image.details"></a><h2>Details</h2>
+<div class="refsect2" title="IM_MAGIC_INTEL">
+<a name="IM-MAGIC-INTEL:CAPS"></a><h3>IM_MAGIC_INTEL</h3>
+<pre class="programlisting">#define IM_MAGIC_INTEL (0xb6a6f208U)
+</pre>
+<p>
+The first four bytes of a VIPS file in Intel byte ordering.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="IM_MAGIC_SPARC">
+<a name="IM-MAGIC-SPARC:CAPS"></a><h3>IM_MAGIC_SPARC</h3>
+<pre class="programlisting">#define IM_MAGIC_SPARC (0x08f2a6b6U)
+</pre>
+<p>
+The first four bytes of a VIPS file in SPARC byte ordering.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="enum VipsDemandStyle">
+<a name="VipsDemandStyle"></a><h3>enum VipsDemandStyle</h3>
+<pre class="programlisting">typedef enum {
+	IM_SMALLTILE,	
+	IM_FATSTRIP,
+	IM_THINSTRIP,
+	IM_ANY			
+} VipsDemandStyle;
+</pre>
+<p>
+See <a class="link" href="libvips-generate.html#im-demand-hint" title="im_demand_hint ()"><code class="function">im_demand_hint()</code></a>. Operations can hint to the VIPS image IO system about
+the kind of demand geometry they prefer. 
+</p>
+<p>
+These demand styles are given below in order of increasing
+restrictiveness.  When demanding output from a pipeline, <a class="link" href="libvips-generate.html#im-generate" title="im_generate ()"><code class="function">im_generate()</code></a>
+will use the most restrictive of the styles requested by the operations 
+in the pipeline.
+</p>
+<p>
+IM_THINSTRIP --- This operation would like to output strips the width 
+of the image and a few pels high. This is option suitable for 
+point-to-point operations, such as those in the arithmetic package.
+</p>
+<p>
+This option is only efficient for cases where each output pel depends 
+upon the pel in the corresponding position in the input image.
+</p>
+<p>
+IM_FATSTRIP --- This operation would like to output strips the width 
+of the image and as high as possible. This option is suitable for area 
+operations which do not violently transform coordinates, such as <a class="link" href="libvips-convolution.html#im-conv" title="im_conv ()"><code class="function">im_conv()</code></a>. 
+</p>
+<p>
+IM_SMALLTILE --- This is the most general demand format.
+Output is demanded in small (around 100x100 pel) sections. This style works 
+reasonably efficiently, even for bizzare operations like 45 degree rotate.
+</p>
+<p>
+IM_ANY --- This image is not being demand-read from a disc file (even 
+indirectly) so any demand style is OK. It's used for things like
+<a class="link" href="libvips-conversion.html#im-black" title="im_black ()"><code class="function">im_black()</code></a> where the pixels are calculated.
+</p>
+<p>
+See also: <a class="link" href="libvips-generate.html#im-demand-hint" title="im_demand_hint ()"><code class="function">im_demand_hint()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="IM-SMALLTILE:CAPS"></a><span class="term"><code class="literal">IM_SMALLTILE</code></span></p></td>
+<td>demand in small (typically 64x64 pixel) tiles
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-FATSTRIP:CAPS"></a><span class="term"><code class="literal">IM_FATSTRIP</code></span></p></td>
+<td>demand in fat (typically 10 pixel high) strips
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-THINSTRIP:CAPS"></a><span class="term"><code class="literal">IM_THINSTRIP</code></span></p></td>
+<td>demand in thin (typically 1 pixel high) strips
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-ANY:CAPS"></a><span class="term"><code class="literal">IM_ANY</code></span></p></td>
+<td>demand geometry does not matter
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="enum VipsType">
+<a name="VipsType"></a><h3>enum VipsType</h3>
+<pre class="programlisting">typedef enum {
+	IM_TYPE_MULTIBAND = 0,
+	IM_TYPE_B_W = 1,
+	IM_TYPE_HISTOGRAM = 10,
+	IM_TYPE_FOURIER = 24,
+	IM_TYPE_XYZ = 12,
+	IM_TYPE_LAB = 13,
+	IM_TYPE_CMYK = 15,
+	IM_TYPE_LABQ = 16,
+	IM_TYPE_RGB = 17,
+	IM_TYPE_UCS = 18,
+	IM_TYPE_LCH = 19,
+	IM_TYPE_LABS = 21,
+	IM_TYPE_sRGB = 22,
+	IM_TYPE_YXY = 23,
+	IM_TYPE_RGB16 = 25,
+	IM_TYPE_GREY16 = 26
+} VipsType;
+</pre>
+<p>
+These values are set by operations as hints to user-interfaces built on top 
+of VIPS to help them show images to the user in a meaningful way. 
+Operations do not use these values to decide their action.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="IM-TYPE-MULTIBAND:CAPS"></a><span class="term"><code class="literal">IM_TYPE_MULTIBAND</code></span></p></td>
+<td>generic many-band image
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-B-W:CAPS"></a><span class="term"><code class="literal">IM_TYPE_B_W</code></span></p></td>
+<td>some kind of single-band image
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-HISTOGRAM:CAPS"></a><span class="term"><code class="literal">IM_TYPE_HISTOGRAM</code></span></p></td>
+<td>a 1D image such as a histogram or lookup table
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-FOURIER:CAPS"></a><span class="term"><code class="literal">IM_TYPE_FOURIER</code></span></p></td>
+<td>image is in fourier space
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-XYZ:CAPS"></a><span class="term"><code class="literal">IM_TYPE_XYZ</code></span></p></td>
+<td>the first three bands are colours in CIE XYZ colourspace
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-LAB:CAPS"></a><span class="term"><code class="literal">IM_TYPE_LAB</code></span></p></td>
+<td>pixels are in CIE Lab space
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-CMYK:CAPS"></a><span class="term"><code class="literal">IM_TYPE_CMYK</code></span></p></td>
+<td>the first four bands are in CMYK space
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-LABQ:CAPS"></a><span class="term"><code class="literal">IM_TYPE_LABQ</code></span></p></td>
+<td>implies <a class="link" href="libvips-image.html#IM-CODING-LABQ:CAPS"><code class="literal">IM_CODING_LABQ</code></a>
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-RGB:CAPS"></a><span class="term"><code class="literal">IM_TYPE_RGB</code></span></p></td>
+<td>generic RGB space
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-UCS:CAPS"></a><span class="term"><code class="literal">IM_TYPE_UCS</code></span></p></td>
+<td>a uniform colourspace based on CMC
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-LCH:CAPS"></a><span class="term"><code class="literal">IM_TYPE_LCH</code></span></p></td>
+<td>pixels are in CIE LCh space
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-LABS:CAPS"></a><span class="term"><code class="literal">IM_TYPE_LABS</code></span></p></td>
+<td>pixels are CIE LAB coded as three signed 16-bit values
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-sRGB"></a><span class="term"><code class="literal">IM_TYPE_sRGB</code></span></p></td>
+<td>pixels are sRGB
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-YXY:CAPS"></a><span class="term"><code class="literal">IM_TYPE_YXY</code></span></p></td>
+<td>pixels are CIE Yxy
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-RGB16:CAPS"></a><span class="term"><code class="literal">IM_TYPE_RGB16</code></span></p></td>
+<td>generic 16-bit RGB
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-TYPE-GREY16:CAPS"></a><span class="term"><code class="literal">IM_TYPE_GREY16</code></span></p></td>
+<td>generic 16-bit mono
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="enum VipsBandFmt">
+<a name="VipsBandFmt"></a><h3>enum VipsBandFmt</h3>
+<pre class="programlisting">typedef enum {
+	IM_BANDFMT_NOTSET = -1,
+	IM_BANDFMT_UCHAR = 0,
+	IM_BANDFMT_CHAR = 1,
+	IM_BANDFMT_USHORT = 2,
+	IM_BANDFMT_SHORT = 3,
+	IM_BANDFMT_UINT = 4,
+	IM_BANDFMT_INT = 5,
+	IM_BANDFMT_FLOAT = 6,
+	IM_BANDFMT_COMPLEX = 7,
+	IM_BANDFMT_DOUBLE = 8,
+	IM_BANDFMT_DPCOMPLEX = 9
+} VipsBandFmt;
+</pre>
+<p>
+The format used for each band element. 
+</p>
+<p>
+Each corresponnds to a native C type for the current machine. For example,
+<a class="link" href="libvips-image.html#IM-BANDFMT-USHORT:CAPS"><code class="literal">IM_BANDFMT_USHORT</code></a> is <span class="type">unsigned short</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="IM-BANDFMT-NOTSET:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_NOTSET</code></span></p></td>
+<td></td>
+</tr>
+<tr>
+<td><p><a name="IM-BANDFMT-UCHAR:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_UCHAR</code></span></p></td>
+<td>unsigned char format
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-BANDFMT-CHAR:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_CHAR</code></span></p></td>
+<td>char format
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-BANDFMT-USHORT:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_USHORT</code></span></p></td>
+<td>unsigned short format
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-BANDFMT-SHORT:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_SHORT</code></span></p></td>
+<td>short format
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-BANDFMT-UINT:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_UINT</code></span></p></td>
+<td>unsigned int format
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-BANDFMT-INT:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_INT</code></span></p></td>
+<td>int format
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-BANDFMT-FLOAT:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_FLOAT</code></span></p></td>
+<td>float format
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-BANDFMT-COMPLEX:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_COMPLEX</code></span></p></td>
+<td>complex (two floats) format
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-BANDFMT-DOUBLE:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_DOUBLE</code></span></p></td>
+<td>double float format
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-BANDFMT-DPCOMPLEX:CAPS"></a><span class="term"><code class="literal">IM_BANDFMT_DPCOMPLEX</code></span></p></td>
+<td>double complex (two double) format
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="enum VipsCoding">
+<a name="VipsCoding"></a><h3>enum VipsCoding</h3>
+<pre class="programlisting">typedef enum {
+	IM_CODING_NONE = 0,
+	IM_CODING_LABQ = 2,
+	IM_CODING_RAD = 6
+} VipsCoding;
+</pre>
+<p>
+How pixels are coded. 
+</p>
+<p>
+Normally, pixels are uncoded and can be manipulated as you would expect.
+However some file formats code pixels for compression, and sometimes it's
+useful to be able to manipulate images in the coded format.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="IM-CODING-NONE:CAPS"></a><span class="term"><code class="literal">IM_CODING_NONE</code></span></p></td>
+<td>pixels are not coded
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-CODING-LABQ:CAPS"></a><span class="term"><code class="literal">IM_CODING_LABQ</code></span></p></td>
+<td>pixels encode 3 float CIELAB values as 4 uchar
+</td>
+</tr>
+<tr>
+<td><p><a name="IM-CODING-RAD:CAPS"></a><span class="term"><code class="literal">IM_CODING_RAD</code></span></p></td>
+<td>pixels encode 3 float RGB as 4 uchar (Radiance coding)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="VipsProgress">
+<a name="VipsProgress"></a><h3>VipsProgress</h3>
+<pre class="programlisting">typedef struct {
+	int run;		/* Time we have been running */
+	int eta;		/* Estimated seconds of computation left */
+	gint64 tpels;		/* Number of pels we expect to calculate */
+	gint64 npels;		/* Number of pels calculated so far */
+	int percent;		/* Percent complete */
+	GTimer *start;		/* Start time */
+} VipsProgress;
+</pre>
+<p>
+A structure available to eval callbacks giving information on evaluation
+progress. See <a class="link" href="libvips-callback.html#im-add-eval-callback" title="im_add_eval_callback ()"><code class="function">im_add_eval_callback()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="VipsProgress.run"></a>run</code></em>;</span></p></td>
+<td>Time we have been running 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="VipsProgress.eta"></a>eta</code></em>;</span></p></td>
+<td>Estimated seconds of computation left 
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gint64</span> <em class="structfield"><code><a name="VipsProgress.tpels"></a>tpels</code></em>;</span></p></td>
+<td>Number of pels we expect to calculate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gint64</span> <em class="structfield"><code><a name="VipsProgress.npels"></a>npels</code></em>;</span></p></td>
+<td>Number of pels calculated so far
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="VipsProgress.percent"></a>percent</code></em>;</span></p></td>
+<td>Percent complete
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">GTimer</span> *<em class="structfield"><code><a name="VipsProgress.start"></a>start</code></em>;</span></p></td>
+<td>Start time 
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="VipsImage">
+<a name="VipsImage"></a><h3>VipsImage</h3>
+<pre class="programlisting">typedef struct {
+	/* Fields from file header.
+	 */
+	int Xsize;		/* image width, in pixels */
+	int Ysize;		/* image height, in pixels */
+	int Bands;		/* number of image bands */
+	VipsBandFmt BandFmt; /* #VipsBandFmt describing the pixel format */
+	VipsCoding Coding; /* #VipsCoding describing the pixel coding */
+	VipsType Type;		/* #VipsType hinting at pixel interpretation */
+	float Xres;		/* horizontal pixels per millimetre */
+	float Yres;		/* vertical pixels per millimetre */
+	int Xoffset;		/* image origin hint */
+	int Yoffset;		/* image origin hint */
+
+	/* Derived fields that user can fiddle with.
+	 */
+	char *filename;		/* pointer to copy of filename */
+	char *data;		/* start of image data for WIO */
+	VipsProgress *time; /* evaluation progress */
+	int kill;		/* set to non-zero to block partial eval */
+} VipsImage;
+</pre>
+<p>
+An image. These can represent an image on disc, a memory buffer, an image
+in the process of being written to disc or a partially evaluated image
+in memory.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="VipsImage.Xsize"></a>Xsize</code></em>;</span></p></td>
+<td>image width, in pixels
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="VipsImage.Ysize"></a>Ysize</code></em>;</span></p></td>
+<td>image height, in pixels
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="VipsImage.Bands"></a>Bands</code></em>;</span></p></td>
+<td>number of image bands
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> <em class="structfield"><code><a name="VipsImage.BandFmt"></a>BandFmt</code></em>;</span></p></td>
+<td>
+<a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a> describing the pixel type
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="libvips-image.html#VipsCoding" title="enum VipsCoding"><span class="type">VipsCoding</span></a> <em class="structfield"><code><a name="VipsImage.Coding"></a>Coding</code></em>;</span></p></td>
+<td>
+<a class="link" href="libvips-image.html#VipsCoding" title="enum VipsCoding"><span class="type">VipsCoding</span></a> describing the pixel coding type
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="libvips-image.html#VipsType" title="enum VipsType"><span class="type">VipsType</span></a> <em class="structfield"><code><a name="VipsImage.Type"></a>Type</code></em>;</span></p></td>
+<td>a <a class="link" href="libvips-image.html#VipsType" title="enum VipsType"><span class="type">VipsType</span></a> hinting how the image pixels should be interpreted
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">float</span> <em class="structfield"><code><a name="VipsImage.Xres"></a>Xres</code></em>;</span></p></td>
+<td>horizontal pixels per millimetre
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">float</span> <em class="structfield"><code><a name="VipsImage.Yres"></a>Yres</code></em>;</span></p></td>
+<td>vertical pixels per millimetre
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="VipsImage.Xoffset"></a>Xoffset</code></em>;</span></p></td>
+<td>a hint giving the position of the origin in the image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="VipsImage.Yoffset"></a>Yoffset</code></em>;</span></p></td>
+<td>a hint giving the position of the origin in the image
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">char</span> *<em class="structfield"><code><a name="VipsImage.filename"></a>filename</code></em>;</span></p></td>
+<td>the disc file associated with this image, or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">char</span> *<em class="structfield"><code><a name="VipsImage.data"></a>data</code></em>;</span></p></td>
+<td>the pixel data associated with this image, or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="libvips-image.html#VipsProgress" title="VipsProgress"><span class="type">VipsProgress</span></a> *<em class="structfield"><code><a name="VipsImage.time"></a>time</code></em>;</span></p></td>
+<td>the evaluation progress associated with this image, or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="VipsImage.kill"></a>kill</code></em>;</span></p></td>
+<td>set this to non-zero to block evaluation of this image
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_IMAGE_SIZEOF_ELEMENT()">
+<a name="IM-IMAGE-SIZEOF-ELEMENT:CAPS"></a><h3>IM_IMAGE_SIZEOF_ELEMENT()</h3>
+<pre class="programlisting">#define             IM_IMAGE_SIZEOF_ELEMENT(I)</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>I</code></em> :</span></p></td>
+<td>a <a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="function">sizeof()</code> a band element.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_IMAGE_SIZEOF_PEL()">
+<a name="IM-IMAGE-SIZEOF-PEL:CAPS"></a><h3>IM_IMAGE_SIZEOF_PEL()</h3>
+<pre class="programlisting">#define             IM_IMAGE_SIZEOF_PEL(I)</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>I</code></em> :</span></p></td>
+<td>a <a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="function">sizeof()</code> a pixel.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_IMAGE_SIZEOF_LINE()">
+<a name="IM-IMAGE-SIZEOF-LINE:CAPS"></a><h3>IM_IMAGE_SIZEOF_LINE()</h3>
+<pre class="programlisting">#define             IM_IMAGE_SIZEOF_LINE(I)</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>I</code></em> :</span></p></td>
+<td>a <a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="function">sizeof()</code> a scanline of pixels.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_IMAGE_N_ELEMENTS()">
+<a name="IM-IMAGE-N-ELEMENTS:CAPS"></a><h3>IM_IMAGE_N_ELEMENTS()</h3>
+<pre class="programlisting">#define             IM_IMAGE_N_ELEMENTS(I)</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>I</code></em> :</span></p></td>
+<td>a <a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The number of band elements in a scanline.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="IM_IMAGE_ADDR()">
+<a name="IM-IMAGE-ADDR:CAPS"></a><h3>IM_IMAGE_ADDR()</h3>
+<pre class="programlisting">#define             IM_IMAGE_ADDR(I,X,Y)</pre>
+<p>
+This macro returns a pointer to a pixel in an image. It only works for
+images which are fully available in memory, so memory buffers and small
+mapped images only.
+</p>
+<p>
+If DEBUG is defined, you get a version that checks bounds for you.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>I</code></em> :</span></p></td>
+<td>a <a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>X</code></em> :</span></p></td>
+<td>x coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>Y</code></em> :</span></p></td>
+<td>y coordinate
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The address of pixel (x,y) in the image.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_get_argv0 ()">
+<a name="im-get-argv0"></a><h3>im_get_argv0 ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        im_get_argv0                        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+See also: <a class="link" href="libvips-image.html#im-init-world" title="im_init_world ()"><code class="function">im_init_world()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a pointer to an internal copy of the argv0 string passed to
+<a class="link" href="libvips-image.html#im-init-world" title="im_init_world ()"><code class="function">im_init_world()</code></a>. Do not free this value
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_init_world ()">
+<a name="im-init-world"></a><h3>im_init_world ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_init_world                       (<em class="parameter"><code>const <span class="type">char</span> *argv0</code></em>);</pre>
+<p>
+<a class="link" href="libvips-image.html#im-init-world" title="im_init_world ()"><code class="function">im_init_world()</code></a> starts up the world of VIPS. You should call this on
+program startup before using any other VIPS operations. If you do not call
+<a class="link" href="libvips-image.html#im-init-world" title="im_init_world ()"><code class="function">im_init_world()</code></a>, VIPS will call it for you when you use your first VIPS 
+operation, but
+it may not be able to get hold of <em class="parameter"><code>argv0</code></em> and VIPS may therefore be unable
+to find its data files. It is much better to call this function yourself.
+</p>
+<p>
+<a class="link" href="libvips-image.html#im-init-world" title="im_init_world ()"><code class="function">im_init_world()</code></a> does approximately the following:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>initialises any libraries that VIPS is using, including GObject
+    and the threading system, if neccessary</p></li>
+<li class="listitem"><p>guesses where the VIPS data files are and sets up
+    internationalisation --- see <a class="link" href="libvips-image.html#im-guess-prefix" title="im_guess_prefix ()"><code class="function">im_guess_prefix()</code></a>
+    </p></li>
+<li class="listitem"><p>loads any plugins from $libdir/vips-x.y, where x and y are the
+    major and minor version numbers for this VIPS.
+    </p></li>
+</ul></div>
+<p>
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+int main( int argc, char **argv )
+{
+  if( im_init_world( argv[0] ) )
+    error_exit( "unable to start VIPS" );
+
+  return( 0 );
+}
+</pre></div>
+<p>
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-get-option-group" title="im_get_option_group ()"><code class="function">im_get_option_group()</code></a>, <a class="link" href="libvips-image.html#im-version" title="im_version ()"><code class="function">im_version()</code></a>, <a class="link" href="libvips-image.html#im-guess-prefix" title="im_guess_prefix ()"><code class="function">im_guess_prefix()</code></a>,
+<a class="link" href="libvips-image.html#im-guess-libdir" title="im_guess_libdir ()"><code class="function">im_guess_libdir()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argv0</code></em> :</span></p></td>
+<td>name of application
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_get_option_group ()">
+<a name="im-get-option-group"></a><h3>im_get_option_group ()</h3>
+<pre class="programlisting"><span class="returnvalue">GOptionGroup</span> *      im_get_option_group                 (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+<a class="link" href="libvips-image.html#im-get-option-group" title="im_get_option_group ()"><code class="function">im_get_option_group()</code></a>  returns  a GOptionGroup containing various VIPS
+command-line options. It  can  be  used  with  GOption  to  help
+parse argc/argv.
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-version" title="im_version ()"><code class="function">im_version()</code></a>, <a class="link" href="libvips-image.html#im-guess-prefix" title="im_guess_prefix ()"><code class="function">im_guess_prefix()</code></a>,
+<a class="link" href="libvips-image.html#im-guess-libdir" title="im_guess_libdir ()"><code class="function">im_guess_libdir()</code></a>, <a class="link" href="libvips-image.html#im-init-world" title="im_init_world ()"><code class="function">im_init_world()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a GOptionGroup for VIPS, see GOption
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_version_string ()">
+<a name="im-version-string"></a><h3>im_version_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        im_version_string                   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Get the VIPS version as a static string, including a build date and time.
+Do not free.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a static version string
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_version ()">
+<a name="im-version"></a><h3>im_version ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_version                          (<em class="parameter"><code><span class="type">int</span> flag</code></em>);</pre>
+<p>
+Get the major, minor or micro library version, with <em class="parameter"><code>flag</code></em> values 0, 1 and
+2.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>which field of the version to get
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> library version number
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_guess_prefix ()">
+<a name="im-guess-prefix"></a><h3>im_guess_prefix ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        im_guess_prefix                     (<em class="parameter"><code>const <span class="type">char</span> *argv0</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *env_name</code></em>);</pre>
+<p>
+<a class="link" href="libvips-image.html#im-guess-prefix" title="im_guess_prefix ()"><code class="function">im_guess_prefix()</code></a> tries to guess the install directory. You should pass 
+in the value of argv[0] (the name your program was run as) as a clue to 
+help it out, plus the name of the environment variable you let the user 
+override your package install area with (eg. "VIPSHOME"). 
+</p>
+<p>
+On success, <a class="link" href="libvips-image.html#im-guess-prefix" title="im_guess_prefix ()"><code class="function">im_guess_prefix()</code></a> returns the prefix it discovered, and as a 
+side effect, sets the environment variable (if it's not set).
+</p>
+<p>
+Don't free the return string!
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-guess-libdir" title="im_guess_libdir ()"><code class="function">im_guess_libdir()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argv0</code></em> :</span></p></td>
+<td>program name (typically argv[0])
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>env_name</code></em> :</span></p></td>
+<td>save prefix in this environment variable
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the install prefix as a static string, do not free.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_guess_libdir ()">
+<a name="im-guess-libdir"></a><h3>im_guess_libdir ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        im_guess_libdir                     (<em class="parameter"><code>const <span class="type">char</span> *argv0</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *env_name</code></em>);</pre>
+<p>
+<a class="link" href="libvips-image.html#im-guess-libdir" title="im_guess_libdir ()"><code class="function">im_guess_libdir()</code></a> tries to guess the install directory (usually the 
+configure libdir, or $prefix/lib). You should pass 
+in the value of argv[0] (the name your program was run as) as a clue to 
+help it out, plus the name of the environment variable you let the user 
+override your package install area with (eg. "VIPSHOME"). 
+</p>
+<p>
+On success, <a class="link" href="libvips-image.html#im-guess-libdir" title="im_guess_libdir ()"><code class="function">im_guess_libdir()</code></a> returns the libdir it discovered, and as a 
+side effect, sets the prefix environment variable (if it's not set).
+</p>
+<p>
+Don't free the return string!
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-guess-prefix" title="im_guess_prefix ()"><code class="function">im_guess_prefix()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argv0</code></em> :</span></p></td>
+<td>program name (typically argv[0])
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>env_name</code></em> :</span></p></td>
+<td>save prefix in this environment variable
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the libdir as a static string, do not free.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_open ()">
+<a name="im-open"></a><h3>im_open ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="returnvalue">VipsImage</span></a> *         im_open                             (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *mode</code></em>);</pre>
+<p>
+<a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a> examines the mode string, and creates an appropriate <span class="type">IMAGE</span>.
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p>
+      <span class="emphasis"><em>"r"</em></span>
+      opens the named file for reading. If the file is not in the native 
+      VIPS format for your machine, <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a> automatically converts the 
+      file for you in memory. 
+</p>
+<p>
+      For some large files (eg. TIFF) this may 
+      not be what you want: you should call the appropriate converter
+      yourself, and arrange for the conversion to take place on disc. 
+      See <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>. 
+</p>
+<p>
+      <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a> can read files in most formats.
+</p>
+<p>
+      Note that <span class="emphasis"><em>"r"</em></span> mode works in at least two stages. 
+      It should return quickly and let you check header fields. It will
+      only actually read in pixels when you first access them. 
+    </p>
+</li>
+<li class="listitem">
+<p>
+      <span class="emphasis"><em>"w"</em></span>
+      opens the named file for writing. It looks at the file name 
+      suffix to determine the type to write -- for example:
+</p>
+<p>
+      </p>
+<div class="informalexample"><pre class="programlisting">
+        im_open( "fred.tif", "w" )
+      </pre></div>
+<p>
+</p>
+<p>
+      will write in TIFF format.
+    </p>
+</li>
+<li class="listitem"><p>
+      <span class="emphasis"><em>"t"</em></span>
+      creates a temporary memory buffer image.
+    </p></li>
+<li class="listitem"><p>
+      <span class="emphasis"><em>"p"</em></span>
+      creates a "glue" descriptor you can use to join two image 
+      processing operations together.
+    </p></li>
+<li class="listitem"><p>
+      <span class="emphasis"><em>"rw"</em></span>
+      opens the named file for reading and writing. This will only work for 
+      VIPS files in a format native to your machine. It is only for 
+      paintbox-type applications.
+    </p></li>
+</ul></div>
+<p>
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-close" title="im_close ()"><code class="function">im_close()</code></a>, <a class="link" href="VipsFormat.html" title="VipsFormat"><span class="type">VipsFormat</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to open
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td>mode to open with
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the image descriptor on success and NULL on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_open_local()">
+<a name="im-open-local"></a><h3>im_open_local()</h3>
+<pre class="programlisting">#define             im_open_local( IM, NAME, MODE )</pre>
+<p>
+Just like <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a>, but the <span class="type">IMAGE</span> will be closed for you automatically
+when <em class="parameter"><code>IM</code></em> is closed.
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a>, <a class="link" href="libvips-image.html#im-close" title="im_close ()"><code class="function">im_close()</code></a>, <a class="link" href="libvips-util.html#im-local" title="im_local ()"><code class="function">im_local()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>IM</code></em> :</span></p></td>
+<td>image to open local to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>NAME</code></em> :</span></p></td>
+<td>filename to open
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>MODE</code></em> :</span></p></td>
+<td>mode to open with
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <span class="type">IMAGE</span>, or NULL on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_open_local_array()">
+<a name="im-open-local-array"></a><h3>im_open_local_array()</h3>
+<pre class="programlisting">#define             im_open_local_array( IM, OUT, N, NAME, MODE )</pre>
+<p>
+Just like <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a>, but opens an array of images. Handy for creating a set
+of temporary images for a function.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+IMAGE *t[5];
+
+if( im_open_local_array( out, t, 5, "some-temps", "p" ) ||
+  im_add( a, b, t[0] ) ||
+  im_invert( t[0], t[1] ) ||
+  im_add( t[1], t[0], t[2] ) ||
+  im_costra( t[2], out ) )
+  return( -1 );
+</pre></div>
+<p>
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a>, <a class="link" href="libvips-image.html#im-open-local" title="im_open_local()"><code class="function">im_open_local()</code></a>, <a class="link" href="libvips-util.html#im-local-array" title="im_local_array ()"><code class="function">im_local_array()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>IM</code></em> :</span></p></td>
+<td>image to open local to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>OUT</code></em> :</span></p></td>
+<td>array to fill with <span class="type">IMAGE</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>N</code></em> :</span></p></td>
+<td>array size
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>NAME</code></em> :</span></p></td>
+<td>filename to open
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>MODE</code></em> :</span></p></td>
+<td>mode to open with
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on sucess, or -1 on error
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_close ()">
+<a name="im-close"></a><h3>im_close ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_close                            (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>);</pre>
+<p>
+Frees all resources associated with <em class="parameter"><code>im</code></em>. 
+</p>
+<p>
+If there are open <a class="link" href="libvips-region.html#REGION:CAPS" title="REGION"><span class="type">REGION</span></a> s on <em class="parameter"><code>im</code></em>, close is delayed until the last region
+is freed.
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>image to close
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success and 1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_invalidate ()">
+<a name="im-invalidate"></a><h3>im_invalidate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_invalidate                       (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *im</code></em>);</pre>
+<p>
+Invalidate all pixel caches on an <span class="type">IMAGE</span> and any derived images. The 
+"invalidate" callback is triggered for all invalidated images.
+</p>
+<p>
+See also: <a class="link" href="libvips-callback.html#im-add-invalidate-callback" title="im_add_invalidate_callback ()"><code class="function">im_add_invalidate_callback()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>im</code></em> :</span></p></td>
+<td>
+<span class="type">IMAGE</span> to invalidate
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_initdesc ()">
+<a name="im-initdesc"></a><h3>im_initdesc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                im_initdesc                         (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *image</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bandbits</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> bandfmt</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsCoding" title="enum VipsCoding"><span class="type">VipsCoding</span></a> coding</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsType" title="enum VipsType"><span class="type">VipsType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> xres</code></em>,
+                                                         <em class="parameter"><code><span class="type">float</span> yres</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xo</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> yo</code></em>);</pre>
+<p>
+A convenience function to set the header fields after creating an image.
+Normally you copy the fields from one of your input images with
+<a class="link" href="libvips-image.html#im-cp-desc" title="im_cp_desc ()"><code class="function">im_cp_desc()</code></a> and then make
+any adjustments you need, but if you are creating an image from scratch,
+for example <a class="link" href="libvips-conversion.html#im-black" title="im_black ()"><code class="function">im_black()</code></a> or <a class="link" href="VipsFormat.html#im-jpeg2vips" title="im_jpeg2vips ()"><code class="function">im_jpeg2vips()</code></a>, you do need to set all the
+fields yourself.
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-cp-desc" title="im_cp_desc ()"><code class="function">im_cp_desc()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>image</code></em> :</span></p></td>
+<td>image to init
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xsize</code></em> :</span></p></td>
+<td>image width
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ysize</code></em> :</span></p></td>
+<td>image height
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bands</code></em> :</span></p></td>
+<td>image bands
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bandbits</code></em> :</span></p></td>
+<td>ignored, just here for compatibility
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bandfmt</code></em> :</span></p></td>
+<td>band format
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>coding</code></em> :</span></p></td>
+<td>image coding
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>image type
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xres</code></em> :</span></p></td>
+<td>horizontal resolution, pixels per millimetre
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>yres</code></em> :</span></p></td>
+<td>vertical resolution, pixels per millimetre
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xo</code></em> :</span></p></td>
+<td>x offset
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>yo</code></em> :</span></p></td>
+<td>y offset
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_cp_desc ()">
+<a name="im-cp-desc"></a><h3>im_cp_desc ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_cp_desc                          (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *in</code></em>);</pre>
+<p>
+Copy fields from <em class="parameter"><code>in</code></em> to <em class="parameter"><code>out</code></em>. A convenience
+function over <a class="link" href="libvips-image.html#im-cp-desc-array" title="im_cp_desc_array ()"><code class="function">im_cp_desc_array()</code></a>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-cp-desc-array" title="im_cp_desc_array ()"><code class="function">im_cp_desc_array()</code></a>, <a class="link" href="libvips-image.html#im-cp-descv" title="im_cp_descv ()"><code class="function">im_cp_descv()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to copy to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>image to copy from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_cp_descv ()">
+<a name="im-cp-descv"></a><h3>im_cp_descv ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_cp_descv                         (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *in1</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Copy fields from all the input images to the output image. A convenience
+function over <a class="link" href="libvips-image.html#im-cp-desc-array" title="im_cp_desc_array ()"><code class="function">im_cp_desc_array()</code></a>. 
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-cp-desc-array" title="im_cp_desc_array ()"><code class="function">im_cp_desc_array()</code></a>, <a class="link" href="libvips-image.html#im-cp-desc" title="im_cp_desc ()"><code class="function">im_cp_desc()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to copy to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in1</code></em> :</span></p></td>
+<td>first image to copy from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>
+<code class="literal">NULL</code>-terminated list of images to copy from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_cp_desc_array ()">
+<a name="im-cp-desc-array"></a><h3>im_cp_desc_array ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 im_cp_desc_array                    (<em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *out</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="type">VipsImage</span></a> *in[]</code></em>);</pre>
+<p>
+Copy fields from all the input images to the output image. There must be at
+least one input image. If you are making an image which has no input images
+(for example, <a class="link" href="libvips-conversion.html#im-black" title="im_black ()"><code class="function">im_black()</code></a> or <a class="link" href="VipsFormat.html#im-vips2jpeg" title="im_vips2jpeg ()"><code class="function">im_vips2jpeg()</code></a>), use <a class="link" href="libvips-image.html#im-initdesc" title="im_initdesc ()"><code class="function">im_initdesc()</code></a> instead.
+</p>
+<p>
+The first input image is used to set the main fields of <em class="parameter"><code>out</code></em> (<em class="parameter"><code>XSize</code></em>, <em class="parameter"><code>Coding</code></em>
+and so on). 
+</p>
+<p>
+Metadata from all the image is merged on to <em class="parameter"><code>out</code></em>, with lower-numbered items 
+overriding higher. So for example, if <em class="parameter"><code>in</code></em>[0] and <em class="parameter"><code>in</code></em>[1] both have an item
+called "icc-profile", it's the profile attached to <em class="parameter"><code>in</code></em>[0] that will end up
+on <em class="parameter"><code>out</code></em>.
+</p>
+<p>
+Image history is completely copied from all <em class="parameter"><code>in</code></em>. <em class="parameter"><code>out</code></em> will have the history
+of all the intput images.
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-cp-descv" title="im_cp_descv ()"><code class="function">im_cp_descv()</code></a>, <a class="link" href="libvips-image.html#im-cp-desc" title="im_cp_desc ()"><code class="function">im_cp_desc()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>image to copy to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>
+<code class="literal">NULL</code>-terminated array of images to copy from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success, -1 on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_binfile ()">
+<a name="im-binfile"></a><h3>im_binfile ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="returnvalue">VipsImage</span></a> *         im_binfile                          (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> xsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> ysize</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> offset</code></em>);</pre>
+<p>
+This function maps the named file and returns an <span class="type">IMAGE</span> you can use to
+read it.
+</p>
+<p>
+It returns an 8-bit image with <em class="parameter"><code>bands</code></em> bands. If the image is not 8-bit, use 
+<a class="link" href="libvips-conversion.html#im-copy-set" title="im_copy_set ()"><code class="function">im_copy_set()</code></a> to transform the descriptor after loading it.
+</p>
+<p>
+See also: <a class="link" href="libvips-conversion.html#im-copy-set" title="im_copy_set ()"><code class="function">im_copy_set()</code></a>, <a class="link" href="VipsFormat.html#im-raw2vips" title="im_raw2vips ()"><code class="function">im_raw2vips()</code></a>, <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>filename to open
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xsize</code></em> :</span></p></td>
+<td>image width
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ysize</code></em> :</span></p></td>
+<td>image height
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bands</code></em> :</span></p></td>
+<td>image bands (or bytes per pixel)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>bytes to skip at start of file
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the new <span class="type">IMAGE</span>, or NULL on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="im_image ()">
+<a name="im-image"></a><h3>im_image ()</h3>
+<pre class="programlisting"><a class="link" href="libvips-image.html#VipsImage" title="VipsImage"><span class="returnvalue">VipsImage</span></a> *         im_image                            (<em class="parameter"><code><span class="type">void</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> bands</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libvips-image.html#VipsBandFmt" title="enum VipsBandFmt"><span class="type">VipsBandFmt</span></a> bandfmt</code></em>);</pre>
+<p>
+This function wraps an <span class="type">IMAGE</span> around a memory buffer. VIPS does not take
+responsibility for the area of memory, it's up to you to make sure it's
+freed when the image is closed. See for example <a class="link" href="libvips-callback.html#im-add-close-callback" title="im_add_close_callback ()"><code class="function">im_add_close_callback()</code></a>.
+</p>
+<p>
+See also: <a class="link" href="libvips-image.html#im-binfile" title="im_binfile ()"><code class="function">im_binfile()</code></a>, <a class="link" href="VipsFormat.html#im-raw2vips" title="im_raw2vips ()"><code class="function">im_raw2vips()</code></a>, <a class="link" href="libvips-image.html#im-open" title="im_open ()"><code class="function">im_open()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>start of memory area
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>xsize</code></em> :</span></p></td>
+<td>image width
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ysize</code></em> :</span></p></td>
+<td>image height
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bands</code></em> :</span></p></td>
+<td>image bands (or bytes per pixel)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bandfmt</code></em> :</span></p></td>
+<td>image format
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the new <span class="type">IMAGE</span>, or <code class="literal">NULL</code> on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="libvips-image.see-also"></a><h2>See Also</h2>
+<a class="link" href="libvips-region.html" title="region">region</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>
