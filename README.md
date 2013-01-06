@@ -5,6 +5,7 @@
 This patch provides the following enhancements:
 
 + Ability to build on x86_64 Arch Linux to overcome minor bugs.
+  + Updated openssl, reference: Abhishek Sagar's [blog post](http://abhishek-sagar.blogspot.com/2012/06/parsec-md5-x8664s41-error-0xd76aa478.html)
 + Generalized builds. Instead of calling `gcc` tools, `CC` and related
   environment variables is used while building packages.
 
