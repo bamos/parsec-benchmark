@@ -1,7 +1,6 @@
 TARGET = ocean_ncp
 OBJS = main.o jacobcalc.o laplacalc.o \
 	slave1.o slave2.o multi.o
-CFLAGS = -O2 -w  
 LDFLAGS = -lpthread -lm
 MACROS = ../../../null_macros/c.m4.null.pthread
 
@@ -15,7 +14,7 @@ ifdef version
 endif
 
 $(TARGET): $(OBJS)
-	gcc $(OBJS) -o $(TARGET) $(LDFLAGS)
+	$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
 
 install:
 	mkdir -p $(PREFIX)/bin
@@ -35,11 +34,11 @@ clean:
 	m4 $(MACROS) $*.C > $*.c
 
 .c.o: 
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 .C.o: 
 	m4 $(MACROS) $*.C > $*.c
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 decs.h: decs.H
 jacobcalc.c: decs.h

@@ -2,7 +2,7 @@ TARGET = water_nsquared
 
 OBJS = water.o mdmain.o syscons.o kineti.o bndry.o cnstnt.o initia.o \
        interf.o intraf.o cshift.o poteng.o predcor.o
-CFLAGS = -O2 -w  
+CFLAGS += -O2 -w  
 LDFLAGS = -lm -pthread 
 MACROS = ../../../null_macros/c.m4.null.pthread
 
@@ -24,13 +24,13 @@ endif
 .C.c:
 	m4 $(MACROS) $*.C > $*.c
 .c.o:
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 .C.o:
 	m4 $(MACROS) $*.C > $*.c
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 $(TARGET): $(OBJS)
-	gcc $(OBJS) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
+	$(CC) $(OBJS) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 
 install:
 	mkdir -p $(PREFIX)/bin

@@ -1,7 +1,6 @@
 TARGET = fmm
 OBJS = defs.o memory.o particle.o box.o partition_grid.o \
        cost_zones.o construct_grid.o interactions.o fmm.o 
-CFLAGS = -O2 -w  
 LDFLAGS = -lpthread -lm
 MACROS = ../../../null_macros/c.m4.null.pthread
 M4 = m4 -s -Ulen -Uindex
@@ -16,7 +15,7 @@ ifdef version
 endif
 
 $(TARGET): $(OBJS)
-	gcc $(OBJS) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
+	$(CC) $(OBJS) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 
 install:
 	mkdir -p $(PREFIX)/bin
@@ -36,11 +35,11 @@ clean:
 	${M4} $(MACROS) $*.C > $*.c
 
 .c.o:
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 .C.o:
 	${M4} $(MACROS) $*.C > $*.c
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 defs.c: defs.h
 box.c: box.h

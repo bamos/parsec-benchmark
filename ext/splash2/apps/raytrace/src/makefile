@@ -5,7 +5,7 @@ OBJS = bbox.o cr.o env.o fbuf.o geo.o huprn.o husetup.o hutv.o isect.o \
 	tri.o workpool.o
 LDFLAGS = -lpthread -lm
 MACROS = ../../../null_macros/c.m4.null.pthread
-CFLAGS =  -O2 -w 
+CFLAGS +=  -O2 -w 
 
 x = *
 
@@ -17,7 +17,7 @@ ifdef version
 endif
 
 $(TARGET): $(OBJS)
-	gcc $(OBJS) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
+	$(CC) $(OBJS) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 
 
 install:
@@ -42,11 +42,11 @@ RM = -rm -f
 	$(M4) $(MACROS) $*.C > $*.c
 
 .c.o:
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 .C.o:
 	$(M4) $(MACROS) $*.C > $*.c
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 bbox.c: bbox.C rt.h
 cr.c:	cr.C rt.h

@@ -3,7 +3,6 @@ FILES = code.C code_io.C load.C grav.C getparam.C util.C \
 	code.H defs.H stdinc.H vectmath.H
 CS = code.c code_io.c load.c grav.c getparam.c util.c 
 OBJS = code.o code_io.o load.o grav.o getparam.o util.o
-CFLAGS = -O2 -w 
 LDFLAGS = -lm -lpthread
 MACROS = ../../../null_macros/c.m4.null.pthread
 M4 = m4 -s -Ulen -Uindex
@@ -18,7 +17,7 @@ ifdef version
 endif
 
 $(TARGET): $(OBJS)
-	gcc $(OBJS) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
+	$(CC) $(OBJS) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 
 
 install:
@@ -39,11 +38,11 @@ clean:
 	$(M4) $(MACROS) $*.C > $*.c
 
 .c.o:
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 .C.o:
 	$(M4) $(MACROS) $*.C > $*.c
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 code.h: code.H defs.h
 defs.h: defs.H stdinc.h vectmath.h

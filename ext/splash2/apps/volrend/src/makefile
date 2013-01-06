@@ -1,7 +1,7 @@
 TARGET = volrend
 OBJS = main.o file.o option.o map.o normal.o opacity.o octree.o view.o \
        render.o adaptive.o raytrace.o
-CFLAGS = -O2 -w -DPRESHD $(CDEBUG) -Ilibtiff
+CFLAGS += -O2 -w -DPRESHD $(CDEBUG) -Ilibtiff
 CCOPTS = -S -I -I$(SIMDIR) -I$(IDIR) -I/usr/include -DAUG $(CFLAGS)
 LDFLAGS = -O2 -w -pthread -lm -Ilibtiff -Llibtiff -ltiff
 MACROS = ../../../null_macros/c.m4.null.pthread
@@ -16,7 +16,7 @@ ifdef version
 endif
 
 $(TARGET): $(OBJS)
-	gcc $(OBJS) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
+	$(CC) $(OBJS) $(CFLAGS) -o $(TARGET) $(LDFLAGS)
 
 install:
 	mkdir -p $(PREFIX)/bin
@@ -36,11 +36,11 @@ clean:
 	m4 $(MACROS) $*.C > $*.c
 
 .c.o:	
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 .C.o:	
 	m4 $(MACROS) $*.C > $*.c
-	gcc -c $(CFLAGS) $*.c
+	$(CC) -c $(CFLAGS) $*.c
 
 main.c:	main.C incl.h anl.h
 file.c:	file.C incl.h
