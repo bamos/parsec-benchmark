@@ -15,7 +15,7 @@
 
 
 # Package dependencies
-case `arch` in
+case `uname -m` in
     i*86|x86_64)
 	build_deps="yasm"
     ;;
