@@ -1,5 +1,3 @@
-From: Paco Garcia <pgarcia@cam.es>
-
 This machine is a Bull Estrella  Minitower Model MT604-100
 Processor        : PPC604 
 P.Speed          : 100Mhz 
